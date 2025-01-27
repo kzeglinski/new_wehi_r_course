@@ -1,25 +1,118 @@
 # Session 1: Introduction to R
+
+## Learning objectives
+
+After today's session, learners should be able to:
+
+1.  Use RStudio to create an R project and R script
+
+2.  Perform basic mathematical operations, comparisons and function calls in R
+
+3.  Store the results of analysis in variables
+
+4.  Describe the different data types and data structures used in R
+
+5.  Recall how to use RStudio to find data files and read them in as data frames
+
 ## Using RStudio
-intro the panels, make a project, make an rscript, write a comment for the title
+
+-   intro the panels, make a project
+
+-   make an rscript & save it
+
+-   write a comment for the title
 
 ## Maths
 
+-   plus, minus, division and multiplication
+
+-   brackets for order of operations
+
+-   explain we can ignore the \[1\] next to output for now
+
 ## Comparisons
 
-## Variables
+-   \>= \<= \< \> == !=
 
 ## Functions
 
+-   introduce concept of functions
+
+-   arguments (default + specifying them)
+
+-   help page/pausing while writing arguments to get the help popup
+
+## Variables
+
+-   what are variables
+
+-   how to assign variables
+
+-   how to see what is stored in a variable
+
+-   about naming variables (case sensitive, no spaces, can't start with numbers)
+
 ## Data types
-### Vectors
 
-### Matrices
+-   numeric
 
-### Data frames
+-   character
+
+-   logical
+
+-   mention there is another type: factors but we will cover that later
+
+-   class() function
 
 ## Data structures
 
+intro the three kinds and their restrictions on data types
+
+### Vectors
+
+-   making vectors with c()
+
+-   seeing them in the environment panel
+
+-   using head()
+
+### Matrices
+
+-   how to construct
+
+### Data frames
+
+-   how to construct
+
+-   looking at some pre-loaded data e.g. iris
+
+-   viewing them with View() or by clicking on the environment panel
+
+-   using \$ to access columns -\> these are vectors
+
 ## Data import
+
 ### Paths
 
+-   <https://www.codecademy.com/resources/docs/general/file-paths>
+
+-   folders are separated by / or \\ for windows
+
+-   getting paths by copying them from the file explore panel in RStudio
+
 ### Reading in different types of data
+
+-   read\_\* family of functions
+-   reading data through the GUI in R (and the importance of copying the command when you do this)
+
+## Summary
+
+summarise the session here
+
+can use for start of next session revision
+
+### Practice questions
+
+homework questions
+
+can use in class to fill time if required

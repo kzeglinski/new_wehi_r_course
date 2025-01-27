@@ -1,1 +1,28 @@
 # Session 4: Putting it all together
+
+In this session we will combine all the skills we have learned so far to perform a complete analysis of a (small) dataset
+
+## Learning objectives
+
+At the end of this session, learners should be able to:
+
+1.  Describe the key steps in data analysis (exploration, manipulating and plotting)
+2.
+
+## Introduction to the dataset
+
+describe the fake experiment setup and the data files you will start with
+
+## Exploring the data
+
+in this step we get familiar with the dataset and think about what sorts of plots we can make/things we can look at
+
+## Manipulating the data
+
+in this step we will use dplyr to get the data frame into a form that will allow us to answer the questions we came up with above
+
+## Visualising the data
+
+finally we will make some nice visualisations
+
+if time, i think it would be nice to include (briefly) tables with the gt() package.

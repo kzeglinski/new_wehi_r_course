@@ -1,1 +1,80 @@
-# Session 3: Making pretty plots
+# Session 3: Plotting with ggplot
+
+## Learning objectives
+
+At the end of this session, learners should be able to:
+
+1.  Create a ggplot and save it for use outside of R
+2.  List some of the common ways we can change the appearance of a plot, such as themes, legends and colours.
+3.  Use the `facet_wrap` function to create a series of similar plots
+4.  Describe how to use the `patchwork` package to compose multiple plots together into a single figure
+
+## Building our first plot, layer by layer
+
+in this session we will use the ggplot2 package
+
+we use + for ggplot because + looks like the t in ploT
+
+### Initialisation
+
+explain the basics of data, aes(x = ..., y = ...)
+
+we can pipe data into our ggplot, but don't recommend it unless the data transformation is really lightweight
+
+### Adding data
+
+geom\_\* functions
+
+### Overlaying additional data
+
+adding more stuff to aes() e.g. colours, shapes of points
+
+add more layers to plots e.g. horizontal line or regression line
+
+### Saving plots as images
+
+ggsave() or export panel
+
+## Working with scales
+
+log transformation, changing colour palette
+
+## Making a plot pretty
+
+here are some common things you might want to do to customise your plot
+
+### Labels and text
+
+adding title, axis labels
+
+changing size etc to be readable
+
+how to remove scientific notation on axes
+
+### Themes
+
+introduce concept of themes
+
+how to modify parts of themes
+
+### Changing colours/sizes/shapes
+
+exactly what it sounds like
+
+mention about
+
+### Legends
+
+changing position, removing it
+
+## Making many similar plots with facets
+
+how to facet with facet_wrap() and scales = "free" or not
+
+## Laying out multiple plots into a single figure
+
+combining plots with patchwork
+
+## Summary
+
+### Practice questions
