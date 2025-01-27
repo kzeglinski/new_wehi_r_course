@@ -1,0 +1,25 @@
+# Session 1: Introduction to R
+## Using RStudio
+intro the panels, make a project, make an rscript, write a comment for the title
+
+## Maths
+
+## Comparisons
+
+## Variables
+
+## Functions
+
+## Data types
+### Vectors
+
+### Matrices
+
+### Data frames
+
+## Data structures
+
+## Data import
+### Paths
+
+### Reading in different types of data

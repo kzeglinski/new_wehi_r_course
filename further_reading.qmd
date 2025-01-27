@@ -1,0 +1,4 @@
+# Course summary & next steps
+-   summarise the course/key points from each session
+
+-   put links to more advanced materials

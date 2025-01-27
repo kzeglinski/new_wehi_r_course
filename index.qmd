@@ -1,0 +1,24 @@
+# Preface {.unnumbered}
+
+blah blah blah
+welcome to the world of R
+
+```{r}
+# comment
+data(iris) # <1>
+x <- 0 # <2>
+for(i in seq_along(iris$Sepal.Width)){ # <3>
+    x <- x + 1 # <3>
+} # <3>
+print(x)
+```
+1. Load the iris dataset
+2. Create a variable x and assign it the value 0
+3. Loop through the Sepal.Width column of the iris dataset and increment x by 1 for each value
+
+```{r}
+1 * 10
+"cat"
+mean(c(1,2,3,4))
+summary(1:100)
+```

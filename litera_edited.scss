@@ -1,0 +1,317 @@
+/*-- scss:defaults --*/
+
+$theme: "litera_edited" !default;
+
+//
+// Color system
+//
+
+$white:    #fff !default;
+$gray-100: #f8f9fa !default;
+$gray-200: #e9ecef !default;
+$gray-300: #ddd !default;
+$gray-400: #ced4da !default;
+$gray-500: #adb5bd !default;
+$gray-600: #868e96 !default;
+$gray-700: #495057 !default;
+$gray-800: #343a40 !default;
+$gray-900: #212529 !default;
+$black:    #000 !default;
+
+$blue:    #2372b9 !default;
+$indigo:  #6610f2 !default;
+$purple:  #7d489c !default;
+$pink:    #e83e8c !default;
+$red:     #e01545 !default;
+$orange:  #f37520 !default;
+$yellow:  #ece953 !default;
+$green:   #49a942 !default;
+$teal:    #00a99f !default;
+$cyan:    #00bce7 !default;
+
+$primary:       $blue !default;
+$secondary:     $teal !default;
+$success:       $green !default;
+$info:          $cyan !default;
+$warning:       $orange !default;
+$danger:        $red !default;
+$light:         #ffffff !default;
+$dark:          $gray-800 !default;
+
+$min-contrast-ratio:   1.85 !default;
+
+// Body
+
+$body-color:                #002060 !default;
+
+// Fonts
+
+// stylelint-disable value-keyword-case
+$font-family-headings: 'DM Sans', sans-serif !default;
+$font-family-body: 'DM Sans', sans-serif !default;
+$font-family-sans-serif: 'DM Sans', sans-serif;
+$headings-color: $blue !default;
+
+// stylelint-enable
+
+$font-size-base:              1.2rem !default;
+$headings-font-weight:        700 !default;
+
+// Tables
+
+$table-border-color:          $gray-200 !default;
+$table-bg-scale:              0 !default;
+
+// Buttons
+
+$input-btn-padding-y:         .5rem !default;
+$input-btn-padding-x:         1.1rem !default;
+$btn-font-family:             $font-family-body !default;
+$btn-font-size:               .875rem !default;
+$btn-font-size-sm:            .588rem !default;
+
+$btn-border-radius:           1.078em !default;
+$btn-border-radius-lg:        2.688em !default;
+$btn-border-radius-sm:        .844em !default;
+
+// Forms
+
+$input-border-color:                    $gray-200 !default;
+$input-group-addon-bg:                  $gray-200 !default !default;
+
+// Navbar
+
+$navbar-dark-color:                 rgba($white, .6) !default;
+$navbar-dark-hover-color:           $white !default;
+$navbar-light-hover-color:          $body-color !default;
+$navbar-light-active-color:         $body-color !default;
+
+// Tooltips
+
+$tooltip-font-size:                 11px !default;
+
+// Badges
+
+$badge-font-weight:                 400 !default;
+$badge-padding-y:                   .6em !default;
+$badge-padding-x:                   1.2em !default;
+
+// Alerts
+
+$alert-border-width:                0 !default;
+
+// Code
+$code-block-bg:                     #f7f7f7 !default;
+$code-block-border-left:            $blue !default;
+
+// mermaid theming
+$mermaid-bg-color: $white;
+$mermaid-edge-color: $secondary;
+$mermaid-node-fg-color: $primary;
+$mermaid-fg-color: $primary;
+$mermaid-fg-color--lighter: lighten($primary, 10%);
+$mermaid-fg-color--lightest: lighten($primary, 20%);
+$mermaid-font-family: $font-family-sans-serif;
+$mermaid-label-bg-color: $primary;
+$mermaid-label-fg-color: $primary;
+$mermaid-node-bg-color: rgba($primary, 0.1);
+$mermaid-node-fg-color: $primary;
+
+/*-- scss:rules --*/
+
+// Navbar
+
+.navbar {
+  font-size: 1.0rem;
+  border: 1px solid $white;
+
+  &.bg-dark {
+    background-color: $success !important;
+  }
+
+  &.bg-light {
+    background-color: $white !important;
+    border: 1px solid $white;
+
+    &.navbar-fixed-top {
+      border-width: 0 0 1px;
+    }
+
+    &.navbar-fixed-bottom {
+      border-width: 1px 0 0;
+    }
+  }
+}
+
+.sidebar-navigation a {
+    color: $body-color;
+}
+
+.header-section-number {
+  color: $primary;
+}
+
+// Typography
+
+p {
+  font-family: $font-family-body;
+}
+
+h1 {
+  font-family: $font-family-headings;
+}
+
+h2 {
+  font-family: $font-family-headings;
+}
+
+h3 {
+  font-family: $font-family-headings;
+}
+
+h4 {
+  font-family: $font-family-headings;
+}
+
+h5 {
+  font-family: $font-family-headings;
+}
+
+h6 {
+  font-family: $font-family-headings;
+}
+
+blockquote {
+  font-style: italic;
+}
+
+footer {
+  font-size: $font-size-sm;
+}
+
+.lead {
+  color: $primary;
+  font-family: $font-family-headings;
+}
+
+// Tables
+
+table,
+.table {
+  font-size: $font-size-sm;
+}
+
+// Navs
+
+.nav,
+.breadcrumb,
+.pagination {
+  font-size: $font-size-sm;
+}
+
+.dropdown-menu {
+  font-size: $font-size-sm;
+}
+
+// Indicators
+
+.alert {
+  color: $white;
+  font-size: $font-size-sm;
+
+  &,
+  p {
+    font-family: $font-family-body;
+  }
+
+  a,
+  .alert-link {
+    color: $white;
+    font-weight: 400;
+    text-decoration: underline;
+  }
+
+  @each $color, $value in $theme-colors {
+    &-#{$color} {
+      @if $enable-gradients {
+        background: $value linear-gradient($value, mix($body-bg, $value, 15%)) repeat-x;
+      } @else {
+        background-color: $value;
+      }
+    }
+  }
+
+  &-light {
+    &,
+    a,
+    .alert-link {
+      color: $body-color;
+    }
+  }
+}
+
+.badge {
+  &.bg-light {
+    color: $dark;
+  }
+}
+
+// Containers
+
+.list-group {
+  font-size: $font-size-sm;
+}
+
+.image-container {
+  overflow: scroll;
+  max-width: 1200px;  // or width instead of max-width
+  max-height: 500px;
+}
+
+.secondaryDetails>summary {
+  list-style-type: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.secondaryDetails>summary::-webkit-details-marker {
+  display: none;
+}
+
+.secondaryDetails>summary::before {
+  content: '+ ';
+  text-align: Right
+}
+
+.secondaryDetails[open]>summary::before {
+  content: '- ';
+  text-align: Right;
+}
+
+.secondaryDetails>summary {
+  margin-top: 15px;
+  margin-bottom: 20px;
+  font-weight: bold;
+  color: $body-color;
+}
+
+.secondaryDetails[open]>summary {
+  margin-bottom: 20px;
+}
+
+.container-fluid.crosstalk-bscols {
+  margin-left: 0px !important;
+  margin-right: 0px !important;
+}
+
+.dataTables_paginate a {
+  float: right !important;
+  padding: 8px 16px;
+  text-align: right;
+}
+
+.dataTables_paginate a:hover:not(.active) {background-color: $gray-200;}
+
+.dataTables_wrapper .dataTables_length select {
+  margin-top: 20px !important;
+}

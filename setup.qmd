@@ -1,0 +1,2 @@
+# Setup {.unnumbered}
+copy the instructions for installing R/RStudio and packages that kerry usually sends around and put them here

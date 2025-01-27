@@ -1,0 +1,49 @@
+project:
+  type: book
+  execute-dir: project
+
+book:
+  title: "WEHI R Course"
+  date: today
+  sidebar:
+    search: true
+    title: "Contents"
+    style: docked
+  chapters:
+    - index.qmd
+    - setup.qmd
+    - session_1.qmd
+    - session_2.qmd
+    - session_3.qmd
+    - session_4.qmd
+    - session_5.qmd
+    - session_6.qmd
+    - further_reading.qmd
+    - advanced_topics.qmd
+
+#bibliography: references.bib
+csl: vancouver_superscript.csl
+format:
+  html:
+    grid:
+      body-width: 1400px
+      margin-width: 20px
+      sidebar-width: 300px
+    theme: litera_edited.scss
+    code-fold: false
+    fig-width: 10
+    fig-height: 5
+    fig-dpi: 200
+    code-summary: "Show code"
+    code-tools:
+      source: true
+      toggle: false
+      caption: none
+    code-overflow: wrap
+    toc: false
+    highlight-style: textmate.theme
+    header-includes: |
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+      <link rel = "shortcut icon" href = "favicon.ico" />
