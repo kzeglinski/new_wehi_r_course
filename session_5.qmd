@@ -48,6 +48,8 @@ matrix.
 # load required packages
 library(edgeR)
 library(limma)
+library(readr)
+options(readr.show_col_types = FALSE)
 
 # vector of file names
 files <- dir(path = "data/counts", pattern = "GSM")
@@ -67,7 +69,7 @@ dge <- readDGE(
 )
 
 # add gene annotation information
-dge$genes <- read.delim("data/Ses3_geneAnnot.tsv", stringsAsFactors = FALSE)
+dge$genes <- read_delim("data/Ses3_geneAnnot.tsv")
 ```
 
 You can index the DGEList object by treating it as if it were the counts matrix,
@@ -122,7 +124,7 @@ The output of this function is a vector of logicals, indicating which genes
 keep <- filterByExpr(dge)
 table(keep)
 
-dge <- dge[keep, , keep.lib.sizes=FALSE]
+dge <- dge[keep, , keep.lib.sizes = FALSE]
 dim(dge$counts)
 ```
 
@@ -251,8 +253,9 @@ To make this more clear, take a look at the table below, which lists all the
 samples and the phenotype group they belong to:
 
 ```{r, echo=FALSE}
+library(tidyverse)
 kable(
-  data.frame(Samples = rownames(dge$samples), Group = group)
+  tibble(Samples = rownames(dge$samples), Group = group)
 ) %>%
   kable_styling(full_width = F)
 ```
@@ -272,11 +275,25 @@ We can also add a legend to the figure by running the `legend()` function
 immediately after a new figure is created. We have to specify where to position
 the legend as well as the labels and colours within the legend.
 
+TODO: Helper functions?
+TODO: Convert all plots to ggplot and provide reasoning
+
 ```{r}
-plotMDS(dge, labels = group, col = group_col)
+mds_data <- plotMDS(dge, labels = group, col = group_col)
 legend(
   "topright",
   legend = c("Basal", "LP", "ML"),
   fill = c("blue", "green", "red")
 )
+
+mds_tibble <- tibble(
+    x = mds_data$x,
+    y = mds_data$y,
+    label = colnames(dge),
+    group = dge$samples$group
+)
+
+mds_tibble %>%
+    ggplot(aes(x = x, y = y, col = group)) +
+    geom_point(size = 3)
 ```
