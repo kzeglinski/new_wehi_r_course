@@ -1,1 +1,77 @@
 # Session 2: Working with data
+
+## Learning objectives
+
+At the end of this session, learners should be able to:
+
+1.  Use the pipe (`%>%`) to chain multiple functions together
+
+2.  Design chains of dplyr functions to manipulate data frames
+
+3.  Apply grouping for more complex analysis of data
+
+4.  Understand how pivot and join functions can be used to reshape and combine entire data frames
+
+5.  Recall how to save data frames to a file
+
+## Chaining functions together with pipes
+
+-   explain what the pipe does
+
+-   easy first example could be mean() %\>% round()
+
+## Manipulating data
+
+mention that in this section we will use the dplyr package, and you will see a 'tibble' which is basically the same thing as a data frame.
+
+in this section we need to have a nice little example dataset to work with that's biologically relevant. could read it in at the end of session 1
+
+### Sorting data
+
+-   arrange() and arrange(desc())
+
+-   slice_min() and slice_max()
+
+### Filtering data
+
+filteR for rows
+
+### Selecting columns
+
+seleCt for columns
+
+### Modifying data
+
+with mutate()
+
+### Summarising data
+
+-   mention that this works with summarize() as well
+
+-   example of calculating mean/median etc
+
+## Grouping
+
+-   Q: should we teach grouping explicitly with group_by()/ungroup() functions or using the .by= argument in functions?
+
+-   demonstrate the powerful combo of grouping + summarising
+
+## Reshaping and combining data
+
+### Reshaping data with pivot functions
+
+-   brief introduction to pivoting
+
+-   need to think of some kind of meaningful example for this
+
+### Combining data with join functions
+
+-   left_join() example
+
+## Saving data to a file
+
+write\_\* family of functions
+
+## Summary
+
+### Practice questions

@@ -1,5 +1,20 @@
 # Session 1: Introduction to R
 
+## Learning objectives
+
+After today's session, learners should be able to:
+
+1.  Use RStudio to create an R project and R script
+
+2.  Perform basic mathematical operations, comparisons and function calls in R
+
+3.  Store the results of analysis in variables
+
+4.  Describe the different data types and data structures used in R
+
+5.  Recall how to use RStudio to find data files and read them in as data frames
+
+
 R is a free and open source statistical programming language, great for performing data analysis. RStudio is a free and open source R integrated development environment (IDE) which makes it easier for you to write code. It does this by providing you with auto-completion (of variable names, function names, file paths etc.), helping with formatting and keeping track of your variables.
 
 You can think of R as the engine in a car and RStudio as the body & controls. R is doing all the calculations/computations but RStudio makes it easier for you to use R.
@@ -126,6 +141,26 @@ You can also negate the result of a comparison or any TRUE/FALSE value by using 
 
 
 ## Variables
+
+## Using RStudio
+
+-   intro the panels, make a project
+
+-   make an rscript & save it
+
+-   write a comment for the title
+
+## Maths
+
+-   plus, minus, division and multiplication
+
+-   brackets for order of operations
+
+-   explain we can ignore the \[1\] next to output for now
+
+## Comparisons
+
+-   \>= \<= \< \> == !=
 
 A variable in R is an identifier to keep track of values. We assign values to variables so that we can refer to the variable later.
 
@@ -277,10 +312,35 @@ class(gene_counts)
 gene_counts
 ```
 
-
-### Data frames
-
 TODO: Replace data.frames with tibbles
+<!-- ### Data frames
+-   introduce concept of functions
+
+-   arguments (default + specifying them)
+
+-   help page/pausing while writing arguments to get the help popup
+
+## Variables
+
+-   what are variables
+
+-   how to assign variables
+
+-   how to see what is stored in a variable
+
+-   about naming variables (case sensitive, no spaces, can't start with numbers)
+
+## Data types
+
+-   numeric
+
+-   character
+
+-   logical
+
+-   mention there is another type: factors but we will cover that later
+
+-   class() function -->
 
 Data frames are similar to matrices in that they store data in rows and columns. The difference is that the data within each column can be of different types. This is the representation used for general tables that record different attributes of individual entries along the rows.
 
@@ -328,6 +388,30 @@ knitr::include_graphics("Images/df_dollar.png")
 ```
 
 ## Data structures
+
+intro the three kinds and their restrictions on data types
+
+### Vectors
+
+-   making vectors with c()
+
+-   seeing them in the environment panel
+
+-   using head()
+
+### Matrices
+
+-   how to construct
+
+### Data frames
+
+-   how to construct
+
+-   looking at some pre-loaded data e.g. iris
+
+-   viewing them with View() or by clicking on the environment panel
+
+-   using \$ to access columns -\> these are vectors
 
 ## Data import
 
@@ -383,12 +467,28 @@ knitr::include_graphics("Images/import.png")
 
 All variables that we create will be shown in this tab, so it is a useful way to keep track of variables that we have created. Notice how R also tells us that there are 10 observations (rows) and 3 variables (columns) in the `genes` data frame.
 
+### Writing out data
 ### Paths
 
-TODO: Fill in content
+-   <https://www.codecademy.com/resources/docs/general/file-paths>
+
+-   folders are separated by / or \\ for windows
+
+-   getting paths by copying them from the file explore panel in RStudio
 
 ### Reading in different types of data
 
-TODO: Fill in content
+-   read\_\* family of functions
+-   reading data through the GUI in R (and the importance of copying the command when you do this)
 
-### Writing out data
+## Summary
+
+summarise the session here
+
+can use for start of next session revision
+
+### Practice questions
+
+homework questions
+
+can use in class to fill time if required
