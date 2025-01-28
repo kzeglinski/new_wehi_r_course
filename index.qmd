@@ -22,3 +22,5 @@ print(x)
 mean(c(1,2,3,4))
 summary(1:100)
 ```
+
+TODO: Additional resources (inspectdf, quarto)

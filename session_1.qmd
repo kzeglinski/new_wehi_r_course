@@ -468,6 +468,9 @@ knitr::include_graphics("Images/import.png")
 All variables that we create will be shown in this tab, so it is a useful way to keep track of variables that we have created. Notice how R also tells us that there are 10 observations (rows) and 3 variables (columns) in the `genes` data frame.
 
 ### Writing out data
+
+TODO: Writing out to tsv, csv, excel (?)
+
 ### Paths
 
 -   <https://www.codecademy.com/resources/docs/general/file-paths>
