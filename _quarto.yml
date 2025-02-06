@@ -4,11 +4,14 @@ project:
 
 book:
   title: "WEHI R Course"
+  author: "Shian Su & Kathleen Zeglinski"
   date: today
+  favicon: "favicon.ico"
   sidebar:
     search: true
-    title: "Contents"
+    title: "WEHI R Course Book"
     style: docked
+    logo: "WEHI_RGB_logo.png"
   chapters:
     - index.qmd
     - setup.qmd
@@ -40,10 +43,7 @@ format:
       toggle: false
       caption: none
     code-overflow: wrap
-    toc: false
+    toc: true
+    toc-location: left
+    toc-title: "In this session:"
     highlight-style: textmate.theme
-    header-includes: |
-      <link rel="preconnect" href="https://fonts.googleapis.com">
-      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-      <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
-      <link rel = "shortcut icon" href = "favicon.ico" />

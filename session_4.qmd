@@ -7,7 +7,7 @@ In this session we will combine all the skills we have learned so far to perform
 At the end of this session, learners should be able to:
 
 1.  Describe the key steps in data analysis (exploration, manipulating and plotting)
-2.
+2. 
 
 ## Introduction to the dataset
 

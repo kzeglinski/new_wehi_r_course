@@ -1,7 +1,6 @@
 # Session 1: Introduction to R
 
-## Learning objectives
-
+::: {.callout-tip title="Learning Objectives"}
 After today's session, learners should be able to:
 
 1.  Use RStudio to create an R project and R script
@@ -13,7 +12,9 @@ After today's session, learners should be able to:
 4.  Describe the different data types and data structures used in R
 
 5.  Recall how to use RStudio to find data files and read them in as data frames
+:::
 
+## What is R?
 
 R is a free and open source statistical programming language, great for performing data analysis. RStudio is a free and open source R integrated development environment (IDE) which makes it easier for you to write code. It does this by providing you with auto-completion (of variable names, function names, file paths etc.), helping with formatting and keeping track of your variables.
 
@@ -25,27 +26,27 @@ When you first open RStudio, there will be three panels - see Figure \@ref(fig:R
 knitr::include_graphics("Images/RS1.png")
 ```
 
-* Left panel: this panel features two tabs, 'Console', which is where you can type in commands for R to run and 'Terminal', which we won't worry about in this course.
-* Top right panel:
-    * Environment - in this tab you can see all variables you have created.
-    * History - R keeps track of all commands you have run and you can review them in this tab. 
-    * Connections - this tab helps you connect to data sources but we will not be using it in this course.
-* Bottom right:
-    * Files - you can explore your file directory here and we will use it to set our working directory later.
-    * Plots - plots that you create will either appear here or be saved to a file.
-    * Help - help files for R functions can be viewed in this tab. Help files tell you about what a function does and how to use it.
-    * Packages - basic R includes many useful functions. You can add even more functions by downloading packages. A package is a collection of functions, generally with a certain data analysis theme. For example, the package 'limma', which we will use later, includes functions for analysing RNA-sequencing data.
-    * Viewer - this tab lets you view local web content but we won't be using it in this course.
-    
+-   Left panel: this panel features two tabs, 'Console', which is where you can type in commands for R to run and 'Terminal', which we won't worry about in this course.
+-   Top right panel:
+    -   Environment - in this tab you can see all variables you have created.
+    -   History - R keeps track of all commands you have run and you can review them in this tab.
+    -   Connections - this tab helps you connect to data sources but we will not be using it in this course.
+-   Bottom right:
+    -   Files - you can explore your file directory here and we will use it to set our working directory later.
+    -   Plots - plots that you create will either appear here or be saved to a file.
+    -   Help - help files for R functions can be viewed in this tab. Help files tell you about what a function does and how to use it.
+    -   Packages - basic R includes many useful functions. You can add even more functions by downloading packages. A package is a collection of functions, generally with a certain data analysis theme. For example, the package 'limma', which we will use later, includes functions for analysing RNA-sequencing data.
+    -   Viewer - this tab lets you view local web content but we won't be using it in this course.
+
 ## R scripts
 
-To open an R script, go to File > New File > R Script.
+To open an R script, go to File \> New File \> R Script.
 
 ```{r RS2, fig.cap='Opening a new R Script.', out.width="700px", echo=FALSE}
 knitr::include_graphics("Images/RS2.png")
 ```
 
-This will open a fourth panel on the top left. 
+This will open a fourth panel on the top left.
 
 ```{r RS3, fig.cap='Four panels, including a R Script.', out.width="700px", echo=FALSE}
 knitr::include_graphics("Images/RS3.png")
@@ -62,26 +63,26 @@ Lastly, you add 'comments' in your R Script. Comments are notes regarding the co
 
 ## Working directory
 
-Every file on your computer is located in a specific location. This location can be referred to by a path. In Mac, paths look something like this: `/Users/MyName/Documents/`. In Windows, paths look something like this: `C:\Users\MyName\Documents\`. 
+Every file on your computer is located in a specific location. This location can be referred to by a path. In Mac, paths look something like this: `/Users/MyName/Documents/`. In Windows, paths look something like this: `C:\Users\MyName\Documents\`.
 
 When you open an R session, it launches from a specific location. You can find out where this is using the command `getwd()`. This location is called the 'working directory'. By default, R will look in this directory when reading in data and write out files/plots to this directory. It is often useful to have your data and R Scripts in the same directory and set this as your working directory.
 
 You can set your working directory to be anywhere you like and we will now do this:
 
-1. Make a folder for this course, somewhere sensible on your computer that you will be able to easily find. 
-2. Go back to your RStudio window, go to the bottom right panel, click on the 'Files' tab and then click on the three dots on the top right hand corner (Figure \@ref(fig:wd1)).
+1.  Make a folder for this course, somewhere sensible on your computer that you will be able to easily find.
+2.  Go back to your RStudio window, go to the bottom right panel, click on the 'Files' tab and then click on the three dots on the top right hand corner (Figure \@ref(fig:wd1)).
 
 ```{r wd1, fig.cap='Setting the working directory - 1.', out.width="500px", echo=FALSE, fig.align='center'}
 knitr::include_graphics("Images/wd1.png")
 ```
 
-3. This will open up a new window (Figure \@ref(fig:wd2)) which lets you explore the files and folders on your computer. Find the new folder you created, click on it then click 'Open'.
+3.  This will open up a new window (Figure \@ref(fig:wd2)) which lets you explore the files and folders on your computer. Find the new folder you created, click on it then click 'Open'.
 
 ```{r wd2, fig.cap='Setting the working directory - 2.', out.width="500px", echo=FALSE, fig.align='center'}
 knitr::include_graphics("Images/wd2.png")
 ```
 
-4. The files tab will now show the contents of your new folder (which should be empty). At the top of the files tab, click on More > Set As Working Directory (Figure \@ref(fig:wd3)).
+4.  The files tab will now show the contents of your new folder (which should be empty). At the top of the files tab, click on More \> Set As Working Directory (Figure \@ref(fig:wd3)).
 
 ```{r wd3, fig.cap='Setting the working directory - 3.', out.width="500px", echo=FALSE, fig.align='center'}
 knitr::include_graphics("Images/wd3.png")
@@ -93,13 +94,13 @@ Please set your working directory to be this folder at the start of EVERY sessio
 
 R performs maths and follows standard order of operations. In order of highest to lowest precedence, here is how mathematical operations are denoted in R:
 
-* `()` - parentheses
-* `^` or `**` - exponents
-* `/` - divide
-* `*` - multiply
-* `+` - add
-* `-` - subtract
-* `%%` - remainder (modulus)
+-   `()` - parentheses
+-   `^` or `**` - exponents
+-   `/` - divide
+-   `*` - multiply
+-   `+` - add
+-   `-` - subtract
+-   `%%` - remainder (modulus)
 
 ```{r}
 1 + 2
@@ -112,12 +113,12 @@ R performs maths and follows standard order of operations. In order of highest t
 
 R can perform comparisons:
 
-* `==` equal to.
-* `!=` not equal to.
-* `>` greater than.
-* `>=` greater or equal to.
-* `<` less than.
-* `<=` less than or equal to.
+-   `==` equal to.
+-   `!=` not equal to.
+-   `>` greater than.
+-   `>=` greater or equal to.
+-   `<` less than.
+-   `<=` less than or equal to.
 
 These operations return a `TRUE` or a `FALSE` value. This can be used to quickly summarise data or perform indexing as we will see later.
 
@@ -138,7 +139,6 @@ You can also negate the result of a comparison or any TRUE/FALSE value by using 
 !("cat" > "dog")
 !(1 == 2)
 ```
-
 
 ## Variables
 
@@ -170,7 +170,7 @@ For example, I can do some maths:
 2 + 6 * 7^2
 ```
 
-R outputs simply the result. To use this value later, I would need to assign the output to a variable. 
+R outputs simply the result. To use this value later, I would need to assign the output to a variable.
 
 You can this with `<-` (shortcut = `alt + -`) in R. (You can also use `=`, however, stylistically `<-` is preferred.)
 
@@ -211,7 +211,6 @@ If we try to create a variable that starts with a number, R will return an error
 2myvar <- 2 + 6 * 7^2 # not a valid name as it start with number
 ```
 
-
 ## Functions
 
 Functions are expression in R that take inputs and produce outputs. Functions may take multiple inputs, also called 'arguments' to the function, each argument must be separated by comma. Arguments have a set order in which they can be given, or they can be referred to specifically by their name.
@@ -247,9 +246,9 @@ Every variable in R has a 'type'. The type tells R what kind of data it is and c
 
 There are three basic types of data in R:
 
-* `logical` - either TRUE or FALSE
-* `numeric` - numbers
-* `character` - text surrounded by quotation marks
+-   `logical` - either TRUE or FALSE
+-   `numeric` - numbers
+-   `character` - text surrounded by quotation marks
 
 These are called 'atomic' data types as they are the most basic types of data from which other data types usually derive.
 
@@ -312,8 +311,7 @@ class(gene_counts)
 gene_counts
 ```
 
-TODO: Replace data.frames with tibbles
-<!-- ### Data frames
+TODO: Replace data.frames with tibbles <!-- ### Data frames
 -   introduce concept of functions
 
 -   arguments (default + specifying them)
@@ -415,14 +413,13 @@ intro the three kinds and their restrictions on data types
 
 ## Data import
 
-Let's read in some data and start exploring it. 
+Let's read in some data and start exploring it.
 
-You should have received the data files via email before the course. Please download these files and make sure they are located in your working directory. Recall, we set our working directory above. You can find the location of your working directory with the function `getwd()`. 
+You should have received the data files via email before the course. Please download these files and make sure they are located in your working directory. Recall, we set our working directory above. You can find the location of your working directory with the function `getwd()`.
 
-TODO: New link
-If you are following along outside of the WEHI course, you can download the data files from [Github](https://github.com/lucyleeow/BaseR_Intro/tree/master/data) - instructions for downloading data from GitHub can be found in the Preface.
+TODO: New link If you are following along outside of the WEHI course, you can download the data files from [Github](https://github.com/lucyleeow/BaseR_Intro/tree/master/data) - instructions for downloading data from GitHub can be found in the Preface.
 
-The file we want to read in is named 'Ses1_genes.tsv'. 
+The file we want to read in is named 'Ses1_genes.tsv'.
 
 All the data files are in a directory called 'data' - thus the path to the file (relative to my working directory) is 'data/Ses1_genes.tsv'. Depending on where you have put your data (in your working directory or in another file in your working directory), the path to your file 'Ses1_genes.tsv' may be different.
 
@@ -434,6 +431,7 @@ read_delim("data/Ses1_genes.tsv")
 Note that `read.delim()` also lets you specify character that separates columns of the data. The most common types are comma-separated values (csv) and tab-separated values (tsv).
 
 Example of a csv file:
+
 ```
 Name, Age
 Andy, 10
@@ -441,6 +439,7 @@ Bob, 8
 ```
 
 Example of a tsv file:
+
 ```
 Name  Age
 Andy  10

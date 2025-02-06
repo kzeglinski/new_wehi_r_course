@@ -26,6 +26,8 @@ mention that in this section we will use the dplyr package, and you will see a '
 
 in this section we need to have a nice little example dataset to work with that's biologically relevant. could read it in at the end of session 1
 
+relabelled penguins
+
 ### Sorting data
 
 -   arrange() and arrange(desc())
@@ -52,7 +54,7 @@ with mutate()
 
 ## Grouping
 
--   Q: should we teach grouping explicitly with group_by()/ungroup() functions or using the .by= argument in functions?
+-   Q: should we teach grouping explicitly with group_by()/ungroup() functions or using the .by= argument in functions? (lean towards this)
 
 -   demonstrate the powerful combo of grouping + summarising
 

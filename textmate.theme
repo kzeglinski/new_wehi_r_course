@@ -29,7 +29,7 @@
             "underline": false
         },
         "Attribute": {
-            "text-color": "#fc0ad0",
+            "text-color": "#000000",
             "background-color": null,
             "bold": false,
             "italic": false,
@@ -106,14 +106,14 @@
             "underline": false
         },
         "BuiltIn": {
-            "text-color": null,
+            "text-color": "#fc0ad0",
             "background-color": null,
             "bold": false,
             "italic": false,
             "underline": false
         },
         "Extension": {
-            "text-color": null,
+            "text-color": "#fc0ad0",
             "background-color": null,
             "bold": false,
             "italic": false,
@@ -155,7 +155,7 @@
             "underline": false
         },
         "Import": {
-            "text-color": null,
+            "text-color": "#fc0ad0",
             "background-color": null,
             "bold": false,
             "italic": false,
@@ -197,7 +197,7 @@
             "underline": false
         },
         "Constant": {
-            "text-color": "#5b866d",
+            "text-color": "#585cf6",
             "background-color": null,
             "bold": false,
             "italic": false,

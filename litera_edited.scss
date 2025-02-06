@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Mona+Sans:ital,wght@0,200..900;1,200..900&display=swap');
+
 /*-- scss:defaults --*/
 
 $theme: "litera_edited" !default;
@@ -47,15 +49,15 @@ $body-color:                #002060 !default;
 // Fonts
 
 // stylelint-disable value-keyword-case
-$font-family-headings: 'DM Sans', sans-serif !default;
-$font-family-body: 'DM Sans', sans-serif !default;
-$font-family-sans-serif: 'DM Sans', sans-serif;
+$font-family-headings: 'Mona Sans', sans-serif !default;
+$font-family-body: 'Mona Sans', sans-serif !default;
+$font-family-sans-serif: 'Mona Sans', sans-serif;
 $headings-color: $blue !default;
 
 // stylelint-enable
 
 $font-size-base:              1.2rem !default;
-$headings-font-weight:        700 !default;
+$headings-font-weight:        650 !default;
 
 // Tables
 
@@ -101,8 +103,10 @@ $badge-padding-x:                   1.2em !default;
 $alert-border-width:                0 !default;
 
 // Code
-$code-block-bg:                     #f7f7f7 !default;
+$code-block-bg:                     #dbe9f0 !default;
 $code-block-border-left:            $blue !default;
+//$mono-background-color:            #f2cbed;
+$code-color: $body-color; //this is for the inline code
 
 // mermaid theming
 $mermaid-bg-color: $white;
@@ -117,8 +121,39 @@ $mermaid-label-fg-color: $primary;
 $mermaid-node-bg-color: rgba($primary, 0.1);
 $mermaid-node-fg-color: $primary;
 
+$callout-icon-scale: 0.1 !default;
+
 /*-- scss:rules --*/
 
+//callouts
+.callout.callout-style-default .callout-icon::before, .callout.callout-style-default .callout-toggle::before{
+  background-size: $font-size-base;
+  height: $font-size-base;
+  width: $font-size-base;
+}
+
+.callout.callout-style-default>div.callout-header {
+  font-size: $font-size-base;
+}
+
+.callout.callout-style-default .callout-body{
+  font-size: $font-size-base;
+}
+
+// style the 'tip' callout in green for learning objectives
+div.callout.callout-style-default.callout-tip>div.callout-header{
+  color: $green;
+}
+
+// code again
+.cell-output { //output of code cells
+  background-color: $gray-200;
+  border-radius: 4px;
+}
+
+p code:not(.sourceCode), li code:not(.sourceCode), td code:not(.sourceCode){
+  background-color: $code-block-bg;
+}
 // Navbar
 
 .navbar {
@@ -159,10 +194,12 @@ p {
 
 h1 {
   font-family: $font-family-headings;
+  font-weight: $headings-font-weight;
 }
 
 h2 {
   font-family: $font-family-headings;
+  font-weight: $headings-font-weight;
 }
 
 h3 {
