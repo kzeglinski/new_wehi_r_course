@@ -1,0 +1,502 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "WEHI R Course",
+    "section": "",
+    "text": "Preface\nintroduction to the book show example of the code chunks and output (to get people used to colours etc)",
+    "crumbs": [
+      "Preface"
+    ]
+  },
+  {
+    "objectID": "setup.html",
+    "href": "setup.html",
+    "title": "Setup",
+    "section": "",
+    "text": "copy the instructions for installing R/RStudio and packages that kerry usually sends around and put them here",
+    "crumbs": [
+      "Setup"
+    ]
+  },
+  {
+    "objectID": "session_1.html",
+    "href": "session_1.html",
+    "title": "1  Session 1: Introduction to R",
+    "section": "",
+    "text": "1.1 What is R?\nR is a free and open source statistical programming language, great for performing data analysis. RStudio is a free and open source R integrated development environment (IDE) which makes it easier for you to write code. It does this by providing you with auto-completion (of variable names, function names, file paths etc.), helping with formatting and keeping track of your variables.\nYou can think of R as the engine in a car and RStudio as the body & controls. R is doing all the calculations/computations but RStudio makes it easier for you to use R.\nWhen you first open RStudio, there will be three panels - see Figure @ref(fig:RS1) (don’t worry if your RStudio does not have the same colours/appearance - different versions of RStudio look slightly different, and the colour here is not the default one.)\nThree panels in RStudio.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Session 1: Introduction to R</span>"
+    ]
+  },
+  {
+    "objectID": "session_1.html#what-is-r",
+    "href": "session_1.html#what-is-r",
+    "title": "1  Session 1: Introduction to R",
+    "section": "",
+    "text": "Left panel: this panel features two tabs, ‘Console’, which is where you can type in commands for R to run and ‘Terminal’, which we won’t worry about in this course.\nTop right panel:\n\nEnvironment - in this tab you can see all variables you have created.\nHistory - R keeps track of all commands you have run and you can review them in this tab.\nConnections - this tab helps you connect to data sources but we will not be using it in this course.\n\nBottom right:\n\nFiles - you can explore your file directory here and we will use it to set our working directory later.\nPlots - plots that you create will either appear here or be saved to a file.\nHelp - help files for R functions can be viewed in this tab. Help files tell you about what a function does and how to use it.\nPackages - basic R includes many useful functions. You can add even more functions by downloading packages. A package is a collection of functions, generally with a certain data analysis theme. For example, the package ‘limma’, which we will use later, includes functions for analysing RNA-sequencing data.\nViewer - this tab lets you view local web content but we won’t be using it in this course.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Session 1: Introduction to R</span>"
+    ]
+  },
+  {
+    "objectID": "session_1.html#r-scripts",
+    "href": "session_1.html#r-scripts",
+    "title": "1  Session 1: Introduction to R",
+    "section": "1.2 R scripts",
+    "text": "1.2 R scripts\nTo open an R script, go to File &gt; New File &gt; R Script.\n\n\n\n\n\nOpening a new R Script.\n\n\n\n\nThis will open a fourth panel on the top left.\n\n\n\n\n\nFour panels, including a R Script.\n\n\n\n\nAn R script is a text document where can type and run commands. You can also run commands in the console but the code run in the console is not saved. Note that to run a command in the Console press Enter key but to run a command in a R Script you must press Cmd/Ctrl + Enter keys.\nLastly, you add ‘comments’ in your R Script. Comments are notes regarding the code that are not interpreted by R, they begin with #:\n\n# this is a note to myself\n1 + 1\n\n[1] 2",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Session 1: Introduction to R</span>"
+    ]
+  },
+  {
+    "objectID": "session_1.html#working-directory",
+    "href": "session_1.html#working-directory",
+    "title": "1  Session 1: Introduction to R",
+    "section": "1.3 Working directory",
+    "text": "1.3 Working directory\nEvery file on your computer is located in a specific location. This location can be referred to by a path. In Mac, paths look something like this: /Users/MyName/Documents/. In Windows, paths look something like this: C:\\Users\\MyName\\Documents\\.\nWhen you open an R session, it launches from a specific location. You can find out where this is using the command getwd(). This location is called the ‘working directory’. By default, R will look in this directory when reading in data and write out files/plots to this directory. It is often useful to have your data and R Scripts in the same directory and set this as your working directory.\nYou can set your working directory to be anywhere you like and we will now do this:\n\nMake a folder for this course, somewhere sensible on your computer that you will be able to easily find.\nGo back to your RStudio window, go to the bottom right panel, click on the ‘Files’ tab and then click on the three dots on the top right hand corner (Figure @ref(fig:wd1)).\n\n\n\n\n\n\nSetting the working directory - 1.\n\n\n\n\n\nThis will open up a new window (Figure @ref(fig:wd2)) which lets you explore the files and folders on your computer. Find the new folder you created, click on it then click ‘Open’.\n\n\n\n\n\n\nSetting the working directory - 2.\n\n\n\n\n\nThe files tab will now show the contents of your new folder (which should be empty). At the top of the files tab, click on More &gt; Set As Working Directory (Figure @ref(fig:wd3)).\n\n\n\n\n\n\nSetting the working directory - 3.\n\n\n\n\nPlease set your working directory to be this folder at the start of EVERY session.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Session 1: Introduction to R</span>"
+    ]
+  },
+  {
+    "objectID": "session_1.html#maths",
+    "href": "session_1.html#maths",
+    "title": "1  Session 1: Introduction to R",
+    "section": "1.4 Maths",
+    "text": "1.4 Maths\nR performs maths and follows standard order of operations. In order of highest to lowest precedence, here is how mathematical operations are denoted in R:\n\n() - parentheses\n^ or ** - exponents\n/ - divide\n* - multiply\n+ - add\n- - subtract\n%% - remainder (modulus)\n\n\n1 + 2\n\n[1] 3\n\n1 + 3 * 4\n\n[1] 13\n\n(1 + 3) * 4\n\n[1] 16\n\n10 %% 3\n\n[1] 1",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Session 1: Introduction to R</span>"
+    ]
+  },
+  {
+    "objectID": "session_1.html#comparisons",
+    "href": "session_1.html#comparisons",
+    "title": "1  Session 1: Introduction to R",
+    "section": "1.5 Comparisons",
+    "text": "1.5 Comparisons\nR can perform comparisons:\n\n== equal to.\n!= not equal to.\n&gt; greater than.\n&gt;= greater or equal to.\n&lt; less than.\n&lt;= less than or equal to.\n\nThese operations return a TRUE or a FALSE value. This can be used to quickly summarise data or perform indexing as we will see later.\n\n10 &gt; 10 # FALSE\n\n[1] FALSE\n\n10 &gt;= 10 # TRUE\n\n[1] TRUE\n\n\nYou can also compare words. R will use dictionary order to determine which word is ‘greater’.\n\n\"cat\" &gt; \"dog\"\n\n[1] FALSE\n\n\nYou can also negate the result of a comparison or any TRUE/FALSE value by using the ! operator before the expression.\n\n!(\"cat\" &gt; \"dog\")\n\n[1] TRUE\n\n!(1 == 2)\n\n[1] TRUE",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Session 1: Introduction to R</span>"
+    ]
+  },
+  {
+    "objectID": "session_1.html#variables",
+    "href": "session_1.html#variables",
+    "title": "1  Session 1: Introduction to R",
+    "section": "1.6 Variables",
+    "text": "1.6 Variables",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Session 1: Introduction to R</span>"
+    ]
+  },
+  {
+    "objectID": "session_1.html#using-rstudio",
+    "href": "session_1.html#using-rstudio",
+    "title": "1  Session 1: Introduction to R",
+    "section": "1.7 Using RStudio",
+    "text": "1.7 Using RStudio\n\nintro the panels, make a project\nmake an rscript & save it\nwrite a comment for the title",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Session 1: Introduction to R</span>"
+    ]
+  },
+  {
+    "objectID": "session_1.html#maths-1",
+    "href": "session_1.html#maths-1",
+    "title": "1  Session 1: Introduction to R",
+    "section": "1.8 Maths",
+    "text": "1.8 Maths\n\nplus, minus, division and multiplication\nbrackets for order of operations\nexplain we can ignore the [1] next to output for now",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Session 1: Introduction to R</span>"
+    ]
+  },
+  {
+    "objectID": "session_1.html#comparisons-1",
+    "href": "session_1.html#comparisons-1",
+    "title": "1  Session 1: Introduction to R",
+    "section": "1.9 Comparisons",
+    "text": "1.9 Comparisons\n\n&gt;= &lt;= &lt; &gt; == !=\n\nA variable in R is an identifier to keep track of values. We assign values to variables so that we can refer to the variable later.\nFor example, I can do some maths:\n\n2 + 6 * 7^2\n\n[1] 296\n\n\nR outputs simply the result. To use this value later, I would need to assign the output to a variable.\nYou can this with &lt;- (shortcut = alt + -) in R. (You can also use =, however, stylistically &lt;- is preferred.)\nHere R first performs the calculation on the right of &lt;- and then saves the result as a variable called my_num.\n\nmy_num &lt;- 2 + 6 * 7^2\nmy_num # 296\n\n[1] 296\n\n\nNote that variable names are case sensitive.\n\nvar &lt;- 10\n\nVAR # produces error because VAR is not the same as var\n\nError in eval(expr, envir, enclos): object 'VAR' not found\n\n\nYou can also ‘overwrite’ variables by assigning to them again:\n\nmy_num &lt;- 3 * 4\nmy_num # 12\n\n[1] 12\n\n\nBecause the right hand side is evaluated first, you can also assign to a variable a calculation that involves itself.\n\nmy_num &lt;- my_num + 5\nmy_num # 17\n\n[1] 17\n\n\nR has rules on valid variable names. Variable names can only contain letters, numbers, the dot or underline characters. They can only start with a letter or the dot followed by a letter.\nIf we try to create a variable that starts with a number, R will return an error:\n\n2myvar &lt;- 2 + 6 * 7^2 # not a valid name as it start with number\n\nError: &lt;text&gt;:1:2: unexpected symbol\n1: 2myvar\n     ^",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Session 1: Introduction to R</span>"
+    ]
+  },
+  {
+    "objectID": "session_1.html#functions",
+    "href": "session_1.html#functions",
+    "title": "1  Session 1: Introduction to R",
+    "section": "1.10 Functions",
+    "text": "1.10 Functions\nFunctions are expression in R that take inputs and produce outputs. Functions may take multiple inputs, also called ‘arguments’ to the function, each argument must be separated by comma. Arguments have a set order in which they can be given, or they can be referred to specifically by their name.\n\npi\n\n[1] 3.141593\n\nround(pi, digits = 3)\n\n[1] 3.142\n\n\nMany arguments have default values so you don’t need to specify every argument for every function. You can check the arguments of a function by using args().\n\nargs(rnorm)\n\nfunction (n, mean = 0, sd = 1) \nNULL\n\n\nSometimes it’s obvious what the arguments are, but if more details are needed then you can access the help pages. This can be one in one of two ways, by searching for the function in the help panel.\n\n\n\n\n\nAccessing help files via ‘help’ tab.\n\n\n\n\nOr using the command ? followed by the name of the function:\n\n?sum\n\nHelp files are very useful but can be difficult to interpret at first due to the technical language used. It is often helpful to scroll down to the bottom to see examples of how the function is used.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Session 1: Introduction to R</span>"
+    ]
+  },
+  {
+    "objectID": "session_1.html#data-types",
+    "href": "session_1.html#data-types",
+    "title": "1  Session 1: Introduction to R",
+    "section": "1.11 Data types",
+    "text": "1.11 Data types\nEvery variable in R has a ‘type’. The type tells R what kind of data it is and consequently what it can and can’t do with the data. For example, it makes sense to perform mathematical functions on numbers but not on words.\nThere are three basic types of data in R:\n\nlogical - either TRUE or FALSE\nnumeric - numbers\ncharacter - text surrounded by quotation marks\n\nThese are called ‘atomic’ data types as they are the most basic types of data from which other data types usually derive.\nYou can find the type of a variable using the class() function.\n\n1 # prints as 1\n\"1\" # prints as \"1\"\n\nclass(TRUE) # logical\nclass(1) # numeric\nclass(\"hello\") # character\nclass(\"TRUE\") # character\nclass(\"123\") # character\n\n\n1 + 1 # works\n\n[1] 2\n\n\"1\" + \"1\" # produces error\n\nError in \"1\" + \"1\": non-numeric argument to binary operator\n\n!TRUE # works\n\n[1] FALSE\n\n!\"TRUE\" # produces error\n\nError in !\"TRUE\": invalid argument type\n\n\n\n1.11.1 Vectors\nA vector is a collection of values of the same type. Values in a vector are laid out linearly, one after another.\nYou can create vectors with the c() function (‘c’ for ‘combine’):\n\nmy_vect1 &lt;- c(1, 2, 3) # a vector of numbers\nmy_vect2 &lt;- c(\"a\", \"vector\", \"of\", \"characters\") # a vector of characters\n\nOne useful shorthand for creating a sequence of integers is a:b which creates a vector from a to b.\n\n1:10\n\n [1]  1  2  3  4  5  6  7  8  9 10\n\n3:7\n\n[1] 3 4 5 6 7\n\n\nFor very long vectors, it is useful to use the head and tail functions to inspect just a few values. These print the first and last 6 elements of a vector.\n\nhead(1:10000)\n\n[1] 1 2 3 4 5 6\n\ntail(1:10000)\n\n[1]  9995  9996  9997  9998  9999 10000\n\n\n\n\n1.11.2 Matrices\nA matrix is the two-dimensional extension of the vector, it stores a collection of values of the same type but laid out in a grid with rows and columns. An example of this is a gene count matrices where each genes are represented by the rows, samples are represented by the columns and each cell represents a count for a particular gene in a particular column. The rows and columns can also be labelled with names, but these names are usually considered metadata rather than being a part of the matrix.\n\ngene_counts &lt;- matrix(c(1, 2, 3, 4), nrow = 2, ncol = 2)\nrownames(gene_counts) &lt;- c(\"gene1\", \"gene2\")\ncolnames(gene_counts) &lt;- c(\"sample1\", \"sample2\")\n\nclass(gene_counts)\n\n[1] \"matrix\" \"array\" \n\ngene_counts\n\n      sample1 sample2\ngene1       1       3\ngene2       2       4\n\n\nTODO: Replace data.frames with tibbles \nData frames are similar to matrices in that they store data in rows and columns. The difference is that the data within each column can be of different types. This is the representation used for general tables that record different attributes of individual entries along the rows.\nA classic example of a data frame is the iris dataset.\n\ndata(iris)\n\nclass(iris)\niris # prints the whole data frame and floods the screen\n\nThe head() and tail() functions also work here to print the first and last 6 rows of a data frame for a quick check of the data.\n\nhead(iris)\n\n  Sepal.Length Sepal.Width Petal.Length Petal.Width Species\n1          5.1         3.5          1.4         0.2  setosa\n2          4.9         3.0          1.4         0.2  setosa\n3          4.7         3.2          1.3         0.2  setosa\n4          4.6         3.1          1.5         0.2  setosa\n5          5.0         3.6          1.4         0.2  setosa\n6          5.4         3.9          1.7         0.4  setosa\n\ntail(iris)\n\n    Sepal.Length Sepal.Width Petal.Length Petal.Width   Species\n145          6.7         3.3          5.7         2.5 virginica\n146          6.7         3.0          5.2         2.3 virginica\n147          6.3         2.5          5.0         1.9 virginica\n148          6.5         3.0          5.2         2.0 virginica\n149          6.2         3.4          5.4         2.3 virginica\n150          5.9         3.0          5.1         1.8 virginica\n\n\nWe can construct a data frame of our own as well using data.frame()\n\nmy_df &lt;- data.frame(\n  mouse_id = c(\"mouse1\", \"mouse2\", \"mouse3\"),\n  age = c(48, 48, 52),\n  weight = c(39.7, 42.2, 46.3)\n)\n\nclass(my_df)\n\n[1] \"data.frame\"\n\nmy_df\n\n  mouse_id age weight\n1   mouse1  48   39.7\n2   mouse2  48   42.2\n3   mouse3  52   46.3\n\n\nThe general form for constructing a data frame looks like this\ndata.frame(col_name1 = values1, col_names2 = values2, ...)\nWhere each value is a vector of the same length.\nYou can access a column in a data frame with the shortcut $. Notice that the names of all columns of the data frame appears after typing in my_df$:\n\n\n\n\n\nAccessing columns in a dataframe using the ‘$’ symbol.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Session 1: Introduction to R</span>"
+    ]
+  },
+  {
+    "objectID": "session_1.html#data-structures",
+    "href": "session_1.html#data-structures",
+    "title": "1  Session 1: Introduction to R",
+    "section": "1.12 Data structures",
+    "text": "1.12 Data structures\nintro the three kinds and their restrictions on data types\n\n1.12.1 Vectors\n\nmaking vectors with c()\nseeing them in the environment panel\nusing head()\n\n\n\n1.12.2 Matrices\n\nhow to construct\n\n\n\n1.12.3 Data frames\n\nhow to construct\nlooking at some pre-loaded data e.g. iris\nviewing them with View() or by clicking on the environment panel\nusing $ to access columns -&gt; these are vectors",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Session 1: Introduction to R</span>"
+    ]
+  },
+  {
+    "objectID": "session_1.html#data-import",
+    "href": "session_1.html#data-import",
+    "title": "1  Session 1: Introduction to R",
+    "section": "1.13 Data import",
+    "text": "1.13 Data import\nLet’s read in some data and start exploring it.\nYou should have received the data files via email before the course. Please download these files and make sure they are located in your working directory. Recall, we set our working directory above. You can find the location of your working directory with the function getwd().\nTODO: New link If you are following along outside of the WEHI course, you can download the data files from Github - instructions for downloading data from GitHub can be found in the Preface.\nThe file we want to read in is named ‘Ses1_genes.tsv’.\nAll the data files are in a directory called ‘data’ - thus the path to the file (relative to my working directory) is ‘data/Ses1_genes.tsv’. Depending on where you have put your data (in your working directory or in another file in your working directory), the path to your file ‘Ses1_genes.tsv’ may be different.\n\nlibrary(readr)\nread_delim(\"data/Ses1_genes.tsv\")\n\nRows: 10 Columns: 3\n── Column specification ────────────────────────────────────────────────────────\nDelimiter: \"\\t\"\nchr (1): SYMBOL\ndbl (2): GeneLength, Count\n\nℹ Use `spec()` to retrieve the full column specification for this data.\nℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.\n\n\n# A tibble: 10 × 3\n   SYMBOL  GeneLength Count\n   &lt;chr&gt;        &lt;dbl&gt; &lt;dbl&gt;\n 1 Gm10568       1634     0\n 2 Gm19860        799     4\n 3 Gm19938       3259     0\n 4 Lypla1        2433   768\n 5 Rp1           9747     0\n 6 Sox17         3130     1\n 7 Tcea1         2847   810\n 8 Mrpl15        4203   431\n 9 Xkr4          3634     1\n10 Rgs20         2241   452\n\n\nNote that read.delim() also lets you specify character that separates columns of the data. The most common types are comma-separated values (csv) and tab-separated values (tsv).\nExample of a csv file:\nName, Age\nAndy, 10\nBob, 8\nExample of a tsv file:\nName  Age\nAndy  10\nBob   8\nBy default read_delim() will guess your delimiter. We can see what happens if we use the wrong delimitor in our read_delim() call. There are also read_tsv() and read_csv() functions that have fixed delimiters and make your intent and assumptions more clear.\n\nread_delim(\"data/Ses1_genes.tsv\", delim = \",\")\n\nRows: 10 Columns: 1\n── Column specification ────────────────────────────────────────────────────────\nDelimiter: \",\"\nchr (1): SYMBOL GeneLength  Count\n\nℹ Use `spec()` to retrieve the full column specification for this data.\nℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.\n\n\n# A tibble: 10 × 1\n   `SYMBOL\\tGeneLength\\tCount`\n   &lt;chr&gt;                      \n 1 \"Gm10568\\t1634\\t0\"         \n 2 \"Gm19860\\t799\\t4\"          \n 3 \"Gm19938\\t3259\\t0\"         \n 4 \"Lypla1\\t2433\\t768\"        \n 5 \"Rp1\\t9747\\t0\"             \n 6 \"Sox17\\t3130\\t1\"           \n 7 \"Tcea1\\t2847\\t810\"         \n 8 \"Mrpl15\\t4203\\t431\"        \n 9 \"Xkr4\\t3634\\t1\"            \n10 \"Rgs20\\t2241\\t452\"         \n\n\nIf you just read in the data, R simply prints the values out in the console. Let’s assign our data frame to a variable called genes:\n\ngenes &lt;- read_delim(\"data/Ses1_genes.tsv\")\n\nRows: 10 Columns: 3\n── Column specification ────────────────────────────────────────────────────────\nDelimiter: \"\\t\"\nchr (1): SYMBOL\ndbl (2): GeneLength, Count\n\nℹ Use `spec()` to retrieve the full column specification for this data.\nℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.\n\n\nNotice how genes now appears in our ‘Environment’ tab:\n\n\n\n\n\nVariable in ‘Environment’ tab.\n\n\n\n\nAll variables that we create will be shown in this tab, so it is a useful way to keep track of variables that we have created. Notice how R also tells us that there are 10 observations (rows) and 3 variables (columns) in the genes data frame.\n\n1.13.1 Writing out data\nTODO: Writing out to tsv, csv, excel (?)\n\n\n1.13.2 Paths\n\nhttps://www.codecademy.com/resources/docs/general/file-paths\nfolders are separated by / or \\ for windows\ngetting paths by copying them from the file explore panel in RStudio\n\n\n\n1.13.3 Reading in different types of data\n\nread_* family of functions\nreading data through the GUI in R (and the importance of copying the command when you do this)",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Session 1: Introduction to R</span>"
+    ]
+  },
+  {
+    "objectID": "session_1.html#summary",
+    "href": "session_1.html#summary",
+    "title": "1  Session 1: Introduction to R",
+    "section": "1.14 Summary",
+    "text": "1.14 Summary\nsummarise the session here\ncan use for start of next session revision\n\n1.14.1 Practice questions\nhomework questions\ncan use in class to fill time if required",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Session 1: Introduction to R</span>"
+    ]
+  },
+  {
+    "objectID": "session_2.html",
+    "href": "session_2.html",
+    "title": "2  Session 2: Working with data",
+    "section": "",
+    "text": "2.1 Learning objectives\nAt the end of this session, learners should be able to:",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Session 2: Working with data</span>"
+    ]
+  },
+  {
+    "objectID": "session_2.html#learning-objectives",
+    "href": "session_2.html#learning-objectives",
+    "title": "2  Session 2: Working with data",
+    "section": "",
+    "text": "Use the pipe (%&gt;%) to chain multiple functions together\nDesign chains of dplyr functions to manipulate data frames\nApply grouping for more complex analysis of data\nUnderstand how pivot and join functions can be used to reshape and combine entire data frames\nRecall how to save data frames to a file",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Session 2: Working with data</span>"
+    ]
+  },
+  {
+    "objectID": "session_2.html#chaining-functions-together-with-pipes",
+    "href": "session_2.html#chaining-functions-together-with-pipes",
+    "title": "2  Session 2: Working with data",
+    "section": "2.2 Chaining functions together with pipes",
+    "text": "2.2 Chaining functions together with pipes\n\nexplain what the pipe does\neasy first example could be mean() %&gt;% round()",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Session 2: Working with data</span>"
+    ]
+  },
+  {
+    "objectID": "session_2.html#manipulating-data",
+    "href": "session_2.html#manipulating-data",
+    "title": "2  Session 2: Working with data",
+    "section": "2.3 Manipulating data",
+    "text": "2.3 Manipulating data\nmention that in this section we will use the dplyr package, and you will see a ‘tibble’ which is basically the same thing as a data frame.\nin this section we need to have a nice little example dataset to work with that’s biologically relevant. could read it in at the end of session 1\nrelabelled penguins\n\n2.3.1 Sorting data\n\narrange() and arrange(desc())\nslice_min() and slice_max()\n\n\n\n2.3.2 Filtering data\nfilteR for rows\n\n\n2.3.3 Selecting columns\nseleCt for columns\n\n\n2.3.4 Modifying data\nwith mutate()\n\n\n2.3.5 Summarising data\n\nmention that this works with summarize() as well\nexample of calculating mean/median etc",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Session 2: Working with data</span>"
+    ]
+  },
+  {
+    "objectID": "session_2.html#grouping",
+    "href": "session_2.html#grouping",
+    "title": "2  Session 2: Working with data",
+    "section": "2.4 Grouping",
+    "text": "2.4 Grouping\n\nQ: should we teach grouping explicitly with group_by()/ungroup() functions or using the .by= argument in functions? (lean towards this)\ndemonstrate the powerful combo of grouping + summarising",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Session 2: Working with data</span>"
+    ]
+  },
+  {
+    "objectID": "session_2.html#reshaping-and-combining-data",
+    "href": "session_2.html#reshaping-and-combining-data",
+    "title": "2  Session 2: Working with data",
+    "section": "2.5 Reshaping and combining data",
+    "text": "2.5 Reshaping and combining data\n\n2.5.1 Reshaping data with pivot functions\n\nbrief introduction to pivoting\nneed to think of some kind of meaningful example for this\n\n\n\n2.5.2 Combining data with join functions\n\nleft_join() example",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Session 2: Working with data</span>"
+    ]
+  },
+  {
+    "objectID": "session_2.html#saving-data-to-a-file",
+    "href": "session_2.html#saving-data-to-a-file",
+    "title": "2  Session 2: Working with data",
+    "section": "2.6 Saving data to a file",
+    "text": "2.6 Saving data to a file\nwrite_* family of functions",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Session 2: Working with data</span>"
+    ]
+  },
+  {
+    "objectID": "session_2.html#summary",
+    "href": "session_2.html#summary",
+    "title": "2  Session 2: Working with data",
+    "section": "2.7 Summary",
+    "text": "2.7 Summary\n\n2.7.1 Practice questions",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Session 2: Working with data</span>"
+    ]
+  },
+  {
+    "objectID": "session_3.html",
+    "href": "session_3.html",
+    "title": "3  Session 3: Plotting with ggplot",
+    "section": "",
+    "text": "3.1 Learning objectives\nAt the end of this session, learners should be able to:",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Session 3: Plotting with ggplot</span>"
+    ]
+  },
+  {
+    "objectID": "session_3.html#learning-objectives",
+    "href": "session_3.html#learning-objectives",
+    "title": "3  Session 3: Plotting with ggplot",
+    "section": "",
+    "text": "Create a ggplot and save it for use outside of R\nList some of the common ways we can change the appearance of a plot, such as themes, legends and colours.\nUse the facet_wrap function to create a series of similar plots\nDescribe how to use the patchwork package to compose multiple plots together into a single figure",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Session 3: Plotting with ggplot</span>"
+    ]
+  },
+  {
+    "objectID": "session_3.html#building-our-first-plot-layer-by-layer",
+    "href": "session_3.html#building-our-first-plot-layer-by-layer",
+    "title": "3  Session 3: Plotting with ggplot",
+    "section": "3.2 Building our first plot, layer by layer",
+    "text": "3.2 Building our first plot, layer by layer\nin this session we will use the ggplot2 package\nwe use + for ggplot because + looks like the t in ploT\n\n3.2.1 Initialisation\nexplain the basics of data, aes(x = …, y = …)\nwe can pipe data into our ggplot, but don’t recommend it unless the data transformation is really lightweight\n\n\n3.2.2 Adding data\ngeom_* functions\n\n\n3.2.3 Overlaying additional data\nadding more stuff to aes() e.g. colours, shapes of points\nadd more layers to plots e.g. horizontal line or regression line\n\n\n3.2.4 Saving plots as images\nggsave() or export panel",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Session 3: Plotting with ggplot</span>"
+    ]
+  },
+  {
+    "objectID": "session_3.html#working-with-scales",
+    "href": "session_3.html#working-with-scales",
+    "title": "3  Session 3: Plotting with ggplot",
+    "section": "3.3 Working with scales",
+    "text": "3.3 Working with scales\nlog transformation, changing colour palette",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Session 3: Plotting with ggplot</span>"
+    ]
+  },
+  {
+    "objectID": "session_3.html#making-a-plot-pretty",
+    "href": "session_3.html#making-a-plot-pretty",
+    "title": "3  Session 3: Plotting with ggplot",
+    "section": "3.4 Making a plot pretty",
+    "text": "3.4 Making a plot pretty\nhere are some common things you might want to do to customise your plot\n\n3.4.1 Labels and text\nadding title, axis labels\nchanging size etc to be readable\nhow to remove scientific notation on axes\n\n\n3.4.2 Themes\nintroduce concept of themes\nhow to modify parts of themes\n\n\n3.4.3 Changing colours/sizes/shapes\nexactly what it sounds like\nmention about\n\n\n3.4.4 Legends\nchanging position, removing it",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Session 3: Plotting with ggplot</span>"
+    ]
+  },
+  {
+    "objectID": "session_3.html#making-many-similar-plots-with-facets",
+    "href": "session_3.html#making-many-similar-plots-with-facets",
+    "title": "3  Session 3: Plotting with ggplot",
+    "section": "3.5 Making many similar plots with facets",
+    "text": "3.5 Making many similar plots with facets\nhow to facet with facet_wrap() and scales = “free” or not",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Session 3: Plotting with ggplot</span>"
+    ]
+  },
+  {
+    "objectID": "session_3.html#laying-out-multiple-plots-into-a-single-figure",
+    "href": "session_3.html#laying-out-multiple-plots-into-a-single-figure",
+    "title": "3  Session 3: Plotting with ggplot",
+    "section": "3.6 Laying out multiple plots into a single figure",
+    "text": "3.6 Laying out multiple plots into a single figure\ncombining plots with patchwork",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Session 3: Plotting with ggplot</span>"
+    ]
+  },
+  {
+    "objectID": "session_3.html#summary",
+    "href": "session_3.html#summary",
+    "title": "3  Session 3: Plotting with ggplot",
+    "section": "3.7 Summary",
+    "text": "3.7 Summary\n\n3.7.1 Practice questions",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Session 3: Plotting with ggplot</span>"
+    ]
+  },
+  {
+    "objectID": "session_4.html",
+    "href": "session_4.html",
+    "title": "4  Session 4: Putting it all together",
+    "section": "",
+    "text": "4.1 Learning objectives\nAt the end of this session, learners should be able to:",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Session 4: Putting it all together</span>"
+    ]
+  },
+  {
+    "objectID": "session_4.html#learning-objectives",
+    "href": "session_4.html#learning-objectives",
+    "title": "4  Session 4: Putting it all together",
+    "section": "",
+    "text": "Describe the key steps in data analysis (exploration, manipulating and plotting)",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Session 4: Putting it all together</span>"
+    ]
+  },
+  {
+    "objectID": "session_4.html#introduction-to-the-dataset",
+    "href": "session_4.html#introduction-to-the-dataset",
+    "title": "4  Session 4: Putting it all together",
+    "section": "4.2 Introduction to the dataset",
+    "text": "4.2 Introduction to the dataset\ndescribe the fake experiment setup and the data files you will start with",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Session 4: Putting it all together</span>"
+    ]
+  },
+  {
+    "objectID": "session_4.html#exploring-the-data",
+    "href": "session_4.html#exploring-the-data",
+    "title": "4  Session 4: Putting it all together",
+    "section": "4.3 Exploring the data",
+    "text": "4.3 Exploring the data\nin this step we get familiar with the dataset and think about what sorts of plots we can make/things we can look at",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Session 4: Putting it all together</span>"
+    ]
+  },
+  {
+    "objectID": "session_4.html#manipulating-the-data",
+    "href": "session_4.html#manipulating-the-data",
+    "title": "4  Session 4: Putting it all together",
+    "section": "4.4 Manipulating the data",
+    "text": "4.4 Manipulating the data\nin this step we will use dplyr to get the data frame into a form that will allow us to answer the questions we came up with above",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Session 4: Putting it all together</span>"
+    ]
+  },
+  {
+    "objectID": "session_4.html#visualising-the-data",
+    "href": "session_4.html#visualising-the-data",
+    "title": "4  Session 4: Putting it all together",
+    "section": "4.5 Visualising the data",
+    "text": "4.5 Visualising the data\nfinally we will make some nice visualisations\nif time, i think it would be nice to include (briefly) tables with the gt() package.",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Session 4: Putting it all together</span>"
+    ]
+  },
+  {
+    "objectID": "session_5.html",
+    "href": "session_5.html",
+    "title": "5  Session 5: RNA-seq part 1",
+    "section": "",
+    "text": "5.1 DGEList\nThe data we are looking at comes from three cell populations (basal, luminal progenitor (LP) and mature luminal (ML)) sorted from the mammary glands of female virgin mice, each profiled in triplicate.\nLet’s start by creating our DGEList object. As a reminder, this object contains 3 key pieces of data:\n# load required packages\nlibrary(edgeR)\n\nLoading required package: limma\n\nlibrary(limma)\nlibrary(readr)\noptions(readr.show_col_types = FALSE)\n\n# vector of file names\nfiles &lt;- dir(path = \"data/counts\", pattern = \"GSM\")\ngroup &lt;- factor(c(\"LP\", \"ML\", \"Basal\", \"Basal\", \n                  \"ML\", \"LP\", \"Basal\", \"ML\", \"LP\")) \nsamplenames &lt;- c(\"10_6_5_11\", \"9_6_5_11\", \"purep53\", \"JMS8-2\", \"JMS8-3\",\n                 \"JMS8-4\", \"JMS8-5\", \"JMS9-P7c\", \"JMS9-P8c\")\n\n\n# create DGEList object\ndge &lt;- readDGE(\n  files,\n  path = \"data/counts\",\n  columns = c(1, 3),\n  group = group,\n  labels = samplenames\n)\n\n# add gene annotation information\ndge$genes &lt;- read_delim(\"data/Ses3_geneAnnot.tsv\")\nYou can index the DGEList object by treating it as if it were the counts matrix, the object will handle the extraction and ordering of the sample and gene annotation data frames.",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Session 5: RNA-seq part 1</span>"
+    ]
+  },
+  {
+    "objectID": "session_5.html#dgelist",
+    "href": "session_5.html#dgelist",
+    "title": "5  Session 5: RNA-seq part 1",
+    "section": "",
+    "text": "counts: the main data of this object, a matrix of count values with samples along the columns and features/genes along the rows.\nsamples: a data frame containing annotation for the samples. The rows in this table describe the corresponding column of the counts data.\ngenes: a data frame containing annotation for the genes in the counts matrix. The rows in this table describe the corresponding row in the counts matrix.",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Session 5: RNA-seq part 1</span>"
+    ]
+  },
+  {
+    "objectID": "session_5.html#filtering",
+    "href": "session_5.html#filtering",
+    "title": "5  Session 5: RNA-seq part 1",
+    "section": "5.2 Filtering",
+    "text": "5.2 Filtering\nThe first step is to filter out lowly expressed genes. There are two main problems with low abundant genes:\n\nTechnical variation is more problematic for low abundance genes. This variation is thought to be due to two factors; insufficient mixing and low sampling fraction [@mcintyre2011rna].\n\nInsufficient mixing of solutions during library preparation can result in uneven distribution of reads.\nRNA sequencing can be thought of as sampling. Measurement errors will occur simply due to the random nature of the sampling process. This problem affects lowly abundant RNA species more because the relative error for small count values is larger than it would be for more highly abundant RNA species.\n\nBiologically, genes that are expressed at low, biologically not meaningful, levels are not of interest.\n\nRemoving these highly variable, lowly expressed genes increases your ‘power’ to detect differentially expressed genes [@bourgon2010independent], where ‘power’ is your ability to detect true positives. In testing for differential expression, a statistical test is conducted for each gene. When a high number of statistical tests are performed, a portion of them will be significant purely due to random chance. A common procedure to control for the number of false positive is to perform ‘multiple testing correction’ on the p-values. This adjusts the p-value in a way that reduces the number of false positives but comes at the cost of reduced power to detect true positives. If we filter out uninteresting, lowly expressed genes, we need to perform fewer statistical tests and reduce the impact that multiple testing adjustment has on detection power.\nThe filterByExpr() function provides an automatic way to filter genes.\nRoughly speaking, by default, it keeps genes with a count of 10 or more, in at least as many samples as the smallest experimental group. In our experiment, there are 3 phenotype groups each with 3 samples. Therefore we retain only genes that have 10 or more counts in 3 or more samples.\nMore specifically, the actual filtering is done on counts per million, with similar result to the above criteria. This is to prevent bias against samples with small library sizes.\nThe output of this function is a vector of logicals, indicating which genes (rows) should be kept and which filtered.\n\nkeep &lt;- filterByExpr(dge)\ntable(keep)\n\nkeep\nFALSE  TRUE \n10555 16624 \n\ndge &lt;- dge[keep, , keep.lib.sizes = FALSE]\ndim(dge$counts)\n\n[1] 16624     9\n\n\nWe can see that we now have 16624 genes. We started with 27179 genes - meaning that ~40% of genes have been filtered out.",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Session 5: RNA-seq part 1</span>"
+    ]
+  },
+  {
+    "objectID": "session_5.html#normalisation",
+    "href": "session_5.html#normalisation",
+    "title": "5  Session 5: RNA-seq part 1",
+    "section": "5.3 Normalisation",
+    "text": "5.3 Normalisation\nThe aim of normalisation is to remove systematic technical effects. There are two main factors that need to be normalised for in RNA-seq:\n\nSequencing depth/library size - technically, sequencing a sample to half the depth will give, on average, half the number of reads mapping to each gene [@robinson2010scaling].\nRNA composition - if a large number of genes are unique to, or highly expressed in, only one experimental condition, the sequencing capacity available for the remaining genes in that sample is decreased. For example, if there are only five genes being studied in two experimental groups, if one gene is particularly high in group A, then with limited sequencing depth, that gene will reduce the counts of the remaining four genes. The effect of this is that the remaining four genes appear under-expressed in group A compared to group B when the true amount of gene product is actually equal for these 4 genes [@robinson2010scaling].\n\nSequencing depth is accounted for by calculating the counts per million (cpm). This metric is calculated by:\n\ntaking the library size (sum of all counts for a sample),\ndividing this by 1,000,000 to get the ‘per million’ scaling factor,\nthen dividing all read counts for each gene in that sample by the ‘per million’ scaling factor\n\nRNA composition can be accounted for by using more sophisticated normalisation methodologies. We will use ‘trimmed mean of M-values’ (TMM), which estimates relative RNA levels from RNA-seq data [@robinson2010scaling]. Under the assumption that most genes are not differentially expressed, TMM calculates a library size scaling factor for each library (sample). This is done using the following steps:\n\ncalculate the gene expression log fold changes and absolute expression values for pair-wise samples (selecting one sample from the experiment as a reference)\nremove the genes with the highest and lowest fold changes and absolute expression values\ntake a weighted mean of the remaining genes (where the weight is the inverse of the approximate asymptotic variances). This gives the normalisation factor for each library (sample)\n\nSubsequent steps in this analysis will use log-cpm values, calculated using the normalisation factors, which scales each library size.\nWe can calculate the normalisation factors, specifying that we want to use the \"TMM\" method:\n\ndge &lt;- calcNormFactors(dge, method = \"TMM\")\n\nThis function calculates the normalisation factors for each library (sample) and puts this information in the samples data frame. Note that it takes dge (our DGEList object as input) and returns a DGEList object as well.\nLet’s take a look at our normalisation factors:\n\ndge$samples\n\n                             files group lib.size norm.factors\n10_6_5_11 GSM1545535_10_6_5_11.txt    LP 32857304    0.8943956\n9_6_5_11   GSM1545536_9_6_5_11.txt    ML 35328624    1.0250186\npurep53     GSM1545538_purep53.txt Basal 57147943    1.0459005\nJMS8-2       GSM1545539_JMS8-2.txt Basal 51356800    1.0458455\nJMS8-3       GSM1545540_JMS8-3.txt    ML 75782871    1.0162707\nJMS8-4       GSM1545541_JMS8-4.txt    LP 60506774    0.9217132\nJMS8-5       GSM1545542_JMS8-5.txt Basal 55073018    0.9961959\nJMS9-P7c   GSM1545544_JMS9-P7c.txt    ML 21305254    1.0861026\nJMS9-P8c   GSM1545545_JMS9-P8c.txt    LP 19955335    0.9839203\n\n\nThese normalisation factors are all close to 1 for all samples, suggesting minimal difference in relative RNA levels between samples.\n\nboxplot(log(dge$counts + 0.5))\n\n\n\n\n\n\n\n\n\nboxplot(cpm(dge$counts, log = TRUE))",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Session 5: RNA-seq part 1</span>"
+    ]
+  },
+  {
+    "objectID": "session_5.html#mds-plots",
+    "href": "session_5.html#mds-plots",
+    "title": "5  Session 5: RNA-seq part 1",
+    "section": "5.4 MDS plots",
+    "text": "5.4 MDS plots\nBefore we perform statistical tests, it’s useful to perform some exploratory visual analysis to get an overall idea of how our data is behaving.\nMDS is a way to visualise distances between sets of data points (samples in our case). It is a dimensionality reduction technique, similar to principal components analysis (PCA). We treat gene expression in samples as if they were coordinates in a high-dimensional coordinate system, then we can find “distances” between samples as we do between points in space. Then the goal of the algorithm is to find a representation in lower dimensional space such that points that the distance of two objects from each other in high dimensional space is preserved in lower dimensions.\nThe plotMDS() from limma creates an MDS plot from a DGEList object.\n\nplotMDS(dge)\n\n\n\n\n\n\n\n\nEach point on the plot represents one sample and is ‘labelled’ using the sample name. The distances between each sample in the resulting plot can be interpreted as the typical log2-fold-change between the samples, for the most differentially expressed genes.\nWe can change the labelling to use the name of the group the sample belongs to instead:\n\nplotMDS(dge, labels = group)\n\n\n\n\n\n\n\n\nThis shows us that the phenotype groups tend to cluster together, meaning that the gene expression profiles are similar for samples within a phenotype group. The ‘Basal’ type samples quite close together while the ‘LP’ (luminal progenitor) and ‘ML’ (mature luminal) type samples are further apart, signifying that their expression profiles are more variable.\nTo make the three phenotype groups more distinct in our graph, we are going to colour samples from each group differently. To do this, we will use the col argument in plotMDS(). col takes in a vector the same length as the number of points in the plot (9 in our case, as there are 9 samples). Each element of the vector should be a colour name (R understands over 600 colour names), indicating what colour that sample should be.\nTo make this more clear, take a look at the table below, which lists all the samples and the phenotype group they belong to:\n\n\n── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n✔ dplyr     1.1.4     ✔ purrr     1.0.2\n✔ forcats   1.0.0     ✔ stringr   1.5.1\n✔ ggplot2   3.5.1     ✔ tibble    3.2.1\n✔ lubridate 1.9.3     ✔ tidyr     1.3.1\n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ tidyr::extract()    masks magrittr::extract()\n✖ dplyr::filter()     masks stats::filter()\n✖ dplyr::group_rows() masks kableExtra::group_rows()\n✖ dplyr::lag()        masks stats::lag()\n✖ purrr::set_names()  masks magrittr::set_names()\nℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors\n\n\n\n\n\n\nSamples\nGroup\n\n\n\n\n10_6_5_11\nLP\n\n\n9_6_5_11\nML\n\n\npurep53\nBasal\n\n\nJMS8-2\nBasal\n\n\nJMS8-3\nML\n\n\nJMS8-4\nLP\n\n\nJMS8-5\nBasal\n\n\nJMS9-P7c\nML\n\n\nJMS9-P8c\nLP\n\n\n\n\n\n\n\n\nFor example, let’s say we wanted LP samples to be coloured green, ML samples to be coloured red and Basal samples to be coloured blue. The col argument would then require a vector that we can generate as follows\n\ngroup_col &lt;- dge$samples$group\nlevels(group_col) &lt;- c(\"blue\", \"green\", \"red\")\ngroup_col &lt;- as.character(group_col)\ngroup_col\n\n[1] \"green\" \"red\"   \"blue\"  \"blue\"  \"red\"   \"green\" \"blue\"  \"red\"   \"green\"\n\n\nWe can also add a legend to the figure by running the legend() function immediately after a new figure is created. We have to specify where to position the legend as well as the labels and colours within the legend.\nTODO: Helper functions? TODO: Convert all plots to ggplot and provide reasoning\n\nmds_data &lt;- plotMDS(dge, labels = group, col = group_col)\nlegend(\n  \"topright\",\n  legend = c(\"Basal\", \"LP\", \"ML\"),\n  fill = c(\"blue\", \"green\", \"red\")\n)\n\n\n\n\n\n\n\nmds_tibble &lt;- tibble(\n    x = mds_data$x,\n    y = mds_data$y,\n    label = colnames(dge),\n    group = dge$samples$group\n)\n\nmds_tibble %&gt;%\n    ggplot(aes(x = x, y = y, col = group)) +\n    geom_point(size = 3)",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Session 5: RNA-seq part 1</span>"
+    ]
+  },
+  {
+    "objectID": "session_6.html",
+    "href": "session_6.html",
+    "title": "6  Session 6: RNA-seq part 2",
+    "section": "",
+    "text": "6.1 Linear modelling\nThe next step of the limma-voom analysis is to fit a linear model for each gene. A linear model is a broad class of statistical models that predict a variable of interest using one or more ‘explanatory’ (also called ‘predictor’) variables. The most basic type is linear regression, which models the relationship between a continuous variable and continuous or categorical ‘explanatory’ variables. It uses an equation that looks like this:\n\\(Y = \\beta_{0} + \\beta_{1}X_{1} + \\beta_{2}X_{2}...\\)\nThis equation is saying that a response variable of interest \\(Y\\) is equal to a constant (\\(\\beta_{0}\\)) plus the sum of the covariates (\\(X_{i}\\)) each multiplied by a constant coefficient (\\(\\beta_{i}\\)).\nOur experiment is quite simple, since there is only a single covariate, the cell type. The true benefit of using linear models is in its ability to accommodate more complex designs including multiple covariates.\nTo fit the linear models in the limma-voom framework we need two objects in addition to our data:",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Session 6: RNA-seq part 2</span>"
+    ]
+  },
+  {
+    "objectID": "session_6.html#linear-modelling",
+    "href": "session_6.html#linear-modelling",
+    "title": "6  Session 6: RNA-seq part 2",
+    "section": "",
+    "text": "A design matrix, representing the covariates.\nA contrast matrix, representing the specific comparison we wish to make.\n\n\n6.1.1 Design matrix\nThe design matrix specifies the values of the covariates for each sample. This is represented as a matrix due to the mathematical convenience.\nTo generate a design matrix. We use the function model.matrix(), with the expression ~0 + group. This returns a matrix representing the design where there is no intercept term and group is the only covariate. If we omit the 0 then there would be an intercept in the model, and if we included more covariates then more columns would be generated.\n\ndesign &lt;- model.matrix(~0 + group, data = dge$samples)\ndesign\n\n          groupBasal groupLP groupML\n10_6_5_11          0       1       0\n9_6_5_11           0       0       1\npurep53            1       0       0\nJMS8-2             1       0       0\nJMS8-3             0       0       1\nJMS8-4             0       1       0\nJMS8-5             1       0       0\nJMS9-P7c           0       0       1\nJMS9-P8c           0       1       0\nattr(,\"assign\")\n[1] 1 1 1\nattr(,\"contrasts\")\nattr(,\"contrasts\")$group\n[1] \"contr.treatment\"\n\n\nThere are 9 rows, one for each sample. Along the columns are the names of the groups. The values in the cells denote membership of the particular sample for a particular group, as our groups in this case are mutually exclusive, each row contains only a single 1 to denote membership in a single group.\n\n\n6.1.2 Contrasts\n‘Contrasts’ let us ask specific questions between our experimental groups. In our data we have 3 experimental groups, if we are to test for differential expression, we are most likely interested in differences between only two of the groups at a time. Contrasts let us specify exactly what we’re testing for, and is also represented by a matrix just like the design.\nA contrast matrix can be made using the makeContrasts() function. Within this function, we specify the name of each specific contrast and the formula for that contrast. For example, the BasalvsLP contrasts compares the difference between the Basal and LP groups. Note that the name of the phenotype groups must be written exactly as they are in the column names of our design matrix (see above).\nIn addition to the individual contrasts, the function must know about the design of the model. This is passed through the levels argument, which either accepts a matrix with the column names corresponding to levels of your experimental groups, or the levels themselves as a character vector\n\ncontr.matrix &lt;- makeContrasts(\n  BasalvsLP = \"Basal - LP\",\n  BasalvsML = \"Basal - ML\",\n  LPvsML = \"LP - ML\",\n  levels = design) # alternatively 'levels = colnames(design)'\ncontr.matrix\n\n       Contrasts\nLevels  BasalvsLP BasalvsML LPvsML\n  Basal         1         1      0\n  LP           -1         0      1\n  ML            0        -1     -1\n\n\nNote that the sum of all the numbers along each column is 0. The first column is the contrast for the difference between Basal (1) and LP (-1). This property is required for valid contrast matrices. An alternative test may be between one group and the average of the others which would look like c(1, -0.5, -0.5) down one of the columns.\n\n\n6.1.3 Variance modelling with voom\nWe are now ready to fit our linear models. Limma fits linear models to the data with the assumption that the underlying data is normally distributed. Count data is generally not normally distributed, but log transforming count data gives it a roughly normal distribution sufficient for linear models to work well. To do this, limma transforms the raw count data to log-cpm using library sizes and the normalisation factors we calculated previously.\nIn addition to the normalisation steps, the limma-voom pipeline uses the voom() function to generate weights for the individual genes based on a modelled mean-variance relationship. This modelling allows use to get more information out of small sample sizes as the weights prevent our model from being more heavily influenced by more variable data points.\nThe voom() function takes as arguments, our DGEList object and our design matrix. It also optionally outputs a plot of the mean-variance relationship of our data, called the ‘voom-plot’.\n\nv &lt;- voom(dge, design, plot = TRUE)\n\n\n\n\n\n\n\n\nThe output of voom() (our variable v) is an EList object which contains the following elements:\n\ngenes - a data frame of gene annotation data.\ntargets - data frame of sample data.\nE - numeric matrix of normalised log-cpm values.\nweights - numeric matrix of precision weights.\ndesign - the design matrix.\n\n\n\n6.1.4 Fitting the linear model\nWe are now ready to fit our linear model with lmFit(), which calculates coefficients we defined in our design matrix design. The resulting object, vfit is a MArrayLM object. It contains a information about our genes (the same data frame as genes from our EList object v above), the design matrix and a number of statistical outputs. Of most interest to us is the coefficients, stored in an element called coefficients. The first rows of this matrix is shown below. Each gene is row and is labelled using the EntrezID. Each column gives coefficients for each of our phenotype groups. These coefficients are weighted averages of the log-cpm of each gene in each group.\n\nvfit &lt;- lmFit(v, design)\nhead(vfit$coefficients)\n\n               Basal        LP        ML\n497097     3.0677957 -4.578216 -3.854848\n100503874 -3.2300807 -6.118256 -6.305207\n100038431 -6.2389112 -6.118256 -6.305207\n19888     -6.7677975 -5.284107 -3.387890\n20671      0.3134058 -2.601497 -1.960416\n27395      4.3656951  3.792765  4.417114\n\n\nWe can then use contrasts.fit() to calculate coefficients for each contrast (or ‘comparison’) we specified in our contr.matrix. The output is also an object of the class MArrayLM (also known as an MArrayLM object). When we inspect the coefficients element now, we can see that each column is a contrast that we specified in our contrast matrix.\n\nvfit &lt;- contrasts.fit(vfit, contrasts = contr.matrix)\nhead(vfit$coefficients)\n\n           Contrasts\n             BasalvsLP   BasalvsML     LPvsML\n  497097     7.6460121  6.92264390 -0.7233682\n  100503874  2.8881750  3.07512580  0.1869508\n  100038431 -0.1206555  0.06629528  0.1869508\n  19888     -1.4836903 -3.37990752 -1.8962172\n  20671      2.9149031  2.27382208 -0.6410810\n  27395      0.5729302 -0.05141909 -0.6243493",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Session 6: RNA-seq part 2</span>"
+    ]
+  },
+  {
+    "objectID": "session_6.html#statistical-testing",
+    "href": "session_6.html#statistical-testing",
+    "title": "6  Session 6: RNA-seq part 2",
+    "section": "6.2 Statistical testing",
+    "text": "6.2 Statistical testing\nThe next step is to carry out statistical testing to determine which genes are differentially expressed. The function eBayes() computes moderated t-statistics, moderated F-statistics and log-odds of differential expression for each gene, given a fitted linear model. ‘Moderated’ refers to empirical Bayes moderation, which borrows information across genes to obtain more accurate measures of variability for each gene. This also increases our power to detect differentially expressed genes.\n\nefit &lt;- eBayes(vfit)\n\nWe can now look at the number of differentially expressed genes using the decideTests() function. The output of this function is a matrix where each column is a contrast (comparison of interest) and each row is a gene. The numbers 1, -1 and 0 mean up-regulated, down-regulated or not significantly differentially expressed, respectively.\nNote that decideTests() also accounts for multiple testing. The default method is Benjamini and Hochberg [@benjamini1995controlling] but several others are also available.\n\ndt &lt;- decideTests(efit)\ndt\n\nTestResults matrix\n           Contrasts\n            BasalvsLP BasalvsML LPvsML\n  497097            1         1      0\n  100503874         1         1      0\n  100038431         0         0      0\n  19888             0        -1      0\n  20671             1         1      0\n27174 more rows ...\n\n\nTo obtain the total number of differentially expressed genes for each comparison, we can add the function summary():\n\nsummary(dt)\n\n       BasalvsLP BasalvsML LPvsML\nDown        3877      5004   3472\nNotSig     17519     17182  22163\nUp          5783      4993   1544\n\n\nThe function topTable() can be used to obtain more information on the differentially expressed genes for each contrast. topTable() takes as arguments the MArrayLM object output by eBayes() (efit), the contrast name of interest and the number of top differentially expressed genes to output. Note that the contrast name must be given in quotes and must be exactly as written in the contrast matrix contr.matrix.\nIt outputs a data frame with the following information:\n\nGene details - gene information, from the gene element of the MArrayLM object (efit).\nlogFC - the log2 fold change of the contrast.\nAveExpr - the average log2 expression of that gene.\nt - moderated t-statistic.\nP.Value - p value.\nadj.P.Val - adjusted p value.\nB - log-odds that the gene is differentially expressed.\n\n\ntop &lt;- topTable(efit, coef = \"BasalvsLP\", n = Inf)\nhead(top)\n\n      ENTREZID  SYMBOL TXCHROM     logFC   AveExpr         t      P.Value\n12759    12759     Clu   chr14 -5.177621  8.856284 -32.49244 6.107092e-14\n12521    12521    Cd82    chr2 -3.954595  7.069340 -31.24164 1.016658e-13\n16324    16324   Inhbb    chr1 -4.589997  6.460624 -29.97109 1.741973e-13\n53624    53624   Cldn7   chr11 -5.239579  6.295139 -28.23838 3.767208e-13\n26943    26943 Serinc3    chr2 -3.231408 10.189462 -27.41397 5.526704e-13\n14245    14245   Lpin1   chr12 -3.622175  6.293719 -27.53676 5.216399e-13\n         adj.P.Val        B\n12759 1.381587e-09 22.33748\n12521 1.381587e-09 21.77472\n16324 1.578169e-09 21.20649\n53624 1.630073e-09 20.41463\n26943 1.630073e-09 20.27957\n14245 1.630073e-09 20.26629\n\n\nWith that we can complete our analysis by writing out some results\n\nwrite.csv(top, file = \"BasalvsLP.csv\")",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Session 6: RNA-seq part 2</span>"
+    ]
+  },
+  {
+    "objectID": "session_6.html#ma-plot",
+    "href": "session_6.html#ma-plot",
+    "title": "6  Session 6: RNA-seq part 2",
+    "section": "6.3 MA Plot",
+    "text": "6.3 MA Plot\nThe MA plot is a plot of log-fold-change (M-values) against log-expression averages (A-values), this is a common plot in RNA sequencing analysis to visualise the result of differential expression tests. It can be created using the plotMA() from the limma package. Creating this plot requires 3 pieces of information:\n\nobject = efit: The the fitted object containing the log-fold-change and log-expression averages\ncoef = 1: The column number of the contrast to plot since there are 3 different contrasts fitted within the object.\nstatus = dt[, 1]: A vector of numerics denoting whether a gene is up-regulated or down-regulated.\n\n\nplotMA(efit, coef = 1, status = dt[, \"BasalvsLP\"])\n\n\n\n\n\n\n\n\nWe can also save this plot programmatically as a PDF for further editing. To do this we use pdf() to turn on the pdf capture device, run the command that creates the plot, which is now captured by the pdf, and then turn the device off.\n\npdf(file = \"BasalvsLP-MAPlot.pdf\")\nplotMA(efit, coef = 1, status = dt[, \"BasalvsLP\"])\ndev.off()",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Session 6: RNA-seq part 2</span>"
+    ]
+  },
+  {
+    "objectID": "further_reading.html",
+    "href": "further_reading.html",
+    "title": "7  Course summary & next steps",
+    "section": "",
+    "text": "summarise the course/key points from each session\nput links to more advanced materials",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Course summary & next steps</span>"
+    ]
+  },
+  {
+    "objectID": "advanced_topics.html",
+    "href": "advanced_topics.html",
+    "title": "8  Advanced topics",
+    "section": "",
+    "text": "Here we could write some stuff about:\n\ncontrol structures (for loops, if/else)\nfunctions\nquarto\n\nOf course this is extra but would be nice to have, potentially for some sort of advanced course in the future",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Advanced topics</span>"
+    ]
+  }
+]
