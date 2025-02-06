@@ -4,7 +4,7 @@ project:
 
 execute:
   freeze: auto
-  
+
 book:
   title: "WEHI R Course"
   author: "Shian Su & Kathleen Zeglinski"
@@ -27,7 +27,7 @@ book:
     - further_reading.qmd
     - advanced_topics.qmd
 
-#bibliography: references.bib
+bibliography: references.bib
 csl: vancouver_superscript.csl
 format:
   html:
