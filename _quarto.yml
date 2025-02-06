@@ -2,6 +2,9 @@ project:
   type: book
   execute-dir: project
 
+execute:
+  freeze: auto
+  
 book:
   title: "WEHI R Course"
   author: "Shian Su & Kathleen Zeglinski"
