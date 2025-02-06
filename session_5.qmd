@@ -67,12 +67,12 @@ You can index the DGEList object by treating it as if it were the counts matrix,
 
 The first step is to filter out lowly expressed genes. There are two main problems with low abundant genes:
 
--   Technical variation is more problematic for low abundance genes. This variation is thought to be due to two factors; insufficient mixing and low sampling fraction [@mcintyre2011rna].
+-   Technical variation is more problematic for low abundance genes. This variation is thought to be due to two factors; insufficient mixing and low sampling fraction [@mcintyre2011].
     -   Insufficient mixing of solutions during library preparation can result in uneven distribution of reads.
     -   RNA sequencing can be thought of as sampling. Measurement errors will occur simply due to the random nature of the sampling process. This problem affects lowly abundant RNA species more because the relative error for small count values is larger than it would be for more highly abundant RNA species.
 -   Biologically, genes that are expressed at low, biologically not meaningful, levels are not of interest.
 
-Removing these highly variable, lowly expressed genes increases your 'power' to detect differentially expressed genes [@bourgon2010independent], where 'power' is your ability to detect true positives. In testing for differential expression, a statistical test is conducted for each gene. When a high number of statistical tests are performed, a portion of them will be significant purely due to random chance. A common procedure to control for the number of false positive is to perform 'multiple testing correction' on the p-values. This adjusts the p-value in a way that reduces the number of false positives but comes at the cost of reduced power to detect true positives. If we filter out uninteresting, lowly expressed genes, we need to perform fewer statistical tests and reduce the impact that multiple testing adjustment has on detection power.
+Removing these highly variable, lowly expressed genes increases your 'power' to detect differentially expressed genes [@bourgon2010], where 'power' is your ability to detect true positives. In testing for differential expression, a statistical test is conducted for each gene. When a high number of statistical tests are performed, a portion of them will be significant purely due to random chance. A common procedure to control for the number of false positive is to perform 'multiple testing correction' on the p-values. This adjusts the p-value in a way that reduces the number of false positives but comes at the cost of reduced power to detect true positives. If we filter out uninteresting, lowly expressed genes, we need to perform fewer statistical tests and reduce the impact that multiple testing adjustment has on detection power.
 
 The `filterByExpr()` function provides an automatic way to filter genes.
 
@@ -203,3 +203,5 @@ mds_tibble %>%
     ggplot(aes(x = x, y = y, col = group)) +
     geom_point(size = 3)
 ```
+
+## References

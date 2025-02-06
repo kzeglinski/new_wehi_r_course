@@ -181,3 +181,5 @@ pdf(file = "BasalvsLP-MAPlot.pdf")
 plotMA(efit, coef = 1, status = dt[, "BasalvsLP"])
 dev.off()
 ```
+
+## References
