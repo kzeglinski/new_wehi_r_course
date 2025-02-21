@@ -1,8 +1,16 @@
-# Session 1: Introduction to R
+---
+filters:
+  - naquiz
+format:
+  html:
+    toc: true
+    toc-location: left
+    toc-title: "In this session:"
+---
+
+# Session 1: Introduction to R {#sec-session01}
 
 ::: {.callout-tip title="Learning Objectives"}
-After today's session, learners should be able to:
-
 1.  Use RStudio to create an R project and R script
 
 2.  Perform basic mathematical operations, comparisons and function calls in R
@@ -14,153 +22,316 @@ After today's session, learners should be able to:
 5.  Recall how to use RStudio to find data files and read them in as data frames
 :::
 
-## What is R?
+## Using RStudio {#sec-usingRstudio}
 
-R is a free and open source statistical programming language, great for performing data analysis. RStudio is a free and open source R integrated development environment (IDE) which makes it easier for you to write code. It does this by providing you with auto-completion (of variable names, function names, file paths etc.), helping with formatting and keeping track of your variables.
+### What is R and RStudio? {#sec-whatIsR}
 
-You can think of R as the engine in a car and RStudio as the body & controls. R is doing all the calculations/computations but RStudio makes it easier for you to use R.
+**R** is a free and popular statistical programming language, great for performing data analysis. **RStudio** is a free [integrated development environment (IDE)](https://en.wikipedia.org/wiki/Integrated_development_environment) which is a program that makes it easier for us to write code. During this course, we will learn how to use RStudio's handy features like projects (which help us to keep track of different analyses) and the environment panel (which shows us all of our data/variables in one place).
 
-When you first open RStudio, there will be three panels - see Figure \@ref(fig:RS1) (don't worry if your RStudio does not have the same colours/appearance - different versions of RStudio look slightly different, and the colour here is not the default one.)
+### Creating a project {#sec-creatingProject}
 
-```{r RS1, fig.cap='Three panels in RStudio.', out.width="700px", echo=FALSE}
-knitr::include_graphics("Images/RS1.png")
-```
+Projects are a way we can organise our work in RStudio, so that we can resume where we left off and keep different analyses separate. Any time you start working on something new (like this course!) it is recommended that you start a new project. You can see the current project you're working on, switch between projects or create a new project using the menu in the top right hand corner of RStudio:
 
--   Left panel: this panel features two tabs, 'Console', which is where you can type in commands for R to run and 'Terminal', which we won't worry about in this course.
--   Top right panel:
-    -   Environment - in this tab you can see all variables you have created.
-    -   History - R keeps track of all commands you have run and you can review them in this tab.
-    -   Connections - this tab helps you connect to data sources but we will not be using it in this course.
--   Bottom right:
-    -   Files - you can explore your file directory here and we will use it to set our working directory later.
-    -   Plots - plots that you create will either appear here or be saved to a file.
-    -   Help - help files for R functions can be viewed in this tab. Help files tell you about what a function does and how to use it.
-    -   Packages - basic R includes many useful functions. You can add even more functions by downloading packages. A package is a collection of functions, generally with a certain data analysis theme. For example, the package 'limma', which we will use later, includes functions for analysing RNA-sequencing data.
-    -   Viewer - this tab lets you view local web content but we won't be using it in this course.
+![In the top right hand corner of RStudio, you can see all of your projects](images/S01F01_make_project.png)
 
-## R scripts
+To begin this course, let's make a new project. We'll do this in a new directory (folder) so that everything stays organised:
 
-To open an R script, go to File \> New File \> R Script.
+![We usually want to make a new project in its own directory (folder)](images/S01F02_make_project.png)
 
-```{r RS2, fig.cap='Opening a new R Script.', out.width="700px", echo=FALSE}
-knitr::include_graphics("Images/RS2.png")
-```
+Next, we need to tell R that we want to make a 'New Project' and not any of the other fancy things we could create:
 
-This will open a fourth panel on the top left.
+![There are many types of projects we can make in R, but for now we'll stick with a regular project.](images/S01F03_make_project.png)
 
-```{r RS3, fig.cap='Four panels, including a R Script.', out.width="700px", echo=FALSE}
-knitr::include_graphics("Images/RS3.png")
-```
+Finally, we need to give our project an informative name:
 
-An R script is a text document where can type and run commands. You can also run commands in the console but the code run in the console is not saved. Note that to run a command in the Console press `Enter` key but to run a command in a R Script you must press `Cmd/Ctrl + Enter` keys.
+![Choose a name that will help you remember what this project is about!](images/S01F04_make_project.png)
 
-Lastly, you add 'comments' in your R Script. Comments are notes regarding the code that are not interpreted by R, they begin with `#`:
+::: {.callout-note title="Name with underscores, not spaces"}
+You'll notice I named my project using an underscore (R_course) rather than a space (R course). **In general, when coding we want to name things without spaces**, so that it is clear to the computer that we are talking about a single entity (the 'R_course') as opposed to multiple things ('R' and 'course'). We'll revisit this idea later in the session in @sec-variables
+:::
 
-```{r}
-# this is a note to myself
-1 + 1
-```
+### Creating an R script {#sec-createRScript}
 
-## Working directory
+Now that our project is set up, we need to create a file to write our code in:
 
-Every file on your computer is located in a specific location. This location can be referred to by a path. In Mac, paths look something like this: `/Users/MyName/Documents/`. In Windows, paths look something like this: `C:\Users\MyName\Documents\`.
+![How to create a new R Script](images/S01F05_new_script.png)
 
-When you open an R session, it launches from a specific location. You can find out where this is using the command `getwd()`. This location is called the 'working directory'. By default, R will look in this directory when reading in data and write out files/plots to this directory. It is often useful to have your data and R Scripts in the same directory and set this as your working directory.
+This file is called an **R Script**. Don't forget to save your R Script as you work so you don't lose your progress! You can do this through the file menu or by using the keyboard shortcut {{< kbd Cmd+S >}}.
 
-You can set your working directory to be anywhere you like and we will now do this:
+### Overview of the RStudio layout
 
-1.  Make a folder for this course, somewhere sensible on your computer that you will be able to easily find.
-2.  Go back to your RStudio window, go to the bottom right panel, click on the 'Files' tab and then click on the three dots on the top right hand corner (Figure \@ref(fig:wd1)).
+At this point, your RStudio window should look like this, with four different panels visible:
 
-```{r wd1, fig.cap='Setting the working directory - 1.', out.width="500px", echo=FALSE, fig.align='center'}
-knitr::include_graphics("Images/wd1.png")
-```
+![The four panels of RStudio](images/S01F06_panels.png)
 
-3.  This will open up a new window (Figure \@ref(fig:wd2)) which lets you explore the files and folders on your computer. Find the new folder you created, click on it then click 'Open'.
+This is what they're used for:
 
-```{r wd2, fig.cap='Setting the working directory - 2.', out.width="500px", echo=FALSE, fig.align='center'}
-knitr::include_graphics("Images/wd2.png")
-```
+1.  **The R Script panel.** This is a text document where you can write code, and run it by highlighting the code or putting your cursor on that line, then pressing the 'run' button in the top-right corner or using the {{< kbd Cmd+Enter >}} keyboard shortcut.
 
-4.  The files tab will now show the contents of your new folder (which should be empty). At the top of the files tab, click on More \> Set As Working Directory (Figure \@ref(fig:wd3)).
+2.  **The console.** This is where the output (results) of your code will appear. You can also run code in the console, by typing it next to the `>` symbol and pressing {{< kbd Enter >}} but it's better to use the R Script, as the code you write there is saved and acts as a record of your work.
 
-```{r wd3, fig.cap='Setting the working directory - 3.', out.width="500px", echo=FALSE, fig.align='center'}
-knitr::include_graphics("Images/wd3.png")
-```
+3.  **The environment panel.** This is where the data and variables you use in your analysis will be listed. More on this later.
 
-Please set your working directory to be this folder at the start of EVERY session.
+4.  **The files/plot/help panel.**
 
-## Maths
+    -   Under the 'files' tab you can see the files in your current folder
 
-R performs maths and follows standard order of operations. In order of highest to lowest precedence, here is how mathematical operations are denoted in R:
+    -   Under the 'plots' tab you can view the plots you have created
 
--   `()` - parentheses
--   `^` or `**` - exponents
--   `/` - divide
--   `*` - multiply
--   `+` - add
--   `-` - subtract
--   `%%` - remainder (modulus)
+    -   Under the 'help' tab you can read manual pages to learn how to use functions
+
+Although there are other tabs for some of these panels, they are used for more niche things out of scope of this course.
+
+### Writing our first piece of code
+
+Now we are ready to write our bit of code! We'll start with one of the most important concepts in programming: comments. Comments are lines of our script that begin with `#` and they are ignored by the computer: they are just notes that we write to ourselves. It's really important to write 'well-commented' code, with plenty of comments that clearly explain what your code is doing, so that your script can easily be understood by whoever looks at it next (whether this is someone else or you revisiting an analysis many months later!)
+
+::: {.callout-warning title="Don't forget your #"}
+If you forget the `#` at the start of your comment, R will try to interpret your notes as actual code, and you'll get an error message:
 
 ```{r}
-1 + 2
-1 + 3 * 4
-(1 + 3) * 4
-10 %% 3
+#| error: true
+oops I forgot the hashtag
 ```
+:::
 
-## Comparisons
-
-R can perform comparisons:
-
--   `==` equal to.
--   `!=` not equal to.
--   `>` greater than.
--   `>=` greater or equal to.
--   `<` less than.
--   `<=` less than or equal to.
-
-These operations return a `TRUE` or a `FALSE` value. This can be used to quickly summarise data or perform indexing as we will see later.
+During this course, we will practice writing well-commented code, but here is an example of how we could write comments to explain the code for one plus one:
 
 ```{r}
-10 > 10 # FALSE
-10 >= 10 # TRUE
+#| eval: false
+# calculate one plus one
+1 + 1 # the + symbol means plus
 ```
 
-You can also compare words. R will use dictionary order to determine which word is 'greater'.
+## Practicing R code with maths {#sec-maths}
+
+To practice running R code, let's do some maths. Here's how to code some basic mathematical operations in R:
+
+| Operation      | Code | Example                                                          |
+|---------------|---------------|-------------------------------------------|
+| Brackets       | `()` | sixteen divided by the result of three minus one: `16 / (3 - 1)` |
+| Exponents      | `^`  | three squared: `3 ^ 2`                                           |
+| Division       | `/`  | ten divided by 3: `10 / 3`                                       |
+| Multiplication | `*`  | eight times 4: `8 * 4`                                           |
+| Addition       | `+`  | one plus one: `1 + 1`                                            |
+| Subtraction    | `-`  | two minus ten: `2 - 10`                                          |
+
+Like in regular maths, R follows the order of operations. Here, the `3 + 2` in the brackets will be evaluated first, and then result will be multiplied by 7.
 
 ```{r}
-"cat" > "dog"
+# brackets evaluate first
+(3 + 2) * 7
+```
+
+You might notice when running this code that before the output (result), there is a number one that looks like this: `[1]`. This relates to the length of our output, which here is just one single number (hence the `1`). Later in the session we will write code with longer output, and the purpose of this number will become clearer, but you can ignore it for now.
+
+::: {.callout-note title="Using whitespace in code"}
+Above we used spaces between the numbers and mathematical operators in our code. R understands code without spaces too, but this makes it easier to read. Note that this is different to when we are naming things, when spaces are bad!
+
+```{r}
+# spaces don't matter in code
+3 ^ 2
+# so both of these should give the same result
+3^2
+```
+:::
+
+::: {.callout-important title="Practice exercises"}
+Try these practice questions to test your understanding
+
+::: question
+1\. Which R expression would give me a result of 10?
+
+::: choices
+::: {.choice .correct-choice}
+`(2 * 3) + (2 ^ 2)`
+:::
+
+::: choice
+`(5 - 3) * 4`
+:::
+
+::: choice
+`1 + 1`
+:::
+
+::: choice
+`20 - 1`
+:::
+:::
+:::
+
+::: question
+2\. What would be the result of running this line of R code: `# test 1+1`
+
+::: choices
+::: choice
+1
+:::
+
+::: choice
+2
+:::
+
+::: choice
+An error
+:::
+
+::: {.choice .correct-choice}
+Nothing
+:::
+:::
+:::
+
+<details>
+
+<summary>Solutions</summary>
+
+<p>
+
+1.  `(2 * 3) + (2 ^ 2)` is equal to 10. If you're not sure, try copy-pasting this code into the console and running it! The best way to learn is by doing.
+
+2.  The code `# test 1+1` is a comment, because it starts with a `#`. This means R ignores it: if you run this code, you won't see any output in the console.
+
+</p>
+
+</details>
+:::
+
+## Comparisons {#sec-comparisons}
+
+R can perform comparisons, using the following notation:
+
+| Comparison                    | Code         |
+|-------------------------------|--------------|
+| Equal to                      | `==`         |
+| Not equal to                  | `!=`         |
+| Greater/less than             | `>` or `<`   |
+| Greater/less than or equal to | `>=` or `<=` |
+
+::: {.callout-warning title="Mind your equal signs!"}
+Be careful to use double equal signs `==` when checking for equality. If you use only one, you'll get an error:
+
+```{r}
+#| error: true
+1 == 1 # this is TRUE
+1 = 1 # this gives an error
+```
+:::
+
+Comparisons in R return either `TRUE` or `FALSE`:
+
+```{r}
+10 > 10 # gives FALSE
+10 >= 10 # gives TRUE
 ```
 
 You can also negate the result of a comparison or any TRUE/FALSE value by using the `!` operator before the expression.
 
 ```{r}
-!("cat" > "dog")
+# gives FALSE (i.e. not TRUE)
+!TRUE
+
+# gives TRUE: 1 is not equal to 2, but we've negated the result
 !(1 == 2)
 ```
 
-## Variables
+This is really useful for filtering data, which we will cover in [Session @sec-session02]
 
-## Using RStudio
+::: {.callout-important title="Practice exercises"}
+Try these practice questions to test your understanding
 
--   intro the panels, make a project
+::: question
+1\. What would be the result of running this R code: `10 >= 10`
 
--   make an rscript & save it
+::: choices
+::: choice
+10
+:::
 
--   write a comment for the title
+::: choice
+`FALSE`
+:::
 
-## Maths
+::: {.choice .correct-choice}
+`TRUE`
+:::
 
--   plus, minus, division and multiplication
+::: choice
+An error
+:::
+:::
+:::
 
--   brackets for order of operations
+::: question
+2\. Which of the following R expressions would give me a result of `FALSE`?
 
--   explain we can ignore the \[1\] next to output for now
+::: choices
+::: choice
+`1 == 1`
+:::
 
-## Comparisons
+::: choice
+`1 != (3 - 4) * 1`
+:::
 
--   \>= \<= \< \> == !=
+::: choice
+`1 = 10`
+:::
+
+::: {.choice .correct-choice}
+`1 == 2`
+:::
+:::
+:::
+
+::: question
+3\. What would be the result of running this R code: `!TRUE`
+
+::: choices
+::: {.choice .correct-choice}
+`FALSE`
+:::
+
+::: choice
+`TRUE`
+:::
+
+::: choice
+An error
+:::
+
+::: choice
+Nothing
+:::
+:::
+:::
+
+<details>
+
+<summary>Solutions</summary>
+
+<p>
+
+1.  `10 >= 10` is TRUE because 10 is equal to 10, and we are using the greater than or equal to operator, `>=`.
+2.  `1 == 2` is the only expression that would give a result of `FALSE`. Be mindful that `1 = 10` is not a valid expression in R, and would give an error (since we need to use the double equal sign `==` for comparisons).
+3.  `!TRUE` is `FALSE` because we are negating the value using  `!`.
+
+</p>
+
+</details>
+
+:::
+
+## Variables {#sec-variables}
+
+-   what are variables
+
+-   how to assign variables
+
+-   how to see what is stored in a variable
+
+-   about naming variables (case sensitive, no spaces, can't start with numbers)
 
 A variable in R is an identifier to keep track of values. We assign values to variables so that we can refer to the variable later.
 
@@ -211,7 +382,13 @@ If we try to create a variable that starts with a number, R will return an error
 2myvar <- 2 + 6 * 7^2 # not a valid name as it start with number
 ```
 
-## Functions
+## Functions {#sec-functions}
+
+-   introduce concept of functions
+
+-   arguments (default + specifying them)
+
+-   help page/pausing while writing arguments to get the help popup
 
 Functions are expression in R that take inputs and produce outputs. Functions may take multiple inputs, also called 'arguments' to the function, each argument must be separated by comma. Arguments have a set order in which they can be given, or they can be referred to specifically by their name.
 
@@ -228,10 +405,6 @@ args(rnorm)
 
 Sometimes it's obvious what the arguments are, but if more details are needed then you can access the help pages. This can be one in one of two ways, by searching for the function in the help panel.
 
-```{r help, fig.cap="Accessing help files via 'help' tab.", out.width="500px", fig.align='center', echo=FALSE}
-knitr::include_graphics("Images/help.png")
-```
-
 Or using the command `?` followed by the name of the function:
 
 ```{r, eval=FALSE}
@@ -240,7 +413,17 @@ Or using the command `?` followed by the name of the function:
 
 Help files are very useful but can be difficult to interpret at first due to the technical language used. It is often helpful to scroll down to the bottom to see examples of how the function is used.
 
-## Data types
+## Data types {#sec-dataTypes}
+
+-   \- numeric
+
+    -   character
+
+    -   logical
+
+    -   mention there is another type: factors but we will cover that later
+
+    -   class() function
 
 Every variable in R has a 'type'. The type tells R what kind of data it is and consequently what it can and can't do with the data. For example, it makes sense to perform mathematical functions on numbers but not on words.
 
@@ -273,7 +456,17 @@ class("123") # character
 !"TRUE" # produces error
 ```
 
-### Vectors
+## Data structures
+
+intro the three kinds and their restrictions on data types
+
+### Vectors {#sec-vectors}
+
+-   making vectors with c()
+
+-   seeing them in the environment panel
+
+-   using head()
 
 A vector is a collection of values of the same type. Values in a vector are laid out linearly, one after another.
 
@@ -298,7 +491,7 @@ head(1:10000)
 tail(1:10000)
 ```
 
-### Matrices
+### Matrices {#sec-matrices}
 
 A matrix is the two-dimensional extension of the vector, it stores a collection of values of the same type but laid out in a grid with rows and columns. An example of this is a gene count matrices where each genes are represented by the rows, samples are represented by the columns and each cell represents a count for a particular gene in a particular column. The rows and columns can also be labelled with names, but these names are usually considered metadata rather than being a part of the matrix.
 
@@ -311,34 +504,15 @@ class(gene_counts)
 gene_counts
 ```
 
-TODO: Replace data.frames with tibbles <!-- ### Data frames
--   introduce concept of functions
+### Data frames
 
--   arguments (default + specifying them)
+-   how to construct
 
--   help page/pausing while writing arguments to get the help popup
+-   looking at some pre-loaded data e.g. iris
 
-## Variables
+-   viewing them with View() or by clicking on the environment panel
 
--   what are variables
-
--   how to assign variables
-
--   how to see what is stored in a variable
-
--   about naming variables (case sensitive, no spaces, can't start with numbers)
-
-## Data types
-
--   numeric
-
--   character
-
--   logical
-
--   mention there is another type: factors but we will cover that later
-
--   class() function -->
+-   using \$ to access columns -\> these are vectors
 
 Data frames are similar to matrices in that they store data in rows and columns. The difference is that the data within each column can be of different types. This is the representation used for general tables that record different attributes of individual entries along the rows.
 
@@ -381,37 +555,18 @@ Where each value is a vector of the same length.
 
 You can access a column in a data frame with the shortcut `$`. Notice that the names of all columns of the data frame appears after typing in `my_df$`:
 
-```{r dfdollar, fig.cap="Accessing columns in a dataframe using the '$' symbol.", out.width="350px", echo=FALSE, fig.align='center'}
-knitr::include_graphics("Images/df_dollar.png")
-```
+### Paths
 
-## Data structures
+-   <https://www.codecademy.com/resources/docs/general/file-paths>
 
-intro the three kinds and their restrictions on data types
+-   folders are separated by / or \\ for windows
 
-### Vectors
+-   getting paths by copying them from the file explore panel in RStudio
 
--   making vectors with c()
+### Reading in different types of data
 
--   seeing them in the environment panel
-
--   using head()
-
-### Matrices
-
--   how to construct
-
-### Data frames
-
--   how to construct
-
--   looking at some pre-loaded data e.g. iris
-
--   viewing them with View() or by clicking on the environment panel
-
--   using \$ to access columns -\> these are vectors
-
-## Data import
+-   read\_\* family of functions
+-   reading data through the GUI in R (and the importance of copying the command when you do this)
 
 Let's read in some data and start exploring it.
 
@@ -460,28 +615,7 @@ genes <- read_delim("data/Ses1_genes.tsv")
 
 Notice how `genes` now appears in our 'Environment' tab:
 
-```{r import, fig.cap="Variable in 'Environment' tab.", out.width="500px", echo=FALSE, fig.align='center'}
-knitr::include_graphics("Images/import.png")
-```
-
 All variables that we create will be shown in this tab, so it is a useful way to keep track of variables that we have created. Notice how R also tells us that there are 10 observations (rows) and 3 variables (columns) in the `genes` data frame.
-
-### Writing out data
-
-TODO: Writing out to tsv, csv, excel (?)
-
-### Paths
-
--   <https://www.codecademy.com/resources/docs/general/file-paths>
-
--   folders are separated by / or \\ for windows
-
--   getting paths by copying them from the file explore panel in RStudio
-
-### Reading in different types of data
-
--   read\_\* family of functions
--   reading data through the GUI in R (and the importance of copying the command when you do this)
 
 ## Summary
 

@@ -36,7 +36,7 @@ $secondary:     $teal !default;
 $success:       $green !default;
 $info:          $cyan !default;
 $warning:       $orange !default;
-$danger:        $red !default;
+$danger:        $orange !default;
 $light:         #ffffff !default;
 $dark:          $gray-800 !default;
 
@@ -105,7 +105,7 @@ $alert-border-width:                0 !default;
 // Code
 $code-block-bg:                     #dbe9f0 !default;
 $code-block-border-left:            $blue !default;
-//$mono-background-color:            #f2cbed;
+$mono-background-color:            #dbe9f0;
 $code-color: $body-color; //this is for the inline code
 
 // mermaid theming
@@ -122,6 +122,9 @@ $mermaid-node-bg-color: rgba($primary, 0.1);
 $mermaid-node-fg-color: $primary;
 
 $callout-icon-scale: 0.1 !default;
+$callout-color-warning: $red !default;
+$callout-color-note: $teal !default;
+$callout-color-important: $purple !default;
 
 /*-- scss:rules --*/
 
@@ -145,10 +148,39 @@ div.callout.callout-style-default.callout-tip>div.callout-header{
   color: $green;
 }
 
+// style the 'warning' callout in red for warnings
+div.callout.callout-style-default.callout-warning>div.callout-header{
+  color: $red;
+}
+
+// style the 'note' callout in teal to avoid clash with code in blue
+div.callout.callout-style-default.callout-note>div.callout-header{
+  color: $teal;
+}
+
+// style the 'important' callout in purple for practice questions
+div.callout.callout-style-default.callout-important>div.callout-header{
+  color: $purple;
+}
+
+// custom icon of question mark for important callout (practice questions)
+div.callout-important.callout-titled .callout-icon::before{
+  background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C!--!Font%20Awesome%20Free%206.7.2%20by%20%40fontawesome%20-%20https%3A%2F%2Ffontawesome.com%20License%20-%20https%3A%2F%2Ffontawesome.com%2Flicense%2Ffree%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M256%20512A256%20256%200%201%200%20256%200a256%20256%200%201%200%200%20512zM169.8%20165.3c7.9-22.3%2029.1-37.3%2052.8-37.3l58.3%200c34.9%200%2063.1%2028.3%2063.1%2063.1c0%2022.6-12.1%2043.5-31.7%2054.8L280%20264.4c-.2%2013-10.9%2023.6-24%2023.6c-13.3%200-24-10.7-24-24l0-13.5c0-8.6%204.6-16.5%2012.1-20.8l44.3-25.4c4.7-2.7%207.6-7.7%207.6-13.1c0-8.4-6.8-15.1-15.1-15.1l-58.3%200c-3.4%200-6.4%202.1-7.5%205.3l-.4%201.2c-4.4%2012.5-18.2%2019-30.6%2014.6s-19-18.2-14.6-30.6l.4-1.2zM224%20352a32%2032%200%201%201%2064%200%2032%2032%200%201%201%20-64%200z%22%20fill%3D%22%237d489c%22%2F%3E%3C%2Fsvg%3E");
+
+}
+
+// caption colour
+.panel-caption, .figure-caption, .subfigure-caption, .table-caption, figcaption, caption{
+  color: $green;
+}
+
 // code again
-.cell-output { //output of code cells
-  background-color: $gray-200;
-  border-radius: 4px;
+.cell-output > pre { //output of code cells
+  background-color: #f3f3f3;
+  //border-radius: 10px;
+  //border: 2px outset $blue;
+  //border-left: 3.5px solid $blue;
+  margin-bottom: 0rem;
 }
 
 p code:not(.sourceCode), li code:not(.sourceCode), td code:not(.sourceCode){
@@ -195,27 +227,33 @@ p {
 h1 {
   font-family: $font-family-headings;
   font-weight: $headings-font-weight;
+  opacity: 1.0;
 }
 
 h2 {
   font-family: $font-family-headings;
   font-weight: $headings-font-weight;
+  opacity: 1.0;
 }
 
 h3 {
   font-family: $font-family-headings;
+  opacity: 1.0;
 }
 
 h4 {
   font-family: $font-family-headings;
+  opacity: 1.0;
 }
 
 h5 {
   font-family: $font-family-headings;
+  opacity: 1.0;
 }
 
 h6 {
   font-family: $font-family-headings;
+  opacity: 1.0;
 }
 
 blockquote {
@@ -352,3 +390,8 @@ table,
 .dataTables_wrapper .dataTables_length select {
   margin-top: 20px !important;
 }
+
+// if we shown an error in the output, make it red
+div.cell-output.cell-output-error > pre > code {
+    color: #c5060c !important;
+  }

@@ -5,6 +5,9 @@ project:
 execute:
   freeze: auto
 
+filters:
+  - naquiz
+
 book:
   title: "WEHI R Course"
   author: "Shian Su & Kathleen Zeglinski"
@@ -32,7 +35,7 @@ csl: vancouver_superscript.csl
 format:
   html:
     grid:
-      body-width: 1400px
+      body-width: 1000px
       margin-width: 20px
       sidebar-width: 300px
     theme: litera_edited.scss
@@ -46,7 +49,5 @@ format:
       toggle: false
       caption: none
     code-overflow: wrap
-    toc: true
-    toc-location: left
-    toc-title: "In this session:"
     highlight-style: textmate.theme
+    number-sections: true
