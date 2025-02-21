@@ -94,7 +94,8 @@ div.csl-indent {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-d3505047d9cebdafc851f227f06b3749.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-7940f23eee355c9374e65be77cd355b1.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-b7329218ff9893e6b2d7c6602022a911.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/quarto-contrib/alpine-3.12/buttons.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -1054,212 +1055,218 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
 <div class="sourceCode" id="cb20" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="an">bibliography:</span><span class="co"> references.bib</span></span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="fu"># Session 5: RNA-seq part 1</span></span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, include=FALSE}</span></span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="in">library(magrittr)</span></span>
-<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a><span class="in">library(knitr)</span></span>
-<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a><span class="in">library(kableExtra)</span></span>
-<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="an">filters:</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="co">  - naquiz</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="co">    toc: true</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="co">    toc-location: left</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="co">    toc-title: "In this session:"</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a><span class="fu"># Session 5: RNA-seq part 1</span></span>
 <span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>In this session we will run through the basic steps for analysing a simple RNA-seq experiment using the <span class="co">[</span><span class="ot">limma-voom workflow</span><span class="co">](https://f1000research.com/articles/5-1408)</span>. This includes:</span>
-<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>filtering out lowly expressed genes</span>
-<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>normalisation</span>
-<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>creating a multidimensional scaling (MDS) plot</span>
-<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>creating a design matrix</span>
-<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>fitting gene-wise linear models (with empirical Bayes moderation to more accurately estimate gene-wise variability)</span>
-<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>performing statistical testing for differential expression</span>
-<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a>The aim of this session is to give you experience with a real-world RNA-seq analysis, and making extensive use of an external library. We will not cover the statistics in any depth. In general analysis packages will want your data in some specific format, so it's important to be able to manipulate the data to fit the package's requirements.</span>
-<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a>Much of the materials here are explained in greater detail in the limma user's guide. You can view this by typing <span class="in">`help("limma")`</span> and following the links.</span>
-<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a><span class="fu">## DGEList</span></span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, include=FALSE}</span></span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a><span class="in">library(magrittr)</span></span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a><span class="in">library(knitr)</span></span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a><span class="in">library(kableExtra)</span></span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>In this session we will run through the basic steps for analysing a simple RNA-seq experiment using the <span class="co">[</span><span class="ot">limma-voom workflow</span><span class="co">](https://f1000research.com/articles/5-1408)</span>. This includes:</span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>filtering out lowly expressed genes</span>
+<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>normalisation</span>
+<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>creating a multidimensional scaling (MDS) plot</span>
+<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>creating a design matrix</span>
+<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>fitting gene-wise linear models (with empirical Bayes moderation to more accurately estimate gene-wise variability)</span>
+<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>performing statistical testing for differential expression</span>
 <span id="cb20-27"><a href="#cb20-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-28"><a href="#cb20-28" aria-hidden="true" tabindex="-1"></a>The data we are looking at comes from three cell populations (basal, luminal progenitor (LP) and mature luminal (ML)) sorted from the mammary glands of female virgin mice, each profiled in triplicate.</span>
+<span id="cb20-28"><a href="#cb20-28" aria-hidden="true" tabindex="-1"></a>The aim of this session is to give you experience with a real-world RNA-seq analysis, and making extensive use of an external library. We will not cover the statistics in any depth. In general analysis packages will want your data in some specific format, so it's important to be able to manipulate the data to fit the package's requirements.</span>
 <span id="cb20-29"><a href="#cb20-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-30"><a href="#cb20-30" aria-hidden="true" tabindex="-1"></a>Let's start by creating our <span class="in">`DGEList`</span> object. As a reminder, this object contains 3 key pieces of data:</span>
+<span id="cb20-30"><a href="#cb20-30" aria-hidden="true" tabindex="-1"></a>Much of the materials here are explained in greater detail in the limma user's guide. You can view this by typing <span class="in">`help("limma")`</span> and following the links.</span>
 <span id="cb20-31"><a href="#cb20-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-32"><a href="#cb20-32" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`counts`</span>: the main data of this object, a matrix of count values with samples along the columns and features/genes along the rows.</span>
-<span id="cb20-33"><a href="#cb20-33" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`samples`</span>: a data frame containing annotation for the samples. The rows in this table describe the corresponding column of the counts data.</span>
-<span id="cb20-34"><a href="#cb20-34" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`genes`</span>: a data frame containing annotation for the genes in the counts matrix. The rows in this table describe the corresponding row in the counts matrix.</span>
+<span id="cb20-32"><a href="#cb20-32" aria-hidden="true" tabindex="-1"></a><span class="fu">## DGEList</span></span>
+<span id="cb20-33"><a href="#cb20-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-34"><a href="#cb20-34" aria-hidden="true" tabindex="-1"></a>The data we are looking at comes from three cell populations (basal, luminal progenitor (LP) and mature luminal (ML)) sorted from the mammary glands of female virgin mice, each profiled in triplicate.</span>
 <span id="cb20-35"><a href="#cb20-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-36"><a href="#cb20-36" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, warning=FALSE}</span></span>
-<span id="cb20-37"><a href="#cb20-37" aria-hidden="true" tabindex="-1"></a><span class="in"># load required packages</span></span>
-<span id="cb20-38"><a href="#cb20-38" aria-hidden="true" tabindex="-1"></a><span class="in">library(edgeR)</span></span>
-<span id="cb20-39"><a href="#cb20-39" aria-hidden="true" tabindex="-1"></a><span class="in">library(limma)</span></span>
-<span id="cb20-40"><a href="#cb20-40" aria-hidden="true" tabindex="-1"></a><span class="in">library(readr)</span></span>
-<span id="cb20-41"><a href="#cb20-41" aria-hidden="true" tabindex="-1"></a><span class="in">options(readr.show_col_types = FALSE)</span></span>
-<span id="cb20-42"><a href="#cb20-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-43"><a href="#cb20-43" aria-hidden="true" tabindex="-1"></a><span class="in"># vector of file names</span></span>
-<span id="cb20-44"><a href="#cb20-44" aria-hidden="true" tabindex="-1"></a><span class="in">files &lt;- dir(path = "data/counts", pattern = "GSM")</span></span>
-<span id="cb20-45"><a href="#cb20-45" aria-hidden="true" tabindex="-1"></a><span class="in">group &lt;- factor(c("LP", "ML", "Basal", "Basal",</span></span>
-<span id="cb20-46"><a href="#cb20-46" aria-hidden="true" tabindex="-1"></a><span class="in">                  "ML", "LP", "Basal", "ML", "LP"))</span></span>
-<span id="cb20-47"><a href="#cb20-47" aria-hidden="true" tabindex="-1"></a><span class="in">samplenames &lt;- c("10_6_5_11", "9_6_5_11", "purep53", "JMS8-2", "JMS8-3",</span></span>
-<span id="cb20-48"><a href="#cb20-48" aria-hidden="true" tabindex="-1"></a><span class="in">                 "JMS8-4", "JMS8-5", "JMS9-P7c", "JMS9-P8c")</span></span>
-<span id="cb20-49"><a href="#cb20-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-50"><a href="#cb20-50" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-51"><a href="#cb20-51" aria-hidden="true" tabindex="-1"></a><span class="in"># create DGEList object</span></span>
-<span id="cb20-52"><a href="#cb20-52" aria-hidden="true" tabindex="-1"></a><span class="in">dge &lt;- readDGE(</span></span>
-<span id="cb20-53"><a href="#cb20-53" aria-hidden="true" tabindex="-1"></a><span class="in">  files,</span></span>
-<span id="cb20-54"><a href="#cb20-54" aria-hidden="true" tabindex="-1"></a><span class="in">  path = "data/counts",</span></span>
-<span id="cb20-55"><a href="#cb20-55" aria-hidden="true" tabindex="-1"></a><span class="in">  columns = c(1, 3),</span></span>
-<span id="cb20-56"><a href="#cb20-56" aria-hidden="true" tabindex="-1"></a><span class="in">  group = group,</span></span>
-<span id="cb20-57"><a href="#cb20-57" aria-hidden="true" tabindex="-1"></a><span class="in">  labels = samplenames</span></span>
-<span id="cb20-58"><a href="#cb20-58" aria-hidden="true" tabindex="-1"></a><span class="in">)</span></span>
-<span id="cb20-59"><a href="#cb20-59" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-60"><a href="#cb20-60" aria-hidden="true" tabindex="-1"></a><span class="in"># add gene annotation information</span></span>
-<span id="cb20-61"><a href="#cb20-61" aria-hidden="true" tabindex="-1"></a><span class="in">dge$genes &lt;- read_delim("data/Ses3_geneAnnot.tsv")</span></span>
-<span id="cb20-62"><a href="#cb20-62" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb20-63"><a href="#cb20-63" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-64"><a href="#cb20-64" aria-hidden="true" tabindex="-1"></a>You can index the DGEList object by treating it as if it were the counts matrix, the object will handle the extraction and ordering of the sample and gene annotation data frames.</span>
+<span id="cb20-36"><a href="#cb20-36" aria-hidden="true" tabindex="-1"></a>Let's start by creating our <span class="in">`DGEList`</span> object. As a reminder, this object contains 3 key pieces of data:</span>
+<span id="cb20-37"><a href="#cb20-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-38"><a href="#cb20-38" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`counts`</span>: the main data of this object, a matrix of count values with samples along the columns and features/genes along the rows.</span>
+<span id="cb20-39"><a href="#cb20-39" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`samples`</span>: a data frame containing annotation for the samples. The rows in this table describe the corresponding column of the counts data.</span>
+<span id="cb20-40"><a href="#cb20-40" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`genes`</span>: a data frame containing annotation for the genes in the counts matrix. The rows in this table describe the corresponding row in the counts matrix.</span>
+<span id="cb20-41"><a href="#cb20-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-42"><a href="#cb20-42" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, warning=FALSE}</span></span>
+<span id="cb20-43"><a href="#cb20-43" aria-hidden="true" tabindex="-1"></a><span class="in"># load required packages</span></span>
+<span id="cb20-44"><a href="#cb20-44" aria-hidden="true" tabindex="-1"></a><span class="in">library(edgeR)</span></span>
+<span id="cb20-45"><a href="#cb20-45" aria-hidden="true" tabindex="-1"></a><span class="in">library(limma)</span></span>
+<span id="cb20-46"><a href="#cb20-46" aria-hidden="true" tabindex="-1"></a><span class="in">library(readr)</span></span>
+<span id="cb20-47"><a href="#cb20-47" aria-hidden="true" tabindex="-1"></a><span class="in">options(readr.show_col_types = FALSE)</span></span>
+<span id="cb20-48"><a href="#cb20-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-49"><a href="#cb20-49" aria-hidden="true" tabindex="-1"></a><span class="in"># vector of file names</span></span>
+<span id="cb20-50"><a href="#cb20-50" aria-hidden="true" tabindex="-1"></a><span class="in">files &lt;- dir(path = "data/counts", pattern = "GSM")</span></span>
+<span id="cb20-51"><a href="#cb20-51" aria-hidden="true" tabindex="-1"></a><span class="in">group &lt;- factor(c("LP", "ML", "Basal", "Basal",</span></span>
+<span id="cb20-52"><a href="#cb20-52" aria-hidden="true" tabindex="-1"></a><span class="in">                  "ML", "LP", "Basal", "ML", "LP"))</span></span>
+<span id="cb20-53"><a href="#cb20-53" aria-hidden="true" tabindex="-1"></a><span class="in">samplenames &lt;- c("10_6_5_11", "9_6_5_11", "purep53", "JMS8-2", "JMS8-3",</span></span>
+<span id="cb20-54"><a href="#cb20-54" aria-hidden="true" tabindex="-1"></a><span class="in">                 "JMS8-4", "JMS8-5", "JMS9-P7c", "JMS9-P8c")</span></span>
+<span id="cb20-55"><a href="#cb20-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-56"><a href="#cb20-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-57"><a href="#cb20-57" aria-hidden="true" tabindex="-1"></a><span class="in"># create DGEList object</span></span>
+<span id="cb20-58"><a href="#cb20-58" aria-hidden="true" tabindex="-1"></a><span class="in">dge &lt;- readDGE(</span></span>
+<span id="cb20-59"><a href="#cb20-59" aria-hidden="true" tabindex="-1"></a><span class="in">  files,</span></span>
+<span id="cb20-60"><a href="#cb20-60" aria-hidden="true" tabindex="-1"></a><span class="in">  path = "data/counts",</span></span>
+<span id="cb20-61"><a href="#cb20-61" aria-hidden="true" tabindex="-1"></a><span class="in">  columns = c(1, 3),</span></span>
+<span id="cb20-62"><a href="#cb20-62" aria-hidden="true" tabindex="-1"></a><span class="in">  group = group,</span></span>
+<span id="cb20-63"><a href="#cb20-63" aria-hidden="true" tabindex="-1"></a><span class="in">  labels = samplenames</span></span>
+<span id="cb20-64"><a href="#cb20-64" aria-hidden="true" tabindex="-1"></a><span class="in">)</span></span>
 <span id="cb20-65"><a href="#cb20-65" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-66"><a href="#cb20-66" aria-hidden="true" tabindex="-1"></a><span class="fu">## Filtering</span></span>
-<span id="cb20-67"><a href="#cb20-67" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-68"><a href="#cb20-68" aria-hidden="true" tabindex="-1"></a>The first step is to filter out lowly expressed genes. There are two main problems with low abundant genes:</span>
+<span id="cb20-66"><a href="#cb20-66" aria-hidden="true" tabindex="-1"></a><span class="in"># add gene annotation information</span></span>
+<span id="cb20-67"><a href="#cb20-67" aria-hidden="true" tabindex="-1"></a><span class="in">dge$genes &lt;- read_delim("data/Ses3_geneAnnot.tsv")</span></span>
+<span id="cb20-68"><a href="#cb20-68" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb20-69"><a href="#cb20-69" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-70"><a href="#cb20-70" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Technical variation is more problematic for low abundance genes. This variation is thought to be due to two factors; insufficient mixing and low sampling fraction <span class="co">[</span><span class="ot">@mcintyre2011</span><span class="co">]</span>.</span>
-<span id="cb20-71"><a href="#cb20-71" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>Insufficient mixing of solutions during library preparation can result in uneven distribution of reads.</span>
-<span id="cb20-72"><a href="#cb20-72" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>RNA sequencing can be thought of as sampling. Measurement errors will occur simply due to the random nature of the sampling process. This problem affects lowly abundant RNA species more because the relative error for small count values is larger than it would be for more highly abundant RNA species.</span>
-<span id="cb20-73"><a href="#cb20-73" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Biologically, genes that are expressed at low, biologically not meaningful, levels are not of interest.</span>
-<span id="cb20-74"><a href="#cb20-74" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-75"><a href="#cb20-75" aria-hidden="true" tabindex="-1"></a>Removing these highly variable, lowly expressed genes increases your 'power' to detect differentially expressed genes <span class="co">[</span><span class="ot">@bourgon2010</span><span class="co">]</span>, where 'power' is your ability to detect true positives. In testing for differential expression, a statistical test is conducted for each gene. When a high number of statistical tests are performed, a portion of them will be significant purely due to random chance. A common procedure to control for the number of false positive is to perform 'multiple testing correction' on the p-values. This adjusts the p-value in a way that reduces the number of false positives but comes at the cost of reduced power to detect true positives. If we filter out uninteresting, lowly expressed genes, we need to perform fewer statistical tests and reduce the impact that multiple testing adjustment has on detection power.</span>
-<span id="cb20-76"><a href="#cb20-76" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-77"><a href="#cb20-77" aria-hidden="true" tabindex="-1"></a>The <span class="in">`filterByExpr()`</span> function provides an automatic way to filter genes.</span>
-<span id="cb20-78"><a href="#cb20-78" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-79"><a href="#cb20-79" aria-hidden="true" tabindex="-1"></a>Roughly speaking, by default, it keeps genes with a count of 10 or more, in at least as many samples as the smallest experimental group. In our experiment, there are 3 phenotype groups each with 3 samples. Therefore we retain only genes that have 10 or more counts in 3 or more samples.</span>
+<span id="cb20-70"><a href="#cb20-70" aria-hidden="true" tabindex="-1"></a>You can index the DGEList object by treating it as if it were the counts matrix, the object will handle the extraction and ordering of the sample and gene annotation data frames.</span>
+<span id="cb20-71"><a href="#cb20-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-72"><a href="#cb20-72" aria-hidden="true" tabindex="-1"></a><span class="fu">## Filtering</span></span>
+<span id="cb20-73"><a href="#cb20-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-74"><a href="#cb20-74" aria-hidden="true" tabindex="-1"></a>The first step is to filter out lowly expressed genes. There are two main problems with low abundant genes:</span>
+<span id="cb20-75"><a href="#cb20-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-76"><a href="#cb20-76" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Technical variation is more problematic for low abundance genes. This variation is thought to be due to two factors; insufficient mixing and low sampling fraction <span class="co">[</span><span class="ot">@mcintyre2011</span><span class="co">]</span>.</span>
+<span id="cb20-77"><a href="#cb20-77" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>Insufficient mixing of solutions during library preparation can result in uneven distribution of reads.</span>
+<span id="cb20-78"><a href="#cb20-78" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>RNA sequencing can be thought of as sampling. Measurement errors will occur simply due to the random nature of the sampling process. This problem affects lowly abundant RNA species more because the relative error for small count values is larger than it would be for more highly abundant RNA species.</span>
+<span id="cb20-79"><a href="#cb20-79" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Biologically, genes that are expressed at low, biologically not meaningful, levels are not of interest.</span>
 <span id="cb20-80"><a href="#cb20-80" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-81"><a href="#cb20-81" aria-hidden="true" tabindex="-1"></a>More specifically, the actual filtering is done on counts per million, with similar result to the above criteria. This is to prevent bias against samples with small library sizes.</span>
+<span id="cb20-81"><a href="#cb20-81" aria-hidden="true" tabindex="-1"></a>Removing these highly variable, lowly expressed genes increases your 'power' to detect differentially expressed genes <span class="co">[</span><span class="ot">@bourgon2010</span><span class="co">]</span>, where 'power' is your ability to detect true positives. In testing for differential expression, a statistical test is conducted for each gene. When a high number of statistical tests are performed, a portion of them will be significant purely due to random chance. A common procedure to control for the number of false positive is to perform 'multiple testing correction' on the p-values. This adjusts the p-value in a way that reduces the number of false positives but comes at the cost of reduced power to detect true positives. If we filter out uninteresting, lowly expressed genes, we need to perform fewer statistical tests and reduce the impact that multiple testing adjustment has on detection power.</span>
 <span id="cb20-82"><a href="#cb20-82" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-83"><a href="#cb20-83" aria-hidden="true" tabindex="-1"></a>The output of this function is a vector of logicals, indicating which genes (rows) should be kept and which filtered.</span>
+<span id="cb20-83"><a href="#cb20-83" aria-hidden="true" tabindex="-1"></a>The <span class="in">`filterByExpr()`</span> function provides an automatic way to filter genes.</span>
 <span id="cb20-84"><a href="#cb20-84" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-87"><a href="#cb20-87" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb20-88"><a href="#cb20-88" aria-hidden="true" tabindex="-1"></a>keep <span class="ot">&lt;-</span> <span class="fu">filterByExpr</span>(dge)</span>
-<span id="cb20-89"><a href="#cb20-89" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(keep)</span>
+<span id="cb20-85"><a href="#cb20-85" aria-hidden="true" tabindex="-1"></a>Roughly speaking, by default, it keeps genes with a count of 10 or more, in at least as many samples as the smallest experimental group. In our experiment, there are 3 phenotype groups each with 3 samples. Therefore we retain only genes that have 10 or more counts in 3 or more samples.</span>
+<span id="cb20-86"><a href="#cb20-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-87"><a href="#cb20-87" aria-hidden="true" tabindex="-1"></a>More specifically, the actual filtering is done on counts per million, with similar result to the above criteria. This is to prevent bias against samples with small library sizes.</span>
+<span id="cb20-88"><a href="#cb20-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-89"><a href="#cb20-89" aria-hidden="true" tabindex="-1"></a>The output of this function is a vector of logicals, indicating which genes (rows) should be kept and which filtered.</span>
 <span id="cb20-90"><a href="#cb20-90" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-91"><a href="#cb20-91" aria-hidden="true" tabindex="-1"></a>dge <span class="ot">&lt;-</span> dge[keep, , keep.lib.sizes <span class="ot">=</span> <span class="cn">FALSE</span>]</span>
-<span id="cb20-92"><a href="#cb20-92" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(dge<span class="sc">$</span>counts)</span>
-<span id="cb20-93"><a href="#cb20-93" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb20-94"><a href="#cb20-94" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-95"><a href="#cb20-95" aria-hidden="true" tabindex="-1"></a>We can see that we now have 16624 genes. We started with 27179 genes - meaning that \~40% of genes have been filtered out.</span>
+<span id="cb20-93"><a href="#cb20-93" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb20-94"><a href="#cb20-94" aria-hidden="true" tabindex="-1"></a>keep <span class="ot">&lt;-</span> <span class="fu">filterByExpr</span>(dge)</span>
+<span id="cb20-95"><a href="#cb20-95" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(keep)</span>
 <span id="cb20-96"><a href="#cb20-96" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-97"><a href="#cb20-97" aria-hidden="true" tabindex="-1"></a><span class="fu">## Normalisation</span></span>
-<span id="cb20-98"><a href="#cb20-98" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-99"><a href="#cb20-99" aria-hidden="true" tabindex="-1"></a>The aim of normalisation is to remove systematic technical effects. There are two main factors that need to be normalised for in RNA-seq:</span>
+<span id="cb20-97"><a href="#cb20-97" aria-hidden="true" tabindex="-1"></a>dge <span class="ot">&lt;-</span> dge[keep, , keep.lib.sizes <span class="ot">=</span> <span class="cn">FALSE</span>]</span>
+<span id="cb20-98"><a href="#cb20-98" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(dge<span class="sc">$</span>counts)</span>
+<span id="cb20-99"><a href="#cb20-99" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb20-100"><a href="#cb20-100" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-101"><a href="#cb20-101" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Sequencing depth/library size - technically, sequencing a sample to half the depth will give, on average, half the number of reads mapping to each gene <span class="co">[</span><span class="ot">@robinson2010</span><span class="co">]</span>.</span>
-<span id="cb20-102"><a href="#cb20-102" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>RNA composition - if a large number of genes are unique to, or highly expressed in, only one experimental condition, the sequencing capacity available for the remaining genes in that sample is decreased. For example, if there are only five genes being studied in two experimental groups, if one gene is particularly high in group A, then with limited sequencing depth, that gene will reduce the counts of the remaining four genes. The effect of this is that the remaining four genes appear under-expressed in group A compared to group B when the true amount of gene product is actually equal for these 4 genes <span class="co">[</span><span class="ot">@robinson2010</span><span class="co">]</span>.</span>
-<span id="cb20-103"><a href="#cb20-103" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-104"><a href="#cb20-104" aria-hidden="true" tabindex="-1"></a>Sequencing depth is accounted for by calculating the counts per million (cpm). This metric is calculated by:</span>
-<span id="cb20-105"><a href="#cb20-105" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-106"><a href="#cb20-106" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>taking the library size (sum of all counts for a sample),</span>
-<span id="cb20-107"><a href="#cb20-107" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>dividing this by 1,000,000 to get the 'per million' scaling factor,</span>
-<span id="cb20-108"><a href="#cb20-108" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>then dividing all read counts for each gene in that sample by the 'per million' scaling factor</span>
+<span id="cb20-101"><a href="#cb20-101" aria-hidden="true" tabindex="-1"></a>We can see that we now have 16624 genes. We started with 27179 genes - meaning that \~40% of genes have been filtered out.</span>
+<span id="cb20-102"><a href="#cb20-102" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-103"><a href="#cb20-103" aria-hidden="true" tabindex="-1"></a><span class="fu">## Normalisation</span></span>
+<span id="cb20-104"><a href="#cb20-104" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-105"><a href="#cb20-105" aria-hidden="true" tabindex="-1"></a>The aim of normalisation is to remove systematic technical effects. There are two main factors that need to be normalised for in RNA-seq:</span>
+<span id="cb20-106"><a href="#cb20-106" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-107"><a href="#cb20-107" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Sequencing depth/library size - technically, sequencing a sample to half the depth will give, on average, half the number of reads mapping to each gene <span class="co">[</span><span class="ot">@robinson2010</span><span class="co">]</span>.</span>
+<span id="cb20-108"><a href="#cb20-108" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>RNA composition - if a large number of genes are unique to, or highly expressed in, only one experimental condition, the sequencing capacity available for the remaining genes in that sample is decreased. For example, if there are only five genes being studied in two experimental groups, if one gene is particularly high in group A, then with limited sequencing depth, that gene will reduce the counts of the remaining four genes. The effect of this is that the remaining four genes appear under-expressed in group A compared to group B when the true amount of gene product is actually equal for these 4 genes <span class="co">[</span><span class="ot">@robinson2010</span><span class="co">]</span>.</span>
 <span id="cb20-109"><a href="#cb20-109" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-110"><a href="#cb20-110" aria-hidden="true" tabindex="-1"></a>RNA composition can be accounted for by using more sophisticated normalisation methodologies. We will use 'trimmed mean of M-values' (TMM), which estimates relative RNA levels from RNA-seq data <span class="co">[</span><span class="ot">@robinson2010</span><span class="co">]</span>. Under the assumption that most genes are not differentially expressed, TMM calculates a library size scaling factor for each library (sample). This is done using the following steps:</span>
+<span id="cb20-110"><a href="#cb20-110" aria-hidden="true" tabindex="-1"></a>Sequencing depth is accounted for by calculating the counts per million (cpm). This metric is calculated by:</span>
 <span id="cb20-111"><a href="#cb20-111" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-112"><a href="#cb20-112" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>calculate the gene expression log fold changes and absolute expression values for pair-wise samples (selecting one sample from the experiment as a reference)</span>
-<span id="cb20-113"><a href="#cb20-113" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>remove the genes with the highest and lowest fold changes and absolute expression values</span>
-<span id="cb20-114"><a href="#cb20-114" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>take a weighted mean of the remaining genes (where the weight is the inverse of the approximate asymptotic variances). This gives the normalisation factor for each library (sample)</span>
+<span id="cb20-112"><a href="#cb20-112" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>taking the library size (sum of all counts for a sample),</span>
+<span id="cb20-113"><a href="#cb20-113" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>dividing this by 1,000,000 to get the 'per million' scaling factor,</span>
+<span id="cb20-114"><a href="#cb20-114" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>then dividing all read counts for each gene in that sample by the 'per million' scaling factor</span>
 <span id="cb20-115"><a href="#cb20-115" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-116"><a href="#cb20-116" aria-hidden="true" tabindex="-1"></a>Subsequent steps in this analysis will use log-cpm values, calculated using the normalisation factors, which scales each library size.</span>
+<span id="cb20-116"><a href="#cb20-116" aria-hidden="true" tabindex="-1"></a>RNA composition can be accounted for by using more sophisticated normalisation methodologies. We will use 'trimmed mean of M-values' (TMM), which estimates relative RNA levels from RNA-seq data <span class="co">[</span><span class="ot">@robinson2010</span><span class="co">]</span>. Under the assumption that most genes are not differentially expressed, TMM calculates a library size scaling factor for each library (sample). This is done using the following steps:</span>
 <span id="cb20-117"><a href="#cb20-117" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-118"><a href="#cb20-118" aria-hidden="true" tabindex="-1"></a>We can calculate the normalisation factors, specifying that we want to use the <span class="in">`"TMM"`</span> method:</span>
-<span id="cb20-119"><a href="#cb20-119" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-122"><a href="#cb20-122" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb20-123"><a href="#cb20-123" aria-hidden="true" tabindex="-1"></a>dge <span class="ot">&lt;-</span> <span class="fu">calcNormFactors</span>(dge, <span class="at">method =</span> <span class="st">"TMM"</span>)</span>
-<span id="cb20-124"><a href="#cb20-124" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb20-118"><a href="#cb20-118" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>calculate the gene expression log fold changes and absolute expression values for pair-wise samples (selecting one sample from the experiment as a reference)</span>
+<span id="cb20-119"><a href="#cb20-119" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>remove the genes with the highest and lowest fold changes and absolute expression values</span>
+<span id="cb20-120"><a href="#cb20-120" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>take a weighted mean of the remaining genes (where the weight is the inverse of the approximate asymptotic variances). This gives the normalisation factor for each library (sample)</span>
+<span id="cb20-121"><a href="#cb20-121" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-122"><a href="#cb20-122" aria-hidden="true" tabindex="-1"></a>Subsequent steps in this analysis will use log-cpm values, calculated using the normalisation factors, which scales each library size.</span>
+<span id="cb20-123"><a href="#cb20-123" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-124"><a href="#cb20-124" aria-hidden="true" tabindex="-1"></a>We can calculate the normalisation factors, specifying that we want to use the <span class="in">`"TMM"`</span> method:</span>
 <span id="cb20-125"><a href="#cb20-125" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-126"><a href="#cb20-126" aria-hidden="true" tabindex="-1"></a>This function calculates the normalisation factors for each library (sample) and puts this information in the <span class="in">`samples`</span> data frame. Note that it takes dge (our <span class="in">`DGEList`</span> object as input) and returns a <span class="in">`DGEList`</span> object as well.</span>
-<span id="cb20-127"><a href="#cb20-127" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-128"><a href="#cb20-128" aria-hidden="true" tabindex="-1"></a>Let's take a look at our normalisation factors:</span>
-<span id="cb20-129"><a href="#cb20-129" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-132"><a href="#cb20-132" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb20-133"><a href="#cb20-133" aria-hidden="true" tabindex="-1"></a>dge<span class="sc">$</span>samples</span>
-<span id="cb20-134"><a href="#cb20-134" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb20-128"><a href="#cb20-128" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb20-129"><a href="#cb20-129" aria-hidden="true" tabindex="-1"></a>dge <span class="ot">&lt;-</span> <span class="fu">calcNormFactors</span>(dge, <span class="at">method =</span> <span class="st">"TMM"</span>)</span>
+<span id="cb20-130"><a href="#cb20-130" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb20-131"><a href="#cb20-131" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-132"><a href="#cb20-132" aria-hidden="true" tabindex="-1"></a>This function calculates the normalisation factors for each library (sample) and puts this information in the <span class="in">`samples`</span> data frame. Note that it takes dge (our <span class="in">`DGEList`</span> object as input) and returns a <span class="in">`DGEList`</span> object as well.</span>
+<span id="cb20-133"><a href="#cb20-133" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-134"><a href="#cb20-134" aria-hidden="true" tabindex="-1"></a>Let's take a look at our normalisation factors:</span>
 <span id="cb20-135"><a href="#cb20-135" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-136"><a href="#cb20-136" aria-hidden="true" tabindex="-1"></a>These normalisation factors are all close to 1 for all samples, suggesting minimal difference in relative RNA levels between samples.</span>
-<span id="cb20-137"><a href="#cb20-137" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-140"><a href="#cb20-140" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb20-141"><a href="#cb20-141" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(<span class="fu">log</span>(dge<span class="sc">$</span>counts <span class="sc">+</span> <span class="fl">0.5</span>))</span>
-<span id="cb20-142"><a href="#cb20-142" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb20-138"><a href="#cb20-138" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb20-139"><a href="#cb20-139" aria-hidden="true" tabindex="-1"></a>dge<span class="sc">$</span>samples</span>
+<span id="cb20-140"><a href="#cb20-140" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb20-141"><a href="#cb20-141" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-142"><a href="#cb20-142" aria-hidden="true" tabindex="-1"></a>These normalisation factors are all close to 1 for all samples, suggesting minimal difference in relative RNA levels between samples.</span>
 <span id="cb20-143"><a href="#cb20-143" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb20-146"><a href="#cb20-146" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb20-147"><a href="#cb20-147" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(<span class="fu">cpm</span>(dge<span class="sc">$</span>counts, <span class="at">log =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb20-147"><a href="#cb20-147" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(<span class="fu">log</span>(dge<span class="sc">$</span>counts <span class="sc">+</span> <span class="fl">0.5</span>))</span>
 <span id="cb20-148"><a href="#cb20-148" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb20-149"><a href="#cb20-149" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-150"><a href="#cb20-150" aria-hidden="true" tabindex="-1"></a><span class="fu">## MDS plots</span></span>
-<span id="cb20-151"><a href="#cb20-151" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-152"><a href="#cb20-152" aria-hidden="true" tabindex="-1"></a>Before we perform statistical tests, it's useful to perform some exploratory visual analysis to get an overall idea of how our data is behaving.</span>
-<span id="cb20-153"><a href="#cb20-153" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-154"><a href="#cb20-154" aria-hidden="true" tabindex="-1"></a>MDS is a way to visualise distances between sets of data points (samples in our case). It is a dimensionality reduction technique, similar to principal components analysis (PCA). We treat gene expression in samples as if they were coordinates in a high-dimensional coordinate system, then we can find "distances" between samples as we do between points in space. Then the goal of the algorithm is to find a representation in lower dimensional space such that points that the distance of two objects from each other in high dimensional space is preserved in lower dimensions.</span>
+<span id="cb20-152"><a href="#cb20-152" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb20-153"><a href="#cb20-153" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(<span class="fu">cpm</span>(dge<span class="sc">$</span>counts, <span class="at">log =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb20-154"><a href="#cb20-154" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb20-155"><a href="#cb20-155" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-156"><a href="#cb20-156" aria-hidden="true" tabindex="-1"></a>The <span class="in">`plotMDS()`</span> from <span class="in">`limma`</span> creates an MDS plot from a <span class="in">`DGEList`</span> object.</span>
+<span id="cb20-156"><a href="#cb20-156" aria-hidden="true" tabindex="-1"></a><span class="fu">## MDS plots</span></span>
 <span id="cb20-157"><a href="#cb20-157" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-160"><a href="#cb20-160" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb20-161"><a href="#cb20-161" aria-hidden="true" tabindex="-1"></a><span class="fu">plotMDS</span>(dge)</span>
-<span id="cb20-162"><a href="#cb20-162" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb20-158"><a href="#cb20-158" aria-hidden="true" tabindex="-1"></a>Before we perform statistical tests, it's useful to perform some exploratory visual analysis to get an overall idea of how our data is behaving.</span>
+<span id="cb20-159"><a href="#cb20-159" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-160"><a href="#cb20-160" aria-hidden="true" tabindex="-1"></a>MDS is a way to visualise distances between sets of data points (samples in our case). It is a dimensionality reduction technique, similar to principal components analysis (PCA). We treat gene expression in samples as if they were coordinates in a high-dimensional coordinate system, then we can find "distances" between samples as we do between points in space. Then the goal of the algorithm is to find a representation in lower dimensional space such that points that the distance of two objects from each other in high dimensional space is preserved in lower dimensions.</span>
+<span id="cb20-161"><a href="#cb20-161" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-162"><a href="#cb20-162" aria-hidden="true" tabindex="-1"></a>The <span class="in">`plotMDS()`</span> from <span class="in">`limma`</span> creates an MDS plot from a <span class="in">`DGEList`</span> object.</span>
 <span id="cb20-163"><a href="#cb20-163" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-164"><a href="#cb20-164" aria-hidden="true" tabindex="-1"></a>Each point on the plot represents one sample and is 'labelled' using the sample name. The distances between each sample in the resulting plot can be interpreted as the typical log2-fold-change between the samples, for the most differentially expressed genes.</span>
-<span id="cb20-165"><a href="#cb20-165" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-166"><a href="#cb20-166" aria-hidden="true" tabindex="-1"></a>We can change the labelling to use the name of the group the sample belongs to instead:</span>
-<span id="cb20-167"><a href="#cb20-167" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-170"><a href="#cb20-170" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb20-171"><a href="#cb20-171" aria-hidden="true" tabindex="-1"></a><span class="fu">plotMDS</span>(dge, <span class="at">labels =</span> group)</span>
-<span id="cb20-172"><a href="#cb20-172" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb20-166"><a href="#cb20-166" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb20-167"><a href="#cb20-167" aria-hidden="true" tabindex="-1"></a><span class="fu">plotMDS</span>(dge)</span>
+<span id="cb20-168"><a href="#cb20-168" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb20-169"><a href="#cb20-169" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-170"><a href="#cb20-170" aria-hidden="true" tabindex="-1"></a>Each point on the plot represents one sample and is 'labelled' using the sample name. The distances between each sample in the resulting plot can be interpreted as the typical log2-fold-change between the samples, for the most differentially expressed genes.</span>
+<span id="cb20-171"><a href="#cb20-171" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-172"><a href="#cb20-172" aria-hidden="true" tabindex="-1"></a>We can change the labelling to use the name of the group the sample belongs to instead:</span>
 <span id="cb20-173"><a href="#cb20-173" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-174"><a href="#cb20-174" aria-hidden="true" tabindex="-1"></a>This shows us that the phenotype groups tend to cluster together, meaning that the gene expression profiles are similar for samples within a phenotype group. The 'Basal' type samples quite close together while the 'LP' (luminal progenitor) and 'ML' (mature luminal) type samples are further apart, signifying that their expression profiles are more variable.</span>
-<span id="cb20-175"><a href="#cb20-175" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-176"><a href="#cb20-176" aria-hidden="true" tabindex="-1"></a>To make the three phenotype groups more distinct in our graph, we are going to colour samples from each group differently. To do this, we will use the <span class="in">`col`</span> argument in <span class="in">`plotMDS()`</span>. <span class="in">`col`</span> takes in a vector the same length as the number of points in the plot (9 in our case, as there are 9 samples). Each element of the vector should be a colour name (R understands <span class="co">[</span><span class="ot">over 600 colour names</span><span class="co">](http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf)</span>), indicating what colour that sample should be.</span>
-<span id="cb20-177"><a href="#cb20-177" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-178"><a href="#cb20-178" aria-hidden="true" tabindex="-1"></a>To make this more clear, take a look at the table below, which lists all the samples and the phenotype group they belong to:</span>
+<span id="cb20-176"><a href="#cb20-176" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb20-177"><a href="#cb20-177" aria-hidden="true" tabindex="-1"></a><span class="fu">plotMDS</span>(dge, <span class="at">labels =</span> group)</span>
+<span id="cb20-178"><a href="#cb20-178" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb20-179"><a href="#cb20-179" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-180"><a href="#cb20-180" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, echo=FALSE}</span></span>
-<span id="cb20-181"><a href="#cb20-181" aria-hidden="true" tabindex="-1"></a><span class="in">library(tidyverse)</span></span>
-<span id="cb20-182"><a href="#cb20-182" aria-hidden="true" tabindex="-1"></a><span class="in">kable(</span></span>
-<span id="cb20-183"><a href="#cb20-183" aria-hidden="true" tabindex="-1"></a><span class="in">  tibble(Samples = rownames(dge$samples), Group = group)</span></span>
-<span id="cb20-184"><a href="#cb20-184" aria-hidden="true" tabindex="-1"></a><span class="in">) %&gt;%</span></span>
-<span id="cb20-185"><a href="#cb20-185" aria-hidden="true" tabindex="-1"></a><span class="in">  kable_styling(full_width = F)</span></span>
-<span id="cb20-186"><a href="#cb20-186" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb20-187"><a href="#cb20-187" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-188"><a href="#cb20-188" aria-hidden="true" tabindex="-1"></a>For example, let's say we wanted LP samples to be coloured green, ML samples to be coloured red and Basal samples to be coloured blue. The <span class="in">`col`</span> argument would then require a vector that we can generate as follows</span>
-<span id="cb20-189"><a href="#cb20-189" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-192"><a href="#cb20-192" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb20-193"><a href="#cb20-193" aria-hidden="true" tabindex="-1"></a>group_col <span class="ot">&lt;-</span> dge<span class="sc">$</span>samples<span class="sc">$</span>group</span>
-<span id="cb20-194"><a href="#cb20-194" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(group_col) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"blue"</span>, <span class="st">"green"</span>, <span class="st">"red"</span>)</span>
-<span id="cb20-195"><a href="#cb20-195" aria-hidden="true" tabindex="-1"></a>group_col <span class="ot">&lt;-</span> <span class="fu">as.character</span>(group_col)</span>
-<span id="cb20-196"><a href="#cb20-196" aria-hidden="true" tabindex="-1"></a>group_col</span>
-<span id="cb20-197"><a href="#cb20-197" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb20-198"><a href="#cb20-198" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-199"><a href="#cb20-199" aria-hidden="true" tabindex="-1"></a>We can also add a legend to the figure by running the <span class="in">`legend()`</span> function immediately after a new figure is created. We have to specify where to position the legend as well as the labels and colours within the legend.</span>
-<span id="cb20-200"><a href="#cb20-200" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-201"><a href="#cb20-201" aria-hidden="true" tabindex="-1"></a>TODO: Helper functions? TODO: Convert all plots to ggplot and provide reasoning</span>
-<span id="cb20-202"><a href="#cb20-202" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-205"><a href="#cb20-205" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb20-206"><a href="#cb20-206" aria-hidden="true" tabindex="-1"></a>mds_data <span class="ot">&lt;-</span> <span class="fu">plotMDS</span>(dge, <span class="at">labels =</span> group, <span class="at">col =</span> group_col)</span>
-<span id="cb20-207"><a href="#cb20-207" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(</span>
-<span id="cb20-208"><a href="#cb20-208" aria-hidden="true" tabindex="-1"></a>  <span class="st">"topright"</span>,</span>
-<span id="cb20-209"><a href="#cb20-209" aria-hidden="true" tabindex="-1"></a>  <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">"Basal"</span>, <span class="st">"LP"</span>, <span class="st">"ML"</span>),</span>
-<span id="cb20-210"><a href="#cb20-210" aria-hidden="true" tabindex="-1"></a>  <span class="at">fill =</span> <span class="fu">c</span>(<span class="st">"blue"</span>, <span class="st">"green"</span>, <span class="st">"red"</span>)</span>
-<span id="cb20-211"><a href="#cb20-211" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb20-212"><a href="#cb20-212" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-213"><a href="#cb20-213" aria-hidden="true" tabindex="-1"></a>mds_tibble <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb20-214"><a href="#cb20-214" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> mds_data<span class="sc">$</span>x,</span>
-<span id="cb20-215"><a href="#cb20-215" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> mds_data<span class="sc">$</span>y,</span>
-<span id="cb20-216"><a href="#cb20-216" aria-hidden="true" tabindex="-1"></a>    <span class="at">label =</span> <span class="fu">colnames</span>(dge),</span>
-<span id="cb20-217"><a href="#cb20-217" aria-hidden="true" tabindex="-1"></a>    <span class="at">group =</span> dge<span class="sc">$</span>samples<span class="sc">$</span>group</span>
-<span id="cb20-218"><a href="#cb20-218" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb20-219"><a href="#cb20-219" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-220"><a href="#cb20-220" aria-hidden="true" tabindex="-1"></a>mds_tibble <span class="sc">%&gt;%</span></span>
-<span id="cb20-221"><a href="#cb20-221" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">col =</span> group)) <span class="sc">+</span></span>
-<span id="cb20-222"><a href="#cb20-222" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>)</span>
-<span id="cb20-223"><a href="#cb20-223" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb20-224"><a href="#cb20-224" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-225"><a href="#cb20-225" aria-hidden="true" tabindex="-1"></a><span class="fu">## References</span></span>
+<span id="cb20-180"><a href="#cb20-180" aria-hidden="true" tabindex="-1"></a>This shows us that the phenotype groups tend to cluster together, meaning that the gene expression profiles are similar for samples within a phenotype group. The 'Basal' type samples quite close together while the 'LP' (luminal progenitor) and 'ML' (mature luminal) type samples are further apart, signifying that their expression profiles are more variable.</span>
+<span id="cb20-181"><a href="#cb20-181" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-182"><a href="#cb20-182" aria-hidden="true" tabindex="-1"></a>To make the three phenotype groups more distinct in our graph, we are going to colour samples from each group differently. To do this, we will use the <span class="in">`col`</span> argument in <span class="in">`plotMDS()`</span>. <span class="in">`col`</span> takes in a vector the same length as the number of points in the plot (9 in our case, as there are 9 samples). Each element of the vector should be a colour name (R understands <span class="co">[</span><span class="ot">over 600 colour names</span><span class="co">](http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf)</span>), indicating what colour that sample should be.</span>
+<span id="cb20-183"><a href="#cb20-183" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-184"><a href="#cb20-184" aria-hidden="true" tabindex="-1"></a>To make this more clear, take a look at the table below, which lists all the samples and the phenotype group they belong to:</span>
+<span id="cb20-185"><a href="#cb20-185" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-186"><a href="#cb20-186" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, echo=FALSE}</span></span>
+<span id="cb20-187"><a href="#cb20-187" aria-hidden="true" tabindex="-1"></a><span class="in">library(tidyverse)</span></span>
+<span id="cb20-188"><a href="#cb20-188" aria-hidden="true" tabindex="-1"></a><span class="in">kable(</span></span>
+<span id="cb20-189"><a href="#cb20-189" aria-hidden="true" tabindex="-1"></a><span class="in">  tibble(Samples = rownames(dge$samples), Group = group)</span></span>
+<span id="cb20-190"><a href="#cb20-190" aria-hidden="true" tabindex="-1"></a><span class="in">) %&gt;%</span></span>
+<span id="cb20-191"><a href="#cb20-191" aria-hidden="true" tabindex="-1"></a><span class="in">  kable_styling(full_width = F)</span></span>
+<span id="cb20-192"><a href="#cb20-192" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb20-193"><a href="#cb20-193" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-194"><a href="#cb20-194" aria-hidden="true" tabindex="-1"></a>For example, let's say we wanted LP samples to be coloured green, ML samples to be coloured red and Basal samples to be coloured blue. The <span class="in">`col`</span> argument would then require a vector that we can generate as follows</span>
+<span id="cb20-195"><a href="#cb20-195" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-198"><a href="#cb20-198" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb20-199"><a href="#cb20-199" aria-hidden="true" tabindex="-1"></a>group_col <span class="ot">&lt;-</span> dge<span class="sc">$</span>samples<span class="sc">$</span>group</span>
+<span id="cb20-200"><a href="#cb20-200" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(group_col) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"blue"</span>, <span class="st">"green"</span>, <span class="st">"red"</span>)</span>
+<span id="cb20-201"><a href="#cb20-201" aria-hidden="true" tabindex="-1"></a>group_col <span class="ot">&lt;-</span> <span class="fu">as.character</span>(group_col)</span>
+<span id="cb20-202"><a href="#cb20-202" aria-hidden="true" tabindex="-1"></a>group_col</span>
+<span id="cb20-203"><a href="#cb20-203" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb20-204"><a href="#cb20-204" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-205"><a href="#cb20-205" aria-hidden="true" tabindex="-1"></a>We can also add a legend to the figure by running the <span class="in">`legend()`</span> function immediately after a new figure is created. We have to specify where to position the legend as well as the labels and colours within the legend.</span>
+<span id="cb20-206"><a href="#cb20-206" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-207"><a href="#cb20-207" aria-hidden="true" tabindex="-1"></a>TODO: Helper functions? TODO: Convert all plots to ggplot and provide reasoning</span>
+<span id="cb20-208"><a href="#cb20-208" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-211"><a href="#cb20-211" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb20-212"><a href="#cb20-212" aria-hidden="true" tabindex="-1"></a>mds_data <span class="ot">&lt;-</span> <span class="fu">plotMDS</span>(dge, <span class="at">labels =</span> group, <span class="at">col =</span> group_col)</span>
+<span id="cb20-213"><a href="#cb20-213" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(</span>
+<span id="cb20-214"><a href="#cb20-214" aria-hidden="true" tabindex="-1"></a>  <span class="st">"topright"</span>,</span>
+<span id="cb20-215"><a href="#cb20-215" aria-hidden="true" tabindex="-1"></a>  <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">"Basal"</span>, <span class="st">"LP"</span>, <span class="st">"ML"</span>),</span>
+<span id="cb20-216"><a href="#cb20-216" aria-hidden="true" tabindex="-1"></a>  <span class="at">fill =</span> <span class="fu">c</span>(<span class="st">"blue"</span>, <span class="st">"green"</span>, <span class="st">"red"</span>)</span>
+<span id="cb20-217"><a href="#cb20-217" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb20-218"><a href="#cb20-218" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-219"><a href="#cb20-219" aria-hidden="true" tabindex="-1"></a>mds_tibble <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb20-220"><a href="#cb20-220" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> mds_data<span class="sc">$</span>x,</span>
+<span id="cb20-221"><a href="#cb20-221" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> mds_data<span class="sc">$</span>y,</span>
+<span id="cb20-222"><a href="#cb20-222" aria-hidden="true" tabindex="-1"></a>    <span class="at">label =</span> <span class="fu">colnames</span>(dge),</span>
+<span id="cb20-223"><a href="#cb20-223" aria-hidden="true" tabindex="-1"></a>    <span class="at">group =</span> dge<span class="sc">$</span>samples<span class="sc">$</span>group</span>
+<span id="cb20-224"><a href="#cb20-224" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb20-225"><a href="#cb20-225" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-226"><a href="#cb20-226" aria-hidden="true" tabindex="-1"></a>mds_tibble <span class="sc">%&gt;%</span></span>
+<span id="cb20-227"><a href="#cb20-227" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">col =</span> group)) <span class="sc">+</span></span>
+<span id="cb20-228"><a href="#cb20-228" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>)</span>
+<span id="cb20-229"><a href="#cb20-229" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb20-230"><a href="#cb20-230" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-231"><a href="#cb20-231" aria-hidden="true" tabindex="-1"></a><span class="fu">## References</span></span>
 </code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
@@ -1267,4 +1274,5 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
+<script src="site_libs/quarto-contrib/alpine-3.12/alpine@3.12.min.js"></script>
 </body></html>
