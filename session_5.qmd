@@ -1,5 +1,11 @@
 ---
-bibliography: references.bib
+filters:
+  - naquiz
+format:
+  html:
+    toc: true
+    toc-location: left
+    toc-title: "In this session:"
 ---
 
 # Session 5: RNA-seq part 1
