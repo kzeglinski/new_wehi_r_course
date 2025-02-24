@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.6.40">
+<meta name="generator" content="quarto-1.6.42">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -72,11 +72,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-d3505047d9cebdafc851f227f06b3749.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-063905fb60d21bb612e30333561bc9be.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-b7329218ff9893e6b2d7c6602022a911.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-43643252b6d091feb664f389bee48522.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <link href="site_libs/quarto-contrib/alpine-3.12/buttons.css" rel="stylesheet">
+<script src="site_libs/quarto-contrib/kbd/kbd.js"></script>
+<link href="site_libs/quarto-contrib/kbd/kbd.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -211,26 +213,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">In this session:</h2>
    
   <ul>
-  <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link active" data-scroll-target="#learning-objectives"><span class="header-section-number">2.1</span> Learning objectives</a></li>
-  <li><a href="#chaining-functions-together-with-pipes" id="toc-chaining-functions-together-with-pipes" class="nav-link" data-scroll-target="#chaining-functions-together-with-pipes"><span class="header-section-number">2.2</span> Chaining functions together with pipes</a></li>
-  <li><a href="#manipulating-data" id="toc-manipulating-data" class="nav-link" data-scroll-target="#manipulating-data"><span class="header-section-number">2.3</span> Manipulating data</a>
+  <li><a href="#sec-pipes" id="toc-sec-pipes" class="nav-link active" data-scroll-target="#sec-pipes"><span class="header-section-number">2.1</span> Chaining functions together with pipes</a></li>
+  <li><a href="#sec-dataManip" id="toc-sec-dataManip" class="nav-link" data-scroll-target="#sec-dataManip"><span class="header-section-number">2.2</span> Basic data maniuplations</a>
   <ul class="collapse">
-  <li><a href="#sorting-data" id="toc-sorting-data" class="nav-link" data-scroll-target="#sorting-data"><span class="header-section-number">2.3.1</span> Sorting data</a></li>
-  <li><a href="#filtering-data" id="toc-filtering-data" class="nav-link" data-scroll-target="#filtering-data"><span class="header-section-number">2.3.2</span> Filtering data</a></li>
-  <li><a href="#selecting-columns" id="toc-selecting-columns" class="nav-link" data-scroll-target="#selecting-columns"><span class="header-section-number">2.3.3</span> Selecting columns</a></li>
-  <li><a href="#modifying-data" id="toc-modifying-data" class="nav-link" data-scroll-target="#modifying-data"><span class="header-section-number">2.3.4</span> Modifying data</a></li>
-  <li><a href="#summarising-data" id="toc-summarising-data" class="nav-link" data-scroll-target="#summarising-data"><span class="header-section-number">2.3.5</span> Summarising data</a></li>
+  <li><a href="#sec-sorting" id="toc-sec-sorting" class="nav-link" data-scroll-target="#sec-sorting"><span class="header-section-number">2.2.1</span> Sorting data</a></li>
+  <li><a href="#sec-filter" id="toc-sec-filter" class="nav-link" data-scroll-target="#sec-filter"><span class="header-section-number">2.2.2</span> Filtering data</a></li>
+  <li><a href="#sec-missing" id="toc-sec-missing" class="nav-link" data-scroll-target="#sec-missing"><span class="header-section-number">2.2.3</span> Dealing with missing values</a></li>
+  <li><a href="#sec-select" id="toc-sec-select" class="nav-link" data-scroll-target="#sec-select"><span class="header-section-number">2.2.4</span> Selecting columns</a></li>
+  <li><a href="#sec-mutate" id="toc-sec-mutate" class="nav-link" data-scroll-target="#sec-mutate"><span class="header-section-number">2.2.5</span> Modifying data</a></li>
+  <li><a href="#sec-summarise" id="toc-sec-summarise" class="nav-link" data-scroll-target="#sec-summarise"><span class="header-section-number">2.2.6</span> Summarising data</a></li>
   </ul></li>
-  <li><a href="#grouping" id="toc-grouping" class="nav-link" data-scroll-target="#grouping"><span class="header-section-number">2.4</span> Grouping</a></li>
-  <li><a href="#reshaping-and-combining-data" id="toc-reshaping-and-combining-data" class="nav-link" data-scroll-target="#reshaping-and-combining-data"><span class="header-section-number">2.5</span> Reshaping and combining data</a>
+  <li><a href="#sec-grouping" id="toc-sec-grouping" class="nav-link" data-scroll-target="#sec-grouping"><span class="header-section-number">2.3</span> Grouping</a></li>
+  <li><a href="#reshaping-and-combining-data" id="toc-reshaping-and-combining-data" class="nav-link" data-scroll-target="#reshaping-and-combining-data"><span class="header-section-number">2.4</span> Reshaping and combining data</a>
   <ul class="collapse">
-  <li><a href="#reshaping-data-with-pivot-functions" id="toc-reshaping-data-with-pivot-functions" class="nav-link" data-scroll-target="#reshaping-data-with-pivot-functions"><span class="header-section-number">2.5.1</span> Reshaping data with pivot functions</a></li>
-  <li><a href="#combining-data-with-join-functions" id="toc-combining-data-with-join-functions" class="nav-link" data-scroll-target="#combining-data-with-join-functions"><span class="header-section-number">2.5.2</span> Combining data with join functions</a></li>
+  <li><a href="#sec-pivot" id="toc-sec-pivot" class="nav-link" data-scroll-target="#sec-pivot"><span class="header-section-number">2.4.1</span> Reshaping data with pivot functions</a></li>
+  <li><a href="#sec-join" id="toc-sec-join" class="nav-link" data-scroll-target="#sec-join"><span class="header-section-number">2.4.2</span> Combining data with join functions</a></li>
   </ul></li>
-  <li><a href="#saving-data-to-a-file" id="toc-saving-data-to-a-file" class="nav-link" data-scroll-target="#saving-data-to-a-file"><span class="header-section-number">2.6</span> Saving data to a file</a></li>
-  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">2.7</span> Summary</a>
+  <li><a href="#sec-saving" id="toc-sec-saving" class="nav-link" data-scroll-target="#sec-saving"><span class="header-section-number">2.5</span> Saving data to a file</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">2.6</span> Summary</a>
   <ul class="collapse">
-  <li><a href="#practice-questions" id="toc-practice-questions" class="nav-link" data-scroll-target="#practice-questions"><span class="header-section-number">2.7.1</span> Practice questions</a></li>
+  <li><a href="#practice-questions" id="toc-practice-questions" class="nav-link" data-scroll-target="#practice-questions"><span class="header-section-number">2.6.1</span> Practice questions</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -261,8 +263,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="learning-objectives" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="learning-objectives"><span class="header-section-number">2.1</span> Learning objectives</h2>
+<p>In this session we will learn how to manipulate and summarise data using the <code>dplyr</code> package.</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Learning Objectives">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Learning Objectives
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>At the end of this session, learners should be able to:</p>
 <ol type="1">
 <li><p>Use the pipe (<code>%&gt;%</code>) to chain multiple functions together</p></li>
@@ -271,77 +282,592 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p>Understand how pivot and join functions can be used to reshape and combine entire data frames</p></li>
 <li><p>Recall how to save data frames to a file</p></li>
 </ol>
+</div>
+</div>
+<p>Make sure you have <code>dplyr</code> package loaded by running <code>library(dplyr)</code>, otherwise you will not be able to run the code in this session.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># don't forget to load dplyr</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'dplyr'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:stats':
+
+    filter, lag</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union</code></pre>
+</div>
+</div>
+<p>You’ll see some output from the <code>dplyr</code> package when you load it, which is just telling you that some of <code>dplyr</code>’s functions have the same name as other functions in R.</p>
+<section id="sec-pipes" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="sec-pipes"><span class="header-section-number">2.1</span> Chaining functions together with pipes</h2>
+<p>Pipes are a powerful feature of the <code>tidyverse</code> that allow you to chain multiple functions together. Pipes are useful because they allow you to break down complex operations into smaller steps that are easier to read and understand.</p>
+<p>For example, take the following code:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>my_vector <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">as.character</span>(<span class="fu">round</span>(<span class="fu">mean</span>(my_vector)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "3"</code></pre>
+</div>
+</div>
+<p>What do you think this code does? It calculates the mean of <code>my_vector</code>, rounds the result to the nearest whole number, and then converts the result to a character. But the code is a bit hard to read because you have to start from the inside of the brackets and work your way out.</p>
+<p>Instead, we can use the pipe operator (<code>%&gt;%</code>) to chain these functions together in a more readable way:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>my_vector <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>my_vector <span class="sc">%&gt;%</span> <span class="fu">mean</span>() <span class="sc">%&gt;%</span> <span class="fu">round</span>() <span class="sc">%&gt;%</span> <span class="fu">as.character</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "3"</code></pre>
+</div>
+</div>
+<p>See how the code reads naturally from left to right? You can think of the pipe as being like the phrase “and then”. Here, we’re telling R: “Take <code>my_vector</code>, and then calculate the mean, and then round the result, and then convert it to a character.”</p>
+<p>You’ll notice that we didn’t need to specify the input to each function. That’s because the pipe automatically passes the output of the previous function as the first input to the next function. We can still specify additional arguments to each function if we need to. For example, if we wanted to round the mean to 2 decimal places, we could do this:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>my_vector <span class="sc">%&gt;%</span> <span class="fu">mean</span>() <span class="sc">%&gt;%</span> <span class="fu">round</span>(<span class="at">digits =</span> <span class="dv">2</span>) <span class="sc">%&gt;%</span> <span class="fu">as.character</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "3"</code></pre>
+</div>
+</div>
+<p>R is clever enough to know that the first argument to <code>round()</code> is still the output of <code>mean()</code>, even though we’ve now specified the <code>digits</code> argument.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Plenty of pipes">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Plenty of pipes
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>There is another style of pipe in R, called the ‘base R pipe’ <code>|&gt;</code>, which is available in R version 4.1.0 and later. The base R pipe works in a similar way to the <code>magrittr</code> pipe (<code>%&gt;%</code>) that we use in this course, but it is not as flexible. We recommend using the <code>magrittr</code> pipe for now.</p>
+<p>Fun fact: the <code>magrittr</code> package is named after the <a href="https://en.wikipedia.org/wiki/The_Treachery_of_Images">artist René Magritte, who made a famous painting of a pipe</a>.</p>
+</div>
+</div>
+<p>To type the pipe operator more easily, you can use the keyboard shortcut <kbd aria-hidden="true">Cmd-shift-M</kbd><span class="visually-hidden">Cmd-shift-M</span> (although once you get used to it, you might find it easier to type <code>%&gt;%</code> manually).</p>
+<div class="callout callout-style-default callout-important callout-titled" title="Practice exercises">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Practice exercises
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Try these practice questions to test your understanding</p>
+<div class="question">
+<p>1. What is NOT a valid way to re-write the following code using the pipe operator: <code>round(sqrt(sum(1:10)), 1)</code>. If you’re not sure, try running the different options in the console to see which one gives the same answer.</p>
+<div class="choices">
+<div x-data="{ answer: '' , clear() { this.answer = '' }}">
+
+<div class="choice">
+<p></p><p><input class="form-check-input" type="radio" x-model="answer" value="no1"> <span id="no1" x-show="answer == $el.id" class="badge">✗</span><code>1:10 %&gt;% sum() %&gt;% sqrt() %&gt;% round(1)</code></p><p></p>
+</div>
+<div class="choice correct-choice">
+<p></p><p><input class="form-check-input" type="radio" x-model="answer" value="correct"> <span id="correct" x-show="answer == $el.id" class="badge">✔</span><code>sum(1:10) %&gt;% sqrt(1) %&gt;% round()</code></p><p></p>
+</div>
+<div class="choice">
+<p></p><p><input class="form-check-input" type="radio" x-model="answer" value="no3"> <span id="no3" x-show="answer == $el.id" class="badge">✗</span><code>1:10 %&gt;% sum() %&gt;% sqrt() %&gt;% round(digits = 1)</code></p><p></p>
+</div>
+<div class="choice">
+<p></p><p><input class="form-check-input" type="radio" x-model="answer" value="no4"> <span id="no4" x-show="answer == $el.id" class="badge">✗</span><code>sum(1:10) %&gt;% sqrt() %&gt;% round(digits = 1)</code></p><p></p>
+</div>
+</div>
+
+</div>
+</div>
+<div class="question">
+<p>2. What is the output of the following code? <code>letters %&gt;% head() %&gt;% toupper()</code> Try to guess it before copy-pasting into R.</p>
+<div class="choices">
+<div x-data="{ answer: '' , clear() { this.answer = '' }}">
+
+<div class="choice">
+<p></p><p><input class="form-check-input" type="radio" x-model="answer" value="no1"> <span id="no1" x-show="answer == $el.id" class="badge">✗</span><code>"A" "B" "C" "D" "E" "F" "G" "H" "I" "J" "K" "L" "M" "N" "O" "P" "Q" "R" "S" "T" "U" "V" "W" "X" "Y" "Z"</code></p><p></p>
+</div>
+<div class="choice">
+<p></p><p><input class="form-check-input" type="radio" x-model="answer" value="no2"> <span id="no2" x-show="answer == $el.id" class="badge">✗</span><code>"a" "b" "c" "d" "e" "f"</code></p><p></p>
+</div>
+<div class="choice">
+<p></p><p><input class="form-check-input" type="radio" x-model="answer" value="no3"> <span id="no3" x-show="answer == $el.id" class="badge">✗</span>An error</p><p></p>
+</div>
+<div class="choice correct-choice">
+<p></p><p><input class="form-check-input" type="radio" x-model="answer" value="correct"> <span id="correct" x-show="answer == $el.id" class="badge">✔</span><code>"A" "B" "C" "D" "E" "F"</code></p><p></p>
+</div>
+</div>
+
+</div>
+</div>
+<details>
+<summary>
+Solutions
+</summary>
+<p>
+</p><ol type="1">
+<li>The invalid option is <code>sum(1:10) %&gt;% sqrt(1) %&gt;% round()</code>. This is because the <code>sqrt()</code> function only takes one argument, so you can’t specify <code>1</code> as an argument in addition to what is being piped in from <code>sum(1:10)</code>. Note that some options used the pipe to send <code>1:10</code> to <code>sum()</code> (like <code>1:10 %&gt;% sum()</code>), and others just used <code>sum(1:10)</code> directly. Both are valid ways to use the pipe, it’s just a matter of personal preference.</li>
+<li>The output of the code <code>letters %&gt;% head() %&gt;% toupper()</code> is <code>"A" "B" "C" "D" "E" "F"</code>. The <code>letters</code> vector contains the lowercase alphabet, and the <code>head()</code> function returns the first 6 elements of the vector. Finally, the <code>toupper()</code> function then converts these elements to uppercase.</li>
+</ol>
+<p></p>
+</details>
+</div>
+</div>
 </section>
-<section id="chaining-functions-together-with-pipes" class="level2" data-number="2.2">
-<h2 data-number="2.2" class="anchored" data-anchor-id="chaining-functions-together-with-pipes"><span class="header-section-number">2.2</span> Chaining functions together with pipes</h2>
-<ul>
-<li><p>explain what the pipe does</p></li>
-<li><p>easy first example could be mean() %&gt;% round()</p></li>
-</ul>
+<section id="sec-dataManip" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="sec-dataManip"><span class="header-section-number">2.2</span> Basic data maniuplations</h2>
+<p>To really see the power of the pipe, we will use it together with the <code>dplyr</code> package that provides a set of functions to easily filter, sort, select, and summarise data frames. These functions are designed to work well with the pipe, so you can chain them together to create complex data manipulations in a readable format.</p>
+<p>For example, even though we haven’t covered the <code>dplyr</code> functions yet, you can probably guess what the following code does:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># use the pipe to chain together our data manipulation steps</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>mousezempic_dosage_data <span class="sc">%&gt;%</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(cage_number <span class="sc">==</span> <span class="st">"3E"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(weight_lost_g) <span class="sc">%&gt;%</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mean</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>This code filters the <code>mousezempic_dosage_data</code> data frame to only include data from cage 3E, then pulls out the <code>weight_lost_g</code> column, and finally calculates the mean of the values in that column. The first argument to each function is the output of the previous function, and any additional arguments (like the column name in <code>pull()</code>) are specified in the brackets (like <code>round(digits = 2)</code> from the previous example).</p>
+<p>We also used the enter key after each pipe <code>%&gt;%</code> to break up the code into multiple lines to make it easier to read. This isn’t required, but is a popular style in the R community, so all the code examples in this session will follow this format.</p>
+<p>We will now introduce some of the most commonly used <code>dplyr</code> functions for manipulating data frames. To showcase these, we will use the <code>mousezempic_dosage_data</code> that we practiced reading in last session. This imaginary dataset contains information on the weight lost by different strains of mice after being treated with different doses of MouseZempic®.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># read in the data, like we did in session 1</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>mousezempic_dosage_data <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">"~/Desktop/R_course/data/mousezempic_dosage_data.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 344 Columns: 8
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (4): mouse_strain, cage_number, replicate, sex
+dbl (4): weight_lost_g, drug_dose_g, tail_length_mm, initial_weight_g
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+</div>
+<p>Before we start, let’s use what we learned in the previous session to take a look at <code>mousezempic_dosage_data</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># it's a tibble, so prints nicely</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>mousezempic_dosage_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 344 × 8
+   mouse_strain cage_number weight_lost_g replicate sex    drug_dose_g
+   &lt;chr&gt;        &lt;chr&gt;               &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;        &lt;dbl&gt;
+ 1 CD-1         1A                   3.75 rep1      male       0.00181
+ 2 CD-1         1A                   3.8  rep1      female     0.00186
+ 3 CD-1         1A                   3.25 rep1      female     0.00195
+ 4 CD-1         1A                  NA    rep1      &lt;NA&gt;      NA      
+ 5 CD-1         1A                   3.45 rep1      female     0.00193
+ 6 CD-1         1A                   3.65 rep1      male       0.0019 
+ 7 CD-1         1A                   3.62 rep1      female     0.00181
+ 8 CD-1         1A                   4.68 rep1      male       0.00195
+ 9 CD-1         1A                   3.48 rep1      &lt;NA&gt;       0.00193
+10 CD-1         1A                   4.25 rep1      &lt;NA&gt;       0.0019 
+# ℹ 334 more rows
+# ℹ 2 more variables: tail_length_mm &lt;dbl&gt;, initial_weight_g &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<p>You might also like to use <code>View()</code> to open the data in a separate window and get a closer look.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Using RStudio autocomplete">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Using RStudio autocomplete
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Although it’s great to give our data a descriptive name like <code>mousezempic_dosage_data</code>, it can be a bit of a pain to type out every time. Luckily, RStudio has a handy autocomplete feature that can solve this problem. Just start typing the name of the object, and you’ll see it will popup:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/S02F01_rstudio_autocomplete.png" class="img-fluid figure-img"></p>
+<figcaption>RStudio autocomplete</figcaption>
+</figure>
+</div>
+<p>You can then press <kbd aria-hidden="true">Tab</kbd><span class="visually-hidden">Tab</span> to autocomplete it. If there are multiple objects that start with the same letters, you can use the arrow keys to cycle through the options.</p>
+<p>Try using autocomplete this session to save yourself some typing!</p>
+</div>
+</div>
+<section id="sec-sorting" class="level3" data-number="2.2.1">
+<h3 data-number="2.2.1" class="anchored" data-anchor-id="sec-sorting"><span class="header-section-number">2.2.1</span> Sorting data</h3>
+<p>Often, one of the first things you might want to do with a dataset is sort it. In <code>dplyr</code>, this is called ‘arranging’ and is done with the <code>arrange()</code> function.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/S02F02_arrange.png" class="img-fluid figure-img"></p>
+<figcaption>Arrange orders rows by their values in one or more columns</figcaption>
+</figure>
+</div>
+<p>By default, <code>arrange()</code> sorts in ascending order (smallest values first). For example, let’s sort the <code>mousezempic_dosage_data</code> data frame by the <code>weight_lost_g</code> column:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>mousezempic_dosage_data <span class="sc">%&gt;%</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(weight_lost_g)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 344 × 8
+   mouse_strain cage_number weight_lost_g replicate sex    drug_dose_g
+   &lt;chr&gt;        &lt;chr&gt;               &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;        &lt;dbl&gt;
+ 1 BALB C       2B                   2.7  rep2      female     0.00192
+ 2 CD-1         3E                   2.85 rep2      female     0.00181
+ 3 CD-1         3E                   2.85 rep2      female     0.00184
+ 4 CD-1         3E                   2.9  rep2      female     0.00187
+ 5 CD-1         2B                   2.9  rep2      female     0.00178
+ 6 CD-1         1A                   2.9  rep3      female     0.00188
+ 7 BALB C       2B                   2.9  rep1      female     0.00187
+ 8 CD-1         3E                   2.92 rep3      female     0.00193
+ 9 CD-1         2B                   2.98 rep1      &lt;NA&gt;       0.00179
+10 CD-1         2B                   3    rep1      female     0.00185
+# ℹ 334 more rows
+# ℹ 2 more variables: tail_length_mm &lt;dbl&gt;, initial_weight_g &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<p>If we compare this to when we just printed our data above, we can see that the rows are now sorted so that the mice that lost the least weight are at the top.</p>
+<p>Sometimes you might want to sort in descending order instead (largest values first). You can do this by putting the <code>desc()</code> function around your column name, inside <code>arrange()</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>mousezempic_dosage_data <span class="sc">%&gt;%</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># put desc() around the column name to sort in descending order</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(weight_lost_g))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 344 × 8
+   mouse_strain cage_number weight_lost_g replicate sex   drug_dose_g
+   &lt;chr&gt;        &lt;chr&gt;               &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;       &lt;dbl&gt;
+ 1 Black 6      3E                   6.3  rep1      male      0.00221
+ 2 Black 6      3E                   6.05 rep1      male      0.0023 
+ 3 Black 6      3E                   6    rep2      male      0.0022 
+ 4 Black 6      3E                   6    rep3      male      0.00222
+ 5 Black 6      3E                   5.95 rep2      male      0.00223
+ 6 Black 6      3E                   5.95 rep3      male      0.00229
+ 7 Black 6      3E                   5.85 rep1      male      0.00213
+ 8 Black 6      3E                   5.85 rep1      male      0.00217
+ 9 Black 6      3E                   5.85 rep3      male      0.0023 
+10 Black 6      3E                   5.8  rep2      male      0.00229
+# ℹ 334 more rows
+# ℹ 2 more variables: tail_length_mm &lt;dbl&gt;, initial_weight_g &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<p>Now we can see the mice that lost the most weight are at the top.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Comments and pipes">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Comments and pipes
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Notice how in the previous example we have written a comment in the middle of the pipe chain. This is a good practice to help you remember what each step is doing, especially when you have a long chain of functions, and won’t cause any errors as long as you make sure that the comment is on its own line.</p>
+<p>You can also write comments at the end of the line, just make sure it’s after the pipe operator <code>%&gt;%</code>.</p>
+<p>For example, these comments are allowed:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>mousezempic_dosage_data <span class="sc">%&gt;%</span> <span class="co"># a comment here is fine</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># a comment here is fine</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(weight_lost_g))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 344 × 8
+   mouse_strain cage_number weight_lost_g replicate sex   drug_dose_g
+   &lt;chr&gt;        &lt;chr&gt;               &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;       &lt;dbl&gt;
+ 1 Black 6      3E                   6.3  rep1      male      0.00221
+ 2 Black 6      3E                   6.05 rep1      male      0.0023 
+ 3 Black 6      3E                   6    rep2      male      0.0022 
+ 4 Black 6      3E                   6    rep3      male      0.00222
+ 5 Black 6      3E                   5.95 rep2      male      0.00223
+ 6 Black 6      3E                   5.95 rep3      male      0.00229
+ 7 Black 6      3E                   5.85 rep1      male      0.00213
+ 8 Black 6      3E                   5.85 rep1      male      0.00217
+ 9 Black 6      3E                   5.85 rep3      male      0.0023 
+10 Black 6      3E                   5.8  rep2      male      0.00229
+# ℹ 334 more rows
+# ℹ 2 more variables: tail_length_mm &lt;dbl&gt;, initial_weight_g &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<p>But this will cause an error, because the <code>#</code> is before the pipe, so R treats it as part of the comment (notice how the <code>%&gt;%</code> has changed colour?) and doesn’t know how the two lines relate to each other. It tries to run them separately, which for the first line is ok (it will just print <code>mousezempic_dosage_data</code>):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>mousezempic_dosage_data <span class="co"># this comment will cause an error %&gt;%</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 344 × 8
+   mouse_strain cage_number weight_lost_g replicate sex    drug_dose_g
+   &lt;chr&gt;        &lt;chr&gt;               &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;        &lt;dbl&gt;
+ 1 CD-1         1A                   3.75 rep1      male       0.00181
+ 2 CD-1         1A                   3.8  rep1      female     0.00186
+ 3 CD-1         1A                   3.25 rep1      female     0.00195
+ 4 CD-1         1A                  NA    rep1      &lt;NA&gt;      NA      
+ 5 CD-1         1A                   3.45 rep1      female     0.00193
+ 6 CD-1         1A                   3.65 rep1      male       0.0019 
+ 7 CD-1         1A                   3.62 rep1      female     0.00181
+ 8 CD-1         1A                   4.68 rep1      male       0.00195
+ 9 CD-1         1A                   3.48 rep1      &lt;NA&gt;       0.00193
+10 CD-1         1A                   4.25 rep1      &lt;NA&gt;       0.0019 
+# ℹ 334 more rows
+# ℹ 2 more variables: tail_length_mm &lt;dbl&gt;, initial_weight_g &lt;dbl&gt;</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(weight_lost_g))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in eval(expr, envir, enclos): object 'weight_lost_g' not found</code></pre>
+</div>
+</div>
+<p>But for the second line, there is an error that R doesn’t know what the <code>weight_lost_g</code> object is. That’s because it’s a column in the <code>mousezempic_dosage_data</code> data frame, so R only knows what it is in the context of the pipe chain containing that data frame.</p>
+</div>
+</div>
+<p>You can also sort by multiple columns by passing multiple column names to <code>arrange()</code>. For example, to sort by the strain first and then by the amount of weight lost:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># sort by strain first, then by weight lost</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>mousezempic_dosage_data <span class="sc">%&gt;%</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(mouse_strain, weight_lost_g)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 344 × 8
+   mouse_strain cage_number weight_lost_g replicate sex    drug_dose_g
+   &lt;chr&gt;        &lt;chr&gt;               &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;        &lt;dbl&gt;
+ 1 BALB C       2B                   2.7  rep2      female     0.00192
+ 2 BALB C       2B                   2.9  rep1      female     0.00187
+ 3 BALB C       2B                   3.2  rep2      female     0.00187
+ 4 BALB C       2B                   3.25 rep1      female     0.00178
+ 5 BALB C       2B                   3.25 rep3      male       0.00187
+ 6 BALB C       2B                   3.25 rep3      female     0.00191
+ 7 BALB C       2B                   3.3  rep1      male       0.00197
+ 8 BALB C       2B                   3.3  rep1      female     0.00195
+ 9 BALB C       2B                   3.32 rep3      female     0.00199
+10 BALB C       2B                   3.35 rep2      female     0.00187
+# ℹ 334 more rows
+# ℹ 2 more variables: tail_length_mm &lt;dbl&gt;, initial_weight_g &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<p>This will sort the data frame by strain (according to alphabetical order, as it is a character column), and within each strain, they are then sorted by the amount of weight lost.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Piping into View()">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Piping into View()
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In the above example, we sorted the data by strain and then by weight lost, but because there are so many mice in each strain, the preview shown in our console doesn’t allow us to see the full effect of the sorting.</p>
+<p>One handy trick you can use with pipes is to add <code>View()</code> at the end of your chain to open the data in a separate window. Try running this code, and you’ll be able to scroll through the full dataset to check that the other mouse strains have also been sorted correctly:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># sort by strain first, then by weight lost</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>mousezempic_dosage_data <span class="sc">%&gt;%</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(mouse_strain, weight_lost_g) <span class="sc">%&gt;%</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">View</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>This is a great way to check that your code has actually done what you intended!</p>
+</div>
+</div>
+<section id="sec-sliceMinMax" class="level4" data-number="2.2.1.1">
+<h4 data-number="2.2.1.1" class="anchored" data-anchor-id="sec-sliceMinMax"><span class="header-section-number">2.2.1.1</span> Extracting rows with the smallest or largest values</h4>
+<p>Slice functions are used to select rows based on their position in the data frame. The <code>slice_min()</code> and <code>slice_max()</code> functions are particularly useful, because they allow you to select the rows with the smallest or largest values in a particular column.</p>
+<p>This is equivalent to using <code>arrange()</code> followed by <code>head()</code>, but is more concise:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># get the 10 mice with the lowest drug dose</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>mousezempic_dosage_data <span class="sc">%&gt;%</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># slice_min() requires the column to sort by, and n = the number of rows to keep</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_min</span>(drug_dose_g, <span class="at">n =</span> <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 13 × 8
+   mouse_strain cage_number weight_lost_g replicate sex    drug_dose_g
+   &lt;chr&gt;        &lt;chr&gt;               &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;        &lt;dbl&gt;
+ 1 CD-1         3E                   3.15 rep1      female     0.00172
+ 2 CD-1         3E                   3.4  rep1      female     0.00174
+ 3 CD-1         1A                   3.45 rep3      female     0.00176
+ 4 CD-1         2B                   3.25 rep1      female     0.00178
+ 5 CD-1         2B                   3.9  rep1      male       0.00178
+ 6 CD-1         2B                   2.9  rep2      female     0.00178
+ 7 BALB C       2B                   3.25 rep1      female     0.00178
+ 8 CD-1         2B                   2.98 rep1      &lt;NA&gt;       0.00179
+ 9 CD-1         1A                   3.7  rep1      &lt;NA&gt;       0.0018 
+10 CD-1         3E                   3.6  rep1      male       0.0018 
+11 CD-1         3E                   3.8  rep1      male       0.0018 
+12 CD-1         3E                   3.95 rep1      male       0.0018 
+13 CD-1         2B                   3.55 rep1      female     0.0018 
+# ℹ 2 more variables: tail_length_mm &lt;dbl&gt;, initial_weight_g &lt;dbl&gt;</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># get the top 5 mice that lost the most weight</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>mousezempic_dosage_data <span class="sc">%&gt;%</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># slice_max() has the same arguments as slice_min()</span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_max</span>(weight_lost_g, <span class="at">n =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 8
+  mouse_strain cage_number weight_lost_g replicate sex   drug_dose_g
+  &lt;chr&gt;        &lt;chr&gt;               &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;       &lt;dbl&gt;
+1 Black 6      3E                   6.3  rep1      male      0.00221
+2 Black 6      3E                   6.05 rep1      male      0.0023 
+3 Black 6      3E                   6    rep2      male      0.0022 
+4 Black 6      3E                   6    rep3      male      0.00222
+5 Black 6      3E                   5.95 rep2      male      0.00223
+6 Black 6      3E                   5.95 rep3      male      0.00229
+# ℹ 2 more variables: tail_length_mm &lt;dbl&gt;, initial_weight_g &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<p>But wait– neither of those pieces of code actually gave the number of rows we asked for! In the first example, we asked for the 10 mice with the lowest drug dose, but we got 13. And in the second example, we asked for the top 5 mice that lost the most weight, but we got 6. Why aren’t the <code>slice_</code> functions behaving as expected?</p>
+<p>If we take a look at the help page (type <code>?slice_min</code> in the console), we learn that <code>slice_min()</code> and <code>slice_max()</code> have an argument called <code>with_ties</code> that is set to <code>TRUE</code> by default. If we want to make sure we only get the number of rows we asked for, we would have to set it to <code>FALSE</code>, like so:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># get the top 5 mice that lost the most weight</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>mousezempic_dosage_data <span class="sc">%&gt;%</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># no ties allowed!</span></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_max</span>(weight_lost_g, <span class="at">n =</span> <span class="dv">5</span>, <span class="at">with_ties =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 8
+  mouse_strain cage_number weight_lost_g replicate sex   drug_dose_g
+  &lt;chr&gt;        &lt;chr&gt;               &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;       &lt;dbl&gt;
+1 Black 6      3E                   6.3  rep1      male      0.00221
+2 Black 6      3E                   6.05 rep1      male      0.0023 
+3 Black 6      3E                   6    rep2      male      0.0022 
+4 Black 6      3E                   6    rep3      male      0.00222
+5 Black 6      3E                   5.95 rep2      male      0.00223
+# ℹ 2 more variables: tail_length_mm &lt;dbl&gt;, initial_weight_g &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<p>This is an important lesson: sometimes functions will behave in a way that is unexpected, and you might need to read their help page or use other guides/google/AI to understand why.</p>
+<div class="callout callout-style-default callout-important callout-titled" title="Practice exercises">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Practice exercises
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Try these practice questions to test your understanding</p>
+<div class="question">
+<p>1. Which code would you use to sort the <code>mousezempic_dosage_data</code> data frame from biggest to smallest initial weight?</p>
+<div class="choices">
+<div x-data="{ answer: '' , clear() { this.answer = '' }}">
+
+<div class="choice">
+<p></p><p><input class="form-check-input" type="radio" x-model="answer" value="no1"> <span id="no1" x-show="answer == $el.id" class="badge">✗</span><code>mousezempic_dosage_data %&gt;% sort(initial_weight_g)</code></p><p></p>
+</div>
+<div class="choice">
+<p></p><p><input class="form-check-input" type="radio" x-model="answer" value="no2"> <span id="no2" x-show="answer == $el.id" class="badge">✗</span><code>mousezempic_dosage_data %&gt;% arrange(initial_weight_g)</code></p><p></p>
+</div>
+<div class="choice">
+<p></p><p><input class="form-check-input" type="radio" x-model="answer" value="no3"> <span id="no3" x-show="answer == $el.id" class="badge">✗</span><code>mousezempic_dosage_data %&gt;% sort(descending(initial_weight_g))</code></p><p></p>
+</div>
+<div class="choice correct-choice">
+<p></p><p><input class="form-check-input" type="radio" x-model="answer" value="correct"> <span id="correct" x-show="answer == $el.id" class="badge">✔</span><code>mousezempic_dosage_data %&gt;% arrange(desc(initial_weight_g))</code></p><p></p>
+</div>
+</div>
+
+</div>
+</div>
+<div class="question">
+<p>2. Which code would you use to extract the 3 mice with the highest initial weight from the <code>mousezempic_dosage_data</code> data frame?</p>
+<div class="choices">
+<div x-data="{ answer: '' , clear() { this.answer = '' }}">
+
+<div class="choice correct-choice">
+<p></p><p><input class="form-check-input" type="radio" x-model="answer" value="correct"> <span id="correct" x-show="answer == $el.id" class="badge">✔</span><code>mousezempic_dosage_data %&gt;% slice_max(initial_weight_g, n = 3)</code></p><p></p>
+</div>
+<div class="choice">
+<p></p><p><input class="form-check-input" type="radio" x-model="answer" value="no2"> <span id="no2" x-show="answer == $el.id" class="badge">✗</span><code>mousezempic_dosage_data %&gt;% arrange(desc(initial_weight_g))</code></p><p></p>
+</div>
+<div class="choice">
+<p></p><p><input class="form-check-input" type="radio" x-model="answer" value="no3"> <span id="no3" x-show="answer == $el.id" class="badge">✗</span><code>mousezempic_dosage_data %&gt;% slice_min(initial_weight_g, n = 3)</code></p><p></p>
+</div>
+<div class="choice">
+<p></p><p><input class="form-check-input" type="radio" x-model="answer" value="no4"> <span id="no4" x-show="answer == $el.id" class="badge">✗</span><code>mousezempic_dosage_data %&gt;% arrange(initial_weight_g)</code></p><p></p>
+</div>
+</div>
+
+</div>
+</div>
+<div class="question">
+<p>3. I’ve written the below code, but one of the comments is messing it up! Which one?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># comment A</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>mousezempic_dosage_data <span class="co"># comment B %&gt;%</span></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># comment C</span></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_max</span>(weight_lost_g, <span class="at">n =</span> <span class="dv">5</span>, <span class="at">with_ties =</span> <span class="cn">FALSE</span>) <span class="co"># comment D</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="choices">
+<div x-data="{ answer: '' , clear() { this.answer = '' }}">
+
+<div class="choice">
+<p></p><p><input class="form-check-input" type="radio" x-model="answer" value="no1"> <span id="no1" x-show="answer == $el.id" class="badge">✗</span>Comment A</p><p></p>
+</div>
+<div class="choice correct-choice">
+<p></p><p><input class="form-check-input" type="radio" x-model="answer" value="correct"> <span id="correct" x-show="answer == $el.id" class="badge">✔</span>Comment B</p><p></p>
+</div>
+<div class="choice">
+<p></p><p><input class="form-check-input" type="radio" x-model="answer" value="no3"> <span id="no3" x-show="answer == $el.id" class="badge">✗</span>Comment C</p><p></p>
+</div>
+<div class="choice">
+<p></p><p><input class="form-check-input" type="radio" x-model="answer" value="no4"> <span id="no4" x-show="answer == $el.id" class="badge">✗</span>Comment D</p><p></p>
+</div>
+</div>
+
+</div>
+</div>
+<details>
+<summary>
+Solutions
+</summary>
+<ol type="1">
+<li><p>The correct code to sort the <code>mousezempic_dosage_data</code> data frame from biggest to smallest initial weight is <code>mousezempic_dosage_data %&gt;% arrange(desc(initial_weight_g))</code>. The <code>arrange()</code> function is used to sort the data frame (although there is a <code>sort()</code> function in R, that’s not part of dplyr and won’t work the same way), and the <code>desc()</code> function is used to sort in descending order.</p></li>
+<li><p>The correct code to extract the 3 mice with the highest initial weight from the <code>mousezempic_dosage_data</code> data frame is <code>mousezempic_dosage_data %&gt;% slice_max(initial_weight_g, n = 3)</code>. The <code>slice_max()</code> function is used to select the rows with the largest values in the <code>initial_weight_g</code> column, and the <code>n = 3</code> argument specifies that we want to keep 3 rows. The <code>arrange()</code> function is not needed in this case, because <code>slice_max()</code> will automatically sort the data frame by the specified column.</p></li>
+<li><p>The comment that is messing up the code is Comment B. The <code>#</code> symbol is before the pipe operator <code>%&gt;%</code>, so R treats it as part of the comment and this breaks our chain of pipes. The other comments are fine, because they are either at the end of the line or on their own line. Basically, if a comment is changing the colour of the pipe operator (or any other bits of your code), it’s in the wrong place!</p></li>
+</ol>
+</details>
+</div>
+</div>
 </section>
-<section id="manipulating-data" class="level2" data-number="2.3">
-<h2 data-number="2.3" class="anchored" data-anchor-id="manipulating-data"><span class="header-section-number">2.3</span> Manipulating data</h2>
-<p>mention that in this section we will use the dplyr package, and you will see a ‘tibble’ which is basically the same thing as a data frame.</p>
-<p>in this section we need to have a nice little example dataset to work with that’s biologically relevant. could read it in at the end of session 1</p>
-<p>relabelled penguins</p>
-<section id="sorting-data" class="level3" data-number="2.3.1">
-<h3 data-number="2.3.1" class="anchored" data-anchor-id="sorting-data"><span class="header-section-number">2.3.1</span> Sorting data</h3>
-<ul>
-<li><p>arrange() and arrange(desc())</p></li>
-<li><p>slice_min() and slice_max()</p></li>
-</ul>
 </section>
-<section id="filtering-data" class="level3" data-number="2.3.2">
-<h3 data-number="2.3.2" class="anchored" data-anchor-id="filtering-data"><span class="header-section-number">2.3.2</span> Filtering data</h3>
+<section id="sec-filter" class="level3" data-number="2.2.2">
+<h3 data-number="2.2.2" class="anchored" data-anchor-id="sec-filter"><span class="header-section-number">2.2.2</span> Filtering data</h3>
 <p>filteR for rows</p>
 </section>
-<section id="selecting-columns" class="level3" data-number="2.3.3">
-<h3 data-number="2.3.3" class="anchored" data-anchor-id="selecting-columns"><span class="header-section-number">2.3.3</span> Selecting columns</h3>
+<section id="sec-missing" class="level3" data-number="2.2.3">
+<h3 data-number="2.2.3" class="anchored" data-anchor-id="sec-missing"><span class="header-section-number">2.2.3</span> Dealing with missing values</h3>
+<p>how to find missing values mention that you</p>
+</section>
+<section id="sec-select" class="level3" data-number="2.2.4">
+<h3 data-number="2.2.4" class="anchored" data-anchor-id="sec-select"><span class="header-section-number">2.2.4</span> Selecting columns</h3>
 <p>seleCt for columns</p>
 </section>
-<section id="modifying-data" class="level3" data-number="2.3.4">
-<h3 data-number="2.3.4" class="anchored" data-anchor-id="modifying-data"><span class="header-section-number">2.3.4</span> Modifying data</h3>
+<section id="sec-mutate" class="level3" data-number="2.2.5">
+<h3 data-number="2.2.5" class="anchored" data-anchor-id="sec-mutate"><span class="header-section-number">2.2.5</span> Modifying data</h3>
 <p>with mutate()</p>
 </section>
-<section id="summarising-data" class="level3" data-number="2.3.5">
-<h3 data-number="2.3.5" class="anchored" data-anchor-id="summarising-data"><span class="header-section-number">2.3.5</span> Summarising data</h3>
+<section id="sec-summarise" class="level3" data-number="2.2.6">
+<h3 data-number="2.2.6" class="anchored" data-anchor-id="sec-summarise"><span class="header-section-number">2.2.6</span> Summarising data</h3>
 <ul>
 <li><p>mention that this works with summarize() as well</p></li>
 <li><p>example of calculating mean/median etc</p></li>
 </ul>
 </section>
 </section>
-<section id="grouping" class="level2" data-number="2.4">
-<h2 data-number="2.4" class="anchored" data-anchor-id="grouping"><span class="header-section-number">2.4</span> Grouping</h2>
+<section id="sec-grouping" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="sec-grouping"><span class="header-section-number">2.3</span> Grouping</h2>
 <ul>
-<li><p>Q: should we teach grouping explicitly with group_by()/ungroup() functions or using the .by= argument in functions? (lean towards this)</p></li>
+<li><p>teaching grouping with the .by argument in other functions</p></li>
 <li><p>demonstrate the powerful combo of grouping + summarising</p></li>
 </ul>
 </section>
-<section id="reshaping-and-combining-data" class="level2" data-number="2.5">
-<h2 data-number="2.5" class="anchored" data-anchor-id="reshaping-and-combining-data"><span class="header-section-number">2.5</span> Reshaping and combining data</h2>
-<section id="reshaping-data-with-pivot-functions" class="level3" data-number="2.5.1">
-<h3 data-number="2.5.1" class="anchored" data-anchor-id="reshaping-data-with-pivot-functions"><span class="header-section-number">2.5.1</span> Reshaping data with pivot functions</h3>
+<section id="reshaping-and-combining-data" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="reshaping-and-combining-data"><span class="header-section-number">2.4</span> Reshaping and combining data</h2>
+<section id="sec-pivot" class="level3" data-number="2.4.1">
+<h3 data-number="2.4.1" class="anchored" data-anchor-id="sec-pivot"><span class="header-section-number">2.4.1</span> Reshaping data with pivot functions</h3>
 <ul>
 <li><p>brief introduction to pivoting</p></li>
 <li><p>need to think of some kind of meaningful example for this</p></li>
 </ul>
 </section>
-<section id="combining-data-with-join-functions" class="level3" data-number="2.5.2">
-<h3 data-number="2.5.2" class="anchored" data-anchor-id="combining-data-with-join-functions"><span class="header-section-number">2.5.2</span> Combining data with join functions</h3>
+<section id="sec-join" class="level3" data-number="2.4.2">
+<h3 data-number="2.4.2" class="anchored" data-anchor-id="sec-join"><span class="header-section-number">2.4.2</span> Combining data with join functions</h3>
 <ul>
 <li>left_join() example</li>
 </ul>
 </section>
 </section>
-<section id="saving-data-to-a-file" class="level2" data-number="2.6">
-<h2 data-number="2.6" class="anchored" data-anchor-id="saving-data-to-a-file"><span class="header-section-number">2.6</span> Saving data to a file</h2>
+<section id="sec-saving" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="sec-saving"><span class="header-section-number">2.5</span> Saving data to a file</h2>
 <p>write_* family of functions</p>
 </section>
-<section id="summary" class="level2" data-number="2.7">
-<h2 data-number="2.7" class="anchored" data-anchor-id="summary"><span class="header-section-number">2.7</span> Summary</h2>
-<section id="practice-questions" class="level3" data-number="2.7.1">
-<h3 data-number="2.7.1" class="anchored" data-anchor-id="practice-questions"><span class="header-section-number">2.7.1</span> Practice questions</h3>
+<section id="summary" class="level2" data-number="2.6">
+<h2 data-number="2.6" class="anchored" data-anchor-id="summary"><span class="header-section-number">2.6</span> Summary</h2>
+<section id="practice-questions" class="level3" data-number="2.6.1">
+<h3 data-number="2.6.1" class="anchored" data-anchor-id="practice-questions"><span class="header-section-number">2.6.1</span> Practice questions</h3>
 
 
 <!-- -->
@@ -830,95 +1356,442 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">filters:</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">  - naquiz</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">    toc: true</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">    toc-location: left</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co">    toc-title: "In this session:"</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu"># Session 2: Working with data {#sec-session02}</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">## Learning objectives</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>At the end of this session, learners should be able to:</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>Use the pipe (<span class="in">`%&gt;%`</span>) to chain multiple functions together</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>Design chains of dplyr functions to manipulate data frames</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>Apply grouping for more complex analysis of data</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="ss">4.  </span>Understand how pivot and join functions can be used to reshape and combine entire data frames</span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="ss">5.  </span>Recall how to save data frames to a file</span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="fu">## Chaining functions together with pipes</span></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>explain what the pipe does</span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>easy first example could be mean() %<span class="sc">\&gt;</span>% round()</span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="fu">## Manipulating data</span></span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>mention that in this section we will use the dplyr package, and you will see a 'tibble' which is basically the same thing as a data frame.</span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>in this section we need to have a nice little example dataset to work with that's biologically relevant. could read it in at the end of session 1</span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>relabelled penguins</span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a><span class="fu">### Sorting data</span></span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>arrange() and arrange(desc())</span>
-<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>slice_min() and slice_max()</span>
-<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a><span class="fu">### Filtering data</span></span>
-<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>filteR for rows</span>
-<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a><span class="fu">### Selecting columns</span></span>
-<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>seleCt for columns</span>
-<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a><span class="fu">### Modifying data</span></span>
-<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>with mutate()</span>
-<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a><span class="fu">### Summarising data</span></span>
-<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>mention that this works with summarize() as well</span>
-<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>example of calculating mean/median etc</span>
-<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a><span class="fu">## Grouping</span></span>
-<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Q: should we teach grouping explicitly with group_by()/ungroup() functions or using the .by= argument in functions? (lean towards this)</span>
-<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>demonstrate the powerful combo of grouping + summarising</span>
-<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a><span class="fu">## Reshaping and combining data</span></span>
-<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a><span class="fu">### Reshaping data with pivot functions</span></span>
-<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>brief introduction to pivoting</span>
-<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>need to think of some kind of meaningful example for this</span>
-<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a><span class="fu">### Combining data with join functions</span></span>
-<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>left_join() example</span>
-<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a><span class="fu">## Saving data to a file</span></span>
-<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a>write<span class="sc">\_\*</span> family of functions</span>
-<span id="cb1-86"><a href="#cb1-86" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-87"><a href="#cb1-87" aria-hidden="true" tabindex="-1"></a><span class="fu">## Summary</span></span>
-<span id="cb1-88"><a href="#cb1-88" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-89"><a href="#cb1-89" aria-hidden="true" tabindex="-1"></a><span class="fu">### Practice questions</span></span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb36" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="an">filters:</span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="co">  - naquiz</span></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a><span class="co">    toc: true</span></span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a><span class="co">    toc-location: left</span></span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a><span class="co">    toc-title: "In this session:"</span></span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a><span class="fu"># Session 2: Working with data {#sec-session02}</span></span>
+<span id="cb36-12"><a href="#cb36-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-13"><a href="#cb36-13" aria-hidden="true" tabindex="-1"></a>In this session we will learn how to manipulate and summarise data using the <span class="in">`dplyr`</span> package.</span>
+<span id="cb36-14"><a href="#cb36-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-15"><a href="#cb36-15" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip title="Learning Objectives"}</span>
+<span id="cb36-16"><a href="#cb36-16" aria-hidden="true" tabindex="-1"></a>At the end of this session, learners should be able to:</span>
+<span id="cb36-17"><a href="#cb36-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-18"><a href="#cb36-18" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>Use the pipe (<span class="in">`%&gt;%`</span>) to chain multiple functions together</span>
+<span id="cb36-19"><a href="#cb36-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-20"><a href="#cb36-20" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>Design chains of dplyr functions to manipulate data frames</span>
+<span id="cb36-21"><a href="#cb36-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-22"><a href="#cb36-22" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>Apply grouping for more complex analysis of data</span>
+<span id="cb36-23"><a href="#cb36-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-24"><a href="#cb36-24" aria-hidden="true" tabindex="-1"></a><span class="ss">4.  </span>Understand how pivot and join functions can be used to reshape and combine entire data frames</span>
+<span id="cb36-25"><a href="#cb36-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-26"><a href="#cb36-26" aria-hidden="true" tabindex="-1"></a><span class="ss">5.  </span>Recall how to save data frames to a file</span>
+<span id="cb36-27"><a href="#cb36-27" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb36-28"><a href="#cb36-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-29"><a href="#cb36-29" aria-hidden="true" tabindex="-1"></a>Make sure you have <span class="in">`dplyr`</span> package loaded by running <span class="in">`library(dplyr)`</span>, otherwise you will not be able to run the code in this session.</span>
+<span id="cb36-30"><a href="#cb36-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-33"><a href="#cb36-33" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb36-34"><a href="#cb36-34" aria-hidden="true" tabindex="-1"></a><span class="co"># don't forget to load dplyr</span></span>
+<span id="cb36-35"><a href="#cb36-35" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb36-36"><a href="#cb36-36" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb36-37"><a href="#cb36-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-38"><a href="#cb36-38" aria-hidden="true" tabindex="-1"></a>You'll see some output from the <span class="in">`dplyr`</span> package when you load it, which is just telling you that some of <span class="in">`dplyr`</span>'s functions have the same name as other functions in R.</span>
+<span id="cb36-39"><a href="#cb36-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-40"><a href="#cb36-40" aria-hidden="true" tabindex="-1"></a><span class="fu">## Chaining functions together with pipes {#sec-pipes}</span></span>
+<span id="cb36-41"><a href="#cb36-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-42"><a href="#cb36-42" aria-hidden="true" tabindex="-1"></a>Pipes are a powerful feature of the <span class="in">`tidyverse`</span> that allow you to chain multiple functions together. Pipes are useful because they allow you to break down complex operations into smaller steps that are easier to read and understand.</span>
+<span id="cb36-43"><a href="#cb36-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-44"><a href="#cb36-44" aria-hidden="true" tabindex="-1"></a>For example, take the following code:</span>
+<span id="cb36-45"><a href="#cb36-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-48"><a href="#cb36-48" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb36-49"><a href="#cb36-49" aria-hidden="true" tabindex="-1"></a>my_vector <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>)</span>
+<span id="cb36-50"><a href="#cb36-50" aria-hidden="true" tabindex="-1"></a><span class="fu">as.character</span>(<span class="fu">round</span>(<span class="fu">mean</span>(my_vector)))</span>
+<span id="cb36-51"><a href="#cb36-51" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb36-52"><a href="#cb36-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-53"><a href="#cb36-53" aria-hidden="true" tabindex="-1"></a>What do you think this code does? It calculates the mean of <span class="in">`my_vector`</span>, rounds the result to the nearest whole number, and then converts the result to a character. But the code is a bit hard to read because you have to start from the inside of the brackets and work your way out.</span>
+<span id="cb36-54"><a href="#cb36-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-55"><a href="#cb36-55" aria-hidden="true" tabindex="-1"></a>Instead, we can use the pipe operator (<span class="in">`%&gt;%`</span>) to chain these functions together in a more readable way:</span>
+<span id="cb36-56"><a href="#cb36-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-59"><a href="#cb36-59" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb36-60"><a href="#cb36-60" aria-hidden="true" tabindex="-1"></a>my_vector <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>)</span>
+<span id="cb36-61"><a href="#cb36-61" aria-hidden="true" tabindex="-1"></a>my_vector <span class="sc">%&gt;%</span> <span class="fu">mean</span>() <span class="sc">%&gt;%</span> <span class="fu">round</span>() <span class="sc">%&gt;%</span> <span class="fu">as.character</span>()</span>
+<span id="cb36-62"><a href="#cb36-62" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb36-63"><a href="#cb36-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-64"><a href="#cb36-64" aria-hidden="true" tabindex="-1"></a>See how the code reads naturally from left to right? You can think of the pipe as being like the phrase "and then". Here, we're telling R: "Take <span class="in">`my_vector`</span>, and then calculate the mean, and then round the result, and then convert it to a character."</span>
+<span id="cb36-65"><a href="#cb36-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-66"><a href="#cb36-66" aria-hidden="true" tabindex="-1"></a>You'll notice that we didn't need to specify the input to each function. That's because the pipe automatically passes the output of the previous function as the first input to the next function. We can still specify additional arguments to each function if we need to. For example, if we wanted to round the mean to 2 decimal places, we could do this:</span>
+<span id="cb36-67"><a href="#cb36-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-70"><a href="#cb36-70" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb36-71"><a href="#cb36-71" aria-hidden="true" tabindex="-1"></a>my_vector <span class="sc">%&gt;%</span> <span class="fu">mean</span>() <span class="sc">%&gt;%</span> <span class="fu">round</span>(<span class="at">digits =</span> <span class="dv">2</span>) <span class="sc">%&gt;%</span> <span class="fu">as.character</span>()</span>
+<span id="cb36-72"><a href="#cb36-72" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb36-73"><a href="#cb36-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-74"><a href="#cb36-74" aria-hidden="true" tabindex="-1"></a>R is clever enough to know that the first argument to <span class="in">`round()`</span> is still the output of <span class="in">`mean()`</span>, even though we've now specified the <span class="in">`digits`</span> argument.</span>
+<span id="cb36-75"><a href="#cb36-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-76"><a href="#cb36-76" aria-hidden="true" tabindex="-1"></a>::: {.callout-note title="Plenty of pipes"}</span>
+<span id="cb36-77"><a href="#cb36-77" aria-hidden="true" tabindex="-1"></a>There is another style of pipe in R, called the 'base R pipe' <span class="in">`|&gt;`</span>, which is available in R version 4.1.0 and later. The base R pipe works in a similar way to the <span class="in">`magrittr`</span> pipe (<span class="in">`%&gt;%`</span>) that we use in this course, but it is not as flexible. We recommend using the <span class="in">`magrittr`</span> pipe for now.</span>
+<span id="cb36-78"><a href="#cb36-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-79"><a href="#cb36-79" aria-hidden="true" tabindex="-1"></a>Fun fact: the <span class="in">`magrittr`</span> package is named after the <span class="co">[</span><span class="ot">artist René Magritte, who made a famous painting of a pipe</span><span class="co">](https://en.wikipedia.org/wiki/The_Treachery_of_Images)</span>.</span>
+<span id="cb36-80"><a href="#cb36-80" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb36-81"><a href="#cb36-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-82"><a href="#cb36-82" aria-hidden="true" tabindex="-1"></a>To type the pipe operator more easily, you can use the keyboard shortcut {{&lt; kbd Cmd-shift-M &gt;}} (although once you get used to it, you might find it easier to type <span class="in">`%&gt;%`</span> manually).</span>
+<span id="cb36-83"><a href="#cb36-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-84"><a href="#cb36-84" aria-hidden="true" tabindex="-1"></a>::: {.callout-important title="Practice exercises"}</span>
+<span id="cb36-85"><a href="#cb36-85" aria-hidden="true" tabindex="-1"></a>Try these practice questions to test your understanding</span>
+<span id="cb36-86"><a href="#cb36-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-87"><a href="#cb36-87" aria-hidden="true" tabindex="-1"></a>::: question</span>
+<span id="cb36-88"><a href="#cb36-88" aria-hidden="true" tabindex="-1"></a>1<span class="sc">\.</span> What is NOT a valid way to re-write the following code using the pipe operator: <span class="in">`round(sqrt(sum(1:10)), 1)`</span>. If you're not sure, try running the different options in the console to see which one gives the same answer.</span>
+<span id="cb36-89"><a href="#cb36-89" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-90"><a href="#cb36-90" aria-hidden="true" tabindex="-1"></a>::: choices</span>
+<span id="cb36-91"><a href="#cb36-91" aria-hidden="true" tabindex="-1"></a>::: choice</span>
+<span id="cb36-92"><a href="#cb36-92" aria-hidden="true" tabindex="-1"></a><span class="in">`1:10 %&gt;% sum() %&gt;% sqrt() %&gt;% round(1)`</span></span>
+<span id="cb36-93"><a href="#cb36-93" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb36-94"><a href="#cb36-94" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-95"><a href="#cb36-95" aria-hidden="true" tabindex="-1"></a>::: {.choice .correct-choice}</span>
+<span id="cb36-96"><a href="#cb36-96" aria-hidden="true" tabindex="-1"></a><span class="in">`sum(1:10) %&gt;% sqrt(1) %&gt;% round()`</span></span>
+<span id="cb36-97"><a href="#cb36-97" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb36-98"><a href="#cb36-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-99"><a href="#cb36-99" aria-hidden="true" tabindex="-1"></a>::: choice</span>
+<span id="cb36-100"><a href="#cb36-100" aria-hidden="true" tabindex="-1"></a><span class="in">`1:10 %&gt;% sum() %&gt;% sqrt() %&gt;% round(digits = 1)`</span></span>
+<span id="cb36-101"><a href="#cb36-101" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb36-102"><a href="#cb36-102" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-103"><a href="#cb36-103" aria-hidden="true" tabindex="-1"></a>::: choice</span>
+<span id="cb36-104"><a href="#cb36-104" aria-hidden="true" tabindex="-1"></a><span class="in">`sum(1:10) %&gt;% sqrt() %&gt;% round(digits = 1)`</span></span>
+<span id="cb36-105"><a href="#cb36-105" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb36-106"><a href="#cb36-106" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb36-107"><a href="#cb36-107" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb36-108"><a href="#cb36-108" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-109"><a href="#cb36-109" aria-hidden="true" tabindex="-1"></a>::: question</span>
+<span id="cb36-110"><a href="#cb36-110" aria-hidden="true" tabindex="-1"></a>2<span class="sc">\.</span> What is the output of the following code? <span class="in">`letters %&gt;% head() %&gt;% toupper()`</span> Try to guess it before copy-pasting into R.</span>
+<span id="cb36-111"><a href="#cb36-111" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-112"><a href="#cb36-112" aria-hidden="true" tabindex="-1"></a>::: choices</span>
+<span id="cb36-113"><a href="#cb36-113" aria-hidden="true" tabindex="-1"></a>::: choice</span>
+<span id="cb36-114"><a href="#cb36-114" aria-hidden="true" tabindex="-1"></a><span class="in">`"A" "B" "C" "D" "E" "F" "G" "H" "I" "J" "K" "L" "M" "N" "O" "P" "Q" "R" "S" "T" "U" "V" "W" "X" "Y" "Z"`</span></span>
+<span id="cb36-115"><a href="#cb36-115" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb36-116"><a href="#cb36-116" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-117"><a href="#cb36-117" aria-hidden="true" tabindex="-1"></a>::: choice</span>
+<span id="cb36-118"><a href="#cb36-118" aria-hidden="true" tabindex="-1"></a><span class="in">`"a" "b" "c" "d" "e" "f"`</span></span>
+<span id="cb36-119"><a href="#cb36-119" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb36-120"><a href="#cb36-120" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-121"><a href="#cb36-121" aria-hidden="true" tabindex="-1"></a>::: choice</span>
+<span id="cb36-122"><a href="#cb36-122" aria-hidden="true" tabindex="-1"></a>An error</span>
+<span id="cb36-123"><a href="#cb36-123" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb36-124"><a href="#cb36-124" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-125"><a href="#cb36-125" aria-hidden="true" tabindex="-1"></a>::: {.choice .correct-choice}</span>
+<span id="cb36-126"><a href="#cb36-126" aria-hidden="true" tabindex="-1"></a><span class="in">`"A" "B" "C" "D" "E" "F"`</span></span>
+<span id="cb36-127"><a href="#cb36-127" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb36-128"><a href="#cb36-128" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb36-129"><a href="#cb36-129" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb36-130"><a href="#cb36-130" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-131"><a href="#cb36-131" aria-hidden="true" tabindex="-1"></a>&lt;details&gt;</span>
+<span id="cb36-132"><a href="#cb36-132" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-133"><a href="#cb36-133" aria-hidden="true" tabindex="-1"></a>&lt;summary&gt;Solutions&lt;/summary&gt;</span>
+<span id="cb36-134"><a href="#cb36-134" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-135"><a href="#cb36-135" aria-hidden="true" tabindex="-1"></a>&lt;p&gt;</span>
+<span id="cb36-136"><a href="#cb36-136" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-137"><a href="#cb36-137" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>The invalid option is <span class="in">`sum(1:10) %&gt;% sqrt(1) %&gt;% round()`</span>. This is because the <span class="in">`sqrt()`</span> function only takes one argument, so you can't specify <span class="in">`1`</span> as an argument in addition to what is being piped in from <span class="in">`sum(1:10)`</span>. Note that some options used the pipe to send <span class="in">`1:10`</span> to <span class="in">`sum()`</span> (like <span class="in">`1:10 %&gt;% sum()`</span>), and others just used <span class="in">`sum(1:10)`</span> directly. Both are valid ways to use the pipe, it's just a matter of personal preference.</span>
+<span id="cb36-138"><a href="#cb36-138" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>The output of the code <span class="in">`letters %&gt;% head() %&gt;% toupper()`</span> is <span class="in">`"A" "B" "C" "D" "E" "F"`</span>. The <span class="in">`letters`</span> vector contains the lowercase alphabet, and the <span class="in">`head()`</span> function returns the first 6 elements of the vector. Finally, the <span class="in">`toupper()`</span> function then converts these elements to uppercase.</span>
+<span id="cb36-139"><a href="#cb36-139" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-140"><a href="#cb36-140" aria-hidden="true" tabindex="-1"></a>&lt;/p&gt;</span>
+<span id="cb36-141"><a href="#cb36-141" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-142"><a href="#cb36-142" aria-hidden="true" tabindex="-1"></a>&lt;/details&gt;</span>
+<span id="cb36-143"><a href="#cb36-143" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb36-144"><a href="#cb36-144" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-145"><a href="#cb36-145" aria-hidden="true" tabindex="-1"></a><span class="fu">## Basic data maniuplations {#sec-dataManip}</span></span>
+<span id="cb36-146"><a href="#cb36-146" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-147"><a href="#cb36-147" aria-hidden="true" tabindex="-1"></a>To really see the power of the pipe, we will use it together with the <span class="in">`dplyr`</span> package that provides a set of functions to easily filter, sort, select, and summarise data frames. These functions are designed to work well with the pipe, so you can chain them together to create complex data manipulations in a readable format.</span>
+<span id="cb36-148"><a href="#cb36-148" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-149"><a href="#cb36-149" aria-hidden="true" tabindex="-1"></a>For example, even though we haven't covered the <span class="in">`dplyr`</span> functions yet, you can probably guess what the following code does:</span>
+<span id="cb36-150"><a href="#cb36-150" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-153"><a href="#cb36-153" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb36-154"><a href="#cb36-154" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb36-155"><a href="#cb36-155" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-156"><a href="#cb36-156" aria-hidden="true" tabindex="-1"></a><span class="co"># use the pipe to chain together our data manipulation steps</span></span>
+<span id="cb36-157"><a href="#cb36-157" aria-hidden="true" tabindex="-1"></a>mousezempic_dosage_data <span class="sc">%&gt;%</span></span>
+<span id="cb36-158"><a href="#cb36-158" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(cage_number <span class="sc">==</span> <span class="st">"3E"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb36-159"><a href="#cb36-159" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(weight_lost_g) <span class="sc">%&gt;%</span></span>
+<span id="cb36-160"><a href="#cb36-160" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mean</span>()</span>
+<span id="cb36-161"><a href="#cb36-161" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb36-162"><a href="#cb36-162" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-163"><a href="#cb36-163" aria-hidden="true" tabindex="-1"></a>This code filters the <span class="in">`mousezempic_dosage_data`</span> data frame to only include data from cage 3E, then pulls out the <span class="in">`weight_lost_g`</span> column, and finally calculates the mean of the values in that column. The first argument to each function is the output of the previous function, and any additional arguments (like the column name in <span class="in">`pull()`</span>) are specified in the brackets (like <span class="in">`round(digits = 2)`</span> from the previous example).</span>
+<span id="cb36-164"><a href="#cb36-164" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-165"><a href="#cb36-165" aria-hidden="true" tabindex="-1"></a>We also used the enter key after each pipe <span class="in">`%&gt;%`</span> to break up the code into multiple lines to make it easier to read. This isn't required, but is a popular style in the R community, so all the code examples in this session will follow this format.</span>
+<span id="cb36-166"><a href="#cb36-166" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-167"><a href="#cb36-167" aria-hidden="true" tabindex="-1"></a>We will now introduce some of the most commonly used <span class="in">`dplyr`</span> functions for manipulating data frames. To showcase these, we will use the <span class="in">`mousezempic_dosage_data`</span> that we practiced reading in last session. This imaginary dataset contains information on the weight lost by different strains of mice after being treated with different doses of MouseZempic®.</span>
+<span id="cb36-168"><a href="#cb36-168" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-171"><a href="#cb36-171" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb36-172"><a href="#cb36-172" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb36-173"><a href="#cb36-173" aria-hidden="true" tabindex="-1"></a><span class="co"># read in the data, like we did in session 1</span></span>
+<span id="cb36-174"><a href="#cb36-174" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb36-175"><a href="#cb36-175" aria-hidden="true" tabindex="-1"></a>mousezempic_dosage_data <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">"~/Desktop/R_course/data/mousezempic_dosage_data.csv"</span>)</span>
+<span id="cb36-176"><a href="#cb36-176" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb36-177"><a href="#cb36-177" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-180"><a href="#cb36-180" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb36-181"><a href="#cb36-181" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb36-182"><a href="#cb36-182" aria-hidden="true" tabindex="-1"></a><span class="co"># just for rendering the book not for students to see</span></span>
+<span id="cb36-183"><a href="#cb36-183" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb36-184"><a href="#cb36-184" aria-hidden="true" tabindex="-1"></a>mousezempic_dosage_data <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">"data/mousezempic_dosage_data.csv"</span>)</span>
+<span id="cb36-185"><a href="#cb36-185" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb36-186"><a href="#cb36-186" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-187"><a href="#cb36-187" aria-hidden="true" tabindex="-1"></a>Before we start, let's use what we learned in the previous session to take a look at <span class="in">`mousezempic_dosage_data`</span>:</span>
+<span id="cb36-188"><a href="#cb36-188" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-191"><a href="#cb36-191" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb36-192"><a href="#cb36-192" aria-hidden="true" tabindex="-1"></a><span class="co"># it's a tibble, so prints nicely</span></span>
+<span id="cb36-193"><a href="#cb36-193" aria-hidden="true" tabindex="-1"></a>mousezempic_dosage_data</span>
+<span id="cb36-194"><a href="#cb36-194" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb36-195"><a href="#cb36-195" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-196"><a href="#cb36-196" aria-hidden="true" tabindex="-1"></a>You might also like to use <span class="in">`View()`</span> to open the data in a separate window and get a closer look.</span>
+<span id="cb36-197"><a href="#cb36-197" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-198"><a href="#cb36-198" aria-hidden="true" tabindex="-1"></a>::: {.callout-note title="Using RStudio autocomplete"}</span>
+<span id="cb36-199"><a href="#cb36-199" aria-hidden="true" tabindex="-1"></a>Although it's great to give our data a descriptive name like <span class="in">`mousezempic_dosage_data`</span>, it can be a bit of a pain to type out every time. Luckily, RStudio has a handy autocomplete feature that can solve this problem. Just start typing the name of the object, and you'll see it will popup:</span>
+<span id="cb36-200"><a href="#cb36-200" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-201"><a href="#cb36-201" aria-hidden="true" tabindex="-1"></a><span class="al">![RStudio autocomplete](images/S02F01_rstudio_autocomplete.png)</span></span>
+<span id="cb36-202"><a href="#cb36-202" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-203"><a href="#cb36-203" aria-hidden="true" tabindex="-1"></a>You can then press {{&lt; kbd Tab &gt;}} to autocomplete it. If there are multiple objects that start with the same letters, you can use the arrow keys to cycle through the options.</span>
+<span id="cb36-204"><a href="#cb36-204" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-205"><a href="#cb36-205" aria-hidden="true" tabindex="-1"></a>Try using autocomplete this session to save yourself some typing!</span>
+<span id="cb36-206"><a href="#cb36-206" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb36-207"><a href="#cb36-207" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-208"><a href="#cb36-208" aria-hidden="true" tabindex="-1"></a><span class="fu">### Sorting data {#sec-sorting}</span></span>
+<span id="cb36-209"><a href="#cb36-209" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-210"><a href="#cb36-210" aria-hidden="true" tabindex="-1"></a>Often, one of the first things you might want to do with a dataset is sort it. In <span class="in">`dplyr`</span>, this is called 'arranging' and is done with the <span class="in">`arrange()`</span> function.</span>
+<span id="cb36-211"><a href="#cb36-211" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-212"><a href="#cb36-212" aria-hidden="true" tabindex="-1"></a><span class="al">![Arrange orders rows by their values in one or more columns](images/S02F02_arrange.png)</span></span>
+<span id="cb36-213"><a href="#cb36-213" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-214"><a href="#cb36-214" aria-hidden="true" tabindex="-1"></a>By default, <span class="in">`arrange()`</span> sorts in ascending order (smallest values first). For example, let's sort the <span class="in">`mousezempic_dosage_data`</span> data frame by the <span class="in">`weight_lost_g`</span> column:</span>
+<span id="cb36-215"><a href="#cb36-215" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-218"><a href="#cb36-218" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb36-219"><a href="#cb36-219" aria-hidden="true" tabindex="-1"></a>mousezempic_dosage_data <span class="sc">%&gt;%</span></span>
+<span id="cb36-220"><a href="#cb36-220" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(weight_lost_g)</span>
+<span id="cb36-221"><a href="#cb36-221" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb36-222"><a href="#cb36-222" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-223"><a href="#cb36-223" aria-hidden="true" tabindex="-1"></a>If we compare this to when we just printed our data above, we can see that the rows are now sorted so that the mice that lost the least weight are at the top.</span>
+<span id="cb36-224"><a href="#cb36-224" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-225"><a href="#cb36-225" aria-hidden="true" tabindex="-1"></a>Sometimes you might want to sort in descending order instead (largest values first). You can do this by putting the <span class="in">`desc()`</span> function around your column name, inside <span class="in">`arrange()`</span>:</span>
+<span id="cb36-226"><a href="#cb36-226" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-229"><a href="#cb36-229" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb36-230"><a href="#cb36-230" aria-hidden="true" tabindex="-1"></a>mousezempic_dosage_data <span class="sc">%&gt;%</span></span>
+<span id="cb36-231"><a href="#cb36-231" aria-hidden="true" tabindex="-1"></a>  <span class="co"># put desc() around the column name to sort in descending order</span></span>
+<span id="cb36-232"><a href="#cb36-232" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(weight_lost_g))</span>
+<span id="cb36-233"><a href="#cb36-233" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb36-234"><a href="#cb36-234" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-235"><a href="#cb36-235" aria-hidden="true" tabindex="-1"></a>Now we can see the mice that lost the most weight are at the top.</span>
+<span id="cb36-236"><a href="#cb36-236" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-237"><a href="#cb36-237" aria-hidden="true" tabindex="-1"></a>::: {.callout-note title="Comments and pipes"}</span>
+<span id="cb36-238"><a href="#cb36-238" aria-hidden="true" tabindex="-1"></a>Notice how in the previous example we have written a comment in the middle of the pipe chain. This is a good practice to help you remember what each step is doing, especially when you have a long chain of functions, and won't cause any errors as long as you make sure that the comment is on its own line.</span>
+<span id="cb36-239"><a href="#cb36-239" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-240"><a href="#cb36-240" aria-hidden="true" tabindex="-1"></a>You can also write comments at the end of the line, just make sure it's after the pipe operator <span class="in">`%&gt;%`</span>.</span>
+<span id="cb36-241"><a href="#cb36-241" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-242"><a href="#cb36-242" aria-hidden="true" tabindex="-1"></a>For example, these comments are allowed:</span>
+<span id="cb36-243"><a href="#cb36-243" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-246"><a href="#cb36-246" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb36-247"><a href="#cb36-247" aria-hidden="true" tabindex="-1"></a>mousezempic_dosage_data <span class="sc">%&gt;%</span> <span class="co"># a comment here is fine</span></span>
+<span id="cb36-248"><a href="#cb36-248" aria-hidden="true" tabindex="-1"></a>  <span class="co"># a comment here is fine</span></span>
+<span id="cb36-249"><a href="#cb36-249" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(weight_lost_g))</span>
+<span id="cb36-250"><a href="#cb36-250" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb36-251"><a href="#cb36-251" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-252"><a href="#cb36-252" aria-hidden="true" tabindex="-1"></a>But this will cause an error, because the <span class="in">`#`</span> is before the pipe, so R treats it as part of the comment (notice how the <span class="in">`%&gt;%`</span> has changed colour?) and doesn't know how the two lines relate to each other. It tries to run them separately, which for the first line is ok (it will just print <span class="in">`mousezempic_dosage_data`</span>):</span>
+<span id="cb36-253"><a href="#cb36-253" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-256"><a href="#cb36-256" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb36-257"><a href="#cb36-257" aria-hidden="true" tabindex="-1"></a><span class="co">#| error: true</span></span>
+<span id="cb36-258"><a href="#cb36-258" aria-hidden="true" tabindex="-1"></a>mousezempic_dosage_data <span class="co"># this comment will cause an error %&gt;%</span></span>
+<span id="cb36-259"><a href="#cb36-259" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(weight_lost_g))</span>
+<span id="cb36-260"><a href="#cb36-260" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb36-261"><a href="#cb36-261" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-262"><a href="#cb36-262" aria-hidden="true" tabindex="-1"></a>But for the second line, there is an error that R doesn't know what the <span class="in">`weight_lost_g`</span> object is. That's because it's a column in the <span class="in">`mousezempic_dosage_data`</span> data frame, so R only knows what it is in the context of the pipe chain containing that data frame.</span>
+<span id="cb36-263"><a href="#cb36-263" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb36-264"><a href="#cb36-264" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-265"><a href="#cb36-265" aria-hidden="true" tabindex="-1"></a>You can also sort by multiple columns by passing multiple column names to <span class="in">`arrange()`</span>. For example, to sort by the strain first and then by the amount of weight lost:</span>
+<span id="cb36-266"><a href="#cb36-266" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-269"><a href="#cb36-269" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb36-270"><a href="#cb36-270" aria-hidden="true" tabindex="-1"></a><span class="co"># sort by strain first, then by weight lost</span></span>
+<span id="cb36-271"><a href="#cb36-271" aria-hidden="true" tabindex="-1"></a>mousezempic_dosage_data <span class="sc">%&gt;%</span></span>
+<span id="cb36-272"><a href="#cb36-272" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(mouse_strain, weight_lost_g)</span>
+<span id="cb36-273"><a href="#cb36-273" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb36-274"><a href="#cb36-274" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-275"><a href="#cb36-275" aria-hidden="true" tabindex="-1"></a>This will sort the data frame by strain (according to alphabetical order, as it is a character column), and within each strain, they are then sorted by the amount of weight lost.</span>
+<span id="cb36-276"><a href="#cb36-276" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-277"><a href="#cb36-277" aria-hidden="true" tabindex="-1"></a>::: {.callout-note title="Piping into View()"}</span>
+<span id="cb36-278"><a href="#cb36-278" aria-hidden="true" tabindex="-1"></a>In the above example, we sorted the data by strain and then by weight lost, but because there are so many mice in each strain, the preview shown in our console doesn't allow us to see the full effect of the sorting.</span>
+<span id="cb36-279"><a href="#cb36-279" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-280"><a href="#cb36-280" aria-hidden="true" tabindex="-1"></a>One handy trick you can use with pipes is to add <span class="in">`View()`</span> at the end of your chain to open the data in a separate window. Try running this code, and you'll be able to scroll through the full dataset to check that the other mouse strains have also been sorted correctly:</span>
+<span id="cb36-281"><a href="#cb36-281" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-284"><a href="#cb36-284" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb36-285"><a href="#cb36-285" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb36-286"><a href="#cb36-286" aria-hidden="true" tabindex="-1"></a><span class="co"># sort by strain first, then by weight lost</span></span>
+<span id="cb36-287"><a href="#cb36-287" aria-hidden="true" tabindex="-1"></a>mousezempic_dosage_data <span class="sc">%&gt;%</span></span>
+<span id="cb36-288"><a href="#cb36-288" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(mouse_strain, weight_lost_g) <span class="sc">%&gt;%</span></span>
+<span id="cb36-289"><a href="#cb36-289" aria-hidden="true" tabindex="-1"></a>  <span class="fu">View</span>()</span>
+<span id="cb36-290"><a href="#cb36-290" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb36-291"><a href="#cb36-291" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-292"><a href="#cb36-292" aria-hidden="true" tabindex="-1"></a>This is a great way to check that your code has actually done what you intended!</span>
+<span id="cb36-293"><a href="#cb36-293" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb36-294"><a href="#cb36-294" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-295"><a href="#cb36-295" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Extracting rows with the smallest or largest values {#sec-sliceMinMax}</span></span>
+<span id="cb36-296"><a href="#cb36-296" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-297"><a href="#cb36-297" aria-hidden="true" tabindex="-1"></a>Slice functions are used to select rows based on their position in the data frame. The <span class="in">`slice_min()`</span> and <span class="in">`slice_max()`</span> functions are particularly useful, because they allow you to select the rows with the smallest or largest values in a particular column.</span>
+<span id="cb36-298"><a href="#cb36-298" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-299"><a href="#cb36-299" aria-hidden="true" tabindex="-1"></a>This is equivalent to using <span class="in">`arrange()`</span> followed by <span class="in">`head()`</span>, but is more concise:</span>
+<span id="cb36-300"><a href="#cb36-300" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-303"><a href="#cb36-303" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb36-304"><a href="#cb36-304" aria-hidden="true" tabindex="-1"></a><span class="co"># get the 10 mice with the lowest drug dose</span></span>
+<span id="cb36-305"><a href="#cb36-305" aria-hidden="true" tabindex="-1"></a>mousezempic_dosage_data <span class="sc">%&gt;%</span></span>
+<span id="cb36-306"><a href="#cb36-306" aria-hidden="true" tabindex="-1"></a>  <span class="co"># slice_min() requires the column to sort by, and n = the number of rows to keep</span></span>
+<span id="cb36-307"><a href="#cb36-307" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_min</span>(drug_dose_g, <span class="at">n =</span> <span class="dv">10</span>)</span>
+<span id="cb36-308"><a href="#cb36-308" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-309"><a href="#cb36-309" aria-hidden="true" tabindex="-1"></a><span class="co"># get the top 5 mice that lost the most weight</span></span>
+<span id="cb36-310"><a href="#cb36-310" aria-hidden="true" tabindex="-1"></a>mousezempic_dosage_data <span class="sc">%&gt;%</span></span>
+<span id="cb36-311"><a href="#cb36-311" aria-hidden="true" tabindex="-1"></a>  <span class="co"># slice_max() has the same arguments as slice_min()</span></span>
+<span id="cb36-312"><a href="#cb36-312" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_max</span>(weight_lost_g, <span class="at">n =</span> <span class="dv">5</span>)</span>
+<span id="cb36-313"><a href="#cb36-313" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb36-314"><a href="#cb36-314" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-315"><a href="#cb36-315" aria-hidden="true" tabindex="-1"></a>But wait-- neither of those pieces of code actually gave the number of rows we asked for! In the first example, we asked for the 10 mice with the lowest drug dose, but we got 13. And in the second example, we asked for the top 5 mice that lost the most weight, but we got 6. Why aren't the <span class="in">`slice_`</span> functions behaving as expected?</span>
+<span id="cb36-316"><a href="#cb36-316" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-317"><a href="#cb36-317" aria-hidden="true" tabindex="-1"></a>If we take a look at the help page (type <span class="in">`?slice_min`</span> in the console), we learn that <span class="in">`slice_min()`</span> and <span class="in">`slice_max()`</span> have an argument called <span class="in">`with_ties`</span> that is set to <span class="in">`TRUE`</span> by default. If we want to make sure we only get the number of rows we asked for, we would have to set it to <span class="in">`FALSE`</span>, like so:</span>
+<span id="cb36-318"><a href="#cb36-318" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-321"><a href="#cb36-321" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb36-322"><a href="#cb36-322" aria-hidden="true" tabindex="-1"></a><span class="co"># get the top 5 mice that lost the most weight</span></span>
+<span id="cb36-323"><a href="#cb36-323" aria-hidden="true" tabindex="-1"></a>mousezempic_dosage_data <span class="sc">%&gt;%</span></span>
+<span id="cb36-324"><a href="#cb36-324" aria-hidden="true" tabindex="-1"></a>  <span class="co"># no ties allowed!</span></span>
+<span id="cb36-325"><a href="#cb36-325" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_max</span>(weight_lost_g, <span class="at">n =</span> <span class="dv">5</span>, <span class="at">with_ties =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb36-326"><a href="#cb36-326" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb36-327"><a href="#cb36-327" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-328"><a href="#cb36-328" aria-hidden="true" tabindex="-1"></a>This is an important lesson: sometimes functions will behave in a way that is unexpected, and you might need to read their help page or use other guides/google/AI to understand why.</span>
+<span id="cb36-329"><a href="#cb36-329" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-330"><a href="#cb36-330" aria-hidden="true" tabindex="-1"></a>::: {.callout-important title="Practice exercises"}</span>
+<span id="cb36-331"><a href="#cb36-331" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-332"><a href="#cb36-332" aria-hidden="true" tabindex="-1"></a>Try these practice questions to test your understanding</span>
+<span id="cb36-333"><a href="#cb36-333" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-334"><a href="#cb36-334" aria-hidden="true" tabindex="-1"></a>::: question</span>
+<span id="cb36-335"><a href="#cb36-335" aria-hidden="true" tabindex="-1"></a>1<span class="sc">\.</span> Which code would you use to sort the <span class="in">`mousezempic_dosage_data`</span> data frame from biggest to smallest initial weight?</span>
+<span id="cb36-336"><a href="#cb36-336" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-337"><a href="#cb36-337" aria-hidden="true" tabindex="-1"></a>::: choices</span>
+<span id="cb36-338"><a href="#cb36-338" aria-hidden="true" tabindex="-1"></a>::: choice</span>
+<span id="cb36-339"><a href="#cb36-339" aria-hidden="true" tabindex="-1"></a><span class="in">`mousezempic_dosage_data %&gt;% sort(initial_weight_g)`</span></span>
+<span id="cb36-340"><a href="#cb36-340" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb36-341"><a href="#cb36-341" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-342"><a href="#cb36-342" aria-hidden="true" tabindex="-1"></a>::: choice</span>
+<span id="cb36-343"><a href="#cb36-343" aria-hidden="true" tabindex="-1"></a><span class="in">`mousezempic_dosage_data %&gt;% arrange(initial_weight_g)`</span></span>
+<span id="cb36-344"><a href="#cb36-344" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb36-345"><a href="#cb36-345" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-346"><a href="#cb36-346" aria-hidden="true" tabindex="-1"></a>::: choice</span>
+<span id="cb36-347"><a href="#cb36-347" aria-hidden="true" tabindex="-1"></a><span class="in">`mousezempic_dosage_data %&gt;% sort(descending(initial_weight_g))`</span></span>
+<span id="cb36-348"><a href="#cb36-348" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb36-349"><a href="#cb36-349" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-350"><a href="#cb36-350" aria-hidden="true" tabindex="-1"></a>::: {.choice .correct-choice}</span>
+<span id="cb36-351"><a href="#cb36-351" aria-hidden="true" tabindex="-1"></a><span class="in">`mousezempic_dosage_data %&gt;% arrange(desc(initial_weight_g))`</span></span>
+<span id="cb36-352"><a href="#cb36-352" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb36-353"><a href="#cb36-353" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-354"><a href="#cb36-354" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb36-355"><a href="#cb36-355" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb36-356"><a href="#cb36-356" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-357"><a href="#cb36-357" aria-hidden="true" tabindex="-1"></a>::: question</span>
+<span id="cb36-358"><a href="#cb36-358" aria-hidden="true" tabindex="-1"></a>2<span class="sc">\.</span> Which code would you use to extract the 3 mice with the highest initial weight from the <span class="in">`mousezempic_dosage_data`</span> data frame?</span>
+<span id="cb36-359"><a href="#cb36-359" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-360"><a href="#cb36-360" aria-hidden="true" tabindex="-1"></a>::: choices</span>
+<span id="cb36-361"><a href="#cb36-361" aria-hidden="true" tabindex="-1"></a>::: {.choice .correct-choice}</span>
+<span id="cb36-362"><a href="#cb36-362" aria-hidden="true" tabindex="-1"></a><span class="in">`mousezempic_dosage_data %&gt;% slice_max(initial_weight_g, n = 3)`</span></span>
+<span id="cb36-363"><a href="#cb36-363" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb36-364"><a href="#cb36-364" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-365"><a href="#cb36-365" aria-hidden="true" tabindex="-1"></a>::: choice</span>
+<span id="cb36-366"><a href="#cb36-366" aria-hidden="true" tabindex="-1"></a><span class="in">`mousezempic_dosage_data %&gt;% arrange(desc(initial_weight_g))`</span></span>
+<span id="cb36-367"><a href="#cb36-367" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb36-368"><a href="#cb36-368" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-369"><a href="#cb36-369" aria-hidden="true" tabindex="-1"></a>::: choice</span>
+<span id="cb36-370"><a href="#cb36-370" aria-hidden="true" tabindex="-1"></a><span class="in">`mousezempic_dosage_data %&gt;% slice_min(initial_weight_g, n = 3)`</span></span>
+<span id="cb36-371"><a href="#cb36-371" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb36-372"><a href="#cb36-372" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-373"><a href="#cb36-373" aria-hidden="true" tabindex="-1"></a>::: choice</span>
+<span id="cb36-374"><a href="#cb36-374" aria-hidden="true" tabindex="-1"></a><span class="in">`mousezempic_dosage_data %&gt;% arrange(initial_weight_g)`</span></span>
+<span id="cb36-375"><a href="#cb36-375" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb36-376"><a href="#cb36-376" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb36-377"><a href="#cb36-377" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb36-378"><a href="#cb36-378" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-379"><a href="#cb36-379" aria-hidden="true" tabindex="-1"></a>::: question</span>
+<span id="cb36-380"><a href="#cb36-380" aria-hidden="true" tabindex="-1"></a>3<span class="sc">\.</span> I've written the below code, but one of the comments is messing it up! Which one?</span>
+<span id="cb36-381"><a href="#cb36-381" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-384"><a href="#cb36-384" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb36-385"><a href="#cb36-385" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb36-386"><a href="#cb36-386" aria-hidden="true" tabindex="-1"></a><span class="co"># comment A</span></span>
+<span id="cb36-387"><a href="#cb36-387" aria-hidden="true" tabindex="-1"></a>mousezempic_dosage_data <span class="co"># comment B %&gt;%</span></span>
+<span id="cb36-388"><a href="#cb36-388" aria-hidden="true" tabindex="-1"></a>  <span class="co"># comment C</span></span>
+<span id="cb36-389"><a href="#cb36-389" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_max</span>(weight_lost_g, <span class="at">n =</span> <span class="dv">5</span>, <span class="at">with_ties =</span> <span class="cn">FALSE</span>) <span class="co"># comment D</span></span>
+<span id="cb36-390"><a href="#cb36-390" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb36-391"><a href="#cb36-391" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-392"><a href="#cb36-392" aria-hidden="true" tabindex="-1"></a>::: choices</span>
+<span id="cb36-393"><a href="#cb36-393" aria-hidden="true" tabindex="-1"></a>::: choice</span>
+<span id="cb36-394"><a href="#cb36-394" aria-hidden="true" tabindex="-1"></a>Comment A</span>
+<span id="cb36-395"><a href="#cb36-395" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb36-396"><a href="#cb36-396" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-397"><a href="#cb36-397" aria-hidden="true" tabindex="-1"></a>::: {.choice .correct-choice}</span>
+<span id="cb36-398"><a href="#cb36-398" aria-hidden="true" tabindex="-1"></a>Comment B</span>
+<span id="cb36-399"><a href="#cb36-399" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb36-400"><a href="#cb36-400" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-401"><a href="#cb36-401" aria-hidden="true" tabindex="-1"></a>::: choice</span>
+<span id="cb36-402"><a href="#cb36-402" aria-hidden="true" tabindex="-1"></a>Comment C</span>
+<span id="cb36-403"><a href="#cb36-403" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb36-404"><a href="#cb36-404" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-405"><a href="#cb36-405" aria-hidden="true" tabindex="-1"></a>::: choice</span>
+<span id="cb36-406"><a href="#cb36-406" aria-hidden="true" tabindex="-1"></a>Comment D</span>
+<span id="cb36-407"><a href="#cb36-407" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb36-408"><a href="#cb36-408" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb36-409"><a href="#cb36-409" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb36-410"><a href="#cb36-410" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-411"><a href="#cb36-411" aria-hidden="true" tabindex="-1"></a>&lt;details&gt;</span>
+<span id="cb36-412"><a href="#cb36-412" aria-hidden="true" tabindex="-1"></a>&lt;summary&gt;Solutions&lt;/summary&gt;</span>
+<span id="cb36-413"><a href="#cb36-413" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-414"><a href="#cb36-414" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>The correct code to sort the <span class="in">`mousezempic_dosage_data`</span> data frame from biggest to smallest initial weight is <span class="in">`mousezempic_dosage_data %&gt;% arrange(desc(initial_weight_g))`</span>. The <span class="in">`arrange()`</span> function is used to sort the data frame (although there is a <span class="in">`sort()`</span> function in R, that's not part of dplyr and won't work the same way), and the <span class="in">`desc()`</span> function is used to sort in descending order.</span>
+<span id="cb36-415"><a href="#cb36-415" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-416"><a href="#cb36-416" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>The correct code to extract the 3 mice with the highest initial weight from the <span class="in">`mousezempic_dosage_data`</span> data frame is <span class="in">`mousezempic_dosage_data %&gt;% slice_max(initial_weight_g, n = 3)`</span>. The <span class="in">`slice_max()`</span> function is used to select the rows with the largest values in the <span class="in">`initial_weight_g`</span> column, and the <span class="in">`n = 3`</span> argument specifies that we want to keep 3 rows. The <span class="in">`arrange()`</span> function is not needed in this case, because <span class="in">`slice_max()`</span> will automatically sort the data frame by the specified column.</span>
+<span id="cb36-417"><a href="#cb36-417" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-418"><a href="#cb36-418" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>The comment that is messing up the code is Comment B. The <span class="in">`#`</span> symbol is before the pipe operator <span class="in">`%&gt;%`</span>, so R treats it as part of the comment and this breaks our chain of pipes. The other comments are fine, because they are either at the end of the line or on their own line. Basically, if a comment is changing the colour of the pipe operator (or any other bits of your code), it's in the wrong place!</span>
+<span id="cb36-419"><a href="#cb36-419" aria-hidden="true" tabindex="-1"></a>&lt;/details&gt;</span>
+<span id="cb36-420"><a href="#cb36-420" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-421"><a href="#cb36-421" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb36-422"><a href="#cb36-422" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-423"><a href="#cb36-423" aria-hidden="true" tabindex="-1"></a><span class="fu">### Filtering data {#sec-filter}</span></span>
+<span id="cb36-424"><a href="#cb36-424" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-425"><a href="#cb36-425" aria-hidden="true" tabindex="-1"></a>filteR for rows</span>
+<span id="cb36-426"><a href="#cb36-426" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-427"><a href="#cb36-427" aria-hidden="true" tabindex="-1"></a><span class="fu">### Dealing with missing values {#sec-missing}</span></span>
+<span id="cb36-428"><a href="#cb36-428" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-429"><a href="#cb36-429" aria-hidden="true" tabindex="-1"></a>how to find missing values mention that you</span>
+<span id="cb36-430"><a href="#cb36-430" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-431"><a href="#cb36-431" aria-hidden="true" tabindex="-1"></a><span class="fu">### Selecting columns {#sec-select}</span></span>
+<span id="cb36-432"><a href="#cb36-432" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-433"><a href="#cb36-433" aria-hidden="true" tabindex="-1"></a>seleCt for columns</span>
+<span id="cb36-434"><a href="#cb36-434" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-435"><a href="#cb36-435" aria-hidden="true" tabindex="-1"></a><span class="fu">### Modifying data {#sec-mutate}</span></span>
+<span id="cb36-436"><a href="#cb36-436" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-437"><a href="#cb36-437" aria-hidden="true" tabindex="-1"></a>with mutate()</span>
+<span id="cb36-438"><a href="#cb36-438" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-439"><a href="#cb36-439" aria-hidden="true" tabindex="-1"></a><span class="fu">### Summarising data {#sec-summarise}</span></span>
+<span id="cb36-440"><a href="#cb36-440" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-441"><a href="#cb36-441" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>mention that this works with summarize() as well</span>
+<span id="cb36-442"><a href="#cb36-442" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-443"><a href="#cb36-443" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>example of calculating mean/median etc</span>
+<span id="cb36-444"><a href="#cb36-444" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-445"><a href="#cb36-445" aria-hidden="true" tabindex="-1"></a><span class="fu">## Grouping {#sec-grouping}</span></span>
+<span id="cb36-446"><a href="#cb36-446" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-447"><a href="#cb36-447" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>teaching grouping with the .by argument in other functions</span>
+<span id="cb36-448"><a href="#cb36-448" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-449"><a href="#cb36-449" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>demonstrate the powerful combo of grouping + summarising</span>
+<span id="cb36-450"><a href="#cb36-450" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-451"><a href="#cb36-451" aria-hidden="true" tabindex="-1"></a><span class="fu">## Reshaping and combining data</span></span>
+<span id="cb36-452"><a href="#cb36-452" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-453"><a href="#cb36-453" aria-hidden="true" tabindex="-1"></a><span class="fu">### Reshaping data with pivot functions {#sec-pivot}</span></span>
+<span id="cb36-454"><a href="#cb36-454" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-455"><a href="#cb36-455" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>brief introduction to pivoting</span>
+<span id="cb36-456"><a href="#cb36-456" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-457"><a href="#cb36-457" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>need to think of some kind of meaningful example for this</span>
+<span id="cb36-458"><a href="#cb36-458" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-459"><a href="#cb36-459" aria-hidden="true" tabindex="-1"></a><span class="fu">### Combining data with join functions {#sec-join}</span></span>
+<span id="cb36-460"><a href="#cb36-460" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-461"><a href="#cb36-461" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>left_join() example</span>
+<span id="cb36-462"><a href="#cb36-462" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-463"><a href="#cb36-463" aria-hidden="true" tabindex="-1"></a><span class="fu">## Saving data to a file {#sec-saving}</span></span>
+<span id="cb36-464"><a href="#cb36-464" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-465"><a href="#cb36-465" aria-hidden="true" tabindex="-1"></a>write<span class="sc">\_\*</span> family of functions</span>
+<span id="cb36-466"><a href="#cb36-466" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-467"><a href="#cb36-467" aria-hidden="true" tabindex="-1"></a><span class="fu">## Summary</span></span>
+<span id="cb36-468"><a href="#cb36-468" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-469"><a href="#cb36-469" aria-hidden="true" tabindex="-1"></a><span class="fu">### Practice questions</span></span>
+</code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 
