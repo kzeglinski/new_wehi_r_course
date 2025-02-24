@@ -12,13 +12,12 @@ format:
 
 In this session we will combine all the skills we have learned so far to perform a complete analysis of a (small) dataset
 
-## Learning objectives
-
+::: {.callout-tip title="Learning Objectives"}
 At the end of this session, learners should be able to:
 
 1.  Describe the key steps in data analysis (exploration, manipulating and plotting)
 2.
-
+:::
 ## Introduction to the dataset
 
 describe the fake experiment setup and the data files you will start with

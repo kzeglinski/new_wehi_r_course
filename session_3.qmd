@@ -10,14 +10,16 @@ format:
 
 # Session 3: Plotting with ggplot {#sec-session03}
 
-## Learning objectives
+In this session we will learn how to create and customise plots using the `ggplot2` package.
 
+::: {.callout-tip title="Learning Objectives"}
 At the end of this session, learners should be able to:
 
 1.  Create a ggplot and save it for use outside of R
 2.  List some of the common ways we can change the appearance of a plot, such as themes, legends and colours.
 3.  Use the `facet_wrap` function to create a series of similar plots
 4.  Describe how to use the `patchwork` package to compose multiple plots together into a single figure
+:::
 
 ## Building our first plot, layer by layer
 

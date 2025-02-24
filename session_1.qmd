@@ -10,6 +10,8 @@ format:
 
 # Session 1: Introduction to R {#sec-session01}
 
+In this session, we will get familiar with R.
+
 ::: {.callout-tip title="Learning Objectives"}
 1.  Use RStudio to create an R project and R script
 

@@ -10,8 +10,9 @@ format:
 
 # Session 2: Working with data {#sec-session02}
 
-## Learning objectives
+In this session we will learn how to manipulate and summarise data using the `dplyr` package.
 
+::: {.callout-tip title="Learning Objectives"}
 At the end of this session, learners should be able to:
 
 1.  Use the pipe (`%>%`) to chain multiple functions together
@@ -23,64 +24,409 @@ At the end of this session, learners should be able to:
 4.  Understand how pivot and join functions can be used to reshape and combine entire data frames
 
 5.  Recall how to save data frames to a file
+:::
 
-## Chaining functions together with pipes
+Make sure you have `dplyr` package loaded by running `library(dplyr)`, otherwise you will not be able to run the code in this session.
 
--   explain what the pipe does
+```{r}
+# don't forget to load dplyr
+library(dplyr)
+```
 
--   easy first example could be mean() %\>% round()
+You'll see some output from the `dplyr` package when you load it, which is just telling you that some of `dplyr`'s functions have the same name as other functions in R.
 
-## Manipulating data
+## Chaining functions together with pipes {#sec-pipes}
 
-mention that in this section we will use the dplyr package, and you will see a 'tibble' which is basically the same thing as a data frame.
+Pipes are a powerful feature of the `tidyverse` that allow you to chain multiple functions together. Pipes are useful because they allow you to break down complex operations into smaller steps that are easier to read and understand.
 
-in this section we need to have a nice little example dataset to work with that's biologically relevant. could read it in at the end of session 1
+For example, take the following code:
 
-relabelled penguins
+```{r}
+my_vector <- c(1, 2, 3, 4, 5)
+as.character(round(mean(my_vector)))
+```
 
-### Sorting data
+What do you think this code does? It calculates the mean of `my_vector`, rounds the result to the nearest whole number, and then converts the result to a character. But the code is a bit hard to read because you have to start from the inside of the brackets and work your way out.
 
--   arrange() and arrange(desc())
+Instead, we can use the pipe operator (`%>%`) to chain these functions together in a more readable way:
 
--   slice_min() and slice_max()
+```{r}
+my_vector <- c(1, 2, 3, 4, 5)
+my_vector %>% mean() %>% round() %>% as.character()
+```
 
-### Filtering data
+See how the code reads naturally from left to right? You can think of the pipe as being like the phrase "and then". Here, we're telling R: "Take `my_vector`, and then calculate the mean, and then round the result, and then convert it to a character."
+
+You'll notice that we didn't need to specify the input to each function. That's because the pipe automatically passes the output of the previous function as the first input to the next function. We can still specify additional arguments to each function if we need to. For example, if we wanted to round the mean to 2 decimal places, we could do this:
+
+```{r}
+my_vector %>% mean() %>% round(digits = 2) %>% as.character()
+```
+
+R is clever enough to know that the first argument to `round()` is still the output of `mean()`, even though we've now specified the `digits` argument.
+
+::: {.callout-note title="Plenty of pipes"}
+There is another style of pipe in R, called the 'base R pipe' `|>`, which is available in R version 4.1.0 and later. The base R pipe works in a similar way to the `magrittr` pipe (`%>%`) that we use in this course, but it is not as flexible. We recommend using the `magrittr` pipe for now.
+
+Fun fact: the `magrittr` package is named after the [artist René Magritte, who made a famous painting of a pipe](https://en.wikipedia.org/wiki/The_Treachery_of_Images).
+:::
+
+To type the pipe operator more easily, you can use the keyboard shortcut {{< kbd Cmd-shift-M >}} (although once you get used to it, you might find it easier to type `%>%` manually).
+
+::: {.callout-important title="Practice exercises"}
+Try these practice questions to test your understanding
+
+::: question
+1\. What is NOT a valid way to re-write the following code using the pipe operator: `round(sqrt(sum(1:10)), 1)`. If you're not sure, try running the different options in the console to see which one gives the same answer.
+
+::: choices
+::: choice
+`1:10 %>% sum() %>% sqrt() %>% round(1)`
+:::
+
+::: {.choice .correct-choice}
+`sum(1:10) %>% sqrt(1) %>% round()`
+:::
+
+::: choice
+`1:10 %>% sum() %>% sqrt() %>% round(digits = 1)`
+:::
+
+::: choice
+`sum(1:10) %>% sqrt() %>% round(digits = 1)`
+:::
+:::
+:::
+
+::: question
+2\. What is the output of the following code? `letters %>% head() %>% toupper()` Try to guess it before copy-pasting into R.
+
+::: choices
+::: choice
+`"A" "B" "C" "D" "E" "F" "G" "H" "I" "J" "K" "L" "M" "N" "O" "P" "Q" "R" "S" "T" "U" "V" "W" "X" "Y" "Z"`
+:::
+
+::: choice
+`"a" "b" "c" "d" "e" "f"`
+:::
+
+::: choice
+An error
+:::
+
+::: {.choice .correct-choice}
+`"A" "B" "C" "D" "E" "F"`
+:::
+:::
+:::
+
+<details>
+
+<summary>Solutions</summary>
+
+<p>
+
+1.  The invalid option is `sum(1:10) %>% sqrt(1) %>% round()`. This is because the `sqrt()` function only takes one argument, so you can't specify `1` as an argument in addition to what is being piped in from `sum(1:10)`. Note that some options used the pipe to send `1:10` to `sum()` (like `1:10 %>% sum()`), and others just used `sum(1:10)` directly. Both are valid ways to use the pipe, it's just a matter of personal preference.
+2.  The output of the code `letters %>% head() %>% toupper()` is `"A" "B" "C" "D" "E" "F"`. The `letters` vector contains the lowercase alphabet, and the `head()` function returns the first 6 elements of the vector. Finally, the `toupper()` function then converts these elements to uppercase.
+
+</p>
+
+</details>
+:::
+
+## Basic data maniuplations {#sec-dataManip}
+
+To really see the power of the pipe, we will use it together with the `dplyr` package that provides a set of functions to easily filter, sort, select, and summarise data frames. These functions are designed to work well with the pipe, so you can chain them together to create complex data manipulations in a readable format.
+
+For example, even though we haven't covered the `dplyr` functions yet, you can probably guess what the following code does:
+
+```{r}
+#| eval: false
+
+# use the pipe to chain together our data manipulation steps
+mousezempic_dosage_data %>%
+  filter(cage_number == "3E") %>%
+  pull(weight_lost_g) %>%
+  mean()
+```
+
+This code filters the `mousezempic_dosage_data` data frame to only include data from cage 3E, then pulls out the `weight_lost_g` column, and finally calculates the mean of the values in that column. The first argument to each function is the output of the previous function, and any additional arguments (like the column name in `pull()`) are specified in the brackets (like `round(digits = 2)` from the previous example).
+
+We also used the enter key after each pipe `%>%` to break up the code into multiple lines to make it easier to read. This isn't required, but is a popular style in the R community, so all the code examples in this session will follow this format.
+
+We will now introduce some of the most commonly used `dplyr` functions for manipulating data frames. To showcase these, we will use the `mousezempic_dosage_data` that we practiced reading in last session. This imaginary dataset contains information on the weight lost by different strains of mice after being treated with different doses of MouseZempic®.
+
+```{r}
+#| eval: false
+# read in the data, like we did in session 1
+library(readr)
+mousezempic_dosage_data <- read_delim("~/Desktop/R_course/data/mousezempic_dosage_data.csv")
+```
+
+```{r}
+#| echo: false
+# just for rendering the book not for students to see
+library(readr)
+mousezempic_dosage_data <- read_delim("data/mousezempic_dosage_data.csv")
+```
+
+Before we start, let's use what we learned in the previous session to take a look at `mousezempic_dosage_data`:
+
+```{r}
+# it's a tibble, so prints nicely
+mousezempic_dosage_data
+```
+
+You might also like to use `View()` to open the data in a separate window and get a closer look.
+
+::: {.callout-note title="Using RStudio autocomplete"}
+Although it's great to give our data a descriptive name like `mousezempic_dosage_data`, it can be a bit of a pain to type out every time. Luckily, RStudio has a handy autocomplete feature that can solve this problem. Just start typing the name of the object, and you'll see it will popup:
+
+![RStudio autocomplete](images/S02F01_rstudio_autocomplete.png)
+
+You can then press {{< kbd Tab >}} to autocomplete it. If there are multiple objects that start with the same letters, you can use the arrow keys to cycle through the options.
+
+Try using autocomplete this session to save yourself some typing!
+:::
+
+### Sorting data {#sec-sorting}
+
+Often, one of the first things you might want to do with a dataset is sort it. In `dplyr`, this is called 'arranging' and is done with the `arrange()` function.
+
+![Arrange orders rows by their values in one or more columns](images/S02F02_arrange.png)
+
+By default, `arrange()` sorts in ascending order (smallest values first). For example, let's sort the `mousezempic_dosage_data` data frame by the `weight_lost_g` column:
+
+```{r}
+mousezempic_dosage_data %>%
+  arrange(weight_lost_g)
+```
+
+If we compare this to when we just printed our data above, we can see that the rows are now sorted so that the mice that lost the least weight are at the top.
+
+Sometimes you might want to sort in descending order instead (largest values first). You can do this by putting the `desc()` function around your column name, inside `arrange()`:
+
+```{r}
+mousezempic_dosage_data %>%
+  # put desc() around the column name to sort in descending order
+  arrange(desc(weight_lost_g))
+```
+
+Now we can see the mice that lost the most weight are at the top.
+
+::: {.callout-note title="Comments and pipes"}
+Notice how in the previous example we have written a comment in the middle of the pipe chain. This is a good practice to help you remember what each step is doing, especially when you have a long chain of functions, and won't cause any errors as long as you make sure that the comment is on its own line.
+
+You can also write comments at the end of the line, just make sure it's after the pipe operator `%>%`.
+
+For example, these comments are allowed:
+
+```{r}
+mousezempic_dosage_data %>% # a comment here is fine
+  # a comment here is fine
+  arrange(desc(weight_lost_g))
+```
+
+But this will cause an error, because the `#` is before the pipe, so R treats it as part of the comment (notice how the `%>%` has changed colour?) and doesn't know how the two lines relate to each other. It tries to run them separately, which for the first line is ok (it will just print `mousezempic_dosage_data`):
+
+```{r}
+#| error: true
+mousezempic_dosage_data # this comment will cause an error %>%
+  arrange(desc(weight_lost_g))
+```
+
+But for the second line, there is an error that R doesn't know what the `weight_lost_g` object is. That's because it's a column in the `mousezempic_dosage_data` data frame, so R only knows what it is in the context of the pipe chain containing that data frame.
+:::
+
+You can also sort by multiple columns by passing multiple column names to `arrange()`. For example, to sort by the strain first and then by the amount of weight lost:
+
+```{r}
+# sort by strain first, then by weight lost
+mousezempic_dosage_data %>%
+  arrange(mouse_strain, weight_lost_g)
+```
+
+This will sort the data frame by strain (according to alphabetical order, as it is a character column), and within each strain, they are then sorted by the amount of weight lost.
+
+::: {.callout-note title="Piping into View()"}
+In the above example, we sorted the data by strain and then by weight lost, but because there are so many mice in each strain, the preview shown in our console doesn't allow us to see the full effect of the sorting.
+
+One handy trick you can use with pipes is to add `View()` at the end of your chain to open the data in a separate window. Try running this code, and you'll be able to scroll through the full dataset to check that the other mouse strains have also been sorted correctly:
+
+```{r}
+#| eval: false
+# sort by strain first, then by weight lost
+mousezempic_dosage_data %>%
+  arrange(mouse_strain, weight_lost_g) %>%
+  View()
+```
+
+This is a great way to check that your code has actually done what you intended!
+:::
+
+#### Extracting rows with the smallest or largest values {#sec-sliceMinMax}
+
+Slice functions are used to select rows based on their position in the data frame. The `slice_min()` and `slice_max()` functions are particularly useful, because they allow you to select the rows with the smallest or largest values in a particular column.
+
+This is equivalent to using `arrange()` followed by `head()`, but is more concise:
+
+```{r}
+# get the 10 mice with the lowest drug dose
+mousezempic_dosage_data %>%
+  # slice_min() requires the column to sort by, and n = the number of rows to keep
+  slice_min(drug_dose_g, n = 10)
+
+# get the top 5 mice that lost the most weight
+mousezempic_dosage_data %>%
+  # slice_max() has the same arguments as slice_min()
+  slice_max(weight_lost_g, n = 5)
+```
+
+But wait-- neither of those pieces of code actually gave the number of rows we asked for! In the first example, we asked for the 10 mice with the lowest drug dose, but we got 13. And in the second example, we asked for the top 5 mice that lost the most weight, but we got 6. Why aren't the `slice_` functions behaving as expected?
+
+If we take a look at the help page (type `?slice_min` in the console), we learn that `slice_min()` and `slice_max()` have an argument called `with_ties` that is set to `TRUE` by default. If we want to make sure we only get the number of rows we asked for, we would have to set it to `FALSE`, like so:
+
+```{r}
+# get the top 5 mice that lost the most weight
+mousezempic_dosage_data %>%
+  # no ties allowed!
+  slice_max(weight_lost_g, n = 5, with_ties = FALSE)
+```
+
+This is an important lesson: sometimes functions will behave in a way that is unexpected, and you might need to read their help page or use other guides/google/AI to understand why.
+
+::: {.callout-important title="Practice exercises"}
+
+Try these practice questions to test your understanding
+
+::: question
+1\. Which code would you use to sort the `mousezempic_dosage_data` data frame from biggest to smallest initial weight?
+
+::: choices
+::: choice
+`mousezempic_dosage_data %>% sort(initial_weight_g)`
+:::
+
+::: choice
+`mousezempic_dosage_data %>% arrange(initial_weight_g)`
+:::
+
+::: choice
+`mousezempic_dosage_data %>% sort(descending(initial_weight_g))`
+:::
+
+::: {.choice .correct-choice}
+`mousezempic_dosage_data %>% arrange(desc(initial_weight_g))`
+:::
+
+:::
+:::
+
+::: question
+2\. Which code would you use to extract the 3 mice with the highest initial weight from the `mousezempic_dosage_data` data frame?
+
+::: choices
+::: {.choice .correct-choice}
+`mousezempic_dosage_data %>% slice_max(initial_weight_g, n = 3)`
+:::
+
+::: choice
+`mousezempic_dosage_data %>% arrange(desc(initial_weight_g))`
+:::
+
+::: choice
+`mousezempic_dosage_data %>% slice_min(initial_weight_g, n = 3)`
+:::
+
+::: choice
+`mousezempic_dosage_data %>% arrange(initial_weight_g)`
+:::
+:::
+:::
+
+::: question
+3\. I've written the below code, but one of the comments is messing it up! Which one?
+
+```{r}
+#| eval: false
+# comment A
+mousezempic_dosage_data # comment B %>%
+  # comment C
+  slice_max(weight_lost_g, n = 5, with_ties = FALSE) # comment D
+```
+
+::: choices
+::: choice
+Comment A
+:::
+
+::: {.choice .correct-choice}
+Comment B
+:::
+
+::: choice
+Comment C
+:::
+
+::: choice
+Comment D
+:::
+:::
+:::
+
+<details>
+<summary>Solutions</summary>
+
+1.  The correct code to sort the `mousezempic_dosage_data` data frame from biggest to smallest initial weight is `mousezempic_dosage_data %>% arrange(desc(initial_weight_g))`. The `arrange()` function is used to sort the data frame (although there is a `sort()` function in R, that's not part of dplyr and won't work the same way), and the `desc()` function is used to sort in descending order.
+
+2.  The correct code to extract the 3 mice with the highest initial weight from the `mousezempic_dosage_data` data frame is `mousezempic_dosage_data %>% slice_max(initial_weight_g, n = 3)`. The `slice_max()` function is used to select the rows with the largest values in the `initial_weight_g` column, and the `n = 3` argument specifies that we want to keep 3 rows. The `arrange()` function is not needed in this case, because `slice_max()` will automatically sort the data frame by the specified column.
+
+3.  The comment that is messing up the code is Comment B. The `#` symbol is before the pipe operator `%>%`, so R treats it as part of the comment and this breaks our chain of pipes. The other comments are fine, because they are either at the end of the line or on their own line. Basically, if a comment is changing the colour of the pipe operator (or any other bits of your code), it's in the wrong place!
+</details>
+
+:::
+
+### Filtering data {#sec-filter}
 
 filteR for rows
 
-### Selecting columns
+### Dealing with missing values {#sec-missing}
+
+how to find missing values mention that you
+
+### Selecting columns {#sec-select}
 
 seleCt for columns
 
-### Modifying data
+### Modifying data {#sec-mutate}
 
 with mutate()
 
-### Summarising data
+### Summarising data {#sec-summarise}
 
 -   mention that this works with summarize() as well
 
 -   example of calculating mean/median etc
 
-## Grouping
+## Grouping {#sec-grouping}
 
--   Q: should we teach grouping explicitly with group_by()/ungroup() functions or using the .by= argument in functions? (lean towards this)
+-   teaching grouping with the .by argument in other functions
 
 -   demonstrate the powerful combo of grouping + summarising
 
 ## Reshaping and combining data
 
-### Reshaping data with pivot functions
+### Reshaping data with pivot functions {#sec-pivot}
 
 -   brief introduction to pivoting
 
 -   need to think of some kind of meaningful example for this
 
-### Combining data with join functions
+### Combining data with join functions {#sec-join}
 
 -   left_join() example
 
-## Saving data to a file
+## Saving data to a file {#sec-saving}
 
 write\_\* family of functions
 

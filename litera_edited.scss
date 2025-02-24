@@ -57,7 +57,7 @@ $headings-color: $blue !default;
 
 // stylelint-enable
 
-$font-size-base:              1.2rem !default;
+$font-size-base:              1.1rem !default;
 $headings-font-weight:        650 !default;
 
 // Tables
@@ -91,7 +91,7 @@ $navbar-light-active-color:         $body-color !default;
 
 // Tooltips
 
-$tooltip-font-size:                 11px !default;
+$tooltip-font-size:                 $font-size-base !default;
 
 // Badges
 
