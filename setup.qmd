@@ -1,5 +1,12 @@
 ---
 toc: false
 ---
+
 # Setup {.unnumbered}
+
+## Installing R and RStudio
+
+### Using a non-WEHI computer
 copy the instructions for installing R/RStudio and packages that kerry usually sends around and put them here
+
+## Installing packages {#sec-instPackages}

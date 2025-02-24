@@ -8,7 +8,7 @@ format:
     toc-title: "In this session:"
 ---
 
-# Session 3: Plotting with ggplot
+# Session 3: Plotting with ggplot {#sec-session03}
 
 ## Learning objectives
 

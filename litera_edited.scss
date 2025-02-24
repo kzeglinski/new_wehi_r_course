@@ -30,6 +30,7 @@ $yellow:  #ece953 !default;
 $green:   #49a942 !default;
 $teal:    #00a99f !default;
 $cyan:    #00bce7 !default;
+$pale-blue: #d0e1f1 !default;
 
 $primary:       $blue !default;
 $secondary:     $teal !default;
@@ -103,9 +104,9 @@ $badge-padding-x:                   1.2em !default;
 $alert-border-width:                0 !default;
 
 // Code
-$code-block-bg:                     #dbe9f0 !default;
+$code-block-bg:                     $pale-blue !default;
 $code-block-border-left:            $blue !default;
-$mono-background-color:            #dbe9f0;
+$mono-background-color:            $pale-blue;
 $code-color: $body-color; //this is for the inline code
 
 // mermaid theming
@@ -165,8 +166,14 @@ div.callout.callout-style-default.callout-important>div.callout-header{
 
 // custom icon of question mark for important callout (practice questions)
 div.callout-important.callout-titled .callout-icon::before{
-  background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20512%20512%22%3E%3C!--!Font%20Awesome%20Free%206.7.2%20by%20%40fontawesome%20-%20https%3A%2F%2Ffontawesome.com%20License%20-%20https%3A%2F%2Ffontawesome.com%2Flicense%2Ffree%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M256%20512A256%20256%200%201%200%20256%200a256%20256%200%201%200%200%20512zM169.8%20165.3c7.9-22.3%2029.1-37.3%2052.8-37.3l58.3%200c34.9%200%2063.1%2028.3%2063.1%2063.1c0%2022.6-12.1%2043.5-31.7%2054.8L280%20264.4c-.2%2013-10.9%2023.6-24%2023.6c-13.3%200-24-10.7-24-24l0-13.5c0-8.6%204.6-16.5%2012.1-20.8l44.3-25.4c4.7-2.7%207.6-7.7%207.6-13.1c0-8.4-6.8-15.1-15.1-15.1l-58.3%200c-3.4%200-6.4%202.1-7.5%205.3l-.4%201.2c-4.4%2012.5-18.2%2019-30.6%2014.6s-19-18.2-14.6-30.6l.4-1.2zM224%20352a32%2032%200%201%201%2064%200%2032%2032%200%201%201%20-64%200z%22%20fill%3D%22%237d489c%22%2F%3E%3C%2Fsvg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20640%20512%22%3E%3C!--!Font%20Awesome%20Free%206.7.2%20by%20%40fontawesome%20-%20https%3A%2F%2Ffontawesome.com%20License%20-%20https%3A%2F%2Ffontawesome.com%2Flicense%2Ffree%20Copyright%202025%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M96%2064c0-17.7%2014.3-32%2032-32l32%200c17.7%200%2032%2014.3%2032%2032l0%20160%200%2064%200%20160c0%2017.7-14.3%2032-32%2032l-32%200c-17.7%200-32-14.3-32-32l0-64-32%200c-17.7%200-32-14.3-32-32l0-64c-17.7%200-32-14.3-32-32s14.3-32%2032-32l0-64c0-17.7%2014.3-32%2032-32l32%200%200-64zm448%200l0%2064%2032%200c17.7%200%2032%2014.3%2032%2032l0%2064c17.7%200%2032%2014.3%2032%2032s-14.3%2032-32%2032l0%2064c0%2017.7-14.3%2032-32%2032l-32%200%200%2064c0%2017.7-14.3%2032-32%2032l-32%200c-17.7%200-32-14.3-32-32l0-160%200-64%200-160c0-17.7%2014.3-32%2032-32l32%200c17.7%200%2032%2014.3%2032%2032zM416%20224l0%2064-192%200%200-64%20192%200z%22%20fill%3D%22%237d489c%22%2F%3E%3C%2Fsvg%3E");
 
+}
+
+// toc background
+#TOC {
+  //background-color: $pale-blue;
+  font-size: $font-size-base;
 }
 
 // caption colour
@@ -177,15 +184,22 @@ div.callout-important.callout-titled .callout-icon::before{
 // code again
 .cell-output > pre { //output of code cells
   background-color: #f3f3f3;
-  //border-radius: 10px;
-  //border: 2px outset $blue;
-  //border-left: 3.5px solid $blue;
-  margin-bottom: 0rem;
 }
 
 p code:not(.sourceCode), li code:not(.sourceCode), td code:not(.sourceCode){
   background-color: $code-block-bg;
 }
+
+// filenames for code blocks, so they are a diff colour
+.code-with-filename .code-with-filename-file {
+  background-color: $blue !important;
+}
+
+div.code-with-filename-file>pre {
+  background-color: $blue !important;
+  color: white;
+}
+
 // Navbar
 
 .navbar {
