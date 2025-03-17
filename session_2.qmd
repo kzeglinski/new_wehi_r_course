@@ -930,8 +930,8 @@ mousezempic_dosage_data %>%
 
 Note that the conditions are evaluated in order, and the first condition that is `TRUE` is the one that is used. So if a mouse lost 4.5g, it `case_when()` would first test if it fits the 'Low' category (by checking if 4.5 is less than 4, which it isn't), and then if it fits the 'Medium' category (by checking if 4.5 is less than or equal to 5). Since it is, the mouse would be categorised as 'Medium'.
 
-::: {.callout-note title="Fallback with TRUE"}
-In the above example, what would happen if a mouse lost -1g (gained weight)? It wouldn't fit any of the conditions, so it would get an `NA` in the `weight_loss_category` column. Sometimes you might want this behaviour, but other times you would prefer to specify a 'fallback' category that will be assigned to everything that doesn't fit in the other categories. You can do this by including a `TRUE ~ ...` condition at the end of the `case_when()` function. For example:
+::: {.callout-note title="Fallback with default value(s)"}
+In the above example, what would happen if a mouse lost -1g (gained weight)? It wouldn't fit any of the conditions, so it would get an `NA` in the `weight_loss_category` column. Sometimes you might want this behaviour, but other times you would prefer to specify a 'fallback' category that will be assigned to everything that doesn't fit in the other categories. You can do this by including a ` .default = ` argument at the end of the `case_when()` function. For example:
 
 ```{r}
 mousezempic_dosage_data %>%
@@ -940,7 +940,7 @@ mousezempic_dosage_data %>%
     weight_lost_g < 4 ~ "Low", # separate conditions with a comma
     weight_lost_g <= 5 ~ "Medium",
     weight_lost_g > 5 ~ "High",
-    TRUE ~ "Unknown"
+    .default = "Unknown"
   )) %>%
   select(weight_lost_g, weight_loss_category)
 ```
