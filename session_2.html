@@ -64,7 +64,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./session_3.html" rel="next">
 <link href="./session_1.html" rel="prev">
 <link href="./favicon.ico" rel="icon">
 <script src="site_libs/quarto-html/quarto.js"></script>
@@ -198,42 +197,6 @@ window.Quarto = {
   <div class="sidebar-item-container"> 
   <a href="./session_2.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Session 2: Working with data</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./session_3.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Session 3: Plotting with ggplot</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./session_4.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Session 4: Putting it all together</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./session_5.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Session 5: RNA-seq part 1</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./session_6.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Session 6: RNA-seq part 2</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./further_reading.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Course summary &amp; next steps</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./advanced_topics.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Advanced topics</span></span></a>
   </div>
 </li>
     </ul>
@@ -1698,17 +1661,17 @@ Solutions
 </div>
 </div>
 <p>Note that the conditions are evaluated in order, and the first condition that is <code>TRUE</code> is the one that is used. So if a mouse lost 4.5g, it <code>case_when()</code> would first test if it fits the ‘Low’ category (by checking if 4.5 is less than 4, which it isn’t), and then if it fits the ‘Medium’ category (by checking if 4.5 is less than or equal to 5). Since it is, the mouse would be categorised as ‘Medium’.</p>
-<div class="callout callout-style-default callout-note callout-titled" title="Fallback with TRUE">
+<div class="callout callout-style-default callout-note callout-titled" title="Fallback with default value(s)">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Fallback with TRUE
+Fallback with default value(s)
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>In the above example, what would happen if a mouse lost -1g (gained weight)? It wouldn’t fit any of the conditions, so it would get an <code>NA</code> in the <code>weight_loss_category</code> column. Sometimes you might want this behaviour, but other times you would prefer to specify a ‘fallback’ category that will be assigned to everything that doesn’t fit in the other categories. You can do this by including a <code>TRUE ~ ...</code> condition at the end of the <code>case_when()</code> function. For example:</p>
+<p>In the above example, what would happen if a mouse lost -1g (gained weight)? It wouldn’t fit any of the conditions, so it would get an <code>NA</code> in the <code>weight_loss_category</code> column. Sometimes you might want this behaviour, but other times you would prefer to specify a ‘fallback’ category that will be assigned to everything that doesn’t fit in the other categories. You can do this by including a <code>.default =</code> argument at the end of the <code>case_when()</code> function. For example:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb88"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a>mousezempic_dosage_data <span class="sc">%&gt;%</span></span>
 <span id="cb88-2"><a href="#cb88-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># create a new column called weight_loss_category</span></span>
@@ -1716,7 +1679,7 @@ Fallback with TRUE
 <span id="cb88-4"><a href="#cb88-4" aria-hidden="true" tabindex="-1"></a>    weight_lost_g <span class="sc">&lt;</span> <span class="dv">4</span> <span class="sc">~</span> <span class="st">"Low"</span>, <span class="co"># separate conditions with a comma</span></span>
 <span id="cb88-5"><a href="#cb88-5" aria-hidden="true" tabindex="-1"></a>    weight_lost_g <span class="sc">&lt;=</span> <span class="dv">5</span> <span class="sc">~</span> <span class="st">"Medium"</span>,</span>
 <span id="cb88-6"><a href="#cb88-6" aria-hidden="true" tabindex="-1"></a>    weight_lost_g <span class="sc">&gt;</span> <span class="dv">5</span> <span class="sc">~</span> <span class="st">"High"</span>,</span>
-<span id="cb88-7"><a href="#cb88-7" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"Unknown"</span></span>
+<span id="cb88-7"><a href="#cb88-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">.default =</span> <span class="st">"Unknown"</span></span>
 <span id="cb88-8"><a href="#cb88-8" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">%&gt;%</span></span>
 <span id="cb88-9"><a href="#cb88-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(weight_lost_g, weight_loss_category)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -2772,9 +2735,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./session_3.html" class="pagination-link" aria-label="Session 3: Plotting with ggplot">
-        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Session 3: Plotting with ggplot</span></span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
 <div class="sourceCode" id="cb114" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb114-1"><a href="#cb114-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
@@ -3709,8 +3669,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb114-1012"><a href="#cb114-1012" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb114-1013"><a href="#cb114-1013" aria-hidden="true" tabindex="-1"></a>Note that the conditions are evaluated in order, and the first condition that is <span class="in">`TRUE`</span> is the one that is used. So if a mouse lost 4.5g, it <span class="in">`case_when()`</span> would first test if it fits the 'Low' category (by checking if 4.5 is less than 4, which it isn't), and then if it fits the 'Medium' category (by checking if 4.5 is less than or equal to 5). Since it is, the mouse would be categorised as 'Medium'.</span>
 <span id="cb114-1014"><a href="#cb114-1014" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb114-1015"><a href="#cb114-1015" aria-hidden="true" tabindex="-1"></a>::: {.callout-note title="Fallback with TRUE"}</span>
-<span id="cb114-1016"><a href="#cb114-1016" aria-hidden="true" tabindex="-1"></a>In the above example, what would happen if a mouse lost -1g (gained weight)? It wouldn't fit any of the conditions, so it would get an <span class="in">`NA`</span> in the <span class="in">`weight_loss_category`</span> column. Sometimes you might want this behaviour, but other times you would prefer to specify a 'fallback' category that will be assigned to everything that doesn't fit in the other categories. You can do this by including a <span class="in">`TRUE ~ ...`</span> condition at the end of the <span class="in">`case_when()`</span> function. For example:</span>
+<span id="cb114-1015"><a href="#cb114-1015" aria-hidden="true" tabindex="-1"></a>::: {.callout-note title="Fallback with default value(s)"}</span>
+<span id="cb114-1016"><a href="#cb114-1016" aria-hidden="true" tabindex="-1"></a>In the above example, what would happen if a mouse lost -1g (gained weight)? It wouldn't fit any of the conditions, so it would get an <span class="in">`NA`</span> in the <span class="in">`weight_loss_category`</span> column. Sometimes you might want this behaviour, but other times you would prefer to specify a 'fallback' category that will be assigned to everything that doesn't fit in the other categories. You can do this by including a <span class="in">` .default = `</span> argument at the end of the <span class="in">`case_when()`</span> function. For example:</span>
 <span id="cb114-1017"><a href="#cb114-1017" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb114-1020"><a href="#cb114-1020" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
 <span id="cb114-1021"><a href="#cb114-1021" aria-hidden="true" tabindex="-1"></a>mousezempic_dosage_data <span class="sc">%&gt;%</span></span>
@@ -3719,7 +3679,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb114-1024"><a href="#cb114-1024" aria-hidden="true" tabindex="-1"></a>    weight_lost_g <span class="sc">&lt;</span> <span class="dv">4</span> <span class="sc">~</span> <span class="st">"Low"</span>, <span class="co"># separate conditions with a comma</span></span>
 <span id="cb114-1025"><a href="#cb114-1025" aria-hidden="true" tabindex="-1"></a>    weight_lost_g <span class="sc">&lt;=</span> <span class="dv">5</span> <span class="sc">~</span> <span class="st">"Medium"</span>,</span>
 <span id="cb114-1026"><a href="#cb114-1026" aria-hidden="true" tabindex="-1"></a>    weight_lost_g <span class="sc">&gt;</span> <span class="dv">5</span> <span class="sc">~</span> <span class="st">"High"</span>,</span>
-<span id="cb114-1027"><a href="#cb114-1027" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"Unknown"</span></span>
+<span id="cb114-1027"><a href="#cb114-1027" aria-hidden="true" tabindex="-1"></a>    <span class="at">.default =</span> <span class="st">"Unknown"</span></span>
 <span id="cb114-1028"><a href="#cb114-1028" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">%&gt;%</span></span>
 <span id="cb114-1029"><a href="#cb114-1029" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(weight_lost_g, weight_loss_category)</span>
 <span id="cb114-1030"><a href="#cb114-1030" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
@@ -4175,21 +4135,22 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb114-1508"><a href="#cb114-1508" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb114-1509"><a href="#cb114-1509" aria-hidden="true" tabindex="-1"></a><span class="fu">### Reshaping data with pivot functions {#sec-pivot}</span></span>
 <span id="cb114-1510"><a href="#cb114-1510" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb114-1511"><a href="#cb114-1511" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>brief introduction to pivoting</span>
-<span id="cb114-1512"><a href="#cb114-1512" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb114-1513"><a href="#cb114-1513" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>need to think of some kind of meaningful example for this</span>
-<span id="cb114-1514"><a href="#cb114-1514" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb114-1515"><a href="#cb114-1515" aria-hidden="true" tabindex="-1"></a><span class="fu">### Combining data with join functions {#sec-join}</span></span>
-<span id="cb114-1516"><a href="#cb114-1516" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb114-1517"><a href="#cb114-1517" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>left_join() example</span>
-<span id="cb114-1518"><a href="#cb114-1518" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb114-1519"><a href="#cb114-1519" aria-hidden="true" tabindex="-1"></a><span class="fu">## Saving data to a file {#sec-saving}</span></span>
-<span id="cb114-1520"><a href="#cb114-1520" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb114-1521"><a href="#cb114-1521" aria-hidden="true" tabindex="-1"></a>write<span class="sc">\_\*</span> family of functions</span>
-<span id="cb114-1522"><a href="#cb114-1522" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb114-1523"><a href="#cb114-1523" aria-hidden="true" tabindex="-1"></a><span class="fu">## Summary</span></span>
-<span id="cb114-1524"><a href="#cb114-1524" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb114-1525"><a href="#cb114-1525" aria-hidden="true" tabindex="-1"></a><span class="fu">### Practice questions</span></span>
+<span id="cb114-1511"><a href="#cb114-1511" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb114-1512"><a href="#cb114-1512" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>brief introduction to pivoting</span>
+<span id="cb114-1513"><a href="#cb114-1513" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb114-1514"><a href="#cb114-1514" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>need to think of some kind of meaningful example for this</span>
+<span id="cb114-1515"><a href="#cb114-1515" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb114-1516"><a href="#cb114-1516" aria-hidden="true" tabindex="-1"></a><span class="fu">### Combining data with join functions {#sec-join}</span></span>
+<span id="cb114-1517"><a href="#cb114-1517" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb114-1518"><a href="#cb114-1518" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>left_join() example</span>
+<span id="cb114-1519"><a href="#cb114-1519" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb114-1520"><a href="#cb114-1520" aria-hidden="true" tabindex="-1"></a><span class="fu">## Saving data to a file {#sec-saving}</span></span>
+<span id="cb114-1521"><a href="#cb114-1521" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb114-1522"><a href="#cb114-1522" aria-hidden="true" tabindex="-1"></a>write<span class="sc">\_\*</span> family of functions</span>
+<span id="cb114-1523"><a href="#cb114-1523" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb114-1524"><a href="#cb114-1524" aria-hidden="true" tabindex="-1"></a><span class="fu">## Summary</span></span>
+<span id="cb114-1525"><a href="#cb114-1525" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb114-1526"><a href="#cb114-1526" aria-hidden="true" tabindex="-1"></a><span class="fu">### Practice questions</span></span>
 </code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

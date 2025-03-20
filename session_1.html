@@ -172,42 +172,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Session 2: Working with data</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./session_3.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Session 3: Plotting with ggplot</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./session_4.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Session 4: Putting it all together</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./session_5.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Session 5: RNA-seq part 1</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./session_6.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Session 6: RNA-seq part 2</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./further_reading.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Course summary &amp; next steps</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./advanced_topics.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Advanced topics</span></span></a>
-  </div>
-</li>
     </ul>
     </div>
     <nav id="TOC" role="doc-toc" class="toc-active">
@@ -1741,7 +1705,7 @@ gene2       2       4</code></pre>
 <figcaption>Clicking on the data frame’s name in the environment panel opens it in the viewer</figcaption>
 </figure>
 </div>
-<p>This panel also shows you the names and types of the columns in the data frame. You might notice that the <code>Species</code> is described as a factor, which is a special type of data in R that we’ll cover in <a href="session_3.html" class="quarto-xref"><span>Chapter 3</span></a>.</p>
+<p>This panel also shows you the names and types of the columns in the data frame. You might notice that the <code>Species</code> is described as a factor, which is a special type of data in R that we’ll cover in <span class="quarto-unresolved-ref">?sec-session03</span>.</p>
 <p>Before the column names, you’ll see the <code>$</code> symbol. The dollar sign <code>$</code> is a shortcut used in R to access columns of a data frame. For example, to access the <code>Petal.Width</code> column of the <code>iris</code> data frame, you can use <code>iris$Petal.Width</code>:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb121"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb121-1"><a href="#cb121-1" aria-hidden="true" tabindex="-1"></a>iris<span class="sc">$</span>Petal.Width</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -2203,7 +2167,7 @@ Packages in R
 <div class="sourceCode cell-code" id="cb134"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb134-1"><a href="#cb134-1" aria-hidden="true" tabindex="-1"></a><span class="co"># load the readr package</span></span>
 <span id="cb134-2"><a href="#cb134-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>If running this code gives you an error message, you might need to install the <code>readr</code> package first. Visit <a href="setup.html#sec-instPackages" class="quarto-xref"><span>Section 2</span></a> of the setup part of this book for instructions on how to install the <code>tidyverse</code> package, which includes <code>readr</code> and other important packages we will use in this course.</p>
+<p>If running this code gives you an error message, you might need to install the <code>readr</code> package first. Visit <span class="quarto-unresolved-ref">?sec-instPackages</span> of the setup part of this book for instructions on how to install the <code>tidyverse</code> package, which includes <code>readr</code> and other important packages we will use in this course.</p>
 <p>To read in our data, we’ll use the <code>read_delim()</code> function from the <code>readr</code> package. This function takes in the path to the file you want to read in (in quotation marks <code>""</code>, as this is a character string) and returns as output a tibble (recall this is basically the same as a data frame)</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb135"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb135-1"><a href="#cb135-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_delim</span>(<span class="st">"~/Desktop/R_course/data/mousezempic_dosage_data.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
