@@ -1396,6 +1396,7 @@ In the previous section, we learned how to filter, select, mutate, and summarise
 
 ### Reshaping data with pivot functions {#sec-pivot}
 
+
 -   brief introduction to pivoting
 
 -   need to think of some kind of meaningful example for this
