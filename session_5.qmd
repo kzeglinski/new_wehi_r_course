@@ -39,7 +39,7 @@ Let's start by creating our `DGEList` object. As a reminder, this object contain
 -   `samples`: a data frame containing annotation for the samples. The rows in this table describe the corresponding column of the counts data.
 -   `genes`: a data frame containing annotation for the genes in the counts matrix. The rows in this table describe the corresponding row in the counts matrix.
 
-```{r, warning=FALSE}
+```{r, warning=FALSE, message=FALSE}
 # load required packages
 library(edgeR)
 library(limma)
@@ -96,14 +96,14 @@ dge <- dge[keep, , keep.lib.sizes = FALSE]
 dim(dge$counts)
 ```
 
-We can see that we now have 16624 genes. We started with 27179 genes - meaning that \~40% of genes have been filtered out.
+We can see that we now have 16624 genes. We started with 27179 genes - meaning that ~40% of genes have been filtered out.
 
-## Normalisation
+## No Library Normalisation
 
 The aim of normalisation is to remove systematic technical effects. There are two main factors that need to be normalised for in RNA-seq:
 
--   Sequencing depth/library size - technically, sequencing a sample to half the depth will give, on average, half the number of reads mapping to each gene [@robinson2010].
--   RNA composition - if a large number of genes are unique to, or highly expressed in, only one experimental condition, the sequencing capacity available for the remaining genes in that sample is decreased. For example, if there are only five genes being studied in two experimental groups, if one gene is particularly high in group A, then with limited sequencing depth, that gene will reduce the counts of the remaining four genes. The effect of this is that the remaining four genes appear under-expressed in group A compared to group B when the true amount of gene product is actually equal for these 4 genes [@robinson2010].
+- Sequencing depth/library size - technically, sequencing a sample to half the depth will give, on average, half the number of reads mapping to each gene [@robinson2010].
+- RNA composition - if a large number of genes are unique to, or highly expressed in, only one experimental condition, the sequencing capacity available for the remaining genes in that sample is decreased. For example, if there are only five genes being studied in two experimental groups, if one gene is particularly high in group A, then with limited sequencing depth, that gene will reduce the counts of the remaining four genes. The effect of this is that the remaining four genes appear under-expressed in group A compared to group B when the true amount of gene product is actually equal for these 4 genes [@robinson2010].
 
 Sequencing depth is accounted for by calculating the counts per million (cpm). This metric is calculated by:
 
