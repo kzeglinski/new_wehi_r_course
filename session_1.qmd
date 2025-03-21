@@ -472,7 +472,7 @@ RStudio will try to help you spot these mistakes in your script, by using underl
 
 Beyond those three key rules, there are also some best practices we should try to keep in mind when naming our variables:
 
--   Try not to use captial letters. Since R is case sensitive, `Genes` is a different variable to `genes`. It can be easy to forget to use a captial letter, so it's generally better to avoid them if you can.
+-   Try not to use capital letters. Since R is case sensitive, `Genes` is a different variable to `genes`. It can be easy to forget to use a capital letter, so it's generally better to avoid them if you can.
 
 -   Use descriptive names. It's better to use a longer name that describes what the variable is for, rather than a short name that doesn't give much information. For example, `gene_counts` is better than `gc`. You'll thank yourself later when you come back to your code and can't remember what `gc` stands for!
 
@@ -1159,7 +1159,7 @@ You can also use the `View()` function to open the data frame in a new tab in RS
 
 ```{r}
 #| eval: false
-# don't forget the captial V!
+# don't forget the capital V!
 View(iris)
 ```
 
