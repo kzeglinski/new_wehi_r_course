@@ -1395,20 +1395,257 @@ Calculates the maximum tail length of mice in each unique combination of strain 
 In the previous section, we learned how to filter, select, mutate, and summarise data. These are the most common operations you'll perform on your data, and all generally revolve around working with specific columns or rows of your data frame. But what if you need to change the structure of your entire data frame? Re-shaping (with `pivot_` functions) and combining (with `join` functions) data are two more advanced operations that can help you do this.
 
 ### Reshaping data with pivot functions {#sec-pivot}
+Pivoting is a way to change the structure of your data frame by rotating it so that rows become columns and vice versa. This can be useful when you want to change the way your data is organised, for example, to make it easier to plot or analyse.
 
+![Pivot functions allow you to change the structure of your data frame](images/S02F10_pivot.png){width=50%}
 
--   brief introduction to pivoting
+The `pivot_longer()` function is used to pivot data from wide to long format, and the `pivot_wider()` function is used to pivot data from long to wide format.
 
--   need to think of some kind of meaningful example for this
+#### Pivot wider
+A common use case for `pivot_wider()` is to make a [contingency table](https://en.wikipedia.org/wiki/Contingency_table),
+which shows the number of observations for each combination of two variables. This is often easier to read than the same information in long format.
+
+For example, let's say we want to create a table that shows how many mice there are of each strain, in each cage number. We can achieve this in a long format using `summarise()` as we learned in the previous section:
+
+```{r}
+mousezempic_dosage_data %>%
+  summarise(
+    n_mice = n(),
+    .by = c(cage_number, mouse_strain))
+```
+
+Notice how we have a row for each unique combination of `cage_number` and `mouse_strain`. Instead, we can use `pivot_wider()` to create a table where each row represents a unique `cage_number` and each column represents a unique `mouse_strain`.
+
+To use a `pivot_wider()` you need to tell R two bits of information:
+
+1. What the new columns should be (with `names_from`)
+2. Where the values in these columns should come from (with `values_from`).
+
+In this case, we want the mouse strains to be our new columns (so `names_from = mouse_strain`), and the average weight lost to be the values in the table (`values_from = n_mice`). Putting it all together, here is the code to make our summary table:
+
+```{r}
+mousezempic_dosage_data %>%
+  summarise(
+    n_mice = n(),
+    .by = c(cage_number, mouse_strain)) %>%
+  pivot_wider(names_from = mouse_strain, values_from = n_mice)
+```
+Notice how `NA` values are used where there is no data for a particular combination of `cage_number` and `mouse_strain`.
+
+#### Pivot longer
+While wide data can be easier to read, long data is often easier to work with. That's because a lot of the tidyverse functions we've learned so far (like `filter()`, `mutate()`, and `summarise()`) work in a row-wise fashion, which is more natural with long data.
+
+To demonstrate `pivot_longer()`, we will introduce a new data frame called `mousezempic_expression_data`. This data frame contains the expression levels of two genes (TH and PRLH) suspected to be upregulated in mice taking MouseZempic, as well as one housekeeping gene (HPRT1), all measured in triplicate:
+
+```{r}
+# read in the data
+mousezempic_expression_data <- read_tsv("data/mousezempic_expression_data.tsv")
+
+# print it out
+mousezempic_expression_data
+```
+
+As you can see, the data is in wide format, with each row representing a different mouse (identified by its `id_num`) and each column representing a different measurement of a gene. To put this data into a long format (where each measurement is contained on a separate row), we can use `pivot_longer()`, specifying three arguments:
+
+1. `cols`: the columns to pivot from. You can use selection helpers like `contains()` or `starts_with()` to easily select multiple columns at once.
+2. `names_to`: the name of a new column that will contain the old column names.
+3. `values_to`: the name of a new column that will contain the values from the old columns.
+
+In this particular case here's what the code would look like:
+
+```{r}
+mousezempic_expression_data %>%
+  pivot_longer(cols = contains("_rep"), names_to = "measurement", values_to = "expression_level")
+```
+
+Let's go through those three arguments:
+
+1. `cols = contains("_rep")`: This tells R to pivot all columns that contain the string "_rep". In this case, that's the columns `TH_rep1`, `TH_rep2`, `TH_rep3`, `PRLH_rep1`, `PRLH_rep2`, `PRLH_rep3`, `HPRT1_rep1`, `HPRT1_rep2`, and `HPRT1_rep3`.
+2. `names_to = "measurement"`: This tells R to create a new column called 'measurement' that contains the names of the old columns. So, for example, the value of the 'measurement' column for the first row will be 'TH_rep1'.
+3. `values_to = "expression_level"`: This tells R to create a new column called 'expression_level' that contains the values from the old columns. So, for example, the value of the 'expression_level' column for the first row will be the value of the `TH_rep1` column.
+
+After running this code, you'll see that the data frame is now in long format, with each row representing a different measurement of a gene for a different mouse.
+
+::: {.callout-note title="Perplexed by pivoting?"}
+Pivoting can be a bit tricky to get your head around! Often when you're doing analysis, you'll run into the problem of knowing that you need to pivot, but not knowing exactly what arguments to use. In these cases, it can be helpful to look at examples online, [like those in the R for Data Science book](https://r4ds.hadley.nz/data-tidy.html#sec-pivoting), or to just experiment with different arguments until you get the result you want.
+:::
 
 ### Combining data with join functions {#sec-join}
+Another way you might need to change the structure of your data is by combining it with other data frames. This is where the `join` functions come in. There are many different types of joins in `dplyr` (which you can read about here if you're interested), but the most useful one is the `left_join()` function.
 
--   left_join() example
+![The left_join() function allows you to combine two data frames](images/S02F11_left_join.png)
+
+`left_join()` is used to combine two data frames based on a common column. It takes three arguments - the first data frame, the second data frame, and the common column to join on. The reason it's called a 'left join' is because it keeps all the rows from the first data frame (the 'left' data frame), and only adds rows from the second data frame (the 'right' data frame) if they match the common column.
+
+For example, we can join the `mousezempic_dosage_data` data frame with the `mousezempic_expression_data` data frame based on the `id_num` column, which is common to both data frames:
+
+```{r}
+# example of using it in a pipe
+# here mousezempic_dosage_data is the left data frame (first) data frame passed on by the pipe
+mousezempic_dosage_data %>%
+  left_join(mousezempic_expression_data, by = "id_num")
+```
+
+This code will return a new data frame that contains all the columns from `mousezempic_dosage_data` and all the columns from `mousezempic_expression_data`, with the rows matched based on the `id_num` column. If there is no match for a particular `id_num` in the `mousezempic_expression_data` data frame, the columns from that data frame will be filled with `NA`. Rows that only appear in the `mousezempic_expression_data` data frame will not be included in the final data frame.
+
+We can also use `left_join()` when our columns have different names (but contain the same value) using a named vector the format `c("name1" = "name2")`, where 'name1' is the name of the column in the left/first data frame (the one being piped in) and 'name2' is the name of the corresponding column in the right/second data frame.
+
+For example, if the `id_num` column in the `mousezempic_dosage_data` data frame was called `mouse_id` instead, we could still join the two data frames using the following code:
+
+```{r}
+mousezempic_dosage_data %>%
+  # for the sake of this example, make a new column called mouse_id
+  mutate(mouse_id = id_num) %>%
+  # join the two data frames where mouse_id in the first data frame matches id_num in the second data frame
+  left_join(mousezempic_expression_data, by = c("mouse_id" = "id_num"))
+```
+
+::: {.callout-important title="Practice exercises"}
+Try these practice questions to test your understanding
+
+::: question
+1\. What does the following code do?
+
+```{r}
+#| eval: false
+mousezempic_dosage_data %>%
+  summarise(
+    med_tail = median(tail_length_mm, na.rm = TRUE),
+    .by = c(mouse_strain, sex)) %>%
+  pivot_wider(names_from = sex, values_from = med_tail)
+```
+
+
+::: choices
+::: choice
+Pivots data into a wide format where there is a column for each sex.
+:::
+
+::: {.choice .correct-choice}
+Calculates the median tail length for each unique combination of `mouse_strain` and `sex` in the `mousezempic_dosage_data` data frame, then pivots into a wide format where there is a column for each sex.
+:::
+
+::: choice
+Calculates the median tail length for each unique combination of `mouse_strain` and `sex` in the `mousezempic_dosage_data` data frame, then pivots into a wide format where there is a column for each mouse strain.
+:::
+
+::: choice
+It just gives an error
+:::
+
+:::
+:::
+
+2\. I have run the following code to create a new column in the `mousezempic_dosage_data` data frame that gives the weight of the mice at the end of the experiment.
+
+```{r}
+mousezempic_dosage_data %>%
+  # add a column for the weight at the end of the experiment
+  mutate(final_weight_g = initial_weight_g - weight_lost_g) %>%
+  # select the relevant columns only
+  select(id_num, initial_weight_g, final_weight_g)
+```
+Which pivot function call would I use to take this data from a wide format (where there is a column for the final and initial weight) to a long format (where there is a row for each mouse and each weight measurement)?
+
+::: choices
+::: choice
+`pivot_longer(cols = c(initial_weight_g, final_weight_g), names_to = "weight", values_to = "timepoint")`
+:::
+
+::: choice
+`pivot_longer(cols = c(id_num, final_weight_g), names_to = "timepoint", values_to = "initial_weight_g")`
+:::
+
+::: choice
+`pivot_wider(names_from = initial_weight_g, values_from = final_weight_g)`
+:::
+
+::: {.choice .correct-choice}
+`pivot_longer(cols = c(initial_weight_g, final_weight_g), names_to = "timepoint", values_to = "weight")`
+:::
+:::
+
+::: question
+3\. Which of the following is NOT a valid way to join the `mousezempic_dosage_data` data frame with the `mousezempic_expression_data` data frame based on the `id_num` column?
+
+::: choices
+::: choice
+`mousezempic_dosage_data %>% left_join(mousezempic_expression_data, by = "id_num")`
+:::
+::: choice
+`left_join(mousezempic_dosage_data, mousezempic_expression_data, by = "id_num")`
+:::
+::: {.choice .correct-choice}
+`mousezempic_dosage_data %>% left_join(mousezempic_expression_data, .by = "id_num")`
+:::
+::: choice
+`mousezempic_dosage_data %>% left_join(mousezempic_expression_data, by = ("id_num" = "id_num"))`
+:::
+:::
+:::
+
+<details> <summary>Solutions</summary>
+1\. The code first calculates the median tail length for each unique combination of `mouse_strain` and `sex` in the `mousezempic_dosage_data` data frame, then pivots the data into a wide format where there is a column for each sex in the dataset (because of the argument `names_from = sex` )
+
+2\. The correct pivot function call to take the data from a wide format to a long format is `pivot_longer(cols = c(initial_weight_g, final_weight_g), names_to = "timepoint", values_to = "weight")`. This code tells R to pivot the `initial_weight_g` and `final_weight_g` columns into a long format, where there is a row for each mouse and each weight measurement. The `names_to` argument specifies to make a column called 'timepoint' that tells us whether the measurement is initial or final, and the `values_to` argument specifies the name of the new column that will contain these measurements.
+
+3\. The line of code that is NOT a valid way to join the `mousezempic_dosage_data` data frame with the `mousezempic_expression_data` data frame based on the `id_num` column is `mousezempic_dosage_data %>% left_join(mousezempic_expression_data, .by = "id_num")`. This line of code is incorrect because the `.by` argument is not used in the `left_join()` function (this can be confusing! it's `.by` when grouping by `by` when joining). The other options are valid ways to join the two data frames based on the `id_num` column: remember that we don't have to use pipes to join data frames, we can use the `left_join()` function directly, and we can use a named vector to specify the columns to join on (although here it's a bit redundant as the columns have the same name).
+
+</details>
+
+:::
 
 ## Saving data to a file {#sec-saving}
 
-write\_\* family of functions
+Once you've cleaned and transformed your data, you'll often want to save it to a file so that you can use it in other programs or share it with others. The `write_csv()` and `write_tsv()` functions from the `readr` package are a great way to do this. They take two arguments - the data frame you want to save and the file path where you want to save it.
+
+For example, let's say I want to save my contingency table of the number of mice in each cage and strain to a CSV file called `cage_strain_counts.csv`:
+
+```{r}
+#| eval: false
+# create the contingency table
+cage_strain_counts <- mousezempic_dosage_data %>%
+  summarise(
+    n_mice = n(),
+    .by = c(cage_number, mouse_strain)) %>%
+  pivot_wider(names_from = mouse_strain, values_from = n_mice)
+
+# save the data to a CSV file
+write_csv(cage_strain_counts, "cage_strain_counts.csv")
+```
+
+CSV files are particularly great because they can be easily read into other software, like Excel.
+
+It's also possible to use the `write_*()` functions along with a pipe:
+
+```{r}
+#| eval: false
+mousezempic_dosage_data %>%
+  summarise(
+    n_mice = n(),
+    .by = c(cage_number, mouse_strain)) %>%
+  pivot_wider(names_from = mouse_strain, values_from = n_mice) %>%
+  write_csv("cage_strain_counts.csv")
+```
+Remember here that the first argument (the data frame to save) is passed on by the pipe, so the only argument in the brackets is the second one: the file path.
 
 ## Summary
+Here's what we've covered in this session:
+
+-   The pipe operator `%>%` and how we can use it to chain together multiple function calls, making our code more readable and easier to understand.
+
+-   The basic dplyr verbs `filter()`, `select()`, `mutate()`, and `arrange()` and how they can be used to tidy and analyse data.
+
+-   Missing values (`NA`) and how to remove or replace them
+
+-   The `summarise()` function and how it can be used to calculate summary statistics on your data, as well as the power of grouping data with the `.by` argument.
+
+-   Reshaping data with `pivot_longer()` and `pivot_wider()` to change the structure of your data frame.
+
+-   Combining data with `left_join()` to merge two data frames based on a common column.
+
+::: {.callout-note title="Why does data need to be tidy anyway?"}
+In this session, we've been focusing on making our data 'tidy': that is, structured in a consistent way that makes it easy to work with. A nice visual illustration of tidy data and its importance can be [found here](https://allisonhorst.com/other-r-fun).
+:::
 
 ### Practice questions
