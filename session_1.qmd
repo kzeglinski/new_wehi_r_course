@@ -1401,6 +1401,7 @@ average(mouse_facts\$age)
 6\. To calculate the average age of the mice, you would use `mean(mouse_facts$age)`. This is because the `age` column is part of the `mouse_facts` data frame, so you need to use the `$` symbol to access it, and the function for calculating the average in R is `mean()`.
 
 </details>
+
 :::
 
 ## Reading in data {#sec-readingin}
@@ -1423,7 +1424,7 @@ To find a file path easily in RStudio, you can use the file explorer panel. Firs
 
 ![The file explorer panel in RStudio](images/S01F21_file_explorer.png){width="900"}
 
-By default, it will put you in your project directory. If you have data files in a different directory, you can navigate to that directory by clicking on the folders. Here, I have navigated to a folder on my desktop called 'important_data'. Once you're in the right place, to get the path for that folder, click on `More > Copy Folder Path to Clipboard`:
+By default, it will put you in your project directory. If you have data files in a different directory, you can navigate to that directory by clicking on the folders. Here, I have navigated to a folder on my desktop called 'data', which is inside the 'R_course' folder. Once you're in the right place, to get the path for that folder, click on `More > Copy Folder Path to Clipboard`:
 
 ![Copying the folder path to the clipboard](images/S01F22_copy_folder_path.png){width="800"}
 

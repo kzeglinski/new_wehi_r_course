@@ -20,3 +20,8 @@ Code is shown in blue, with the output below it in grey, just like it would show
 ```
 
 You can run the code yourself by copying it (using the copy button in the top right of the code block) and pasting it into R on your computer.
+
+## Acknowledgements
+We would like to thank Kerry Ko, Brendan Ansell and the WEHI education office for their work in organising and facilitating this course. We would also like to thank all of our instructors and tutors for making this course possible.
+
+We acknowledge that this course is prepared and delivered on the unceded land of the Wurundjeri people of the Kulin Nation. We pay our respects to their Elders past, present, and emerging. We also acknowledge that sovereignty was never ceded, and that this always was and always will be Aboriginal land.

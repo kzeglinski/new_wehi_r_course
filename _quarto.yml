@@ -23,12 +23,12 @@ book:
     - setup.qmd
     - session_1.qmd
     - session_2.qmd
-    - session_3.qmd
-    - session_4.qmd
-    - session_5.qmd
-    - session_6.qmd
-    - further_reading.qmd
-    - advanced_topics.qmd
+    #- session_3.qmd
+    #- session_4.qmd
+    #- session_5.qmd
+    #- session_6.qmd
+    #- further_reading.qmd
+    #- advanced_topics.qmd
 
 bibliography: references.bib
 csl: vancouver_superscript.csl
