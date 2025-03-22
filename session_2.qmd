@@ -10,7 +10,7 @@ format:
 
 # Session 2: Working with data {#sec-session02}
 
-In this session we will learn how to manipulate and summarise data using the `dplyr` package.
+In this session we will learn how to manipulate and summarise data using the `dplyr` package (with a little help from the `tidyr` package too).
 
 ::: {.callout-tip title="Learning Objectives"}
 At the end of this session, learners should be able to:
@@ -26,14 +26,12 @@ At the end of this session, learners should be able to:
 5.  Recall how to save data frames to a file
 :::
 
-Make sure you have `dplyr` package loaded by running `library(dplyr)`, otherwise you will not be able to run the code in this session.
+Both `dplyr` and `tidyr` are contained within the `tidyverse` (along with `readr`) so we can load all of these packages at once using `library(tidyverse)`:
 
 ```{r}
-# don't forget to load dplyr
-library(dplyr)
+# don't forget to load tidyverse!
+library(tidyverse)
 ```
-
-You'll see some output from the `dplyr` package when you load it, which is just telling you that some of `dplyr`'s functions have the same name as other functions in R.
 
 ## Chaining functions together with pipes {#sec-pipes}
 
@@ -159,14 +157,12 @@ We will now introduce some of the most commonly used `dplyr` functions for manip
 ```{r}
 #| eval: false
 # read in the data, like we did in session 1
-library(readr)
 mousezempic_dosage_data <- read_delim("~/Desktop/R_course/data/mousezempic_dosage_data.csv")
 ```
 
 ```{r}
 #| echo: false
 # just for rendering the book not for students to see
-library(readr)
 mousezempic_dosage_data <- read_delim("data/mousezempic_dosage_data.csv")
 ```
 
@@ -583,9 +579,6 @@ Sometimes, instead of removing rows with missing values, you might want to repla
 For example, to replace missing values in the `weight_lost_g` columns with 0, replace missing values in the `sex` column with 'unknown' and leave the rest of the data frame unchanged:
 
 ```{r}
-# need to load the tidyr package first
-library(tidyr)
-
 # replace missing values in the drug_dose_g column with 0
 mousezempic_dosage_data %>%
   # here we need to provide the column_names = values_to_replace
@@ -959,7 +952,7 @@ mousezempic_dosage_data %>%
     sex == "female" ~ "F",
     sex == "male" ~ "M",
     # if neither, code it as 'X'
-    TRUE ~ "X"))
+    .default = "X"))
 ```
 
 ::: {.callout-important title="Practice exercises"}
@@ -1033,7 +1026,7 @@ mousezempic_dosage_data %>%
 
 ::: choices
 ::: choice
-You didn't include a `TRUE ~ ...` condition at the end of the `case_when()` function to act as a fallback
+You didn't include a `.default =` condition at the end of the `case_when()` function to act as a fallback
 :::
 
 ::: choice
@@ -1058,7 +1051,7 @@ You need to separate the conditions in the `case_when()` function with a comma
 mousezempic_dosage_data %>%
   mutate(mouse_strain = case_when(
     mouse_strain == "Black 6" ~ "B6",
-    TRUE ~ mouse_strain
+    .default = mouse_strain
   ))
 ```
 
@@ -1091,8 +1084,8 @@ Modifies the `mouse_strain` column so that any mice from the "Black 6" strain ar
 
 1.  The correct line of code to add a new column to the `mousezempic_dosage_data` data frame that converts the `tail_length_mm` column to cm is `mousezempic_dosage_data %>% mutate(tail_length_cm = tail_length_mm / 10)`.
 2.  The code `mousezempic_dosage_data %>% arrange(desc(weight_lost_g)) %>% mutate(weight_lost_rank = row_number())` adds a new column to the data frame that ranks the mice based on how much weight they lost, with 1 being the mouse that lost the most weight. First, the `arrange(desc(weight_lost_g))` function sorts the data frame by the `weight_lost_g` column in descending order, and then the `mutate(weight_lost_rank = row_number())` function adds a new column that assigns a rank to each row based on its position (row number) in the sorted data frame.
-3.  The error is that the conditions in the `case_when()` function are not separated by commas. Each condition should be followed by a comma because these are like the arguments in a function. Remeber that it's optional to include the `TRUE ~ ...` condition at the end of the `case_when()` function.
-4.  The code `mousezempic_dosage_data %>% mutate(mouse_strain = case_when(mouse_strain == "Black 6" ~ "B6", TRUE ~ mouse_strain))` modifies the `mouse_strain` column so that any mice from the "Black 6" strain are now called "B6", and all other strains are left unchanged. As we are calling our column `mouse_strain`, no new column is being created (we are modifying the existing one) and the `TRUE ~ mouse_strain` condition acts as a fallback to keep the original values (that already exist in the `mouse_strain` column) for any rows that don't match our first condition (strain being "Black 6").
+3.  The error is that the conditions in the `case_when()` function are not separated by commas. Each condition should be followed by a comma because these are like the arguments in a function. Remeber that it's optional to include the `.default =` condition at the end of the `case_when()` function.
+4.  The code `mousezempic_dosage_data %>% mutate(mouse_strain = case_when(mouse_strain == "Black 6" ~ "B6", .default = mouse_strain))` modifies the `mouse_strain` column so that any mice from the "Black 6" strain are now called "B6", and all other strains are left unchanged. As we are calling our column `mouse_strain`, no new column is being created (we are modifying the existing one) and the `.default = mouse_strain` condition acts as a fallback to keep the original values (that already exist in the `mouse_strain` column) for any rows that don't match our first condition (strain being "Black 6").
 
 </p>
 
@@ -1435,7 +1428,17 @@ Notice how `NA` values are used where there is no data for a particular combinat
 #### Pivot longer
 While wide data can be easier to read, long data is often easier to work with. That's because a lot of the tidyverse functions we've learned so far (like `filter()`, `mutate()`, and `summarise()`) work in a row-wise fashion, which is more natural with long data.
 
-To demonstrate `pivot_longer()`, we will introduce a new data frame called `mousezempic_expression_data`. This data frame contains the expression levels of two genes (TH and PRLH) suspected to be upregulated in mice taking MouseZempic, as well as one housekeeping gene (HPRT1), all measured in triplicate:
+To demonstrate `pivot_longer()`, we will introduce a new data frame called `mousezempic_expression_data`. This data frame contains the expression levels of two genes (TH and PRLH) suspected to be upregulated in mice taking MouseZempic, as well as one housekeeping gene (HPRT1), all measured in triplicate. You can download it here:
+
+{{< downloadthis data/mousezempic_expression_data.tsv dname=mousezempic_expression_data label="Download mousezempic_expression_data.tsv" icon=file-earmark-arrow-down type=primary class=data-button id=expr_data >}}
+
+Or run the following code in your R console to download it:
+```{r}
+#| eval: false
+download.file("https://raw.githubusercontent.com/kzeglinski/new_wehi_r_course/refs/heads/main/data/mousezempic_expression_data.tsv", "data/mousezempic_expression_data.tsv")
+```
+
+Once you've done that, read it into R (notice that it's a `.tsv` file, so we need to use either `read_tsv()` or `read_delim()`, not `read_csv()`)
 
 ```{r}
 # read in the data
@@ -1649,3 +1652,66 @@ In this session, we've been focusing on making our data 'tidy': that is, structu
 :::
 
 ### Practice questions
+
+1.  What is the purpose of the pipe operator `%>%`? Keeping this in mind, re-write the following code to use the pipe.
+
+    a.  `round(mean(c(1, 2, 3, 4, 5)))`
+    b.  `print(as.character(1 + 10))`
+
+2.  What would be the result of evaluating the following expressions? You don't need to know these off the top of your head, use R to help! (Hint: some expressions might give an error. Try to think about why)
+
+    a.  `mousezempic_dosage_data %>% filter(weight_lost_g > 10)`
+    b.  `mousezempic_dosage_data %>% select(tail_length_mm, weight_lost_g)`
+    c.  `mousezempic_dosage_data %>% mutate(weight_lost_kg = weight_lost_g / 1000)`
+    d.  `mousezempic_dosage_data %>% arrange(tail_length_mm)`
+    e.  `mousezempic_dosage_data %>% filter(initial_Weight_g > 10) %>% arrange(mouse_strain)`
+    f.  `mousezempic_dosage_data %>% relocate(mouse_strain, .after = cage_number)`
+    g.  `mousezempic_dosage_data %>% pull(weight_lost_g)`
+    h.  `mousezempic_dosage_data %>% filter(!is.na(weight_lost_g))`
+    i.  `mousezempic_dosage_data %>% replace_na(list(weight_lost_g = 0))`
+    j.  `mousezempic_dosage_data %>% summarise(mean_weight_lost = mean(weight_lost_g, na.rm = TRUE))`
+    k.  `mousezempic_dosage_data %>% summarise(mean_weight_lost = mean(weight_lost_g, na.rm = TRUE), .by = cage_number)`
+
+3.  What is a missing value in R? What are two ways to deal with missing values in a data frame?
+
+4.  Using the `mousezempic_dosage_data` data frame, write R code to:
+
+      a.  Make a data frame that shows the number of mice of each strain, in each replicate.
+      b.  Pivot this data frame into a wide format to create a contingency table.
+      c.  Pivot the wide data frame from (b) back into a long format.
+
+5.  Let's say I have two data frames, `df1` and `df2`, that I want to join based a shared 'key' column, that is called 'key' in `df1` and 'item_key' in `df2`. Write R code to join these two data frames using the `left_join()` function.
+
+<details>
+
+<summary>Solutions</summary>
+
+1. The pipe operator `%>%` is used to chain together multiple function calls, passing the result of one function to the next. Here's how you could re-write the code to use the pipe:
+
+    a.  `c(1, 2, 3, 4, 5) %>% mean() %>% round()`
+    b.  `as.character(1 + 10) %>% print()`
+
+2. The result of evaluating the expressions would be:
+    a. A data frame containing only the rows where `weight_lost_g` is greater than 10.
+    b. A data frame containing only the `tail_length_mm` and `weight_lost_g` columns.
+    c. A data frame with an additional column `weight_lost_kg` that contains the weight lost in kilograms.
+    d. A data frame sorted by `tail_length_mm`, in ascending order.
+    e. An error because `initial_Weight_g` is not a column in the data frame.
+    f. A data frame with the `mouse_strain` column moved to be after the `cage_number` column.
+    g. A **vector** containing the values of the `weight_lost_g` column.
+    h. A data frame containing only the rows where `weight_lost_g` is not `NA`.
+    i. A data frame with missing values in the `weight_lost_g` column replaced with 0.
+    j. A data frame with the mean weight lost by all mice.
+    k. A data frame with the mean weight lost by mice in each cage.
+
+3. A missing value in R is represented by `NA`. Two ways to deal with missing values in a data frame are to remove them using `filter(!is.na(column_name))` or to replace them with a specific value using `replace_na(list(column_name = value))`.
+
+4. Here's how you could write R code to achieve the tasks:
+
+    a.  `mousezempic_dosage_data %>% summarise(n_mice = n(), .by = c(mouse_strain, replicate))`
+    b.  `mousezempic_dosage_data %>% summarise(n_mice = n(), .by = c(mouse_strain, replicate)) %>% pivot_wider(names_from = replicate, values_from = n_mice)`
+    c.  `mousezempic_dosage_data %>% summarise(n_mice = n(), .by = c(mouse_strain, replicate)) %>% pivot_wider(names_from = replicate, values_from = n_mice) %>% pivot_longer(cols = starts_with("rep"), names_to = "replicate", values_to = "n_mice")`
+
+5. To join the two data frames you could use `df1 %>% left_join(df2, by = c("key" = "item_key"))` (with pipe) or `left_join(df1, df2, by = c("key" = "item_key"))` (without pipe).
+
+</details>
