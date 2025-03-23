@@ -105,6 +105,8 @@ During this course, we will practice writing well-commented code, but here is an
 1 + 1 # the + symbol means plus
 ```
 
+Note that comments can be written on their own line or at the end of a line after the code. You cannot write any code after a `#` on the same line, as R will ignore it. This is sometimes useful for 'commenting out' code that you don't want to run, but want to keep in your script for later use.
+
 ## Practicing R code with maths {#sec-maths}
 
 To practice running R code, let's do some maths. Here's how to code some basic mathematical operations in R:
