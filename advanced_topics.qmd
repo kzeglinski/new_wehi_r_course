@@ -1,13 +1,21 @@
-# Advanced topics
+---
+format:
+  html:
+    toc: true
+    toc-location: left
+    toc-title: "Contents:"
+---
 
-Here we could write some stuff about:
+# Advanced topics {.unnumbered}
 
--   control structures (for loops, if/else)
+<!-- Here we could write some stuff about: -->
 
--   functions
+<!-- -   control structures (for loops, if/else) -->
 
--   quarto
+<!-- -   functions -->
 
--   inspectdf
+<!-- -   quarto -->
 
-Of course this is extra but would be nice to have, potentially for some sort of advanced course in the future
+<!-- -   inspectdf -->
+
+<!-- Of course this is extra but would be nice to have, potentially for some sort of advanced course in the future -->
