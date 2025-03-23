@@ -1,4 +1,24 @@
-# Course summary & next steps
--   summarise the course/key points from each session
+---
+format:
+  html:
+    toc: true
+    toc-location: left
+    toc-title: "Contents:"
+---
 
--   put links to more advanced materials
+# Futher reading {.unnumbered}
+
+## Useful references {#sec-useful-references}
+
+- [R for Data Science](https://r4ds.had.co.nz): this is a great online book that teaches you to do data science with R. Covering a wide range of topics using the `tidyverse` packages.
+
+- [The R Gallery](https://r-graph-gallery.com): this shows a range of plots that can be created in R using `ggplot2` with associated code for each plot.
+
+- [R-bloggers](https://www.r-bloggers.com): this is a blog that aggregates posts from a wide range of R bloggers. It is a great resource for finding out about new packages and techniques in R.
+
+- [Datacamp R documentation](https://www.datacamp.com/doc/r): this provides a reference to a lot of programming and data analysis in R using base R functionality.
+
+
+<!-- -   summarise the course/key points from each session -->
+
+<!-- -   put links to more advanced materials -->
