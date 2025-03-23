@@ -28,11 +28,11 @@ In this session, we will get familiar with R.
 
 ### What is R and RStudio? {#sec-whatIsR}
 
-**R** is a free and popular statistical programming language, great for performing data analysis. **RStudio** is a free [integrated development environment (IDE)](https://en.wikipedia.org/wiki/Integrated_development_environment) which is a program that makes it easier for us to write code. During this course, we will learn how to use RStudio's handy features like projects (which help us to keep track of different analyses) and the environment panel (which shows us all of our data/variables in one place).
+**R** is a free and popular statistical programming language, great for performing data analysis. **RStudio** is a free [integrated development environment (IDE)](https://en.wikipedia.org/wiki/Integrated_development_environment) that provides useful support features for writing code. During this course, we will learn how to use RStudio's handy features like projects (which help us to keep track of different analyses) and the environment panel (which shows us all of our data/variables in one place).
 
 ### Creating a project {#sec-creatingProject}
 
-Projects are a way we can organise our work in RStudio, so that we can resume where we left off and keep different analyses separate. Any time you start working on something new (like this course!) it is recommended that you start a new project. You can see the current project you're working on, switch between projects or create a new project using the menu in the top right hand corner of RStudio:
+Rstudio Projects are a way we can organise our work in RStudio, so that we can resume where we left off and keep different analyses separate. Any time you start working on something new (like this course!) it is recommended that you start a new project. You can see the current project you're working on, switch between projects or create a new project using the menu in the top right hand corner of RStudio:
 
 ![In the top right hand corner of RStudio, you can see all of your projects](images/S01F01_make_project.png){width="960"}
 
