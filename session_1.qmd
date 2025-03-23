@@ -696,11 +696,13 @@ Sometimes, the R help pages can be pretty tricky to understand, and they can't h
 
 -   **Google**. R is a pretty popular language, so if you google 'how to do x in R', you'll probably find an answer
 
+-   **Package vignettes**. Many R packages have vignettes, which are short guides to using the package. Once you find the name of a package you might want to use, you should go through their vignettes to see what functions are available and how to use them.
+
 -   **ChatGPT** (or similar). AI tools can be really useful in helping you write code, although make sure you double-check the results because it can make mistakes
 
 -   **Ask others**! There are lots of R users, and working together is often the best way to solve problems. This could be through online forums, like [StackOverflow](http://stackoverflow.com/questions/tagged/r) or in-person
 
-No matter where you get your help, try to make sure you understand the code you find. Reading the help pages for new functions, or asking an AI like ChatGPT to explain what code is doing is a great way to expand your R knowledge.
+No matter where you get your help, try to make sure you understand the code you find. Reading the help pages for new functions, or asking an AI like ChatGPT to explain what code is doing is a great way to expand your R knowledge. Additional resources are listed in the "Useful references" section of "Further reading".
 
 ::: {.callout-important title="Practice exercises"}
 Try these practice questions to test your understanding
