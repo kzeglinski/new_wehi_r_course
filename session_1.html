@@ -354,7 +354,7 @@ Name with underscores, not spaces
 <li><p>Under the ‘help’ tab you can read manual pages to learn how to use functions</p></li>
 </ul></li>
 </ol>
-<p>Although there are other tabs for some of these panels, they are used for more niche things out of scope of this course. You can read more it in the <a href="https://docs.posit.co/ide/user/ide/guide/ui/ui-panes.html">RStudio documentation</a>.</p>
+<p>Although there are other tabs for some of these panels, they are used for more niche things out of scope of this course. You can read more about it in the <a href="https://docs.posit.co/ide/user/ide/guide/ui/ui-panes.html">RStudio documentation</a>.</p>
 </section>
 <section id="writing-our-first-piece-of-code" class="level3" data-number="1.1.5">
 <h3 data-number="1.1.5" class="anchored" data-anchor-id="writing-our-first-piece-of-code"><span class="header-section-number">1.1.5</span> Writing our first piece of code</h3>
@@ -373,7 +373,7 @@ Don’t forget your #
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>oops I forgot the hashtag</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-error">
-<pre><code>Error in parse(text = input): &lt;text&gt;:1:6: unexpected symbol
+<pre><code>Error: &lt;text&gt;:1:6: unexpected symbol
 1: oops I
          ^</code></pre>
 </div>
@@ -385,7 +385,7 @@ Don’t forget your #
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate one plus one</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">1</span> <span class="co"># the + symbol means plus</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Note that comments can be written on their own line or at the end of a line after the code. You cannot write any code after a <code>#</code> on the same line, as R will ignore it. This is sometimes useful for ‘commenting out’ code that you don’t want to run, but want to keep in your script for later use.</p>
+<p>Note that comments can be written on their own line or at the end of a line after the code. Crucially, you cannot write any code after a <code>#</code> on the same line, as R will ignore it. This is sometimes useful for ‘commenting out’ code that you don’t want to run, but want to keep in your script for later use.</p>
 </section>
 </section>
 <section id="sec-maths" class="level2" data-number="1.2">
@@ -798,7 +798,7 @@ Careful of cases!
 <span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a><span class="co"># produces error because MY_NUMBER is not the same as my_number</span></span>
 <span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>MY_NUMBER</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-error">
-<pre><code>Error: object 'MY_NUMBER' not found</code></pre>
+<pre><code>Error in eval(expr, envir, enclos): object 'MY_NUMBER' not found</code></pre>
 </div>
 </div>
 </div>
@@ -858,7 +858,7 @@ Careful of cases!
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># gives an error because we use a non-allowed character</span></span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>percentage% <span class="ot">&lt;-</span> <span class="dv">100</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-error">
-<pre><code>Error in parse(text = input): &lt;text&gt;:2:11: unexpected input
+<pre><code>Error: &lt;text&gt;:2:11: unexpected input
 1: # gives an error because we use a non-allowed character
 2: percentage% &lt;- 100
              ^</code></pre>
@@ -868,7 +868,7 @@ Careful of cases!
 <div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># gives an error because we start with a number</span></span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span>place <span class="ot">&lt;-</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-error">
-<pre><code>Error in parse(text = input): &lt;text&gt;:2:2: unexpected symbol
+<pre><code>Error: &lt;text&gt;:2:2: unexpected symbol
 1: # gives an error because we start with a number
 2: 1place
     ^</code></pre>
@@ -878,7 +878,7 @@ Careful of cases!
 <div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># gives an error because we have a space</span></span>
 <span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>my age <span class="ot">&lt;-</span> <span class="dv">5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-error">
-<pre><code>Error in parse(text = input): &lt;text&gt;:2:4: unexpected symbol
+<pre><code>Error: &lt;text&gt;:2:4: unexpected symbol
 1: # gives an error because we have a space
 2: my age
       ^</code></pre>
@@ -1055,7 +1055,7 @@ Common errors with functions
 <div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co"># forgot to enclose the arguments in brackets</span></span>
 <span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>round <span class="fl">3.14159</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-error">
-<pre><code>Error in parse(text = input): &lt;text&gt;:2:7: unexpected numeric constant
+<pre><code>Error: &lt;text&gt;:2:7: unexpected numeric constant
 1: # forgot to enclose the arguments in brackets
 2: round 3.14159
          ^</code></pre>
@@ -1065,7 +1065,7 @@ Common errors with functions
 <div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co"># forgot the comma between the arguments</span></span>
 <span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fl">3.14159</span> <span class="at">digits =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-error">
-<pre><code>Error in parse(text = input): &lt;text&gt;:2:15: unexpected symbol
+<pre><code>Error: &lt;text&gt;:2:15: unexpected symbol
 1: # forgot the comma between the arguments
 2: round(3.14159 digits
                  ^</code></pre>
@@ -1082,7 +1082,7 @@ Common errors with functions
 <div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="co"># forgot to close the brackets</span></span>
 <span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fl">3.14159</span>, <span class="at">digits =</span> <span class="dv">3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-error">
-<pre><code>Error in parse(text = input): &lt;text&gt;:3:0: unexpected end of input
+<pre><code>Error: &lt;text&gt;:3:0: unexpected end of input
 1: # forgot to close the brackets
 2: round(3.14159, digits = 3
   ^</code></pre>
@@ -1151,7 +1151,7 @@ Common errors with functions
 <li><p><strong>ChatGPT</strong> (or similar). AI tools can be really useful in helping you write code, although make sure you double-check the results because it can make mistakes</p></li>
 <li><p><strong>Ask others</strong>! There are lots of R users, and working together is often the best way to solve problems. This could be through online forums, like <a href="http://stackoverflow.com/questions/tagged/r">StackOverflow</a> or in-person</p></li>
 </ul>
-<p>No matter where you get your help, try to make sure you understand the code you find. Reading the help pages for new functions, or asking an AI like ChatGPT to explain what code is doing is a great way to expand your R knowledge. Additional resources are listed in the “Useful references” section of “Further reading”.</p>
+<p>No matter where you get your help, try to make sure you understand the code you find. Reading the help pages for new functions, or asking an AI like ChatGPT to explain what code is doing is a great way to expand your R knowledge. We also list some recommended additional resources in the “Useful references” section of “Further reading”.</p>
 <div class="callout callout-style-default callout-important callout-titled" title="Practice exercises">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -2507,7 +2507,7 @@ Solutions
 <span id="cb148-4"><a href="#cb148-4" aria-hidden="true" tabindex="-1"></a><span class="co"># convert to a proportion: divide by the sum</span></span>
 <span id="cb148-5"><a href="#cb148-5" aria-hidden="true" tabindex="-1"></a>frog_counts <span class="sc">/</span> <span class="fu">sum</span>(Frog_counts)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-error">
-<pre><code>Error: object 'frog_counts' not found</code></pre>
+<pre><code>Error in eval(expr, envir, enclos): object 'frog_counts' not found</code></pre>
 </div>
 </div></li>
 <li><p>Load the <code>iris</code> dataframe into your R session using <code>data(iris)</code>. What is the median petal length? Show the code you used to calculate this.</p></li>
@@ -3126,7 +3126,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb152-82"><a href="#cb152-82" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb152-83"><a href="#cb152-83" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>Under the 'help' tab you can read manual pages to learn how to use functions</span>
 <span id="cb152-84"><a href="#cb152-84" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-85"><a href="#cb152-85" aria-hidden="true" tabindex="-1"></a>Although there are other tabs for some of these panels, they are used for more niche things out of scope of this course. You can read more it in the <span class="co">[</span><span class="ot">RStudio documentation</span><span class="co">](https://docs.posit.co/ide/user/ide/guide/ui/ui-panes.html)</span>.</span>
+<span id="cb152-85"><a href="#cb152-85" aria-hidden="true" tabindex="-1"></a>Although there are other tabs for some of these panels, they are used for more niche things out of scope of this course. You can read more about it in the <span class="co">[</span><span class="ot">RStudio documentation</span><span class="co">](https://docs.posit.co/ide/user/ide/guide/ui/ui-panes.html)</span>.</span>
 <span id="cb152-86"><a href="#cb152-86" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb152-87"><a href="#cb152-87" aria-hidden="true" tabindex="-1"></a><span class="fu">### Writing our first piece of code</span></span>
 <span id="cb152-88"><a href="#cb152-88" aria-hidden="true" tabindex="-1"></a></span>
@@ -3149,7 +3149,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb152-109"><a href="#cb152-109" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">1</span> <span class="co"># the + symbol means plus</span></span>
 <span id="cb152-110"><a href="#cb152-110" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb152-111"><a href="#cb152-111" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-112"><a href="#cb152-112" aria-hidden="true" tabindex="-1"></a>Note that comments can be written on their own line or at the end of a line after the code. You cannot write any code after a <span class="in">`#`</span> on the same line, as R will ignore it. This is sometimes useful for 'commenting out' code that you don't want to run, but want to keep in your script for later use.</span>
+<span id="cb152-112"><a href="#cb152-112" aria-hidden="true" tabindex="-1"></a>Note that comments can be written on their own line or at the end of a line after the code. Crucially, you cannot write any code after a <span class="in">`#`</span> on the same line, as R will ignore it. This is sometimes useful for 'commenting out' code that you don't want to run, but want to keep in your script for later use.</span>
 <span id="cb152-113"><a href="#cb152-113" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb152-114"><a href="#cb152-114" aria-hidden="true" tabindex="-1"></a><span class="fu">## Practicing R code with maths {#sec-maths}</span></span>
 <span id="cb152-115"><a href="#cb152-115" aria-hidden="true" tabindex="-1"></a></span>
@@ -3746,7 +3746,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb152-752"><a href="#cb152-752" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb152-753"><a href="#cb152-753" aria-hidden="true" tabindex="-1"></a><span class="at">-   **Ask others**! There are lots of R users, and working together is often the best way to solve problems. This could be through online forums, like [StackOverflow](http://stackoverflow.com/questions/tagged/r) or in-person</span></span>
 <span id="cb152-754"><a href="#cb152-754" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-755"><a href="#cb152-755" aria-hidden="true" tabindex="-1"></a><span class="at">No matter where you get your help, try to make sure you understand the code you find. Reading the help pages for new functions, or asking an AI like ChatGPT to explain what code is doing is a great way to expand your R knowledge. Additional resources are listed in the "Useful references" section of "Further reading".</span></span>
+<span id="cb152-755"><a href="#cb152-755" aria-hidden="true" tabindex="-1"></a><span class="at">No matter where you get your help, try to make sure you understand the code you find. Reading the help pages for new functions, or asking an AI like ChatGPT to explain what code is doing is a great way to expand your R knowledge. We also list some recommended additional resources in the "Useful references" section of "Further reading".</span></span>
 <span id="cb152-756"><a href="#cb152-756" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb152-757"><a href="#cb152-757" aria-hidden="true" tabindex="-1"></a><span class="at">::: {.callout-important title="Practice exercises"}</span></span>
 <span id="cb152-758"><a href="#cb152-758" aria-hidden="true" tabindex="-1"></a><span class="at">Try these practice questions to test your understanding</span></span>
