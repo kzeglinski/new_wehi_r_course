@@ -181,6 +181,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#sec-useful-references" id="toc-sec-useful-references" class="nav-link active" data-scroll-target="#sec-useful-references">Useful references</a></li>
+  <li><a href="#paths" id="toc-paths" class="nav-link" data-scroll-target="#paths">Paths</a>
+  <ul class="collapse">
+  <li><a href="#absolute-paths" id="toc-absolute-paths" class="nav-link" data-scroll-target="#absolute-paths">Absolute paths</a></li>
+  <li><a href="#relative-paths" id="toc-relative-paths" class="nav-link" data-scroll-target="#relative-paths">Relative paths</a></li>
+  <li><a href="#the-here-package" id="toc-the-here-package" class="nav-link" data-scroll-target="#the-here-package">The <code>here</code> package</a></li>
+  </ul></li>
   </ul>
 </nav>
 </nav>
@@ -218,12 +224,29 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p><a href="https://www.r-bloggers.com">R-bloggers</a>: this is a blog that aggregates posts from a wide range of R bloggers. It is a great resource for finding out about new packages and techniques in R.</p></li>
 <li><p><a href="https://www.datacamp.com/doc/r">Datacamp R documentation</a>: this provides a reference to a lot of programming and data analysis in R using base R functionality.</p></li>
 </ul>
+</section>
+<section id="paths" class="level2">
+<h2 class="anchored" data-anchor-id="paths">Paths</h2>
+<p>We briefly touched on paths in the first session, but it is an important and complex topic that with worth digging into further. Paths are a way to specify the location of a file or directory on your computer, they are important whenever data needs to be read from or written to a file. This makes it a crucial concept for data analysis in R.</p>
+<section id="absolute-paths" class="level3">
+<h3 class="anchored" data-anchor-id="absolute-paths">Absolute paths</h3>
+<p>An absolute path is defined as the full path from the root directory of the computer. These paths start with the root directory, which is <code>/</code> on Unix-based systems (like Linux and MacOS) and <code>C:\</code> on Windows systems. For example, the absolute path to the home directory on a Unix-based system would be <code>/home/my_username/analysis/data/file.txt</code>. These paths should be used when the location of the file is not going to change and is in some shared location external to the project.</p>
+</section>
+<section id="relative-paths" class="level3">
+<h3 class="anchored" data-anchor-id="relative-paths">Relative paths</h3>
+<p>Relative paths are defined as a path relative to the current working directory. If you are already in the directory <code>/home/users/my_username/analysis/</code>, the relative path to the file <code>data/file.txt</code> would be have the same meaning as the absolute path <code>/home/users/my_username/analysis/data/file.txt</code>. Relative paths are useful when the location of the file is likely to change, for example if the whole analysis folder might be moved around with its included data.</p>
+<p>Users tend to have a home directory, which is the private directory each user is assigned. This directory is often located at <code>/home/my_username/</code> on Unix-based systems and <code>C:\Users\my_username\</code> on Windows systems. This directory commonly acts as the starting point for many paths local to the user, and can be referred to using the shortcut <code>~</code> (tilde). For example, the path <code>~/analysis/data/file.txt</code> would be equivalent to <code>/home/my_username/analysis/data/file.txt</code> on a Unix-based system. The exact path that is referred to by <code>~</code> can be found by running the command <code>Sys.getenv("HOME")</code> in R, and is relative to the user running the R session.</p>
+</section>
+<section id="the-here-package" class="level3">
+<h3 class="anchored" data-anchor-id="the-here-package">The <code>here</code> package</h3>
+<p>There are situations where you want to organise your scripts into folders, if you navigate to these folders and run the scripts, they will run within the folder they are in. But often you will want to run the script from the root folder of the project. For example if you have a script in <code>~/analysis/scripts/plot.R</code> and inside you use <code>data/file.txt</code> to reference <code>~/analysis/data/file.txt</code>, if you run the script from <code>~/analysis/scripts/</code> it will not find the file. The <code>here</code> package solved this problem by anchoring your paths relative to the root folder of the project. Details about the package can be found <a href="https://here.r-lib.org">here</a>.</p>
 <!-- -   summarise the course/key points from each session -->
 <!-- -   put links to more advanced materials -->
 
 
 <!-- -->
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -724,10 +747,27 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">Datacamp R documentation</span><span class="co">](https://www.datacamp.com/doc/r)</span>: this provides a reference to a lot of programming and data analysis in R using base R functionality.</span>
 <span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- -   summarise the course/key points from each session --&gt;</span></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- -   put links to more advanced materials --&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="fu">## Paths</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>We briefly touched on paths in the first session, but it is an important and complex topic that with worth digging into further. Paths are a way to specify the location of a file or directory on your computer, they are important whenever data needs to be read from or written to a file. This makes it a crucial concept for data analysis in R.</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="fu">### Absolute paths</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>An absolute path is defined as the full path from the root directory of the computer. These paths start with the root directory, which is <span class="in">`/`</span> on Unix-based systems (like Linux and MacOS) and <span class="in">`C:\`</span> on Windows systems. For example, the absolute path to the home directory on a Unix-based system would be <span class="in">`/home/my_username/analysis/data/file.txt`</span>. These paths should be used when the location of the file is not going to change and is in some shared location external to the project.</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="fu">### Relative paths</span></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>Relative paths are defined as a path relative to the current working directory. If you are already in the directory <span class="in">`/home/users/my_username/analysis/`</span>, the relative path to the file <span class="in">`data/file.txt`</span> would be have the same meaning as the absolute path <span class="in">`/home/users/my_username/analysis/data/file.txt`</span>. Relative paths are useful when the location of the file is likely to change, for example if the whole analysis folder might be moved around with its included data.</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>Users tend to have a home directory, which is the private directory each user is assigned. This directory is often located at <span class="in">`/home/my_username/`</span> on Unix-based systems and <span class="in">`C:\Users\my_username\`</span> on Windows systems. This directory commonly acts as the starting point for many paths local to the user, and can be referred to using the shortcut <span class="in">`~`</span> (tilde). For example, the path <span class="in">`~/analysis/data/file.txt`</span> would be equivalent to <span class="in">`/home/my_username/analysis/data/file.txt`</span> on a Unix-based system. The exact path that is referred to by <span class="in">`~`</span> can be found by running the command <span class="in">`Sys.getenv("HOME")`</span> in R, and is relative to the user running the R session.</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="fu">### The `here` package</span></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>There are situations where you want to organise your scripts into folders, if you navigate to these folders and run the scripts, they will run within the folder they are in. But often you will want to run the script from the root folder of the project. For example if you have a script in <span class="in">`~/analysis/scripts/plot.R`</span> and inside you use <span class="in">`data/file.txt`</span> to reference <span class="in">`~/analysis/data/file.txt`</span>, if you run the script from <span class="in">`~/analysis/scripts/`</span> it will not find the file. The <span class="in">`here`</span> package solved this problem by anchoring your paths relative to the root folder of the project. Details about the package can be found <span class="co">[</span><span class="ot">here</span><span class="co">](https://here.r-lib.org)</span>.</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- -   summarise the course/key points from each session --&gt;</span></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- -   put links to more advanced materials --&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 
