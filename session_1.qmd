@@ -82,7 +82,7 @@ This is what they're used for:
 
     -   Under the 'help' tab you can read manual pages to learn how to use functions
 
-Although there are other tabs for some of these panels, they are used for more niche things out of scope of this course. You can read more it in the [RStudio documentation](https://docs.posit.co/ide/user/ide/guide/ui/ui-panes.html).
+Although there are other tabs for some of these panels, they are used for more niche things out of scope of this course. You can read more about it in the [RStudio documentation](https://docs.posit.co/ide/user/ide/guide/ui/ui-panes.html).
 
 ### Writing our first piece of code
 
@@ -105,7 +105,7 @@ During this course, we will practice writing well-commented code, but here is an
 1 + 1 # the + symbol means plus
 ```
 
-Note that comments can be written on their own line or at the end of a line after the code. You cannot write any code after a `#` on the same line, as R will ignore it. This is sometimes useful for 'commenting out' code that you don't want to run, but want to keep in your script for later use.
+Note that comments can be written on their own line or at the end of a line after the code. Crucially, you cannot write any code after a `#` on the same line, as R will ignore it. This is sometimes useful for 'commenting out' code that you don't want to run, but want to keep in your script for later use.
 
 ## Practicing R code with maths {#sec-maths}
 
@@ -702,7 +702,7 @@ Sometimes, the R help pages can be pretty tricky to understand, and they can't h
 
 -   **Ask others**! There are lots of R users, and working together is often the best way to solve problems. This could be through online forums, like [StackOverflow](http://stackoverflow.com/questions/tagged/r) or in-person
 
-No matter where you get your help, try to make sure you understand the code you find. Reading the help pages for new functions, or asking an AI like ChatGPT to explain what code is doing is a great way to expand your R knowledge. Additional resources are listed in the "Useful references" section of "Further reading".
+No matter where you get your help, try to make sure you understand the code you find. Reading the help pages for new functions, or asking an AI like ChatGPT to explain what code is doing is a great way to expand your R knowledge. We also list some recommended additional resources in the "Useful references" section of "Further reading".
 
 ::: {.callout-important title="Practice exercises"}
 Try these practice questions to test your understanding
