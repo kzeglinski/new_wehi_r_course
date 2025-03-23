@@ -18,6 +18,23 @@ format:
 
 - [Datacamp R documentation](https://www.datacamp.com/doc/r): this provides a reference to a lot of programming and data analysis in R using base R functionality.
 
+## Paths
+
+We briefly touched on paths in the first session, but it is an important and complex topic that with worth digging into further. Paths are a way to specify the location of a file or directory on your computer, they are important whenever data needs to be read from or written to a file. This makes it a crucial concept for data analysis in R.
+
+### Absolute paths
+
+An absolute path is defined as the full path from the root directory of the computer. These paths start with the root directory, which is `/` on Unix-based systems (like Linux and MacOS) and `C:\` on Windows systems. For example, the absolute path to the home directory on a Unix-based system would be `/home/my_username/analysis/data/file.txt`. These paths should be used when the location of the file is not going to change and is in some shared location external to the project.
+
+### Relative paths
+
+Relative paths are defined as a path relative to the current working directory. If you are already in the directory `/home/users/my_username/analysis/`, the relative path to the file `data/file.txt` would be have the same meaning as the absolute path `/home/users/my_username/analysis/data/file.txt`. Relative paths are useful when the location of the file is likely to change, for example if the whole analysis folder might be moved around with its included data.
+
+Users tend to have a home directory, which is the private directory each user is assigned. This directory is often located at `/home/my_username/` on Unix-based systems and `C:\Users\my_username\` on Windows systems. This directory commonly acts as the starting point for many paths local to the user, and can be referred to using the shortcut `~` (tilde). For example, the path `~/analysis/data/file.txt` would be equivalent to `/home/my_username/analysis/data/file.txt` on a Unix-based system. The exact path that is referred to by `~` can be found by running the command `Sys.getenv("HOME")` in R, and is relative to the user running the R session.
+
+### The `here` package
+
+There are situations where you want to organise your scripts into folders, if you navigate to these folders and run the scripts, they will run within the folder they are in. But often you will want to run the script from the root folder of the project. For example if you have a script in `~/analysis/scripts/plot.R` and inside you use `data/file.txt` to reference `~/analysis/data/file.txt`, if you run the script from `~/analysis/scripts/` it will not find the file. The `here` package solved this problem by anchoring your paths relative to the root folder of the project. Details about the package can be found [here](https://here.r-lib.org).
 
 <!-- -   summarise the course/key points from each session -->
 
