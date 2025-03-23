@@ -82,7 +82,7 @@ This is what they're used for:
 
     -   Under the 'help' tab you can read manual pages to learn how to use functions
 
-Although there are other tabs for some of these panels, they are used for more niche things out of scope of this course.
+Although there are other tabs for some of these panels, they are used for more niche things out of scope of this course. You can read more it in the [RStudio documentation](https://docs.posit.co/ide/user/ide/guide/ui/ui-panes.html).
 
 ### Writing our first piece of code
 
