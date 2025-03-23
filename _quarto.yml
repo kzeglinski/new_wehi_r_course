@@ -27,7 +27,7 @@ book:
     #- session_4.qmd
     #- session_5.qmd
     #- session_6.qmd
-    #- further_reading.qmd
+    - further_reading.qmd
     #- advanced_topics.qmd
 
 bibliography: references.bib
