@@ -6,7 +6,7 @@ format:
     toc-title: "Contents:"
 ---
 
-# Futher reading {.unnumbered}
+# Further reading {.unnumbered}
 
 ## Useful references {#sec-useful-references}
 
@@ -48,7 +48,7 @@ You should avoid:
 - Using an AI helper as a substitute for learning how to code
 - Using an AI helper as a substitute for understanding the problem you are trying to solve
 
-Because of the way AI helpers work, if you don't understand a particular bit of code it produces, you can simply ask it to explain what its doing. If you don't understand the explanation, or disagree with it, you should confront the AI helper with your concerns. Only run the code once you are sufficiently convinced that it's doing what you want.
+Because of the way AI helpers work, if you don't understand a particular bit of code it produces, you can simply ask it to explain what it's doing. If you don't understand the explanation, or disagree with it, you should confront the AI helper with your concerns. Only run the code once you are sufficiently convinced that it's doing what you want.
 
 To use AI effectively, it helps to provide as much context as possible. This includes but is not limited to:
 
