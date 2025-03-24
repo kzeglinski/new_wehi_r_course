@@ -698,7 +698,7 @@ Sometimes, the R help pages can be pretty tricky to understand, and they can't h
 
 -   **Package vignettes**. Many R packages have vignettes, which are short guides to using the package. Once you find the name of a package you might want to use, you should go through their vignettes to see what functions are available and how to use them.
 
--   **ChatGPT** (or similar). AI tools can be really useful in helping you write code, although make sure you double-check the results because it can make mistakes
+-   **ChatGPT** (or similar). AI tools can be really useful in helping you write code, although make sure you double-check the results because it can make mistakes. Tips and advice on how to effectively use AI tools is available in the "Further reading" section.
 
 -   **Ask others**! There are lots of R users, and working together is often the best way to solve problems. This could be through online forums, like [StackOverflow](http://stackoverflow.com/questions/tagged/r) or in-person
 
