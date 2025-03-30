@@ -8,6 +8,10 @@ format:
     toc-title: "In this session:"
 ---
 
+<!-- things to change: -->
+<!-- mention that ~ in path means home -->
+<!-- adjust timing -->
+
 # Session 1: Introduction to R {#sec-session01}
 
 In this session, we will get familiar with R.

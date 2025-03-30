@@ -1387,19 +1387,22 @@ Calculates the maximum tail length of mice in each unique combination of strain 
 
 Once you've cleaned and transformed your data, you'll often want to save it to a file so that you can use it in other programs or share it with others. The `write_csv()` and `write_tsv()` functions from the `readr` package are a great way to do this. They take two arguments - the data frame you want to save and the file path where you want to save it.
 
-For example, let's say I want to save my contingency table of the number of mice in each cage and strain to a CSV file called `cage_strain_counts.csv`:
+For example, let's say I want to save my summary table of the weight lost by mice in each cage to a CSV file called `cage_summary_table.csv`:
 
 ```{r}
 #| eval: false
-# create the contingency table
-cage_strain_counts <- mousezempic_dosage_data %>%
+# create the summary table
+# and assign it to a variable
+cage_summary_table <- mousezempic_dosage_data %>%
   summarise(
-    n_mice = n(),
-    .by = c(cage_number, mouse_strain)) %>%
-  pivot_wider(names_from = mouse_strain, values_from = n_mice)
+    n = n(),
+    mean_weight_lost = mean(weight_lost_g, na.rm = TRUE),
+    median_weight_lost = median(weight_lost_g, na.rm = TRUE),
+    sd_weight_lost = sd(weight_lost_g, na.rm = TRUE),
+    .by = cage_number)
 
 # save the data to a CSV file
-write_csv(cage_strain_counts, "cage_strain_counts.csv")
+write_csv(cage_summary_table, "cage_summary_table.csv")
 ```
 
 CSV files are particularly great because they can be easily read into other software, like Excel.
@@ -1410,10 +1413,12 @@ It's also possible to use the `write_*()` functions along with a pipe:
 #| eval: false
 mousezempic_dosage_data %>%
   summarise(
-    n_mice = n(),
-    .by = c(cage_number, mouse_strain)) %>%
-  pivot_wider(names_from = mouse_strain, values_from = n_mice) %>%
-  write_csv("cage_strain_counts.csv")
+    n = n(),
+    mean_weight_lost = mean(weight_lost_g, na.rm = TRUE),
+    median_weight_lost = median(weight_lost_g, na.rm = TRUE),
+    sd_weight_lost = sd(weight_lost_g, na.rm = TRUE),
+    .by = cage_number) %>%
+  write_csv("cage_summary_table.csv")
 ```
 Remember here that the first argument (the data frame to save) is passed on by the pipe, so the only argument in the brackets is the second one: the file path.
 
