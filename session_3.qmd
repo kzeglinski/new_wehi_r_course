@@ -198,19 +198,19 @@ Mapping allows you to specify which scales (e.g. x, y, colour) should be used to
 
 ::: choices
 ::: choice
-`ggplot(data = mousezempic_dosage_data, aes(x = drug_dosage, y = weight_loss)) %>% geom_point()`
+`ggplot(data = mousezempic_dosage_data, aes(x = drug_dose_g, y = weight_loss)) %>% geom_point()`
 :::
 
 ::: choice
-`ggplot(data = mousezempic_dosage_data, x = drug_dosage, y = weight_loss) + geom_point()`
+`ggplot(data = mousezempic_dosage_data, x = drug_dose_g, y = weight_lost_g) + geom_point()`
 :::
 
 ::: choice
-`ggplot2(data = mousezempic_dosage_data, aes(x = drug_dosage, y = weight_loss))`
+`ggplot2(data = mousezempic_dosage_data, aes(x = drug_dose_g, y = weight_lost_g))`
 :::
 
 ::: {.choice .correct-choice}
-`ggplot(data = mousezempic_dosage_data, aes(x = drug_dosage, y = weight_loss)) + geom_point()`
+`ggplot(data = mousezempic_dosage_data, aes(x = drug_dose_g, y = weight_lost_g)) + geom_point()`
 :::
 :::
 :::
@@ -241,7 +241,7 @@ Mapping allows you to specify which scales (e.g. x, y, colour) should be used to
 <summary>Solutions</summary>
 
 1.  Mapping in ggplot refers to the scales that will be used to display the data (e.g. x, y, colour), not the type of plot you want to create. It is specified using the `aes()` function, and when specified in the initial `ggplot()` function call, is inherited by all subsequent layers/geoms.
-2.  The correct way to create a scatterplot of the drug dosage and weight loss in the `mousezempic_dosage_data` dataset is `ggplot(data = mousezempic_dosage_data, aes(x = drug_dosage, y = weight_loss)) + geom_point()`. This specifies the data and mapping in the `ggplot()` function call, and adds a layer of points to the plot using `geom_point()`. The `%>%` operator is not used in ggplot2, and the `x` and `y` mapping should be specified within the `aes()` function. Also, remember that although ggplot2 is the name of the package, the function you use to initialise a plot is `ggplot()`.
+2.  The correct way to create a scatterplot of the drug dosage and weight loss in the `mousezempic_dosage_data` dataset is `ggplot(data = mousezempic_dosage_data, aes(x = drug_dosage_g, y = weight_lost_g)) + geom_point()`. This specifies the data and mapping in the `ggplot()` function call, and adds a layer of points to the plot using `geom_point()`. The `%>%` operator is not used in ggplot2, and the `x` and `y` mapping should be specified within the `aes()` function. Also, remember that although ggplot2 is the name of the package, the function you use to initialise a plot is `ggplot()`.
 3.  To programmatically save the plot created in question 2 as a .pdf file with dimensions of 10 by 15 cm, you would use the `ggsave()` function with the arguments `ggsave("drug_dosage_vs_weight_loss.pdf", device = "pdf", width = 10, height = 15, units = "cm")`. This specifies the filename, file type, dimensions, and units of the plot you want to save. Remember that by default, dimensions are in inches (boooo), so you need to specify the units as "cm" to save the plot with dimensions in centimetres.
 
 </details>
