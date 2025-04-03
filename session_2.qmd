@@ -1433,10 +1433,6 @@ Here's what we've covered in this session:
 
 -   The `summarise()` function and how it can be used to calculate summary statistics on your data, as well as the power of grouping data with the `.by` argument.
 
--   Reshaping data with `pivot_longer()` and `pivot_wider()` to change the structure of your data frame.
-
--   Combining data with `left_join()` to merge two data frames based on a common column.
-
 ::: {.callout-note title="Why does data need to be tidy anyway?"}
 In this session, we've been focusing on making our data 'tidy': that is, structured in a consistent way that makes it easy to work with. A nice visual illustration of tidy data and its importance can be [found here](https://allisonhorst.com/other-r-fun).
 :::

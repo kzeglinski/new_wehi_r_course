@@ -254,7 +254,11 @@ Which pivot function call would I use to take this data from a wide format (wher
 
 finally we will make some nice visualisations
 
-if time, i think it would be nice to include (briefly) tables with the gt() package.
+
+summary
+-   Reshaping data with `pivot_longer()` and `pivot_wider()` to change the structure of your data frame.
+
+-   Combining data with `left_join()` to merge two data frames based on a common column.
 
 questions etc
 
@@ -265,7 +269,6 @@ questions etc
       c.  Pivot the wide data frame from (b) back into a long format.
 
 5.  Let's say I have two data frames, `df1` and `df2`, that I want to join based a shared 'key' column, that is called 'key' in `df1` and 'item_key' in `df2`. Write R code to join these two data frames using the `left_join()` function.
-
 
 solutions
 

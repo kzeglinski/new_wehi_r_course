@@ -8,6 +8,7 @@ format:
     toc-title: "In this session:"
 ---
 
+
 # Session 3: Plotting with ggplot2 {#sec-session03}
 
 In this session we will learn how to create and customise plots using the `ggplot2` package.
@@ -24,15 +25,59 @@ At the end of this session, learners should be able to:
 
 To get started, let's load the `tidyverse` package, which includes `ggplot2`:
 
-```{r}
+
+::: {.cell}
+
+```{.r .cell-code}
 library(tidyverse)
 ```
 
+::: {.cell-output .cell-output-stderr}
+
+```
+── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ ggplot2   3.5.1     ✔ tibble    3.2.1
+✔ lubridate 1.9.3     ✔ tidyr     1.3.1
+✔ purrr     1.0.2     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
+```
+
+
+:::
+:::
+
+
 And read in the `mousezempic_dosage_data` that we have been using in previous sessions:
 
-```{r}
+
+::: {.cell}
+
+```{.r .cell-code}
 mousezempic_dosage_data <- read_csv("data/mousezempic_dosage_data.csv")
 ```
+
+::: {.cell-output .cell-output-stderr}
+
+```
+Rows: 344 Columns: 9
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (4): mouse_strain, cage_number, replicate, sex
+dbl (5): weight_lost_g, drug_dose_g, tail_length_mm, initial_weight_g, id_num
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+```
+
+
+:::
+:::
+
 
 ## Building our first plot, layer by layer
 
@@ -49,9 +94,18 @@ The mapping is specified using the `aes()` function, which stands for 'aesthetic
 
 For example, to make a plot to explore the relationship between the initial weight of the mice and their tail length, we would write:
 
-```{r}
+
+::: {.cell}
+
+```{.r .cell-code}
 ggplot(data = mousezempic_dosage_data, aes(x = initial_weight_g, y = tail_length_mm))
 ```
+
+::: {.cell-output-display}
+![](session_3_files/figure-html/unnamed-chunk-3-1.png){width=2000}
+:::
+:::
+
 
 In the plot panel (bottom right hand corner), you should now see a blank plot with the x and y axes labelled with the column names we specified in the `aes()` function. There's no data on it yet, because we haven't told ggplot how to physically represent the data on the x and y scales we have specified.
 
@@ -63,10 +117,29 @@ Geoms are added to plots layers (which are drawn on top of one another, like lay
 
 For example, let's add points to the plot that we initialised above using `geom_point()`:
 
-```{r}
+
+::: {.cell}
+
+```{.r .cell-code}
 ggplot(data = mousezempic_dosage_data, aes(x = initial_weight_g, y = tail_length_mm)) +
   geom_point()
 ```
+
+::: {.cell-output .cell-output-stderr}
+
+```
+Warning: Removed 2 rows containing missing values or values outside the scale range
+(`geom_point()`).
+```
+
+
+:::
+
+::: {.cell-output-display}
+![](session_3_files/figure-html/unnamed-chunk-4-1.png){width=2000}
+:::
+:::
+
 
 This gives us a basic scatterplot of the data, with each point representing the tail length and initial weight of a mouse in our dataset.
 
@@ -84,34 +157,130 @@ Of course, this is a very simple plot. To show more information, we can add addi
 
 For example, let's add a a layer containing a linear trendline using `geom_smooth(method = "lm")`:
 
-```{r}
+
+::: {.cell}
+
+```{.r .cell-code}
 ggplot(data = mousezempic_dosage_data, aes(x = initial_weight_g, y = tail_length_mm)) +
   geom_point() +
   geom_smooth(method = "lm")
 ```
+
+::: {.cell-output .cell-output-stderr}
+
+```
+`geom_smooth()` using formula = 'y ~ x'
+```
+
+
+:::
+
+::: {.cell-output .cell-output-stderr}
+
+```
+Warning: Removed 2 rows containing non-finite outside the scale range
+(`stat_smooth()`).
+```
+
+
+:::
+
+::: {.cell-output .cell-output-stderr}
+
+```
+Warning: Removed 2 rows containing missing values or values outside the scale range
+(`geom_point()`).
+```
+
+
+:::
+
+::: {.cell-output-display}
+![](session_3_files/figure-html/unnamed-chunk-5-1.png){width=2000}
+:::
+:::
+
 
 Here, we supplied the `method = "lm"` argument to `geom_smooth()` to tell it fit a linear model (lm for short) to the data and plot the line of best fit, surrounded by a 95% confidence interval. Most geoms will have additional arguments like this that you can use to customise their appearance. Remember that we can check the documentation for geoms and other functions using `?geom_smooth`.
 
 ::: {.callout-note title="ggplot2 and missing values"}
 You might have noticed that, along with the plot, R is also printing a warning message that lets us know that some rows of our data contain missing values. ggplot2 will automatically remove these rows from the plot (and warn you that it's happening), but it's always a good idea to check your data for missing values before plotting it, as they can affect the results of your analysis. Recall from last session that we can do this by combining the `is.na()` function with `filter()`:
 
-```{r}
+
+::: {.cell}
+
+```{.r .cell-code}
 # find the rows of our data that contain missing values in the columns we're plotting
 mousezempic_dosage_data %>%
   filter(is.na(initial_weight_g), is.na(tail_length_mm))
 ```
+
+::: {.cell-output .cell-output-stdout}
+
+```
+# A tibble: 2 × 9
+  mouse_strain cage_number weight_lost_g replicate sex   drug_dose_g
+  <chr>        <chr>               <dbl> <chr>     <chr>       <dbl>
+1 CD-1         1A                     NA rep1      <NA>           NA
+2 Black 6      3E                     NA rep3      <NA>           NA
+# ℹ 3 more variables: tail_length_mm <dbl>, initial_weight_g <dbl>,
+#   id_num <dbl>
+```
+
+
+:::
+:::
+
 
 From here on, we will hide these warnings in the ebook so that it's easier to read, but you'll still see them if you run the code in your own R session.
 :::
 
 We can also add additional aesthetics to the plot beyond just `x` and `y`. For example, let's use the `colour` aesthetic to represent the strain of each mouse. To do this, we add `colour = strain` to the `aes()` function that describes the mapping in the `ggplot()` call:
 
-```{r}
+
+::: {.cell}
+
+```{.r .cell-code}
 ggplot(data = mousezempic_dosage_data,
   aes(x = initial_weight_g, y = tail_length_mm, colour = mouse_strain)) +
   geom_point() +
   geom_smooth(method = "lm")
 ```
+
+::: {.cell-output .cell-output-stderr}
+
+```
+`geom_smooth()` using formula = 'y ~ x'
+```
+
+
+:::
+
+::: {.cell-output .cell-output-stderr}
+
+```
+Warning: Removed 2 rows containing non-finite outside the scale range
+(`stat_smooth()`).
+```
+
+
+:::
+
+::: {.cell-output .cell-output-stderr}
+
+```
+Warning: Removed 2 rows containing missing values or values outside the scale range
+(`geom_point()`).
+```
+
+
+:::
+
+::: {.cell-output-display}
+![](session_3_files/figure-html/unnamed-chunk-7-1.png){width=2000}
+:::
+:::
+
 
 Not only are the points now coloured by the strain of each mouse, but there are now three separate colour-coded trendlines, one for each strain. This is because the aesthetic mapping we supply to the `ggplot()` function when initialising the plot is inherited by **all** subsequent layers/geoms.
 
@@ -130,22 +299,32 @@ To use `ggsave()`, you need to specify:
 
 For example, to save the last plot we created as a .png file with dimensions of 5 by 7 inches, we would write:
 
-```{r}
-#| eval: false
+
+::: {.cell}
+
+```{.r .cell-code}
 ggsave("coloured_scatterplot.png", device = "png", width = 5, height = 7)
 ```
+:::
+
 
 Or to save it as a .pdf file with dimensions of 20 by 30 cm:
 
-```{r}
-#| eval: false
+
+::: {.cell}
+
+```{.r .cell-code}
 ggsave("coloured_scatterplot.pdf", device = "pdf", width = 20, height = 30, units = "cm")
 ```
+:::
+
 
 Generally, it's good practice to assign the plot you want to save to a variable, and provide that variable to the 'plot' argument of `ggsave()`, rather than relying on the last plot you created. This makes it more clear what plot you're saving, so that your code is more readable and reproducible.
 
-```{r}
-#| eval: false
+
+::: {.cell}
+
+```{.r .cell-code}
 # first assign the plot to a variable
 colourful_scatterplot <- ggplot(data = mousezempic_dosage_data,
   aes(x = initial_weight_g, y = tail_length_mm, colour = mouse_strain)) +
@@ -155,6 +334,8 @@ colourful_scatterplot <- ggplot(data = mousezempic_dosage_data,
 # then save the plot: notice the 'plot' argument
 ggsave("coloured_scatterplot.pdf", plot = colourful_scatterplot, device = "pdf", width = 20, height = 30, units = "cm")
 ```
+:::
+
 
 It's also possible to save plots using the export button in the plot panel: ![You can use the export button to save plots interactively](images/S03F01_export.png)
 
@@ -272,29 +453,53 @@ Whatever method you use, remember to add 'ggplot2' to your search query to get t
 
 Above, we saw how to use `geom_point()` to create a scatterplot, but `geom_point()` can be used in other ways too. For example, you can use it to create a dot plot, where the x axis is categorical and the y axis is continuous:
 
-```{r}
-#| warning: false
+
+::: {.cell}
+
+```{.r .cell-code}
 # make a dot plot of initial weight by mouse strain
 ggplot(data = mousezempic_dosage_data, aes(x = mouse_strain, y = initial_weight_g)) +
   geom_point()
 ```
 
+::: {.cell-output-display}
+![](session_3_files/figure-html/unnamed-chunk-11-1.png){width=2000}
+:::
+:::
+
+
 Notice how the points are stacked on top of one another for each strain. This is because the x axis is categorical, and ggplot2 doesn't know how to spread the points out. This can make it difficult to see the individual points, so when making a plot like this it's often useful to add the  `position = position_jitter()` argument to `geom_point()`:
 
-```{r}
-#| warning: false
+
+::: {.cell}
+
+```{.r .cell-code}
 # make a jittered dot plot of initial weight by mouse strain
 ggplot(data = mousezempic_dosage_data, aes(x = mouse_strain, y = initial_weight_g)) +
   geom_point(position = position_jitter())
 ```
+
+::: {.cell-output-display}
+![](session_3_files/figure-html/unnamed-chunk-12-1.png){width=2000}
+:::
+:::
+
 The `position_jitter()` function adds a small amount of random noise to the x axis position of each point, which helps to spread them out and make it easier to see the individual points. Like most functions in ggplot2, `position_jitter()` will try to guess an appropriate amount of jitter to add, but you can specify the amount as well:
 
-```{r}
-#| warning: false
+
+::: {.cell}
+
+```{.r .cell-code}
 # use less jitter so there is more distinction between the different mouse strains
 ggplot(data = mousezempic_dosage_data, aes(x = mouse_strain, y = initial_weight_g)) +
   geom_point(position = position_jitter(width = 0.2))
 ```
+
+::: {.cell-output-display}
+![](session_3_files/figure-html/unnamed-chunk-13-1.png){width=2000}
+:::
+:::
+
 The exact amount of jitter you need will depend heavily on your data, so it's often a good idea to experiment with different amounts to see what works best.
 
 ::: {.callout-note title="Beeswarm plots"}
@@ -309,27 +514,51 @@ As the number of data points increases, it can be difficult to see individual po
 Histograms are created using the `geom_histogram()` function. Seeing as only a single variable is being plotted, you only need to specify the `x` aesthetic in the `aes()` function.
 
 For example, let's create a histogram of the initial weight of the mice:
-```{r}
-#| warning: false
+
+::: {.cell}
+
+```{.r .cell-code}
 ggplot(data = mousezempic_dosage_data, aes(x = initial_weight_g)) +
   geom_histogram()
 ```
 
+::: {.cell-output-display}
+![](session_3_files/figure-html/unnamed-chunk-14-1.png){width=2000}
+:::
+:::
+
+
 One of the most important arguments to `geom_histogram()` is the `bins` argument, which specifies the number of bins (bars) to use for the histogram. By default, it is 30, but you might want a smaller or larger value depending on the distribution of your data. For example, let's create a histogram with 15 bins:
 
-```{r}
-#| warning: false
+
+::: {.cell}
+
+```{.r .cell-code}
 ggplot(data = mousezempic_dosage_data, aes(x = initial_weight_g)) +
   geom_histogram(bins = 15)
 ```
 
+::: {.cell-output-display}
+![](session_3_files/figure-html/unnamed-chunk-15-1.png){width=2000}
+:::
+:::
+
+
 Similarly to histograms, density plots are also used to visualise the distribution of a continuous variable, but they are smoothed out. To create a density plot in ggplot2, you can use the `geom_density()` function:
 
-```{r}
-#| warning: false
+
+::: {.cell}
+
+```{.r .cell-code}
 ggplot(data = mousezempic_dosage_data, aes(x = initial_weight_g)) +
   geom_density()
 ```
+
+::: {.cell-output-display}
+![](session_3_files/figure-html/unnamed-chunk-16-1.png){width=2000}
+:::
+:::
+
 
 Notice how the density plot is smoothed out compared to the histogram, and it is also scaled so that the area under the curve is equal to 1. This means that the y axis of a density plot represents the probability density of the data, rather than the count of data points in each bin.
 
@@ -338,38 +567,70 @@ Often in biological data, you will want to visualise the distribution of a conti
 
 Boxplots allow you to easily see the median, quartiles, and any outliers in the data. To create a boxplot win ggplot2, you can use the `geom_boxplot()` function:
 
-```{r}
-#| warning: false
+
+::: {.cell}
+
+```{.r .cell-code}
 ggplot(data = mousezempic_dosage_data, aes(x = mouse_strain, y = initial_weight_g)) +
   geom_boxplot()
 ```
 
+::: {.cell-output-display}
+![](session_3_files/figure-html/unnamed-chunk-17-1.png){width=2000}
+:::
+:::
+
+
 It can sometimes be nice to add points to a boxplot to show the individual data points as well as the summary statistics. You can do this by adding a `geom_point()` layer to the plot:
 
-```{r}
-#| warning: false
+
+::: {.cell}
+
+```{.r .cell-code}
 ggplot(data = mousezempic_dosage_data, aes(x = mouse_strain, y = initial_weight_g)) +
   geom_boxplot() +
   geom_point(position = position_jitter(width = 0.2))
 ```
+
+::: {.cell-output-display}
+![](session_3_files/figure-html/unnamed-chunk-18-1.png){width=2000}
+:::
+:::
+
 This plot shows the distribution of initial weight for each strain (with the boxplot), as well as the individual data points. Notice how the points are jittered to avoid overlapping, as we did earlier with the dot plot.
 
 However, when you have a lot of data points (as we do here), a boxplot with overlaid points can be a bit messy and hard to read. In this case, it might be better to use a violin plot instead, which shows the distribution of the data as a density plot:
 
-```{r}
-#| warning: false
+
+::: {.cell}
+
+```{.r .cell-code}
 ggplot(data = mousezempic_dosage_data, aes(x = mouse_strain, y = initial_weight_g)) +
   geom_violin()
 ```
 
+::: {.cell-output-display}
+![](session_3_files/figure-html/unnamed-chunk-19-1.png){width=2000}
+:::
+:::
+
+
 You can even combine `geom_violin()` with `geom_boxplot()` to show both the distribution of the data and the summary statistics:
 
-```{r}
-#| warning: false
+
+::: {.cell}
+
+```{.r .cell-code}
 ggplot(data = mousezempic_dosage_data, aes(x = mouse_strain, y = initial_weight_g)) +
   geom_violin() +
   geom_boxplot(width = 0.1)
 ```
+
+::: {.cell-output-display}
+![](session_3_files/figure-html/unnamed-chunk-20-1.png){width=2000}
+:::
+:::
+
 Notice how we specified the `width` argument in `geom_boxplot()` to make the boxplot narrower, so that it doesn't obscure the violin plot.
 
 ### geom_bar / geom_col
@@ -379,7 +640,10 @@ The last pair of basic geoms we'll cover are `geom_bar()` and `geom_col()`, whic
 
 For example, if we wanted to create a bar plot of the number of mice in each strain with `geom_col()`, we would first need to calculate the counts for each strain:
 
-```{r}
+
+::: {.cell}
+
+```{.r .cell-code}
 # first count the number of mice per strain
 mouse_counts <- mousezempic_dosage_data %>%
   group_by(mouse_strain) %>%
@@ -391,20 +655,37 @@ ggplot(data = mouse_counts,
   geom_col()
 ```
 
+::: {.cell-output-display}
+![](session_3_files/figure-html/unnamed-chunk-21-1.png){width=2000}
+:::
+:::
+
+
 Whereas if we used `geom_bar()`, we would not need to calculate the counts first:
 
-```{r}
-#| warning: false
+
+::: {.cell}
+
+```{.r .cell-code}
 ggplot(data = mousezempic_dosage_data,
   aes(x = mouse_strain)) +
   geom_bar()
 ```
 
+::: {.cell-output-display}
+![](session_3_files/figure-html/unnamed-chunk-22-1.png){width=2000}
+:::
+:::
+
+
 Notice how we only specified the `x` aesthetic in the `aes()` function, and `geom_bar()` automatically calculated the counts for each strain.
 
 The advantage of using `geom_bar()` is that it is simpler and easier to read for plotting counts, but it can't be used for plotting pre-computed values. For example, if you wanted to plot the average weight loss for each strain, you would need to calculate the averages first with the dplyr functions we learned in @sec-session02 and use `geom_col()`:
 
-```{r}
+
+::: {.cell}
+
+```{.r .cell-code}
 # first calculate the average weight loss for each strain
 mouse_avg_weight_loss <- mousezempic_dosage_data %>%
   group_by(mouse_strain) %>%
@@ -416,47 +697,95 @@ ggplot(data = mouse_avg_weight_loss,
   geom_col()
 ```
 
+::: {.cell-output .cell-output-stderr}
+
+```
+Warning: Removed 2 rows containing missing values or values outside the scale range
+(`geom_col()`).
+```
+
+
+:::
+
+::: {.cell-output-display}
+![](session_3_files/figure-html/unnamed-chunk-23-1.png){width=2000}
+:::
+:::
+
+
 <!-- ### geom_line
 Idk how useful geom_line is ? i feel like i use density more often
 As the name suggests, `geom_line()` is used to create line plots. These are useful for showing trends over time or across a continuous variable. Since we don't have a time variable in our dataset, let's use the `drug_dosage` variable to show how weight loss changes with increasing dosage:
 
-```{r}
-#| warning: false
+
+::: {.cell}
+
+```{.r .cell-code}
 ggplot(data = mousezempic_dosage_data, aes(x = drug_dose_g, y = weight_lost_g)) +
   geom_line()
 ```
+
+::: {.cell-output-display}
+![](session_3_files/figure-html/unnamed-chunk-24-1.png){width=2000}
+:::
+:::
+
 (In reality the relationship between these variables is probably better represented as points on a scatterplot rather than as a line, but this is just an example of how you can use `geom_line()`).
 
 It's also possible to combine `geom_line()` with `geom_point()` to show the individual data points as well as the connection between them:
 
-```{r}
-#| warning: false
+
+::: {.cell}
+
+```{.r .cell-code}
 ggplot(data = mousezempic_dosage_data, aes(x = drug_dose_g, y = weight_lost_g)) +
   geom_line() +
   geom_point()
 ```
+
+::: {.cell-output-display}
+![](session_3_files/figure-html/unnamed-chunk-25-1.png){width=2000}
+:::
+:::
+
  -->
 ### geom_hline / geom_vline
 The `geom_hline()` and `geom_vline()` functions are used to add horizontal and vertical lines to a plot, respectively. Although you'll probably never use them alone, they are great to add to your plots to highlight specific values or thresholds in your data. To use them, you need to specify the `yintercept` (for `geom_hline()`) or `xintercept` (for `geom_vline()`) argument, which specifies where to draw the line.
 
 For example, let's add a horizontal line to our scatterplot of drug dosage and weight loss at the 4g mark, which might represent a clinically significant amount of weight loss:
 
-```{r}
-#| warning: false
+
+::: {.cell}
+
+```{.r .cell-code}
 ggplot(data = mousezempic_dosage_data, aes(x = drug_dose_g, y = weight_lost_g)) +
   geom_point() +
   geom_hline(yintercept = 4)
 ```
 
+::: {.cell-output-display}
+![](session_3_files/figure-html/unnamed-chunk-26-1.png){width=2000}
+:::
+:::
+
+
 We could also add a vertical line at the 0.0025g mark to show the theorectical maximum dosage of the drug:
 
-```{r}
-#| warning: false
+
+::: {.cell}
+
+```{.r .cell-code}
 ggplot(data = mousezempic_dosage_data, aes(x = drug_dose_g, y = weight_lost_g)) +
   geom_point() +
   geom_hline(yintercept = 4) +
   geom_vline(xintercept = 0.0025)
 ```
+
+::: {.cell-output-display}
+![](session_3_files/figure-html/unnamed-chunk-27-1.png){width=2000}
+:::
+:::
+
 Notice how adding this line extends the x axis to include 0.0025, even though there are no data points at that value. This is because, by default, ggplot2 chooses axes limits for you that include all the data and any additional layers you add to the plot.
 
 ::: {.callout-important title="Practice exercises"}
