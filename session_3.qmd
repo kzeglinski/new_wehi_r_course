@@ -535,6 +535,8 @@ Makes a bar plot of the number of mice in each cage, with a horizontal line at 6
 ::: choice
 Makes a bar plot of the number of mice in each cage
 :::
+:::
+:::
 
 <details>
 
