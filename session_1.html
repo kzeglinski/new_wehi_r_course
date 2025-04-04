@@ -174,6 +174,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./session_3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Session 3: Plotting with ggplot2</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./further_reading.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Further reading</span></a>
   </div>
@@ -1716,7 +1722,7 @@ gene2       2       4</code></pre>
 <figcaption>Clicking on the data frame’s name in the environment panel opens it in the viewer</figcaption>
 </figure>
 </div>
-<p>This panel also shows you the names and types of the columns in the data frame. You might notice that the <code>Species</code> is described as a factor, which is a special type of data in R that we’ll cover in <span class="quarto-unresolved-ref">?sec-session03</span>.</p>
+<p>This panel also shows you the names and types of the columns in the data frame. You might notice that the <code>Species</code> is described as a factor, which is a special type of data in R that we’ll cover in <a href="session_3.html" class="quarto-xref"><span>Chapter 3</span></a>.</p>
 <p>Before the column names, you’ll see the <code>$</code> symbol. The dollar sign <code>$</code> is a shortcut used in R to access columns of a data frame. For example, to access the <code>Petal.Width</code> column of the <code>iris</code> data frame, you can use <code>iris$Petal.Width</code>:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb121"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb121-1"><a href="#cb121-1" aria-hidden="true" tabindex="-1"></a>iris<span class="sc">$</span>Petal.Width</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1935,8 +1941,8 @@ Solutions
 <p>Place this file into the project directory you have made for this course (it’s generally a good idea to keep all the data and code for a certain analysis together). If you’d like to be more organised, try placing it in a folder called ‘data’.</p>
 <p>You can also download the file by running the following R code (note that you will need to have created a ‘data’ folder inside your R project folder first):</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb129"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb129-1"><a href="#cb129-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create a folder called "data" and download the data into it</span></span>
-<span id="cb129-2"><a href="#cb129-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dir.create</span>(<span class="st">"data"</span>)</span>
+<div class="sourceCode cell-code" id="cb129"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb129-1"><a href="#cb129-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dir.create</span>(<span class="st">"data"</span>) <span class="co"># create data directory if it doesn't exist</span></span>
+<span id="cb129-2"><a href="#cb129-2" aria-hidden="true" tabindex="-1"></a><span class="co"># download the file into the data directory</span></span>
 <span id="cb129-3"><a href="#cb129-3" aria-hidden="true" tabindex="-1"></a><span class="fu">download.file</span>(<span class="st">"https://raw.githubusercontent.com/kzeglinski/new_wehi_r_course/refs/heads/main/data/mousezempic_dosage_data.csv"</span>, <span class="st">"data/mousezempic_dosage_data.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="sec-paths" class="level3" data-number="1.8.1">
@@ -4439,8 +4445,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb152-1490"><a href="#cb152-1490" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb152-1493"><a href="#cb152-1493" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
 <span id="cb152-1494"><a href="#cb152-1494" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
-<span id="cb152-1495"><a href="#cb152-1495" aria-hidden="true" tabindex="-1"></a><span class="co"># create a folder called "data" and download the data into it</span></span>
-<span id="cb152-1496"><a href="#cb152-1496" aria-hidden="true" tabindex="-1"></a><span class="fu">dir.create</span>(<span class="st">"data"</span>)</span>
+<span id="cb152-1495"><a href="#cb152-1495" aria-hidden="true" tabindex="-1"></a><span class="fu">dir.create</span>(<span class="st">"data"</span>) <span class="co"># create data directory if it doesn't exist</span></span>
+<span id="cb152-1496"><a href="#cb152-1496" aria-hidden="true" tabindex="-1"></a><span class="co"># download the file into the data directory</span></span>
 <span id="cb152-1497"><a href="#cb152-1497" aria-hidden="true" tabindex="-1"></a><span class="fu">download.file</span>(<span class="st">"https://raw.githubusercontent.com/kzeglinski/new_wehi_r_course/refs/heads/main/data/mousezempic_dosage_data.csv"</span>, <span class="st">"data/mousezempic_dosage_data.csv"</span>)</span>
 <span id="cb152-1498"><a href="#cb152-1498" aria-hidden="true" tabindex="-1"></a><span class="st">```</span></span>
 <span id="cb152-1499"><a href="#cb152-1499" aria-hidden="true" tabindex="-1"></a></span>

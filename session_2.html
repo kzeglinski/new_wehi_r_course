@@ -64,7 +64,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./further_reading.html" rel="next">
+<link href="./session_3.html" rel="next">
 <link href="./session_1.html" rel="prev">
 <link href="./favicon.ico" rel="icon">
 <script src="site_libs/quarto-html/quarto.js"></script>
@@ -198,6 +198,12 @@ window.Quarto = {
   <div class="sidebar-item-container"> 
   <a href="./session_2.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Session 2: Working with data</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./session_3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Session 3: Plotting with ggplot2</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -2262,8 +2268,6 @@ Solutions
 <li><p>The basic dplyr verbs <code>filter()</code>, <code>select()</code>, <code>mutate()</code>, and <code>arrange()</code> and how they can be used to tidy and analyse data.</p></li>
 <li><p>Missing values (<code>NA</code>) and how to remove or replace them</p></li>
 <li><p>The <code>summarise()</code> function and how it can be used to calculate summary statistics on your data, as well as the power of grouping data with the <code>.by</code> argument.</p></li>
-<li><p>Reshaping data with <code>pivot_longer()</code> and <code>pivot_wider()</code> to change the structure of your data frame.</p></li>
-<li><p>Combining data with <code>left_join()</code> to merge two data frames based on a common column.</p></li>
 </ul>
 <div class="callout callout-style-default callout-note callout-titled" title="Why does data need to be tidy anyway?">
 <div class="callout-header d-flex align-content-center">
@@ -2875,8 +2879,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./further_reading.html" class="pagination-link" aria-label="Further reading">
-        <span class="nav-page-text">Further reading</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./session_3.html" class="pagination-link" aria-label="Session 3: Plotting with ggplot2">
+        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Session 3: Plotting with ggplot2</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
@@ -4315,99 +4319,95 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb120-1549"><a href="#cb120-1549" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb120-1550"><a href="#cb120-1550" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>The <span class="in">`summarise()`</span> function and how it can be used to calculate summary statistics on your data, as well as the power of grouping data with the <span class="in">`.by`</span> argument.</span>
 <span id="cb120-1551"><a href="#cb120-1551" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb120-1552"><a href="#cb120-1552" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Reshaping data with <span class="in">`pivot_longer()`</span> and <span class="in">`pivot_wider()`</span> to change the structure of your data frame.</span>
-<span id="cb120-1553"><a href="#cb120-1553" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb120-1554"><a href="#cb120-1554" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Combining data with <span class="in">`left_join()`</span> to merge two data frames based on a common column.</span>
+<span id="cb120-1552"><a href="#cb120-1552" aria-hidden="true" tabindex="-1"></a>::: {.callout-note title="Why does data need to be tidy anyway?"}</span>
+<span id="cb120-1553"><a href="#cb120-1553" aria-hidden="true" tabindex="-1"></a>In this session, we've been focusing on making our data 'tidy': that is, structured in a consistent way that makes it easy to work with. A nice visual illustration of tidy data and its importance can be <span class="co">[</span><span class="ot">found here</span><span class="co">](https://allisonhorst.com/other-r-fun)</span>.</span>
+<span id="cb120-1554"><a href="#cb120-1554" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb120-1555"><a href="#cb120-1555" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb120-1556"><a href="#cb120-1556" aria-hidden="true" tabindex="-1"></a>::: {.callout-note title="Why does data need to be tidy anyway?"}</span>
-<span id="cb120-1557"><a href="#cb120-1557" aria-hidden="true" tabindex="-1"></a>In this session, we've been focusing on making our data 'tidy': that is, structured in a consistent way that makes it easy to work with. A nice visual illustration of tidy data and its importance can be <span class="co">[</span><span class="ot">found here</span><span class="co">](https://allisonhorst.com/other-r-fun)</span>.</span>
-<span id="cb120-1558"><a href="#cb120-1558" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb120-1556"><a href="#cb120-1556" aria-hidden="true" tabindex="-1"></a><span class="fu">### Practice questions</span></span>
+<span id="cb120-1557"><a href="#cb120-1557" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-1558"><a href="#cb120-1558" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>What is the purpose of the pipe operator <span class="in">`%&gt;%`</span>? Keeping this in mind, re-write the following code to use the pipe.</span>
 <span id="cb120-1559"><a href="#cb120-1559" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb120-1560"><a href="#cb120-1560" aria-hidden="true" tabindex="-1"></a><span class="fu">### Practice questions</span></span>
-<span id="cb120-1561"><a href="#cb120-1561" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb120-1562"><a href="#cb120-1562" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>What is the purpose of the pipe operator <span class="in">`%&gt;%`</span>? Keeping this in mind, re-write the following code to use the pipe.</span>
-<span id="cb120-1563"><a href="#cb120-1563" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb120-1564"><a href="#cb120-1564" aria-hidden="true" tabindex="-1"></a>    a.  <span class="in">`round(mean(c(1, 2, 3, 4, 5)))`</span></span>
-<span id="cb120-1565"><a href="#cb120-1565" aria-hidden="true" tabindex="-1"></a>    b.  <span class="in">`print(as.character(1 + 10))`</span></span>
-<span id="cb120-1566"><a href="#cb120-1566" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb120-1567"><a href="#cb120-1567" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>What would be the result of evaluating the following expressions? You don't need to know these off the top of your head, use R to help! (Hint: some expressions might give an error. Try to think about why)</span>
-<span id="cb120-1568"><a href="#cb120-1568" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb120-1569"><a href="#cb120-1569" aria-hidden="true" tabindex="-1"></a>    a.  <span class="in">`mousezempic_dosage_data %&gt;% filter(weight_lost_g &gt; 10)`</span></span>
-<span id="cb120-1570"><a href="#cb120-1570" aria-hidden="true" tabindex="-1"></a>    b.  <span class="in">`mousezempic_dosage_data %&gt;% select(tail_length_mm, weight_lost_g)`</span></span>
-<span id="cb120-1571"><a href="#cb120-1571" aria-hidden="true" tabindex="-1"></a>    c.  <span class="in">`mousezempic_dosage_data %&gt;% mutate(weight_lost_kg = weight_lost_g / 1000)`</span></span>
-<span id="cb120-1572"><a href="#cb120-1572" aria-hidden="true" tabindex="-1"></a>    d.  <span class="in">`mousezempic_dosage_data %&gt;% arrange(tail_length_mm)`</span></span>
-<span id="cb120-1573"><a href="#cb120-1573" aria-hidden="true" tabindex="-1"></a>    e.  <span class="in">`mousezempic_dosage_data %&gt;% filter(initial_Weight_g &gt; 10) %&gt;% arrange(mouse_strain)`</span></span>
-<span id="cb120-1574"><a href="#cb120-1574" aria-hidden="true" tabindex="-1"></a>    f.  <span class="in">`mousezempic_dosage_data %&gt;% relocate(mouse_strain, .after = cage_number)`</span></span>
-<span id="cb120-1575"><a href="#cb120-1575" aria-hidden="true" tabindex="-1"></a>    g.  <span class="in">`mousezempic_dosage_data %&gt;% pull(weight_lost_g)`</span></span>
-<span id="cb120-1576"><a href="#cb120-1576" aria-hidden="true" tabindex="-1"></a>    h.  <span class="in">`mousezempic_dosage_data %&gt;% filter(!is.na(weight_lost_g))`</span></span>
-<span id="cb120-1577"><a href="#cb120-1577" aria-hidden="true" tabindex="-1"></a>    i.  <span class="in">`mousezempic_dosage_data %&gt;% replace_na(list(weight_lost_g = 0))`</span></span>
-<span id="cb120-1578"><a href="#cb120-1578" aria-hidden="true" tabindex="-1"></a>    j.  <span class="in">`mousezempic_dosage_data %&gt;% summarise(mean_weight_lost = mean(weight_lost_g, na.rm = TRUE))`</span></span>
-<span id="cb120-1579"><a href="#cb120-1579" aria-hidden="true" tabindex="-1"></a>    k.  <span class="in">`mousezempic_dosage_data %&gt;% summarise(mean_weight_lost = mean(weight_lost_g, na.rm = TRUE), .by = cage_number)`</span></span>
+<span id="cb120-1560"><a href="#cb120-1560" aria-hidden="true" tabindex="-1"></a>    a.  <span class="in">`round(mean(c(1, 2, 3, 4, 5)))`</span></span>
+<span id="cb120-1561"><a href="#cb120-1561" aria-hidden="true" tabindex="-1"></a>    b.  <span class="in">`print(as.character(1 + 10))`</span></span>
+<span id="cb120-1562"><a href="#cb120-1562" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-1563"><a href="#cb120-1563" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>What would be the result of evaluating the following expressions? You don't need to know these off the top of your head, use R to help! (Hint: some expressions might give an error. Try to think about why)</span>
+<span id="cb120-1564"><a href="#cb120-1564" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-1565"><a href="#cb120-1565" aria-hidden="true" tabindex="-1"></a>    a.  <span class="in">`mousezempic_dosage_data %&gt;% filter(weight_lost_g &gt; 10)`</span></span>
+<span id="cb120-1566"><a href="#cb120-1566" aria-hidden="true" tabindex="-1"></a>    b.  <span class="in">`mousezempic_dosage_data %&gt;% select(tail_length_mm, weight_lost_g)`</span></span>
+<span id="cb120-1567"><a href="#cb120-1567" aria-hidden="true" tabindex="-1"></a>    c.  <span class="in">`mousezempic_dosage_data %&gt;% mutate(weight_lost_kg = weight_lost_g / 1000)`</span></span>
+<span id="cb120-1568"><a href="#cb120-1568" aria-hidden="true" tabindex="-1"></a>    d.  <span class="in">`mousezempic_dosage_data %&gt;% arrange(tail_length_mm)`</span></span>
+<span id="cb120-1569"><a href="#cb120-1569" aria-hidden="true" tabindex="-1"></a>    e.  <span class="in">`mousezempic_dosage_data %&gt;% filter(initial_Weight_g &gt; 10) %&gt;% arrange(mouse_strain)`</span></span>
+<span id="cb120-1570"><a href="#cb120-1570" aria-hidden="true" tabindex="-1"></a>    f.  <span class="in">`mousezempic_dosage_data %&gt;% relocate(mouse_strain, .after = cage_number)`</span></span>
+<span id="cb120-1571"><a href="#cb120-1571" aria-hidden="true" tabindex="-1"></a>    g.  <span class="in">`mousezempic_dosage_data %&gt;% pull(weight_lost_g)`</span></span>
+<span id="cb120-1572"><a href="#cb120-1572" aria-hidden="true" tabindex="-1"></a>    h.  <span class="in">`mousezempic_dosage_data %&gt;% filter(!is.na(weight_lost_g))`</span></span>
+<span id="cb120-1573"><a href="#cb120-1573" aria-hidden="true" tabindex="-1"></a>    i.  <span class="in">`mousezempic_dosage_data %&gt;% replace_na(list(weight_lost_g = 0))`</span></span>
+<span id="cb120-1574"><a href="#cb120-1574" aria-hidden="true" tabindex="-1"></a>    j.  <span class="in">`mousezempic_dosage_data %&gt;% summarise(mean_weight_lost = mean(weight_lost_g, na.rm = TRUE))`</span></span>
+<span id="cb120-1575"><a href="#cb120-1575" aria-hidden="true" tabindex="-1"></a>    k.  <span class="in">`mousezempic_dosage_data %&gt;% summarise(mean_weight_lost = mean(weight_lost_g, na.rm = TRUE), .by = cage_number)`</span></span>
+<span id="cb120-1576"><a href="#cb120-1576" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-1577"><a href="#cb120-1577" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>What is a missing value in R? What are two ways to deal with missing values in a data frame?</span>
+<span id="cb120-1578"><a href="#cb120-1578" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-1579"><a href="#cb120-1579" aria-hidden="true" tabindex="-1"></a><span class="ss">4.  </span>I want to add a new column to the <span class="in">`mousezempic_dosage_data`</span> data frame that converts the <span class="in">`mouse_strain`</span> column to lowercase. Hint: you can use the <span class="in">`tolower()`</span> function in R to convert characters to lowercase. Look up its help page by typing <span class="in">`?tolower`</span> in the R console to see how to use it.</span>
 <span id="cb120-1580"><a href="#cb120-1580" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb120-1581"><a href="#cb120-1581" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>What is a missing value in R? What are two ways to deal with missing values in a data frame?</span>
+<span id="cb120-1581"><a href="#cb120-1581" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>How could you find the maximum tail length for each unique combination of sex and mouse strain in the <span class="in">`mousezempic_dosage_data`</span> data frame?</span>
 <span id="cb120-1582"><a href="#cb120-1582" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb120-1583"><a href="#cb120-1583" aria-hidden="true" tabindex="-1"></a><span class="ss">4.  </span>I want to add a new column to the <span class="in">`mousezempic_dosage_data`</span> data frame that converts the <span class="in">`mouse_strain`</span> column to lowercase. Hint: you can use the <span class="in">`tolower()`</span> function in R to convert characters to lowercase. Look up its help page by typing <span class="in">`?tolower`</span> in the R console to see how to use it.</span>
+<span id="cb120-1583"><a href="#cb120-1583" aria-hidden="true" tabindex="-1"></a><span class="ss">6. </span>Write a line of code to save the result of Q5 to a CSV file called <span class="in">`max_tail_length.csv`</span>.</span>
 <span id="cb120-1584"><a href="#cb120-1584" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb120-1585"><a href="#cb120-1585" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>How could you find the maximum tail length for each unique combination of sex and mouse strain in the <span class="in">`mousezempic_dosage_data`</span> data frame?</span>
+<span id="cb120-1585"><a href="#cb120-1585" aria-hidden="true" tabindex="-1"></a>&lt;details&gt;</span>
 <span id="cb120-1586"><a href="#cb120-1586" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb120-1587"><a href="#cb120-1587" aria-hidden="true" tabindex="-1"></a><span class="ss">6. </span>Write a line of code to save the result of Q5 to a CSV file called <span class="in">`max_tail_length.csv`</span>.</span>
+<span id="cb120-1587"><a href="#cb120-1587" aria-hidden="true" tabindex="-1"></a>&lt;summary&gt;Solutions&lt;/summary&gt;</span>
 <span id="cb120-1588"><a href="#cb120-1588" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb120-1589"><a href="#cb120-1589" aria-hidden="true" tabindex="-1"></a>&lt;details&gt;</span>
+<span id="cb120-1589"><a href="#cb120-1589" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>The pipe operator <span class="in">`%&gt;%`</span> is used to chain together multiple function calls, passing the result of one function to the next. Here's how you could re-write the code to use the pipe:</span>
 <span id="cb120-1590"><a href="#cb120-1590" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb120-1591"><a href="#cb120-1591" aria-hidden="true" tabindex="-1"></a>&lt;summary&gt;Solutions&lt;/summary&gt;</span>
-<span id="cb120-1592"><a href="#cb120-1592" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb120-1593"><a href="#cb120-1593" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>The pipe operator <span class="in">`%&gt;%`</span> is used to chain together multiple function calls, passing the result of one function to the next. Here's how you could re-write the code to use the pipe:</span>
-<span id="cb120-1594"><a href="#cb120-1594" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb120-1595"><a href="#cb120-1595" aria-hidden="true" tabindex="-1"></a>    a.  <span class="in">`c(1, 2, 3, 4, 5) %&gt;% mean() %&gt;% round()`</span></span>
-<span id="cb120-1596"><a href="#cb120-1596" aria-hidden="true" tabindex="-1"></a>    b.  <span class="in">`as.character(1 + 10) %&gt;% print()`</span></span>
-<span id="cb120-1597"><a href="#cb120-1597" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb120-1598"><a href="#cb120-1598" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>The result of evaluating the expressions would be:</span>
-<span id="cb120-1599"><a href="#cb120-1599" aria-hidden="true" tabindex="-1"></a>    a. A data frame containing only the rows where <span class="in">`weight_lost_g`</span> is greater than 10.</span>
-<span id="cb120-1600"><a href="#cb120-1600" aria-hidden="true" tabindex="-1"></a>    b. A data frame containing only the <span class="in">`tail_length_mm`</span> and <span class="in">`weight_lost_g`</span> columns.</span>
-<span id="cb120-1601"><a href="#cb120-1601" aria-hidden="true" tabindex="-1"></a>    c. A data frame with an additional column <span class="in">`weight_lost_kg`</span> that contains the weight lost in kilograms.</span>
-<span id="cb120-1602"><a href="#cb120-1602" aria-hidden="true" tabindex="-1"></a>    d. A data frame sorted by <span class="in">`tail_length_mm`</span>, in ascending order.</span>
-<span id="cb120-1603"><a href="#cb120-1603" aria-hidden="true" tabindex="-1"></a>    e. An error because <span class="in">`initial_Weight_g`</span> is not a column in the data frame.</span>
-<span id="cb120-1604"><a href="#cb120-1604" aria-hidden="true" tabindex="-1"></a>    f. A data frame with the <span class="in">`mouse_strain`</span> column moved to be after the <span class="in">`cage_number`</span> column.</span>
-<span id="cb120-1605"><a href="#cb120-1605" aria-hidden="true" tabindex="-1"></a>    g. A **vector** containing the values of the <span class="in">`weight_lost_g`</span> column.</span>
-<span id="cb120-1606"><a href="#cb120-1606" aria-hidden="true" tabindex="-1"></a>    h. A data frame containing only the rows where <span class="in">`weight_lost_g`</span> is not <span class="in">`NA`</span>.</span>
-<span id="cb120-1607"><a href="#cb120-1607" aria-hidden="true" tabindex="-1"></a>    i. A data frame with missing values in the <span class="in">`weight_lost_g`</span> column replaced with 0.</span>
-<span id="cb120-1608"><a href="#cb120-1608" aria-hidden="true" tabindex="-1"></a>    j. A data frame with the mean weight lost by all mice.</span>
-<span id="cb120-1609"><a href="#cb120-1609" aria-hidden="true" tabindex="-1"></a>    k. A data frame with the mean weight lost by mice in each cage.</span>
+<span id="cb120-1591"><a href="#cb120-1591" aria-hidden="true" tabindex="-1"></a>    a.  <span class="in">`c(1, 2, 3, 4, 5) %&gt;% mean() %&gt;% round()`</span></span>
+<span id="cb120-1592"><a href="#cb120-1592" aria-hidden="true" tabindex="-1"></a>    b.  <span class="in">`as.character(1 + 10) %&gt;% print()`</span></span>
+<span id="cb120-1593"><a href="#cb120-1593" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-1594"><a href="#cb120-1594" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>The result of evaluating the expressions would be:</span>
+<span id="cb120-1595"><a href="#cb120-1595" aria-hidden="true" tabindex="-1"></a>    a. A data frame containing only the rows where <span class="in">`weight_lost_g`</span> is greater than 10.</span>
+<span id="cb120-1596"><a href="#cb120-1596" aria-hidden="true" tabindex="-1"></a>    b. A data frame containing only the <span class="in">`tail_length_mm`</span> and <span class="in">`weight_lost_g`</span> columns.</span>
+<span id="cb120-1597"><a href="#cb120-1597" aria-hidden="true" tabindex="-1"></a>    c. A data frame with an additional column <span class="in">`weight_lost_kg`</span> that contains the weight lost in kilograms.</span>
+<span id="cb120-1598"><a href="#cb120-1598" aria-hidden="true" tabindex="-1"></a>    d. A data frame sorted by <span class="in">`tail_length_mm`</span>, in ascending order.</span>
+<span id="cb120-1599"><a href="#cb120-1599" aria-hidden="true" tabindex="-1"></a>    e. An error because <span class="in">`initial_Weight_g`</span> is not a column in the data frame.</span>
+<span id="cb120-1600"><a href="#cb120-1600" aria-hidden="true" tabindex="-1"></a>    f. A data frame with the <span class="in">`mouse_strain`</span> column moved to be after the <span class="in">`cage_number`</span> column.</span>
+<span id="cb120-1601"><a href="#cb120-1601" aria-hidden="true" tabindex="-1"></a>    g. A **vector** containing the values of the <span class="in">`weight_lost_g`</span> column.</span>
+<span id="cb120-1602"><a href="#cb120-1602" aria-hidden="true" tabindex="-1"></a>    h. A data frame containing only the rows where <span class="in">`weight_lost_g`</span> is not <span class="in">`NA`</span>.</span>
+<span id="cb120-1603"><a href="#cb120-1603" aria-hidden="true" tabindex="-1"></a>    i. A data frame with missing values in the <span class="in">`weight_lost_g`</span> column replaced with 0.</span>
+<span id="cb120-1604"><a href="#cb120-1604" aria-hidden="true" tabindex="-1"></a>    j. A data frame with the mean weight lost by all mice.</span>
+<span id="cb120-1605"><a href="#cb120-1605" aria-hidden="true" tabindex="-1"></a>    k. A data frame with the mean weight lost by mice in each cage.</span>
+<span id="cb120-1606"><a href="#cb120-1606" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-1607"><a href="#cb120-1607" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>A missing value in R is represented by <span class="in">`NA`</span>. Two ways to deal with missing values in a data frame are to remove them using <span class="in">`filter(!is.na(column_name))`</span> or to replace them with a specific value using <span class="in">`replace_na(list(column_name = value))`</span>.</span>
+<span id="cb120-1608"><a href="#cb120-1608" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-1609"><a href="#cb120-1609" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>To add a new column to the <span class="in">`mousezempic_dosage_data`</span> data frame that converts the <span class="in">`mouse_strain`</span> column to lowercase, you can use <span class="in">`mutate()`</span> as follows`:</span>
 <span id="cb120-1610"><a href="#cb120-1610" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb120-1611"><a href="#cb120-1611" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>A missing value in R is represented by <span class="in">`NA`</span>. Two ways to deal with missing values in a data frame are to remove them using <span class="in">`filter(!is.na(column_name))`</span> or to replace them with a specific value using <span class="in">`replace_na(list(column_name = value))`</span>.</span>
-<span id="cb120-1612"><a href="#cb120-1612" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb120-1613"><a href="#cb120-1613" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>To add a new column to the <span class="in">`mousezempic_dosage_data`</span> data frame that converts the <span class="in">`mouse_strain`</span> column to lowercase, you can use <span class="in">`mutate()`</span> as follows`:</span>
-<span id="cb120-1614"><a href="#cb120-1614" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb120-1617"><a href="#cb120-1617" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb120-1618"><a href="#cb120-1618" aria-hidden="true" tabindex="-1"></a>mousezempic_dosage_data <span class="sc">%&gt;%</span></span>
-<span id="cb120-1619"><a href="#cb120-1619" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">mouse_strain_lower =</span> <span class="fu">tolower</span>(mouse_strain))</span>
-<span id="cb120-1620"><a href="#cb120-1620" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb120-1621"><a href="#cb120-1621" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb120-1622"><a href="#cb120-1622" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>You can use the <span class="in">`max()`</span> function within <span class="in">`summarise(.by = c(sex, mouse_strain))`</span> to find the maximum tail length of each unique sex/mouse strain combination:</span>
-<span id="cb120-1623"><a href="#cb120-1623" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb120-1626"><a href="#cb120-1626" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb120-1627"><a href="#cb120-1627" aria-hidden="true" tabindex="-1"></a>mousezempic_dosage_data <span class="sc">%&gt;%</span></span>
-<span id="cb120-1628"><a href="#cb120-1628" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">max_tail_length =</span> <span class="fu">max</span>(tail_length_mm, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">.by =</span> <span class="fu">c</span>(sex, mouse_strain))</span>
-<span id="cb120-1629"><a href="#cb120-1629" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb120-1630"><a href="#cb120-1630" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb120-1631"><a href="#cb120-1631" aria-hidden="true" tabindex="-1"></a><span class="ss">6. </span>To save the result of Q5 to a CSV file called <span class="in">`max_tail_length.csv`</span>, you can use the <span class="in">`write_csv()`</span> function, either by using a pipe to connect it to the code you wrote previously:</span>
-<span id="cb120-1634"><a href="#cb120-1634" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb120-1635"><a href="#cb120-1635" aria-hidden="true" tabindex="-1"></a><span class="co"># eval: false</span></span>
-<span id="cb120-1636"><a href="#cb120-1636" aria-hidden="true" tabindex="-1"></a>mousezempic_dosage_data <span class="sc">%&gt;%</span></span>
-<span id="cb120-1637"><a href="#cb120-1637" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">max_tail_length =</span> <span class="fu">max</span>(tail_length_mm, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">.by =</span> <span class="fu">c</span>(sex, mouse_strain)) <span class="sc">%&gt;%</span></span>
-<span id="cb120-1638"><a href="#cb120-1638" aria-hidden="true" tabindex="-1"></a>  <span class="fu">write_csv</span>(<span class="st">"max_tail_length.csv"</span>)</span>
-<span id="cb120-1639"><a href="#cb120-1639" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb120-1640"><a href="#cb120-1640" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb120-1641"><a href="#cb120-1641" aria-hidden="true" tabindex="-1"></a>Or by assigning this result to a variable and then saving it to a file:</span>
-<span id="cb120-1644"><a href="#cb120-1644" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb120-1645"><a href="#cb120-1645" aria-hidden="true" tabindex="-1"></a><span class="co"># eval: false</span></span>
-<span id="cb120-1646"><a href="#cb120-1646" aria-hidden="true" tabindex="-1"></a>max_tail_length <span class="ot">&lt;-</span> mousezempic_dosage_data <span class="sc">%&gt;%</span></span>
-<span id="cb120-1647"><a href="#cb120-1647" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">max_tail_length =</span> <span class="fu">max</span>(tail_length_mm, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">.by =</span> <span class="fu">c</span>(sex, mouse_strain))</span>
-<span id="cb120-1648"><a href="#cb120-1648" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb120-1649"><a href="#cb120-1649" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(max_tail_length, <span class="st">"max_tail_length.csv"</span>)</span>
-<span id="cb120-1650"><a href="#cb120-1650" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb120-1651"><a href="#cb120-1651" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb120-1652"><a href="#cb120-1652" aria-hidden="true" tabindex="-1"></a>&lt;/details&gt;</span>
+<span id="cb120-1613"><a href="#cb120-1613" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb120-1614"><a href="#cb120-1614" aria-hidden="true" tabindex="-1"></a>mousezempic_dosage_data <span class="sc">%&gt;%</span></span>
+<span id="cb120-1615"><a href="#cb120-1615" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">mouse_strain_lower =</span> <span class="fu">tolower</span>(mouse_strain))</span>
+<span id="cb120-1616"><a href="#cb120-1616" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb120-1617"><a href="#cb120-1617" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-1618"><a href="#cb120-1618" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>You can use the <span class="in">`max()`</span> function within <span class="in">`summarise(.by = c(sex, mouse_strain))`</span> to find the maximum tail length of each unique sex/mouse strain combination:</span>
+<span id="cb120-1619"><a href="#cb120-1619" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-1622"><a href="#cb120-1622" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb120-1623"><a href="#cb120-1623" aria-hidden="true" tabindex="-1"></a>mousezempic_dosage_data <span class="sc">%&gt;%</span></span>
+<span id="cb120-1624"><a href="#cb120-1624" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">max_tail_length =</span> <span class="fu">max</span>(tail_length_mm, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">.by =</span> <span class="fu">c</span>(sex, mouse_strain))</span>
+<span id="cb120-1625"><a href="#cb120-1625" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb120-1626"><a href="#cb120-1626" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-1627"><a href="#cb120-1627" aria-hidden="true" tabindex="-1"></a><span class="ss">6. </span>To save the result of Q5 to a CSV file called <span class="in">`max_tail_length.csv`</span>, you can use the <span class="in">`write_csv()`</span> function, either by using a pipe to connect it to the code you wrote previously:</span>
+<span id="cb120-1630"><a href="#cb120-1630" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb120-1631"><a href="#cb120-1631" aria-hidden="true" tabindex="-1"></a><span class="co"># eval: false</span></span>
+<span id="cb120-1632"><a href="#cb120-1632" aria-hidden="true" tabindex="-1"></a>mousezempic_dosage_data <span class="sc">%&gt;%</span></span>
+<span id="cb120-1633"><a href="#cb120-1633" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">max_tail_length =</span> <span class="fu">max</span>(tail_length_mm, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">.by =</span> <span class="fu">c</span>(sex, mouse_strain)) <span class="sc">%&gt;%</span></span>
+<span id="cb120-1634"><a href="#cb120-1634" aria-hidden="true" tabindex="-1"></a>  <span class="fu">write_csv</span>(<span class="st">"max_tail_length.csv"</span>)</span>
+<span id="cb120-1635"><a href="#cb120-1635" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb120-1636"><a href="#cb120-1636" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-1637"><a href="#cb120-1637" aria-hidden="true" tabindex="-1"></a>Or by assigning this result to a variable and then saving it to a file:</span>
+<span id="cb120-1640"><a href="#cb120-1640" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb120-1641"><a href="#cb120-1641" aria-hidden="true" tabindex="-1"></a><span class="co"># eval: false</span></span>
+<span id="cb120-1642"><a href="#cb120-1642" aria-hidden="true" tabindex="-1"></a>max_tail_length <span class="ot">&lt;-</span> mousezempic_dosage_data <span class="sc">%&gt;%</span></span>
+<span id="cb120-1643"><a href="#cb120-1643" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">max_tail_length =</span> <span class="fu">max</span>(tail_length_mm, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">.by =</span> <span class="fu">c</span>(sex, mouse_strain))</span>
+<span id="cb120-1644"><a href="#cb120-1644" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-1645"><a href="#cb120-1645" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(max_tail_length, <span class="st">"max_tail_length.csv"</span>)</span>
+<span id="cb120-1646"><a href="#cb120-1646" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb120-1647"><a href="#cb120-1647" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-1648"><a href="#cb120-1648" aria-hidden="true" tabindex="-1"></a>&lt;/details&gt;</span>
 </code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
