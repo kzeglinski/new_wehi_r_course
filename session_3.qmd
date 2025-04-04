@@ -627,7 +627,7 @@ ggplot(data = mousezempic_dosage_data,
   scale_colour_manual(values = c("red", "blue", "green"))
 ```
 
-When using `scale_colour_manual()`, you need to specify to the `values` argument a vector of colours that matches the number of levels in the variable you're mapping to colour. In the example above, we have three mouse strains, so we need to provide three colours in the `values` argument.
+When using `scale_colour_manual()`, you need to provide to the `values` argument a vector of colours that matches the number of levels in the variable you're mapping to colour. In the example above, we have three mouse strains, so we need to provide three colours in the `values` argument.
 
 R has a range of built-in colours that you can use, such as "red", "blue", "green", etc., but you can also use [hex codes](https://www.w3schools.com/html/html_colors_hex.asp) to specify colours:
 
@@ -644,38 +644,92 @@ To help you see the colours you're using, RStudio will highlight the colour name
 
 ![RStudio colour highlighting](images/S03F04_colours.png)
 
-If it doesn't do this automatically, you can turn it on by going to `Tools` > `Global Options` > `Code` > `Display` and checking the "Highlight color names and hex codes" option.
+If it doesn't do this automatically, you can turn it on by going to `Tools` > `Global Options` > `Code` > `Display` and checking the "Enable preview of named and hexadecimal colours" option.
 
 :::
 
-You can also use the `scale_colour_gradient()` function to create a gradient of colours for continuous variables.
+So far, we've only used colour to visualise categorical variables, but it can also be used to visualise continuous variables. As an example, let's colour each point in our scatterplot of initial weight and tail length by the drug dosage:
 
-There are also a range of pre-defined colour palettes you can use, such as `scale_colour_brewer()` or `scale_colour_viridis()`, and there are countless other colour palettes available in R packages like `ggsci`, `ggthemes` and `RColorBrewer`.
+```{r}
+#| warning: false
+ggplot(data = mousezempic_dosage_data,
+  aes(x = initial_weight_g, y = tail_length_mm, colour = drug_dose_g)) +
+  geom_point()
+```
 
-In general,
+The points are now coloured based on the drug dosage, using a default gradient of blue colours. You can change the colour of the gradient using the `scale_colour_gradient()` function, which allows you to specify the colours to use for the low and high ends of the gradient:
+
+```{r}
+#| warning: false
+ggplot(data = mousezempic_dosage_data,
+  aes(x = initial_weight_g, y = tail_length_mm, colour = drug_dose_g)) +
+  geom_point() +
+  scale_colour_gradient(low = "yellow", high = "red")
+```
+
+We now have a gradient from yellow to red.
+
+Instead of specifying colours manually, there are also a range of pre-defined colour palettes you can use, such as `scale_colour_brewer()` or `scale_colour_viridis()`. Check out their help pages to learn more about them, or try the [paleteer package](https://r-graph-gallery.com/package/paletteer.html) for a huge range of other pre-defined colour palettes.
 
 #### The x and y axes
 Scales are also used to control the x and y axes. In particular, it can be handy to specify the limits of the axes, or to apply some sort of transformation to the data.
-For example, if we wanted to limit the x axis of our scatterplot to only show values between 0 and 10, we could use the `xlim()` function:
-```{r}
-#| warning: false
-ggplot(data = mousezempic_dosage_data, aes(x = initial_weight_g, y = tail_length_mm)) +
-  geom_point() +
-  xlim(0, 10)
-```
-This will limit the x axis to only show values between 0 and 10, and any data points outside of this range will be removed from the plot. This is useful when you want to focus on a specific range of values, or when you have outliers that are skewing the plot.
-You can also use the `ylim()` function to limit the y axis in the same way:
+
+By default, ggplot2 will automatically choose the limits of the x and y axes based on the data you provide. For example, look at the scatterplots of initial weight and tail length we created earlier, and you'll see that the origin (0,0) is not shown because there are no data points near there. If we wanted to, we could change the limits of the axes using the `xlim()` and `ylim()` functions to include the origin:
 
 ```{r}
 #| warning: false
 ggplot(data = mousezempic_dosage_data, aes(x = initial_weight_g, y = tail_length_mm)) +
   geom_point() +
-  ylim(0, 10)
+  # specify axis limits like xlim(min, max)
+  xlim(0, 60) +
+  # if we want to use the automatic limit, use NA instead of a max value
+  ylim(0, NA)
 ```
+
+Notice how different this makes the plot look! Choosing appropriate axis limits is important for accurately conveying the data, so it's worth spending some time thinking about what limits to use.
+
+
 By default, ggplot2 uses a linear scale for both axes, but you can change this to a logarithmic scale using the `scale_x_log10()` or `scale_y_log10()` functions. This is useful when you have data that spans several orders of magnitude.
 
-### Position
-Po
+We don't have anything like this in our `mousezempic_dosage_data` dataset, so let's use the `diamonds` dataset that comes with ggplot2 to demonstrate this. The `diamonds` dataset contains information about the price and carat weight of diamonds, both of which are continuous variables that span several orders of magnitude. Let's create a scatterplot of the price and carat of the diamonds:
+
+```{r}
+ggplot(diamonds, aes(y = price, x = carat)) +
+  geom_point()
+```
+
+To linearise this relationship, we can apply a log10 transformation to the x and y axes using the `scale_x_log10()` and `scale_y_log10()` functions:
+
+```{r}
+ggplot(diamonds, aes(y = price, x = carat)) +
+  geom_point()+
+  scale_x_log10() +
+  scale_y_log10()
+```
+
+Notice how the points are now more evenly distributed across the plot, and we can see the relationship between carat and price more clearly.
+
+### Positions
+Positions aren't really an aesthetic, but they are a way to control how geoms are displayed, particularly when parts of that geom overlap. We saw the position argument earlier in the `geom_point()` function, where we used `position = position_jitter()` to spread out the points in a dot plot. This is a common use of the position argument, but there are other ways it is helpful too.
+
+For example, when we are using `geom_bar()` to create a bar plot that is coloured by a categorical variable, the bars will be stacked on top of each other by default. Let's illustrate this by creating a bar plot of the number of mice in each strain, coloured by the sex of the mouse:
+
+```{r}
+#| warning: false
+ggplot(data = mousezempic_dosage_data,
+  aes(x = mouse_strain, fill = sex)) +
+  geom_bar()
+```
+Having the bars stacked up is useful when you want to see the total count for each strain, but it can make it difficult to see the individual counts for sex. Instead, we can use the `position = "dodge"` argument in `geom_bar()` to place the bars side by side:
+
+```{r}
+#| warning: false
+ggplot(data = mousezempic_dosage_data,
+  aes(x = mouse_strain, fill = sex)) +
+  geom_bar(position = "dodge")
+```
+
+Notice how there is now a bar for each sex in each strain, and it's easier to examine the sex distribution of each strain (but equally harder to appreciate the total number of mice in each strain!). There's no right or wrong way to lay out the bars, but it's worth trying both and seeing which one works best for the message you want to convey.
 
 ## Making a plot pretty
 Now that we've covered the basics of creating plots in ggplot2, let's talk about how to make them look good (because so far, the ones we've made have been a little plain looking!)
