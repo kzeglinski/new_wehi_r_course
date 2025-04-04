@@ -8,9 +8,6 @@ format:
     toc-title: "In this session:"
 ---
 
-4.
-
-
 # Session 4: Putting it all together
 
 In this session we will combine all the skills we have learned so far to perform a complete analysis of a (small) dataset
@@ -27,6 +24,10 @@ At the end of this session, learners should be able to:
 ## Introduction to the dataset
 
 describe the fake experiment setup and the data files you will start with
+we have the mousezempic_dosage_data and mousezempic_expression_data data frames, which contain information about the mice and their gene expression levels, respectively.
+i was thinking of editing the ID column in the mousezempic_expression_data data frame so that they have to use stringr, then use that to join them together.
+
+the expression data frame has measurements of three genes (2 ozempic related and 1 housekeeping). I scaled them so that you could use the housekeeping gene to normalise the other two genes (if we want to)
 
 ## Exploring the data
 
@@ -87,7 +88,8 @@ To demonstrate `pivot_longer()`, we will introduce a new data frame called `mous
 Or run the following code in your R console to download it:
 ```{r}
 #| eval: false
-download.file("https://raw.githubusercontent.com/kzeglinski/new_wehi_r_course/refs/heads/main/data/mousezempic_expression_data.tsv", "data/mousezempic_expression_data.tsv")
+dir.create("data") # create data directory if it doesn't exist
+download.file("https://raw.githubusercontent.com/kzeglinski/new_wehi_r_course/refs/heads/main/data/mousezempic_expression_data.tsv", "data/mousezempic_expression_data.tsv") # download data
 ```
 
 Once you've done that, read it into R (notice that it's a `.tsv` file, so we need to use either `read_tsv()` or `read_delim()`, not `read_csv()`)

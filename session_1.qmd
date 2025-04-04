@@ -1390,8 +1390,8 @@ You can also download the file by running the following R code (note that you wi
 
 ```{r}
 #| eval: false
-# create a folder called "data" and download the data into it
-dir.create("data")
+dir.create("data") # create data directory if it doesn't exist
+# download the file into the data directory
 download.file("https://raw.githubusercontent.com/kzeglinski/new_wehi_r_course/refs/heads/main/data/mousezempic_dosage_data.csv", "data/mousezempic_dosage_data.csv")
 ```
 
