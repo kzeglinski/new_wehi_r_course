@@ -235,6 +235,8 @@ Mapping allows you to specify which scales (e.g. x, y, colour) should be used to
 ::: choice
 `ggsave("drug_dosage_vs_weight_loss.pdf", width = 10, height = 15)`
 :::
+:::
+:::
 
 <details>
 
