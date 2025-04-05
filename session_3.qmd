@@ -1399,6 +1399,7 @@ Try these practice questions to test your understanding!
 1. Look at the following ggplot2 code and try to describe in words what type of plot it will make. If you're not sure, try looking up the help pages for the functions!
   a.
 ```{r}
+#| eval: false
 ggplot(data = mousezempic_dosage_data,
   aes(x = cage_number, y = weight_lost_g)) +
   geom_boxplot(aes(fill = sex), width = 0.5) +
@@ -1408,6 +1409,7 @@ ggplot(data = mousezempic_dosage_data,
 ```
   b.
 ```{r}
+#| eval: false
 ggplot(data = mousezempic_dosage_data,
   aes(x = initial_weight_g, y = weight_lost_g)) +
   geom_point(aes(colour = drug_dose_g)) +
@@ -1593,4 +1595,5 @@ combined_plot <- plot1 + plot2 +
 # save the plot to a file
 ggsave("combined_plot.png", plot = combined_plot, width = 10, height = 5)
 ```
+
 </details>
