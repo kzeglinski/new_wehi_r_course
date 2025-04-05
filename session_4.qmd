@@ -23,24 +23,64 @@ At the end of this session, learners should be able to:
 :::
 ## Introduction to the dataset
 
-describe the fake experiment setup and the data files you will start with
-we have the mousezempic_dosage_data and mousezempic_expression_data data frames, which contain information about the mice and their gene expression levels, respectively.
+In this session we will use the `mousezempic_dosage_data` and `mousezempic_expression_data` data frames, which contain information about the mice and their gene expression levels, respectively.
 i was thinking of editing the ID column in the mousezempic_expression_data data frame so that they have to use stringr, then use that to join them together.
 
 the expression data frame has measurements of three genes (2 ozempic related and 1 housekeeping). I scaled them so that you could use the housekeeping gene to normalise the other two genes (if we want to)
 
-## Exploring the data
+```{r}
+#| eval: false
+dir.create("data") # create data directory if it doesn't exist
+download.file("https://raw.githubusercontent.com/kzeglinski/new_wehi_r_course/refs/heads/main/data/mousezempic_expression_data.tsv", "data/mousezempic_expression_data.tsv") # download data
+```
 
-in this step we get familiar with the dataset and think about what sorts of plots we can make/things we can look at
+```{r}
+#| message: false
+library(tidyverse)
 
-## Manipulating the data
+# read in dosage data
+mousezempic_dosage_data <- read_csv("data/mousezempic_dosage_data.csv")
+mousezempic_dosage_data
+```
 
-in this step we will use dplyr to get the data frame into a form that will allow us to answer the questions we came up with above
+```{r}
+#| message: false
+
+# read in expression data
+mousezempic_expression_data <- read_tsv("data/mousezempic_expression_data.tsv")
+mousezempic_expression_data
+```
+
+::: {.callout-note}
+We have used `read_csv()` for the mouse data and `read_tsv()` for the expression data. These are for reading data separated by commas and tab characters respectively. The `readr` package also provides `read_delim()` to let the package guess your delimiter, but if you know the format of your file then it's good practice to use the appropriate reading function for more predictable behaviour.
+:::
+
+::: {.callout-caution}
+There's nothing stopping someone from naming a file `file.csv` while having tab-separated data inside. This happens quite often in real-world data so it's a good idea to have a quick look at the data in an text editor before reading it in.
+:::
+
+## Tidy Data
+
+The tidyverse revolves around an important concept called "tidy data". This is a specific representation of tabular data that is considered easy to work with. Tidy data is roughly defined as tabular data that contains:
+
+1. Individual variables in columns
+2. Individual observations in rows
+3. One data value in each cell
+
+Having individual variables in columns makes then accessible for performing tidyverse operations like `select()`, `mutate()`, `filter()` and `arrange()`. If variables were not stored as columns then these functions would not be able to access them by name.
+
+Having individual observations in rows is important because it associates all variables of each observation with the same row. If the data from one observation is spread across multiple rows then it is easy to incorrect summaries from the `summarise()` function. When using the `filter()` function with tidy data, you can expect to keep all the data for an observation or none at all. When the data for observations is split over different rows, it's possible to unknowingly lose partial data from observations.
+
+Having a single value in each cell makes it possible to perform meaningful computations for the values, for example you cannot take a `mean()` of a column of values that contain multiple different values.
+
+Although tidy data is the easiest to work with, it's often necessary to alter the format of your data for plotting or table displays. It's a good idea to keep your core data in a tidy format and treating plot or table outputs as representations of that tidy data.
 
 ## Reshaping and combining data {#sec-reshaping}
-In the previous section, we learned how to filter, select, mutate, and summarise data. These are the most common operations you'll perform on your data, and all generally revolve around working with specific columns or rows of your data frame. But what if you need to change the structure of your entire data frame? Re-shaping (with `pivot_` functions) and combining (with `join` functions) data are two more advanced operations that can help you do this.
+
+The `filter()`, `select()`, `mutate()` and `summarise()` functions we learned last session all operate along either the columns or the rows of data. Combining these operations cleverly can answer the majority of questions about your data. However, there are two useful families of functions: `pivot` for reshaping your data and `join` for combining your data from shared columns.
 
 ### Reshaping data with pivot functions {#sec-pivot}
+
 Pivoting is a way to change the structure of your data frame by rotating it so that rows become columns and vice versa. This can be useful when you want to change the way your data is organised, for example, to make it easier to plot or analyse.
 
 ![Pivot functions allow you to change the structure of your data frame](images/S02F10_pivot.png){width=50%}
@@ -86,21 +126,11 @@ To demonstrate `pivot_longer()`, we will introduce a new data frame called `mous
 {{< downloadthis data/mousezempic_expression_data.tsv dname=mousezempic_expression_data label="Download mousezempic_expression_data.tsv" icon=file-earmark-arrow-down type=primary class=data-button id=expr_data >}}
 
 Or run the following code in your R console to download it:
-```{r}
-#| eval: false
-dir.create("data") # create data directory if it doesn't exist
-download.file("https://raw.githubusercontent.com/kzeglinski/new_wehi_r_course/refs/heads/main/data/mousezempic_expression_data.tsv", "data/mousezempic_expression_data.tsv") # download data
-```
+
 
 Once you've done that, read it into R (notice that it's a `.tsv` file, so we need to use either `read_tsv()` or `read_delim()`, not `read_csv()`)
 
-```{r}
-# read in the data
-mousezempic_expression_data <- read_tsv("data/mousezempic_expression_data.tsv")
 
-# print it out
-mousezempic_expression_data
-```
 
 As you can see, the data is in wide format, with each row representing a different mouse (identified by its `id_num`) and each column representing a different measurement of a gene. To put this data into a long format (where each measurement is contained on a separate row), we can use `pivot_longer()`, specifying three arguments:
 
