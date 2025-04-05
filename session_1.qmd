@@ -987,6 +987,7 @@ Using the `logical()` function
 </p>
 
 </details>
+
 :::
 
 ## Data structures {#sec-datastructures}
