@@ -18,13 +18,11 @@ At the end of this session, learners should be able to:
 1.  Describe the key steps in data analysis (exploration, manipulating and plotting)
 
 2.  Understand how pivot and join functions can be used to reshape and combine entire data frames
-
-
 :::
+
 ## Introduction to the dataset
 
-In this session we will use the `mousezempic_dosage_data` and `mousezempic_expression_data` data frames, which contain information about the mice and their gene expression levels, respectively.
-i was thinking of editing the ID column in the mousezempic_expression_data data frame so that they have to use stringr, then use that to join them together.
+In this session we will use the `mousezempic_dosage_data` and `mousezempic_expression_data` data frames, which contain information about the mice and their gene expression levels, respectively. i was thinking of editing the ID column in the mousezempic_expression_data data frame so that they have to use stringr, then use that to join them together.
 
 the expression data frame has measurements of three genes (2 ozempic related and 1 housekeeping). I scaled them so that you could use the housekeeping gene to normalise the other two genes (if we want to)
 
@@ -51,11 +49,11 @@ mousezempic_expression_data <- read_tsv("data/mousezempic_expression_data.tsv")
 mousezempic_expression_data
 ```
 
-::: {.callout-note}
+::: callout-note
 We have used `read_csv()` for the mouse data and `read_tsv()` for the expression data. These are for reading data separated by commas and tab characters respectively. The `readr` package also provides `read_delim()` to let the package guess your delimiter, but if you know the format of your file then it's good practice to use the appropriate reading function for more predictable behaviour.
 :::
 
-::: {.callout-caution}
+::: callout-caution
 There's nothing stopping someone from naming a file `file.csv` while having tab-separated data inside. This happens quite often in real-world data so it's a good idea to have a quick look at the data in an text editor before reading it in.
 :::
 
@@ -63,9 +61,9 @@ There's nothing stopping someone from naming a file `file.csv` while having tab-
 
 The tidyverse revolves around an important concept called "tidy data". This is a specific representation of tabular data that is considered easy to work with. Tidy data is roughly defined as tabular data that contains:
 
-1. Individual variables in columns
-2. Individual observations in rows
-3. One data value in each cell
+1.  Individual variables in columns
+2.  Individual observations in rows
+3.  One data value in each cell
 
 Having individual variables in columns makes then accessible for performing tidyverse operations like `select()`, `mutate()`, `filter()` and `arrange()`. If variables were not stored as columns then these functions would not be able to access them by name.
 
@@ -81,15 +79,15 @@ The `filter()`, `select()`, `mutate()` and `summarise()` functions we learned la
 
 ### Reshaping data with pivot functions {#sec-pivot}
 
-Pivoting is a way to change the structure of your data frame by rotating it so that rows become columns and vice versa. This can be useful when you want to change the way your data is organised, for example, to make it easier to plot or analyse.
+Pivoting is a way to change the shape of your tibble. Pivoting longer reshapes the data to transfer data stored in columns into rows, resulting in more rows and fewer columns. Pivoting wider is the reverse, moving data from rows into columns.
 
-![Pivot functions allow you to change the structure of your data frame](images/S02F10_pivot.png){width=50%}
+![Pivot functions allow you to change the structure of your data frame](images/S02F10_pivot.png){width="50%"}
 
 The `pivot_longer()` function is used to pivot data from wide to long format, and the `pivot_wider()` function is used to pivot data from long to wide format.
 
 #### Pivot wider
-A common use case for `pivot_wider()` is to make a [contingency table](https://en.wikipedia.org/wiki/Contingency_table),
-which shows the number of observations for each combination of two variables. This is often easier to read than the same information in long format.
+
+A common use case for `pivot_wider()` is to make a [contingency table](https://en.wikipedia.org/wiki/Contingency_table), which shows the number of observations for each combination of two variables. This is often easier to read than the same information in long format.
 
 For example, let's say we want to create a table that shows how many mice there are of each strain, in each cage number. We can achieve this in a long format using `summarise()` as we learned in the previous section:
 
@@ -100,56 +98,56 @@ mousezempic_dosage_data %>%
     .by = c(cage_number, mouse_strain))
 ```
 
-Notice how we have a row for each unique combination of `cage_number` and `mouse_strain`. Instead, we can use `pivot_wider()` to create a table where each row represents a unique `cage_number` and each column represents a unique `mouse_strain`.
+This summarises by each combination of `cage_number` and `mouse_strain`, with the `n()` function giving the count of data belonging to that combination.
 
-To use a `pivot_wider()` you need to tell R two bits of information:
-
-1. What the new columns should be (with `names_from`)
-2. Where the values in these columns should come from (with `values_from`).
-
-In this case, we want the mouse strains to be our new columns (so `names_from = mouse_strain`), and the average weight lost to be the values in the table (`values_from = n_mice`). Putting it all together, here is the code to make our summary table:
+To get a contingency table, we wish to have the information in the `mouse_strain` column displayed along the column names and the values of `n_mouse` becoming the values of the cells in the new table. Since the goal is to make the table wider, we use the `pivot_wider()` function. To achieve this, we instruct the `pivot_wider()` function to take names from the `mouse_strain` column and the values from the `n_mice` column.
 
 ```{r}
-mousezempic_dosage_data %>%
+mousezempic_contingency <- mousezempic_dosage_data %>%
   summarise(
     n_mice = n(),
     .by = c(cage_number, mouse_strain)) %>%
   pivot_wider(names_from = mouse_strain, values_from = n_mice)
+
+mousezempic_contingency
 ```
-Notice how `NA` values are used where there is no data for a particular combination of `cage_number` and `mouse_strain`.
+
+This has transformed our data into a contingency table, with `NA` where no data corresponding data exists for the specific `cage_number` and `mouse_strain` combination.
 
 #### Pivot longer
-While wide data can be easier to read, long data is often easier to work with. That's because a lot of the tidyverse functions we've learned so far (like `filter()`, `mutate()`, and `summarise()`) work in a row-wise fashion, which is more natural with long data.
 
-To demonstrate `pivot_longer()`, we will introduce a new data frame called `mousezempic_expression_data`. This data frame contains the expression levels of two genes (TH and PRLH) suspected to be upregulated in mice taking MouseZempic, as well as one housekeeping gene (HPRT1), all measured in triplicate. You can download it here:
+Data can often arrive in the form similar to the contingency table we constructed. Although this data is easy to read, it is difficult to operate on using tidyverse functions because the `mouse_strain` data is now stored in the column names and not inside a column we can use as a variable. In order to make this kind of data tidy, we use the `pivot_longer()` function, which will create a pair of columns from the column names and the value of the corresponding cell.
 
-{{< downloadthis data/mousezempic_expression_data.tsv dname=mousezempic_expression_data label="Download mousezempic_expression_data.tsv" icon=file-earmark-arrow-down type=primary class=data-button id=expr_data >}}
+To demonstrate `pivot_longer()`, we will use the `mousezempic_expression_data` that we downloaded earlier. This data frame contains the expression levels of two genes (TH and PRLH) suspected to be upregulated in mice taking MouseZempic, as well as one housekeeping gene (HPRT1), all measured in triplicate.
 
-Or run the following code in your R console to download it:
+```{r}
+mousezempic_expression_data
+```
 
+The data is currently in wide format, with each row representing a different mouse (identified by its `id_num`) and each column representing a different measurement of a gene. To reshape this data into a long format (where each measurement is contained on a separate row), we can use `pivot_longer()`, specifying three arguments:
 
-Once you've done that, read it into R (notice that it's a `.tsv` file, so we need to use either `read_tsv()` or `read_delim()`, not `read_csv()`)
-
-
-
-As you can see, the data is in wide format, with each row representing a different mouse (identified by its `id_num`) and each column representing a different measurement of a gene. To put this data into a long format (where each measurement is contained on a separate row), we can use `pivot_longer()`, specifying three arguments:
-
-1. `cols`: the columns to pivot from. You can use selection helpers like `contains()` or `starts_with()` to easily select multiple columns at once.
-2. `names_to`: the name of a new column that will contain the old column names.
-3. `values_to`: the name of a new column that will contain the values from the old columns.
+1.  `cols`: the columns to pivot from. You can use selection helpers like `contains()` or `starts_with()` to easily select multiple columns at once.
+2.  `names_to`: the name of a new column that will contain the original column names.
+3.  `values_to`: the name of a new column that will contain the values from the original columns.
 
 In this particular case here's what the code would look like:
 
 ```{r}
-mousezempic_expression_data %>%
-  pivot_longer(cols = contains("_rep"), names_to = "measurement", values_to = "expression_level")
+mousezempic_expr_long <- mousezempic_expression_data %>%
+  pivot_longer(
+    cols = contains("_rep"),
+    names_to = "measurement",
+    values_to = "expression_level"
+  )
+
+mousezempic_expr_long
 ```
 
 Let's go through those three arguments:
 
-1. `cols = contains("_rep")`: This tells R to pivot all columns that contain the string "_rep". In this case, that's the columns `TH_rep1`, `TH_rep2`, `TH_rep3`, `PRLH_rep1`, `PRLH_rep2`, `PRLH_rep3`, `HPRT1_rep1`, `HPRT1_rep2`, and `HPRT1_rep3`.
-2. `names_to = "measurement"`: This tells R to create a new column called 'measurement' that contains the names of the old columns. So, for example, the value of the 'measurement' column for the first row will be 'TH_rep1'.
-3. `values_to = "expression_level"`: This tells R to create a new column called 'expression_level' that contains the values from the old columns. So, for example, the value of the 'expression_level' column for the first row will be the value of the `TH_rep1` column.
+1.  `cols = contains("_rep")`: This tells R to pivot all columns that contain the string `"_rep"`. In this case, that's the columns `TH_rep1`, `TH_rep2`, `TH_rep3`, `PRLH_rep1`, `PRLH_rep2`, `PRLH_rep3`, `HPRT1_rep1`, `HPRT1_rep2`, and `HPRT1_rep3`.
+2.  `names_to = "measurement"`: This tells R to create a new column called 'measurement' that contains the names of the old columns. So, for example, the value of the 'measurement' column for the first row will be 'TH_rep1'.
+3.  `values_to = "expression_level"`: This tells R to create a new column called 'expression_level' that contains the values from the old columns. So, for example, the value of the 'expression_level' column for the first row will be the value of the `TH_rep1` column.
 
 After running this code, you'll see that the data frame is now in long format, with each row representing a different measurement of a gene for a different mouse.
 
@@ -157,20 +155,37 @@ After running this code, you'll see that the data frame is now in long format, w
 Pivoting can be a bit tricky to get your head around! Often when you're doing analysis, you'll run into the problem of knowing that you need to pivot, but not knowing exactly what arguments to use. In these cases, it can be helpful to look at examples online, [like those in the R for Data Science book](https://r4ds.hadley.nz/data-tidy.html#sec-pivoting), or to just experiment with different arguments until you get the result you want.
 :::
 
+```{r}
+mousezempic_expr_long <- mousezempic_expr_long %>%
+  separate(measurement, into = c("gene", "replicate"), sep = "_")
+
+ggplot(mousezempic_expr_long, aes(x = gene, y = expression_level, fill = group)) +
+  geom_col(position = "dodge") +
+  facet_grid(rows = "replicate") +
+  theme(legend.position = "bottom") +
+  labs(
+    fill = "Group",
+    x = "Gene",
+    y = "Expression Level"
+  )
+```
+
 ### Combining data with join functions {#sec-join}
-Another way you might need to change the structure of your data is by combining it with other data frames. This is where the `join` functions come in. There are many different types of joins in `dplyr` (which you can read about here if you're interested), but the most useful one is the `left_join()` function.
+
+Data analysis typically involves multiple tables of data. Often there will be tables that are contain related information that must be combined to answer the questions you're interested in. Tables that are related to each other tend to have one or more columns in common, and are referred to as "relational data". Combining relational data in useful ways requires the `join` family of functions. In general joins can accomplish two tasks
+
+- Add new variables to an existing table containing additional information.
+- Filter observations in one table based on whether or not they match observations in another table.
+- Both of the above at the same time.
 
 ![The left_join() function allows you to combine two data frames](images/S02F11_left_join.png)
 
-`left_join()` is used to combine two data frames based on a common column. It takes three arguments - the first data frame, the second data frame, and the common column to join on. The reason it's called a 'left join' is because it keeps all the rows from the first data frame (the 'left' data frame), and only adds rows from the second data frame (the 'right' data frame) if they match the common column.
+A common and basic join is the `left_join()`. It takes three arguments - the first data frame, the second data frame, and the common column to join on. The reason it's called a 'left join' is because it keeps all the rows from the first data frame (the 'left' data frame), and only adds rows from the second data frame (the 'right' data frame) if they match the common column.
 
 For example, we can join the `mousezempic_dosage_data` data frame with the `mousezempic_expression_data` data frame based on the `id_num` column, which is common to both data frames:
 
 ```{r}
-# example of using it in a pipe
-# here mousezempic_dosage_data is the left data frame (first) data frame passed on by the pipe
-mousezempic_dosage_data %>%
-  left_join(mousezempic_expression_data, by = "id_num")
+left_join(mousezempic_dosage_data, mousezempic_expression_data, by = "id_num")
 ```
 
 This code will return a new data frame that contains all the columns from `mousezempic_dosage_data` and all the columns from `mousezempic_expression_data`, with the rows matched based on the `id_num` column. If there is no match for a particular `id_num` in the `mousezempic_expression_data` data frame, the columns from that data frame will be filled with `NA`. Rows that only appear in the `mousezempic_expression_data` data frame will not be included in the final data frame.
@@ -187,10 +202,10 @@ mousezempic_dosage_data %>%
   left_join(mousezempic_expression_data, by = c("mouse_id" = "id_num"))
 ```
 
-::: {.callout-important title="Practice exercises"}
+:::::::::::::::::::: {.callout-important title="Practice exercises"}
 Try these practice questions to test your understanding
 
-::: question
+:::::::: question
 1\. What does the following code do?
 
 ```{r}
@@ -202,8 +217,7 @@ mousezempic_dosage_data %>%
   pivot_wider(names_from = sex, values_from = med_tail)
 ```
 
-
-::: choices
+::::::: choices
 ::: choice
 Pivots data into a wide format where there is a column for each sex.
 :::
@@ -219,9 +233,8 @@ Calculates the median tail length for each unique combination of `mouse_strain` 
 ::: choice
 It just gives an error
 :::
-
-:::
-:::
+:::::::
+::::::::
 
 2\. I have run the following code to create a new column in the `mousezempic_dosage_data` data frame that gives the weight of the mice at the end of the experiment.
 
@@ -232,9 +245,10 @@ mousezempic_dosage_data %>%
   # select the relevant columns only
   select(id_num, initial_weight_g, final_weight_g)
 ```
+
 Which pivot function call would I use to take this data from a wide format (where there is a column for the final and initial weight) to a long format (where there is a row for each mouse and each weight measurement)?
 
-::: choices
+::::::: choices
 ::: choice
 `pivot_longer(cols = c(initial_weight_g, final_weight_g), names_to = "weight", values_to = "timepoint")`
 :::
@@ -250,28 +264,34 @@ Which pivot function call would I use to take this data from a wide format (wher
 ::: {.choice .correct-choice}
 `pivot_longer(cols = c(initial_weight_g, final_weight_g), names_to = "timepoint", values_to = "weight")`
 :::
-:::
+:::::::
 
-::: question
+:::::::: question
 3\. Which of the following is NOT a valid way to join the `mousezempic_dosage_data` data frame with the `mousezempic_expression_data` data frame based on the `id_num` column?
 
-::: choices
+::::::: choices
 ::: choice
 `mousezempic_dosage_data %>% left_join(mousezempic_expression_data, by = "id_num")`
 :::
+
 ::: choice
 `left_join(mousezempic_dosage_data, mousezempic_expression_data, by = "id_num")`
 :::
+
 ::: {.choice .correct-choice}
 `mousezempic_dosage_data %>% left_join(mousezempic_expression_data, .by = "id_num")`
 :::
+
 ::: choice
 `mousezempic_dosage_data %>% left_join(mousezempic_expression_data, by = ("id_num" = "id_num"))`
 :::
-:::
-:::
+:::::::
+::::::::
 
-<details> <summary>Solutions</summary>
+<details>
+
+<summary>Solutions</summary>
+
 1\. The code first calculates the median tail length for each unique combination of `mouse_strain` and `sex` in the `mousezempic_dosage_data` data frame, then pivots the data into a wide format where there is a column for each sex in the dataset (because of the argument `names_from = sex` )
 
 2\. The correct pivot function call to take the data from a wide format to a long format is `pivot_longer(cols = c(initial_weight_g, final_weight_g), names_to = "timepoint", values_to = "weight")`. This code tells R to pivot the `initial_weight_g` and `final_weight_g` columns into a long format, where there is a row for each mouse and each weight measurement. The `names_to` argument specifies to make a column called 'timepoint' that tells us whether the measurement is initial or final, and the `values_to` argument specifies the name of the new column that will contain these measurements.
@@ -279,16 +299,13 @@ Which pivot function call would I use to take this data from a wide format (wher
 3\. The line of code that is NOT a valid way to join the `mousezempic_dosage_data` data frame with the `mousezempic_expression_data` data frame based on the `id_num` column is `mousezempic_dosage_data %>% left_join(mousezempic_expression_data, .by = "id_num")`. This line of code is incorrect because the `.by` argument is not used in the `left_join()` function (this can be confusing! it's `.by` when grouping by `by` when joining). The other options are valid ways to join the two data frames based on the `id_num` column: remember that we don't have to use pipes to join data frames, we can use the `left_join()` function directly, and we can use a named vector to specify the columns to join on (although here it's a bit redundant as the columns have the same name).
 
 </details>
-
-:::
+::::::::::::::::::::
 
 ## Visualising the data
 
 finally we will make some nice visualisations
 
-
-summary
--   Reshaping data with `pivot_longer()` and `pivot_wider()` to change the structure of your data frame.
+summary - Reshaping data with `pivot_longer()` and `pivot_wider()` to change the structure of your data frame.
 
 -   Combining data with `left_join()` to merge two data frames based on a common column.
 
@@ -296,18 +313,18 @@ questions etc
 
 4.  Using the `mousezempic_dosage_data` data frame, write R code to:
 
-      a.  Make a data frame that shows the number of mice of each strain, in each replicate.
-      b.  Pivot this data frame into a wide format to create a contingency table.
-      c.  Pivot the wide data frame from (b) back into a long format.
+    a.  Make a data frame that shows the number of mice of each strain, in each replicate.
+    b.  Pivot this data frame into a wide format to create a contingency table.
+    c.  Pivot the wide data frame from (b) back into a long format.
 
 5.  Let's say I have two data frames, `df1` and `df2`, that I want to join based a shared 'key' column, that is called 'key' in `df1` and 'item_key' in `df2`. Write R code to join these two data frames using the `left_join()` function.
 
 solutions
 
-4. Here's how you could write R code to achieve the tasks:
+4.  Here's how you could write R code to achieve the tasks:
 
     a.  `mousezempic_dosage_data %>% summarise(n_mice = n(), .by = c(mouse_strain, replicate))`
     b.  `mousezempic_dosage_data %>% summarise(n_mice = n(), .by = c(mouse_strain, replicate)) %>% pivot_wider(names_from = replicate, values_from = n_mice)`
     c.  `mousezempic_dosage_data %>% summarise(n_mice = n(), .by = c(mouse_strain, replicate)) %>% pivot_wider(names_from = replicate, values_from = n_mice) %>% pivot_longer(cols = starts_with("rep"), names_to = "replicate", values_to = "n_mice")`
 
-5. To join the two data frames you could use `df1 %>% left_join(df2, by = c("key" = "item_key"))` (with pipe) or `left_join(df1, df2, by = c("key" = "item_key"))` (without pipe).
+5.  To join the two data frames you could use `df1 %>% left_join(df2, by = c("key" = "item_key"))` (with pipe) or `left_join(df1, df2, by = c("key" = "item_key"))` (without pipe).
