@@ -119,14 +119,13 @@ Notice as well how adding colour to the plot totally changes the way we perceive
 
 ### Saving plots as images
 
-Once you've created a plot you're happy with, you'll probably want to save it to use in a paper or presentation. You can do this programmatically using the `ggsave()` function.
+Once you're satisfied with the plot you've created, you can programmatically save your plot using the `ggsave()` function.
 
 To use `ggsave()`, you need to specify:
 
--   the filename you want to save the plot as (e.g. `"my_plot.png"`),
--   the plot object you want to save (by default, this is the last plot you created, but you can specify a plot that's been assigned to a variable),
--   the file type you want to save the plot as (e.g. `device = "png"`), and
--   the dimensions of the plot (e.g. `width = 6, height = 4`). Dimensions are in inches by default, but you can specify them in other units if you prefer by using the units argument (e.g. `units = "cm"`)
+-   The name of the file to to save the plot as (e.g. `"my_plot.png"`). Specifying a different file extension, e.g. `"my_plot.pdf"` will save the plot in the appropriate format.
+-   The plot object you want to save (defaults to the last plot you sent to the plot pane).
+-   The dimensions of the plot (e.g. `width = 6, height = 4`). Dimensions are in inches by default and can be changed using the `units` argument (e.g. `units = "cm"`).
 
 For example, to save the last plot we created as a .png file with dimensions of 5 by 7 inches, we would write:
 
@@ -142,7 +141,7 @@ Or to save it as a .pdf file with dimensions of 20 by 30 cm:
 ggsave("coloured_scatterplot.pdf", device = "pdf", width = 20, height = 30, units = "cm")
 ```
 
-Generally, it's good practice to assign the plot you want to save to a variable, and provide that variable to the 'plot' argument of `ggsave()`, rather than relying on the last plot you created. This makes it more clear what plot you're saving, so that your code is more readable and reproducible.
+It's good practice to assign the plot you want to save to a variable, and provide it to the 'plot' argument of `ggsave()`, rather than relying on the last plot you created. This makes it clear what plot you're saving, so that your code is more readable and reproducible.
 
 ```{r}
 #| eval: false
@@ -290,6 +289,7 @@ Notice how the points are stacked on top of one another for each strain. This is
 ggplot(data = mousezempic_dosage_data, aes(x = mouse_strain, y = initial_weight_g)) +
   geom_point(position = position_jitter())
 ```
+
 The `position_jitter()` function adds a small amount of random noise to the x axis position of each point, which helps to spread them out and make it easier to see the individual points. Like most functions in ggplot2, `position_jitter()` will try to guess an appropriate amount of jitter to add, but you can specify the amount as well:
 
 ```{r}
