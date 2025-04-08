@@ -1561,7 +1561,6 @@ ggplot(data = mousezempic_dosage_data,
   b. Notice how we specified the `linewidth` argument in the `geom_boxplot()` and `geom_hline()` functions to make the lines thicker. This is not inside the `aes()` function because it doesn't represent anything in the data, it's just used to style the plot. We also set the `base_size` argument in the `theme_minimal()` function to make the font size larger:
 
 ```{r}
-#| echo: false
 ggplot(data = mousezempic_dosage_data,
   aes(x = cage_number, y = weight_lost_g, colour = mouse_strain)) +
   # set linewidth = 2 to make the lines thicker
