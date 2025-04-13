@@ -33,6 +33,7 @@ download.file("https://raw.githubusercontent.com/kzeglinski/new_wehi_r_course/re
 ```{r}
 #| message: false
 library(tidyverse)
+library(patchwork)
 
 # read in dosage data
 mousezempic_dosage_data <- read_csv("data/mousezempic_dosage_data.csv")
@@ -160,44 +161,72 @@ mousezempic_expr_long <- mousezempic_expression_data %>%
 mousezempic_expr_long
 ```
 
-Let's go through those three arguments:
-
-1.  `cols = contains("_rep")`: This tells R to pivot all columns that contain the string `"_rep"`. In this case, that's the columns `TH_rep1`, `TH_rep2`, `TH_rep3`, `PRLH_rep1`, `PRLH_rep2`, `PRLH_rep3`, `HPRT1_rep1`, `HPRT1_rep2`, and `HPRT1_rep3`.
-2.  `names_to = "measurement"`: This tells R to create a new column called 'measurement' that contains the names of the old columns. So, for example, the value of the 'measurement' column for the first row will be 'TH_rep1'.
-3.  `values_to = "expression_level"`: This tells R to create a new column called 'expression_level' that contains the values from the old columns. So, for example, the value of the 'expression_level' column for the first row will be the value of the `TH_rep1` column.
-
-After running this code, you'll see that the data frame is now in long format, with each row representing a different measurement of a gene for a different mouse.
-
-```{r}
-ggplot(mousezempic_expr_long, aes(x = measurement, y = expression_level, fill = group)) +
-  geom_col(position = "dodge") +
-  theme(legend.position = "bottom") +
-  labs(
-    fill = "Group",
-    x = "Gene",
-    y = "Expression Level"
-  ) +
-  scale_y_log10()
-```
-
 ::: {.callout-note title="Perplexed by pivoting?"}
 Pivoting can be a bit tricky to get your head around! Often when you're doing analysis, you'll run into the problem of knowing that you need to pivot, but not knowing exactly what arguments to use. In these cases, it can be helpful to look at examples online, [like those in the R for Data Science book](https://r4ds.hadley.nz/data-tidy.html#sec-pivoting).
 :::
 
 ### Separating data in a column
 
+When we look at the `measurement` column we see that it contains two pieces of information. The gene being measured and the replicate number separated by "_". We can use the `separate()` function to split this data into individual columns so that one column does not contain multiple variables.
+
 ```{r}
-mousezempic_expr_long %>%
-  separate(measurement, into = c("gene", "replicate"), sep = "_") %>%
-  ggplot(aes(x = gene, y = expression_level, fill = group)) +
-  geom_col(position = "dodge") +
-  theme(legend.position = "bottom") +
-  labs(
-    fill = "Group",
-    x = "Gene",
-    y = "Expression Level"
-  )
+mousezempic_expr_separate <- mousezempic_expr_long %>%
+  separate(measurement, into = c("gene", "replicate"), sep = "_")
+
+mousezempic_expr_separate
 ```
+
+### Summarising values
+
+Now suppose we wanted to combine the gene expression data across replicates by adding them up, we can use the `summarise()` function to do so.
+
+```{r}
+mz_expr_rep_summed <- mousezempic_expr_separate %>%
+  summarise(
+    expression_level = sum(expression_level),
+    .by = c(id_num, group, gene)
+  )
+
+mz_expr_rep_summed
+```
+
+We may also want to get the average expression level of each gene within each experimental group and plot it as a bar chart.
+
+```{r}
+mz_expr_rep_summed %>%
+  summarise(
+    expression_level = mean(expression_level),
+    .by = c(group, gene)
+  ) %>%
+  ggplot(aes(x = gene, y = expression_level, fill = group)) +
+  geom_col(position = "dodge")
+```
+
+We see that all 3 genes are slightly higher in the treatment group.
+
+### Reshaping for plotting
+
+Suppose we wanted to plot the value of two genes against each other. We would need the expression values of genes to be in individual columns. However we have lost this structure after using `pivot_longer()`. We can restore it using `pivot_wider()` after we have summarised the replicates.
+
+```{r}
+mz_expr_rep_summed_wide <- pivot_wider(mz_expr_rep_summed, names_from = "gene", values_from = "expression_level")
+
+mz_expr_rep_summed_wide
+```
+
+With the replicate aggregated expression levels in individual columns, we can now plot the gene expression values against each other.
+
+```{r}
+ggplot(mz_expr_rep_summed_wide, aes(x = Th, y = Prlh)) +
+  geom_point()
+```
+
+::: {.callout-note title="Practice exercise"}
+Make all the pair-wise scatter plots and assemble them together using `patchwork`. There should be a plot of:
+- Th vs Prlh
+- Th vs Hprt1
+- Prlh vs Hprt1
+:::
 
 ### Combining data with join functions {#sec-join}
 
@@ -211,13 +240,13 @@ Data analysis typically involves multiple tables of data. Often there will be ta
 
 A common and basic join is the `left_join()`. It takes two data frame as arguments and optionally a vector of common columns to perform the join on. The reason it's called a left-join because it retains all rows from the left data frame while adding on columns from the right data frame only when the data in the designed joining column(s) match.
 
-For example, we can join the `mousezempic_dosage_data` data frame with the `mousezempic_expression_data` data frame based on the `id_num` column, which is common to both data frames:
+For example, we can join the `mousezempic_dosage_data` data frame with the `mz_expr_rep_summed_wide` data frame based on the `id_num` column, which is common to both data frames:
 
 ```{r}
-left_join(mousezempic_dosage_data, mousezempic_expression_data, by = "id_num")
+left_join(mousezempic_dosage_data, mz_expr_rep_summed_wide, by = "id_num")
 ```
 
-The `mousezempic_dosage_data` contains information about characteristics of each mouse, while the `mousempic_expression_data` contains the gene expressions of the mice. Each data frame has an `id_num` column that relates the data from the two data frames together, and we have joined them into one table that contains both the data about the mice as well as the expression of their genes.
+The `mousezempic_dosage_data` contains information about characteristics of each mouse, while the `mz_expr_rep_summed_wide` contains the replicate-summed gene expressions of the mice. Each data frame has an `id_num` column that relates the data from the two data frames together, and we have joined them into one table that contains both the data about the mice as well as the expression of their genes.
 
 With the `left_join()`, if there is a `id_num` value that exists in the right data frame but not found in the left, then that data will not be present in the joined table. For any `id_num` that appears only in the left but not the right data frame, the values in the newly created columns will be `NA`.
 
@@ -242,7 +271,7 @@ mz_dosage_data_new
 ```{r}
 # perform left join by matching mouse_id of the left data frame to id_num of the right data frame
 mz_joined_data <- left_join(
-  mz_dosage_data_new, mousezempic_expression_data,
+  mz_dosage_data_new, mz_expr_rep_summed_wide,
   by = join_by(mouse_id == id_num)
 ) %>%
   drop_na() # keep only rows without NA
@@ -258,130 +287,45 @@ When joining data frames with mismatched column names, the column name from the 
 An older syntax exists for the `by` argument that would look like `by = c("mouse_id" = "id_num")`. This does the same thing as what is shown above but the documentation now recommends the new syntax which allows for flexible options like joining to the closest.
 :::
 
-## Visualising the data
+## Visualising the expression between strains
 
-The first plot we will make is to visualise the relationship between the mousezempic drug dosage and the amount of weight loss.
-
-```{r}
-mz_joined_data %>%
-  ggplot(aes(x = drug_dose_g, y = weight_lost_g)) +
-  geom_point() +
-  geom_smooth(method = "lm")
-```
-
-We see that there is a positive correlation between dosage and weight loss. Since we also have data about the mouse strain we can colour our plot using `mouse_strain` to observe if there's any particular effect.
+With the joined data we now have more information about the mice in addition to the expression data. So we can check if there is any significant difference in gene expressions between mouse strains.
 
 ```{r}
-mz_joined_data %>%
-  ggplot(aes(x = drug_dose_g, y = weight_lost_g, col = mouse_strain)) +
-  geom_point() +
-  geom_smooth(method = "lm")
-```
-
-We can also visualise the distribution of weight loss in each strain.
-
-```{r}
-mz_joined_data %>%
-  ggplot(aes(x = mouse_strain, y = weight_lost_g, fill = mouse_strain)) +
+ggplot(mz_joined_data, aes(x = mouse_strain, y = Th, fill = mouse_strain)) +
   geom_violin()
 ```
 
-### Accounting for confounding factors
-
-We see that the Black 6 mice have higher weight loss, but two confounding factors come to mind: the Black 6 mice have higher drug doses, and may be larger to begin with. So first let's check if the Black 6 mice are indeed larger.
+If we wanted to plot all 3 genes, one way is to make 3 different plots, but we can also use facets. However to use facets we would need to have the faceting variable in a column, and currently our gene names are in the column names. So we must use `pivot_longer()`.
 
 ```{r}
-mz_joined_data %>%
-  ggplot(aes(x = mouse_strain, y = initial_weight_g, fill = mouse_strain)) +
-  geom_violin()
+mz_joined_data_longer <- mz_joined_data %>%
+  pivot_longer(cols = c(Th, Prlh, Hprt1), names_to = "gene", values_to = "expression")
+
+mz_joined_data_longer
 ```
 
-We see that the Black 6 mice had similar initial weight as the BALB mice, both of which tended to be heavier than the CD-1 mice. So we want to try to account for that by considering the relative change in weight, and additionally account for the relative change in weight per unit dosage. To do this we will need to create two new columns in our data frame.
+Now that the gene variable is in a column, we can use this information to create our faceted plot. We use `facet_wrap()` with the `scales = "free_y"` argument so each gene can have its own y-axis.
 
 ```{r}
-mz_joined_data <- mz_joined_data %>%
-  mutate(
-    weight_loss_proportion = weight_lost_g / initial_weight_g,
-    weight_loss_proportion_per_dosage_g = weight_loss_proportion / drug_dose_g 
-  )
-
-mz_joined_data
+ggplot(mz_joined_data_longer, aes(x = mouse_strain, y = expression, fill = mouse_strain)) +
+  geom_violin() +
+  facet_wrap(~gene, scales = "free_y")
 ```
 
-With that data we can assess whether or not the drug works more effectively on one strain than the other.
+There doesn't appear to be clear differences in the expression of these three genes between the haplotypes.
+
+## Visualising the relationship between dosage and genes
+
+With the joined data frame we can also visualise the relationship between the drug dosage and the genes, separated by mouse strain. We do this by using our `mz_joined_data_longer` to plot with `facet_grid()` specifying the layout of our grid.
 
 ```{r}
-ggplot(mz_joined_data, aes(x = mouse_strain, y = weight_loss_proportion_per_dosage_g)) +
-  geom_violin(aes(fill = mouse_strain))
-```
-
-We can further check if the results are consistent across replicates as well as between sexes by using faceting on `replicate` and `sex` as the rows and columns.
-
-```{r}
-ggplot(mz_joined_data, aes(x = mouse_strain, y = weight_loss_proportion_per_dosage_g)) +
-  geom_violin(aes(fill = mouse_strain)) +
-  facet_grid(rows = vars(replicate), cols = vars(sex))
-```
-
-With this we can feel reasonably confident that the doseage and initial weight adjusted weight loss is roughly equal in Black 6 and CD-1 mice while being lower in BALB/c mice. For the final presentation of such a result we might want to rescale the dosage to milligrams, change theme and label the axis more naturally.
-
-```{r}
-mz_joined_data %>%
-  mutate(weight_loss_proportion_per_dosage_mg = weight_loss_proportion_per_dosage_g / 1000) %>%
-  mutate(
-    mouse_strain = case_when(
-      mouse_strain == "Black 6" ~ "C57BL/6",
-      mouse_strain == "BALB C" ~ "BALB/c",
-      mouse_strain == "CD-1" ~ "CD-1"
-    )
-  ) %>%
-  ggplot(aes(x = mouse_strain, y = weight_loss_proportion_per_dosage_mg)) +
-  geom_violin(aes(fill = mouse_strain)) +
-  scale_y_continuous(labels = scales::percent) +
-  labs(
-    x = "Mouse Strain",
-    y = "Weight Loss per Mousezempic doseage (%/mg)",
-    title = "Dosage-adjusted percentage weight loss per strain",
-    fill = "Mouse Strain"
-  ) +
-  theme_classic(base_size = 14)
-```
-
-## Exploring gene expression
-
-After our analysis of the dosage and weight loss characteristics of the mice, we next want to have a look at their gene expression. The first thing we might want to see is the relationship between the mousezempic dosage and the Th gene. However we immediately see a problem as the Th gene expression is stored in 3 separate columns as a result of technical replicates.
-
-```{r}
-mz_joined_data %>%
-  select(mouse_id, drug_dose_g, contains("Th_rep"))
-```
-
-To make a scatter plot we're going to need all our gene expression values in a single column, given that we currently have the data in 3 columns, we will have to perform a `pivot_longer()` operation to reduce the number of columns while increasing the number of rows. The columns we wish to pivot longer are those corresponding to the repeated measurements of the Th gene and we want to store these column names in column named `measurement`.
-
-Once the pivot has be performed, the `measurement` column will contains two values, that of the gene and the replicate. We can separate these values into individua columns using `separate()`.
-
-```{r}
-# pivot longer then separate measurement column into genes and replicate
-th_expr_data <- mz_joined_data %>%
-  select(mouse_id, drug_dose_g, contains("Th_rep")) %>%
-  pivot_longer(cols = contains("Th_rep"), names_to = "measurement", values_to = "expression") %>%
-  separate(measurement, into = c("gene", "replicate"), sep = "_")
-
-th_expr_data
-```
-
-Seeing how the technical replicates appear to have a wide value of measurements for each mouse, for the technical replicates we will combine their values using `summarise()` by `mouse_id` to take mean expression across the three replicates.
-
-```{r}
-th_expr_data %>%
-  summarise(
-    expression = mean(expression),
-    .by = c(drug_dose_g, mouse_id)
-  ) %>%
-  ggplot(aes(x = drug_dose_g, y = expression)) +
+ggplot(mz_joined_data_longer, aes(x = drug_dose_g, y = expression, color = mouse_strain)) +
   geom_point() +
-  geom_smooth(method = "lm")
+  geom_smooth(method = "lm") +
+  facet_grid(cols = vars(mouse_strain), rows = vars(gene), scales = "free")
 ```
+Although very minor, there appears to be some effect of dosage on gene expression that is strain specific.
 
 ## Another case study - WHO tuberculosis data
 
@@ -542,6 +486,31 @@ who_tidy %>%
   geom_line()
 ```
 
+## Summary
+
+Today we learned about the concept of "tidy data". A particular form of tabular data that is particularly suitable for the tidyverse. It contains:
+
+- one variable per column
+- one observation per row
+- one value per cell
+
+We learned to reshape data frames using various functions powerful functions.
+
+- `pivot_wider()` reduces the number of rows and move information into new columns.
+- `pivot_longer()` reduces the number of columns and increase the number of rows. Moving the column names into a new column.
+- `separate()` separates multiple values encoded in a single column into individual columns based on a separator character.
+
+We learned to combine data frames using the `left_join()` function. This allows us to merge data frames together that have common columns, matching up the rows according to the shared column.
+
+- `left_join(left, right, by = shared_column)` takes two data frames and merges them based on the `shared_column` column. The information from the right data frame is added to the left if there is a match within the shared column.
+- `left_join(left, right, by = join_by(left_col_name == right_col_name))` can be used to join using columns from two data frames that encode the same values but have different column names
+
+We also learned some useful string manipulation functions that help us clean up data columns
+
+- `str_replace()` lets us replace patterns in a string
+- `str_remove()` lets us remove patterns in a string
+
+Together these make up a very versatile toolkit for transforming messy data you find in the wild into a tidy, more useful format to summarise information or produce plots with.
 
 <!-- :::::::::::::::::::: {.callout-important title="Practice exercises"} -->
 <!-- Try these practice questions to test your understanding -->
