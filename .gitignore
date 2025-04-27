@@ -4,3 +4,6 @@
 
 _book/
 .Rhistory
+workshop_data.zip
+data/Ses1_genes.tsv
+data/Ses1_homework.tsv

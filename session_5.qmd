@@ -38,6 +38,27 @@ Much of the materials here are explained in greater detail in the limma user's g
 - Pulling data out of `edgeR` package objects and re-organising it into a tidy format for use with `ggplot2`.
 :::
 
+## Data files
+
+You can download and unzip the files using the following commands
+
+```{r}
+download.file("https://github.com/Shians/BaseR_Intro/raw/master/data/workshop_data.zip", "workshop_data.zip")
+unzip("workshop_data.zip", exdir = "data")
+unzip("data/Ses3_counts.zip", exdir = "data/counts")
+```
+
+# R Packages
+
+Extra packages are required for later sessions, these can be downloaded by the following commands
+
+```{r}
+if (!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+
+BiocManager::install("RNAseq123")
+```
+
 ## Loading in read count data and annotation
 
 The data we are looking at comes from three cell populations (basal, luminal progenitor (LP) and mature luminal (ML)) sorted from the mammary glands of female virgin mice, each profiled in triplicate. These samples have been sequenced using Illumina RNAseq platforms and we will be using the `edgeR` package to analyse the data.
