@@ -25,7 +25,7 @@ book:
     - session_2.qmd
     - session_3.qmd
     - session_4.qmd
-    #- session_5.qmd
+    - session_5.qmd
     #- session_6.qmd
     - further_reading.qmd
     #- advanced_topics.qmd
