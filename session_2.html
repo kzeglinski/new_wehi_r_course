@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.6.43">
+<meta name="generator" content="quarto-1.7.29">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -21,8 +21,9 @@ ul.task-list li input[type="checkbox"] {
   vertical-align: middle;
 }
 /* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -33,7 +34,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -67,15 +68,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="./session_3.html" rel="next">
 <link href="./session_1.html" rel="prev">
 <link href="./favicon.ico" rel="icon">
-<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-ec15196d257545f34024b28906e3f52e.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-cc48a02baa7d92beca338a7447a78b59.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-24312aa3480259c3e15096488a9fa9d6.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-8b16d95f9cb9693e68e2bdbbe3456629.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <link href="site_libs/quarto-contrib/alpine-3.12/buttons.css" rel="stylesheet">
 <script src="site_libs/quarto-contrib/kbd/kbd.js"></script>
 <link href="site_libs/quarto-contrib/kbd/kbd.css" rel="stylesheet">
@@ -139,7 +141,7 @@ window.Quarto = {
 
 </head>
 
-<body class="nav-sidebar docked">
+<body class="nav-sidebar docked quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -216,6 +218,12 @@ window.Quarto = {
   <div class="sidebar-item-container"> 
   <a href="./session_5.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Session 5: RNA-seq part 1</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./session_6.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Session 6: RNA-seq part 2</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -2415,287 +2423,293 @@ Solutions
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
-window.document.addEventListener("DOMContentLoaded", function (event) {
-  const toggleBodyColorMode = (bsSheetEl) => {
-    const mode = bsSheetEl.getAttribute("data-mode");
-    const bodyEl = window.document.querySelector("body");
-    if (mode === "dark") {
-      bodyEl.classList.add("quarto-dark");
-      bodyEl.classList.remove("quarto-light");
-    } else {
-      bodyEl.classList.add("quarto-light");
-      bodyEl.classList.remove("quarto-dark");
-    }
-  }
-  const toggleBodyColorPrimary = () => {
-    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
-    if (bsSheetEl) {
-      toggleBodyColorMode(bsSheetEl);
-    }
-  }
-  toggleBodyColorPrimary();  
-  const icon = "";
-  const anchorJS = new window.AnchorJS();
-  anchorJS.options = {
-    placement: 'right',
-    icon: icon
-  };
-  anchorJS.add('.anchored');
-  const isCodeAnnotation = (el) => {
-    for (const clz of el.classList) {
-      if (clz.startsWith('code-annotation-')) {                     
-        return true;
-      }
-    }
-    return false;
-  }
-  const onCopySuccess = function(e) {
-    // button target
-    const button = e.trigger;
-    // don't keep focus
-    button.blur();
-    // flash "checked"
-    button.classList.add('code-copy-button-checked');
-    var currentTitle = button.getAttribute("title");
-    button.setAttribute("title", "Copied!");
-    let tooltip;
-    if (window.bootstrap) {
-      button.setAttribute("data-bs-toggle", "tooltip");
-      button.setAttribute("data-bs-placement", "left");
-      button.setAttribute("data-bs-title", "Copied!");
-      tooltip = new bootstrap.Tooltip(button, 
-        { trigger: "manual", 
-          customClass: "code-copy-button-tooltip",
-          offset: [0, -8]});
-      tooltip.show();    
-    }
-    setTimeout(function() {
-      if (tooltip) {
-        tooltip.hide();
-        button.removeAttribute("data-bs-title");
-        button.removeAttribute("data-bs-toggle");
-        button.removeAttribute("data-bs-placement");
-      }
-      button.setAttribute("title", currentTitle);
-      button.classList.remove('code-copy-button-checked');
-    }, 1000);
-    // clear code selection
-    e.clearSelection();
-  }
-  const getTextToCopy = function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-  }
-  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-    text: getTextToCopy
-  });
-  clipboard.on('success', onCopySuccess);
-  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-      text: getTextToCopy,
-      container: window.document.getElementById('quarto-embedded-source-code-modal')
-    });
-    clipboardModal.on('success', onCopySuccess);
-  }
-  const viewSource = window.document.getElementById('quarto-view-source') ||
-                     window.document.getElementById('quarto-code-tools-source');
-  if (viewSource) {
-    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
-    viewSource.addEventListener("click", function(e) {
-      if (sourceUrl) {
-        // rstudio viewer pane
-        if (/\bcapabilities=\b/.test(window.location)) {
-          window.open(sourceUrl);
-        } else {
-          window.location.href = sourceUrl;
-        }
-      } else {
-        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
-        modal.show();
-      }
-      return false;
-    });
-  }
-  function toggleCodeHandler(show) {
-    return function(e) {
-      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
-      for (let i=0; i<detailsSrc.length; i++) {
-        const details = detailsSrc[i].parentElement;
-        if (show) {
-          details.open = true;
-        } else {
-          details.removeAttribute("open");
-        }
-      }
-      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
-      const fromCls = show ? "hidden" : "unhidden";
-      const toCls = show ? "unhidden" : "hidden";
-      for (let i=0; i<cellCodeDivs.length; i++) {
-        const codeDiv = cellCodeDivs[i];
-        if (codeDiv.classList.contains(fromCls)) {
-          codeDiv.classList.remove(fromCls);
-          codeDiv.classList.add(toCls);
-        } 
-      }
-      return false;
-    }
-  }
-  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
-  if (hideAllCode) {
-    hideAllCode.addEventListener("click", toggleCodeHandler(false));
-  }
-  const showAllCode = window.document.getElementById("quarto-show-all-code");
-  if (showAllCode) {
-    showAllCode.addEventListener("click", toggleCodeHandler(true));
-  }
-    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-    var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp('/' + window.location.host + '/');
-    var isInternal = (href) => {
-        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-    }
-    // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-    for (var i=0; i<links.length; i++) {
-      const link = links[i];
-      if (!isInternal(link.href)) {
-        // undo the damage that might have been done by quarto-nav.js in the case of
-        // links that we want to consider external
-        if (link.dataset.originalHref !== undefined) {
-          link.href = link.dataset.originalHref;
-        }
-      }
-    }
-  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
-    const config = {
-      allowHTML: true,
-      maxWidth: 500,
-      delay: 100,
-      arrow: false,
-      appendTo: function(el) {
-          return el.parentElement;
-      },
-      interactive: true,
-      interactiveBorder: 10,
-      theme: 'quarto',
-      placement: 'bottom-start',
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
     };
-    if (contentFn) {
-      config.content = contentFn;
-    }
-    if (onTriggerFn) {
-      config.onTrigger = onTriggerFn;
-    }
-    if (onUntriggerFn) {
-      config.onUntrigger = onUntriggerFn;
-    }
-    window.tippy(el, config); 
-  }
-  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
-  for (var i=0; i<noterefs.length; i++) {
-    const ref = noterefs[i];
-    tippyHover(ref, function() {
-      // use id or data attribute instead here
-      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
-      try { href = new URL(href).hash; } catch {}
-      const id = href.replace(/^#\/?/, "");
-      const note = window.document.getElementById(id);
-      if (note) {
-        return note.innerHTML;
-      } else {
-        return "";
-      }
-    });
-  }
-  const xrefs = window.document.querySelectorAll('a.quarto-xref');
-  const processXRef = (id, note) => {
-    // Strip column container classes
-    const stripColumnClz = (el) => {
-      el.classList.remove("page-full", "page-columns");
-      if (el.children) {
-        for (const child of el.children) {
-          stripColumnClz(child);
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
         }
       }
+      return false;
     }
-    stripColumnClz(note)
-    if (id === null || id.startsWith('sec-')) {
-      // Special case sections, only their first couple elements
-      const container = document.createElement("div");
-      if (note.children && note.children.length > 2) {
-        container.appendChild(note.children[0].cloneNode(true));
-        for (let i = 1; i < note.children.length; i++) {
-          const child = note.children[i];
-          if (child.tagName === "P" && child.innerText === "") {
-            continue;
-          } else {
-            container.appendChild(child.cloneNode(true));
-            break;
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
           }
         }
-        if (window.Quarto?.typesetMath) {
-          window.Quarto.typesetMath(container);
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+    const viewSource = window.document.getElementById('quarto-view-source') ||
+                       window.document.getElementById('quarto-code-tools-source');
+    if (viewSource) {
+      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+      viewSource.addEventListener("click", function(e) {
+        if (sourceUrl) {
+          // rstudio viewer pane
+          if (/\bcapabilities=\b/.test(window.location)) {
+            window.open(sourceUrl);
+          } else {
+            window.location.href = sourceUrl;
+          }
+        } else {
+          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+          modal.show();
         }
-        return container.innerHTML
+        return false;
+      });
+    }
+    function toggleCodeHandler(show) {
+      return function(e) {
+        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+        for (let i=0; i<detailsSrc.length; i++) {
+          const details = detailsSrc[i].parentElement;
+          if (show) {
+            details.open = true;
+          } else {
+            details.removeAttribute("open");
+          }
+        }
+        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+        const fromCls = show ? "hidden" : "unhidden";
+        const toCls = show ? "unhidden" : "hidden";
+        for (let i=0; i<cellCodeDivs.length; i++) {
+          const codeDiv = cellCodeDivs[i];
+          if (codeDiv.classList.contains(fromCls)) {
+            codeDiv.classList.remove(fromCls);
+            codeDiv.classList.add(toCls);
+          } 
+        }
+        return false;
+      }
+    }
+    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+    if (hideAllCode) {
+      hideAllCode.addEventListener("click", toggleCodeHandler(false));
+    }
+    const showAllCode = window.document.getElementById("quarto-show-all-code");
+    if (showAllCode) {
+      showAllCode.addEventListener("click", toggleCodeHandler(true));
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
       } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
         if (window.Quarto?.typesetMath) {
           window.Quarto.typesetMath(note);
         }
-        return note.innerHTML;
-      }
-    } else {
-      // Remove any anchor links if they are present
-      const anchorLink = note.querySelector('a.anchorjs-link');
-      if (anchorLink) {
-        anchorLink.remove();
-      }
-      if (window.Quarto?.typesetMath) {
-        window.Quarto.typesetMath(note);
-      }
-      if (note.classList.contains("callout")) {
-        return note.outerHTML;
-      } else {
-        return note.innerHTML;
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
       }
     }
-  }
-  for (var i=0; i<xrefs.length; i++) {
-    const xref = xrefs[i];
-    tippyHover(xref, undefined, function(instance) {
-      instance.disable();
-      let url = xref.getAttribute('href');
-      let hash = undefined; 
-      if (url.startsWith('#')) {
-        hash = url;
-      } else {
-        try { hash = new URL(url).hash; } catch {}
-      }
-      if (hash) {
-        const id = hash.replace(/^#\/?/, "");
-        const note = window.document.getElementById(id);
-        if (note !== null) {
-          try {
-            const html = processXRef(id, note.cloneNode(true));
-            instance.setContent(html);
-          } finally {
-            instance.enable();
-            instance.show();
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
           }
         } else {
-          // See if we can fetch this
-          fetch(url.split('#')[0])
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
           .then(res => res.text())
           .then(html => {
             const parser = new DOMParser();
             const htmlDoc = parser.parseFromString(html, "text/html");
-            const note = htmlDoc.getElementById(id);
+            const note = htmlDoc.querySelector('main.content');
             if (note !== null) {
-              const html = processXRef(id, note);
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
               instance.setContent(html);
             } 
           }).finally(() => {
@@ -2703,185 +2717,161 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             instance.show();
           });
         }
-      } else {
-        // See if we can fetch a full url (with no hash to target)
-        // This is a special case and we should probably do some content thinning / targeting
-        fetch(url)
-        .then(res => res.text())
-        .then(html => {
-          const parser = new DOMParser();
-          const htmlDoc = parser.parseFromString(html, "text/html");
-          const note = htmlDoc.querySelector('main.content');
-          if (note !== null) {
-            // This should only happen for chapter cross references
-            // (since there is no id in the URL)
-            // remove the first header
-            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
-              note.children[0].remove();
-            }
-            const html = processXRef(null, note);
-            instance.setContent(html);
-          } 
-        }).finally(() => {
-          instance.enable();
-          instance.show();
-        });
-      }
-    }, function(instance) {
-    });
-  }
-      let selectedAnnoteEl;
-      const selectorForAnnotation = ( cell, annotation) => {
-        let cellAttr = 'data-code-cell="' + cell + '"';
-        let lineAttr = 'data-code-annotation="' +  annotation + '"';
-        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
-        return selector;
-      }
-      const selectCodeLines = (annoteEl) => {
-        const doc = window.document;
-        const targetCell = annoteEl.getAttribute("data-target-cell");
-        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
-        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
-        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
-        const lineIds = lines.map((line) => {
-          return targetCell + "-" + line;
-        })
-        let top = null;
-        let height = null;
-        let parent = null;
-        if (lineIds.length > 0) {
-            //compute the position of the single el (top and bottom and make a div)
-            const el = window.document.getElementById(lineIds[0]);
-            top = el.offsetTop;
-            height = el.offsetHeight;
-            parent = el.parentElement.parentElement;
-          if (lineIds.length > 1) {
-            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
-            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
-            height = bottom - top;
-          }
-          if (top !== null && height !== null && parent !== null) {
-            // cook up a div (if necessary) and position it 
-            let div = window.document.getElementById("code-annotation-line-highlight");
-            if (div === null) {
-              div = window.document.createElement("div");
-              div.setAttribute("id", "code-annotation-line-highlight");
-              div.style.position = 'absolute';
-              parent.appendChild(div);
-            }
-            div.style.top = top - 2 + "px";
-            div.style.height = height + 4 + "px";
-            div.style.left = 0;
-            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
-            if (gutterDiv === null) {
-              gutterDiv = window.document.createElement("div");
-              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
-              gutterDiv.style.position = 'absolute';
-              const codeCell = window.document.getElementById(targetCell);
-              const gutter = codeCell.querySelector('.code-annotation-gutter');
-              gutter.appendChild(gutterDiv);
-            }
-            gutterDiv.style.top = top - 2 + "px";
-            gutterDiv.style.height = height + 4 + "px";
-          }
-          selectedAnnoteEl = annoteEl;
-        }
-      };
-      const unselectCodeLines = () => {
-        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
-        elementsIds.forEach((elId) => {
-          const div = window.document.getElementById(elId);
-          if (div) {
-            div.remove();
-          }
-        });
-        selectedAnnoteEl = undefined;
-      };
-        // Handle positioning of the toggle
-    window.addEventListener(
-      "resize",
-      throttle(() => {
-        elRect = undefined;
-        if (selectedAnnoteEl) {
-          selectCodeLines(selectedAnnoteEl);
-        }
-      }, 10)
-    );
-    function throttle(fn, ms) {
-    let throttle = false;
-    let timer;
-      return (...args) => {
-        if(!throttle) { // first call gets through
-            fn.apply(this, args);
-            throttle = true;
-        } else { // all the others get throttled
-            if(timer) clearTimeout(timer); // cancel #2
-            timer = setTimeout(() => {
-              fn.apply(this, args);
-              timer = throttle = false;
-            }, ms);
-        }
-      };
-    }
-      // Attach click handler to the DT
-      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
-      for (const annoteDlNode of annoteDls) {
-        annoteDlNode.addEventListener('click', (event) => {
-          const clickedEl = event.target;
-          if (clickedEl !== selectedAnnoteEl) {
-            unselectCodeLines();
-            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
-            if (activeEl) {
-              activeEl.classList.remove('code-annotation-active');
-            }
-            selectCodeLines(clickedEl);
-            clickedEl.classList.add('code-annotation-active');
-          } else {
-            // Unselect the line
-            unselectCodeLines();
-            clickedEl.classList.remove('code-annotation-active');
-          }
-        });
-      }
-  const findCites = (el) => {
-    const parentEl = el.parentElement;
-    if (parentEl) {
-      const cites = parentEl.dataset.cites;
-      if (cites) {
-        return {
-          el,
-          cites: cites.split(' ')
-        };
-      } else {
-        return findCites(el.parentElement)
-      }
-    } else {
-      return undefined;
-    }
-  };
-  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-  for (var i=0; i<bibliorefs.length; i++) {
-    const ref = bibliorefs[i];
-    const citeInfo = findCites(ref);
-    if (citeInfo) {
-      tippyHover(citeInfo.el, function() {
-        var popup = window.document.createElement('div');
-        citeInfo.cites.forEach(function(cite) {
-          var citeDiv = window.document.createElement('div');
-          citeDiv.classList.add('hanging-indent');
-          citeDiv.classList.add('csl-entry');
-          var biblioDiv = window.document.getElementById('ref-' + cite);
-          if (biblioDiv) {
-            citeDiv.innerHTML = biblioDiv.innerHTML;
-          }
-          popup.appendChild(citeDiv);
-        });
-        return popup.innerHTML;
+      }, function(instance) {
       });
     }
-  }
-});
-</script>
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./session_1.html" class="pagination-link" aria-label="Session 1: Introduction to R">
@@ -3014,18 +3004,18 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb120-126"><a href="#cb120-126" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb120-127"><a href="#cb120-127" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb120-128"><a href="#cb120-128" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb120-129"><a href="#cb120-129" aria-hidden="true" tabindex="-1"></a>&lt;details&gt;</span>
+<span id="cb120-129"><a href="#cb120-129" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">details</span><span class="dt">&gt;</span></span>
 <span id="cb120-130"><a href="#cb120-130" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb120-131"><a href="#cb120-131" aria-hidden="true" tabindex="-1"></a>&lt;summary&gt;Solutions&lt;/summary&gt;</span>
+<span id="cb120-131"><a href="#cb120-131" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">summary</span><span class="dt">&gt;</span>Solutions<span class="dt">&lt;/</span><span class="kw">summary</span><span class="dt">&gt;</span></span>
 <span id="cb120-132"><a href="#cb120-132" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb120-133"><a href="#cb120-133" aria-hidden="true" tabindex="-1"></a>&lt;p&gt;</span>
+<span id="cb120-133"><a href="#cb120-133" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">p</span><span class="dt">&gt;</span></span>
 <span id="cb120-134"><a href="#cb120-134" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb120-135"><a href="#cb120-135" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>The invalid option is <span class="in">`sum(1:10) %&gt;% sqrt(1) %&gt;% round()`</span>. This is because the <span class="in">`sqrt()`</span> function only takes one argument, so you can't specify <span class="in">`1`</span> as an argument in addition to what is being piped in from <span class="in">`sum(1:10)`</span>. Note that some options used the pipe to send <span class="in">`1:10`</span> to <span class="in">`sum()`</span> (like <span class="in">`1:10 %&gt;% sum()`</span>), and others just used <span class="in">`sum(1:10)`</span> directly. Both are valid ways to use the pipe, it's just a matter of personal preference.</span>
 <span id="cb120-136"><a href="#cb120-136" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>The output of the code <span class="in">`letters %&gt;% head() %&gt;% toupper()`</span> is <span class="in">`"A" "B" "C" "D" "E" "F"`</span>. The <span class="in">`letters`</span> vector contains the lowercase alphabet, and the <span class="in">`head()`</span> function returns the first 6 elements of the vector. Finally, the <span class="in">`toupper()`</span> function then converts these elements to uppercase.</span>
 <span id="cb120-137"><a href="#cb120-137" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb120-138"><a href="#cb120-138" aria-hidden="true" tabindex="-1"></a>&lt;/p&gt;</span>
+<span id="cb120-138"><a href="#cb120-138" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">p</span><span class="dt">&gt;</span></span>
 <span id="cb120-139"><a href="#cb120-139" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb120-140"><a href="#cb120-140" aria-hidden="true" tabindex="-1"></a>&lt;/details&gt;</span>
+<span id="cb120-140"><a href="#cb120-140" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">details</span><span class="dt">&gt;</span></span>
 <span id="cb120-141"><a href="#cb120-141" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb120-142"><a href="#cb120-142" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb120-143"><a href="#cb120-143" aria-hidden="true" tabindex="-1"></a></span>
@@ -3265,9 +3255,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb120-403"><a href="#cb120-403" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb120-404"><a href="#cb120-404" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb120-405"><a href="#cb120-405" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb120-406"><a href="#cb120-406" aria-hidden="true" tabindex="-1"></a>&lt;details&gt;</span>
+<span id="cb120-406"><a href="#cb120-406" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">details</span><span class="dt">&gt;</span></span>
 <span id="cb120-407"><a href="#cb120-407" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb120-408"><a href="#cb120-408" aria-hidden="true" tabindex="-1"></a>&lt;summary&gt;Solutions&lt;/summary&gt;</span>
+<span id="cb120-408"><a href="#cb120-408" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">summary</span><span class="dt">&gt;</span>Solutions<span class="dt">&lt;/</span><span class="kw">summary</span><span class="dt">&gt;</span></span>
 <span id="cb120-409"><a href="#cb120-409" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb120-410"><a href="#cb120-410" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>The correct code to sort the <span class="in">`mousezempic_dosage_data`</span> data frame from biggest to smallest initial weight is <span class="in">`mousezempic_dosage_data %&gt;% arrange(desc(initial_weight_g))`</span>. The <span class="in">`arrange()`</span> function is used to sort the data frame (although there is a <span class="in">`sort()`</span> function in R, that's not part of dplyr and won't work the same way), and the <span class="in">`desc()`</span> function is used to sort in descending order.</span>
 <span id="cb120-411"><a href="#cb120-411" aria-hidden="true" tabindex="-1"></a></span>
@@ -3275,7 +3265,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb120-413"><a href="#cb120-413" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb120-414"><a href="#cb120-414" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>The comment that is messing up the code is Comment B. The <span class="in">`#`</span> symbol is before the pipe operator <span class="in">`%&gt;%`</span>, so R treats it as part of the comment and this breaks our chain of pipes. The other comments are fine, because they are either at the end of the line or on their own line. Basically, if a comment is changing the colour of the pipe operator (or any other bits of your code), it's in the wrong place!</span>
 <span id="cb120-415"><a href="#cb120-415" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb120-416"><a href="#cb120-416" aria-hidden="true" tabindex="-1"></a>&lt;/details&gt;</span>
+<span id="cb120-416"><a href="#cb120-416" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">details</span><span class="dt">&gt;</span></span>
 <span id="cb120-417"><a href="#cb120-417" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb120-418"><a href="#cb120-418" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb120-419"><a href="#cb120-419" aria-hidden="true" tabindex="-1"></a></span>
@@ -3411,9 +3401,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb120-563"><a href="#cb120-563" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb120-564"><a href="#cb120-564" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb120-565"><a href="#cb120-565" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb120-566"><a href="#cb120-566" aria-hidden="true" tabindex="-1"></a>&lt;details&gt;</span>
+<span id="cb120-566"><a href="#cb120-566" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">details</span><span class="dt">&gt;</span></span>
 <span id="cb120-567"><a href="#cb120-567" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb120-568"><a href="#cb120-568" aria-hidden="true" tabindex="-1"></a>&lt;summary&gt;Solutions&lt;/summary&gt;</span>
+<span id="cb120-568"><a href="#cb120-568" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">summary</span><span class="dt">&gt;</span>Solutions<span class="dt">&lt;/</span><span class="kw">summary</span><span class="dt">&gt;</span></span>
 <span id="cb120-569"><a href="#cb120-569" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb120-570"><a href="#cb120-570" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>The correct code to filter the <span class="in">`mousezempic_dosage_data`</span> data frame to only include mice from replicate 2 is <span class="in">`mousezempic_dosage_data %&gt;% filter(replicate == "rep2")`</span>. Option A is incorrect because <span class="in">`2`</span> is not a value of <span class="in">`replicate`</span> (when filtering you need to know what values are actually in your columns! So make sure to <span class="in">`View()`</span> your data first). Option B is incorrect because the replicate column is a character column, so you need to use quotes around the value you are filtering on. Option D is incorrect because <span class="in">`=`</span> is not the correct way to test for equality, you need to use <span class="in">`==`</span>.</span>
 <span id="cb120-571"><a href="#cb120-571" aria-hidden="true" tabindex="-1"></a></span>
@@ -3421,7 +3411,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb120-573"><a href="#cb120-573" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb120-574"><a href="#cb120-574" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>The correct description of the code is that it filters the data frame to only include mice from the "BALB C" and "Black 6" strains, then filters those further to only those that lost between 3 and 5g of weight, and finally sorts the data frame by drug dose in descending order.</span>
 <span id="cb120-575"><a href="#cb120-575" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb120-576"><a href="#cb120-576" aria-hidden="true" tabindex="-1"></a>&lt;/details&gt;</span>
+<span id="cb120-576"><a href="#cb120-576" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">details</span><span class="dt">&gt;</span></span>
 <span id="cb120-577"><a href="#cb120-577" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb120-578"><a href="#cb120-578" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb120-579"><a href="#cb120-579" aria-hidden="true" tabindex="-1"></a><span class="fu">### Dealing with missing values {#sec-missing}</span></span>
@@ -3559,19 +3549,19 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb120-723"><a href="#cb120-723" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb120-724"><a href="#cb120-724" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb120-725"><a href="#cb120-725" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb120-726"><a href="#cb120-726" aria-hidden="true" tabindex="-1"></a>&lt;details&gt;</span>
+<span id="cb120-726"><a href="#cb120-726" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">details</span><span class="dt">&gt;</span></span>
 <span id="cb120-727"><a href="#cb120-727" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb120-728"><a href="#cb120-728" aria-hidden="true" tabindex="-1"></a>&lt;summary&gt;Solutions&lt;/summary&gt;</span>
+<span id="cb120-728"><a href="#cb120-728" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">summary</span><span class="dt">&gt;</span>Solutions<span class="dt">&lt;/</span><span class="kw">summary</span><span class="dt">&gt;</span></span>
 <span id="cb120-729"><a href="#cb120-729" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb120-730"><a href="#cb120-730" aria-hidden="true" tabindex="-1"></a>&lt;p&gt;</span>
+<span id="cb120-730"><a href="#cb120-730" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">p</span><span class="dt">&gt;</span></span>
 <span id="cb120-731"><a href="#cb120-731" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb120-732"><a href="#cb120-732" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>The result of running the code <span class="in">`mean(c(1, 2, 4, NA))`</span> is <span class="in">`NA`</span>. This is because the <span class="in">`NA`</span> value is 'contagious', so when you try to calculate the mean of a vector that contains an <span class="in">`NA`</span>, the result will also be <span class="in">`NA`</span>. If we wanted to calculate the mean of the vector without the <span class="in">`NA`</span>, we would need to use the <span class="in">`na.rm = TRUE`</span> argument.</span>
 <span id="cb120-733"><a href="#cb120-733" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>The correct line of code to filter the <span class="in">`mousezempic_dosage_data`</span> data frame to remove mice that have a missing value in the <span class="in">`tail_length_mm`</span> column is <span class="in">`mousezempic_dosage_data %&gt;% filter(!is.na(tail_length_mm))`</span>. The <span class="in">`!`</span> symbol is used to negate the result of <span class="in">`is.na()`</span>, so we are filtering to keep the rows where <span class="in">`tail_length_mm`</span> is not <span class="in">`NA`</span>. We can't use the first option with the <span class="in">`!= NA`</span> because <span class="in">`NA`</span> is a special value in R that represents missing data, and it can't be compared to anything, and the third option is incorrect because <span class="in">`na.omit()`</span> removes entire rows with missing values, rather than just filtering based on a single column.</span>
 <span id="cb120-734"><a href="#cb120-734" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>The correct line of code to replace missing values in the <span class="in">`initial_weight_g`</span> column with the value 35 is <span class="in">`mousezempic_dosage_data %&gt;% replace_na(list(initial_weight_g = 35))`</span>. The <span class="in">`replace_na()`</span> function takes a <span class="in">`list()`</span> that contains the column names you want to replace and the values you want to replace them with. We only need to use a single equal sign here as we're not testing for equality, we're assigning a value.</span>
 <span id="cb120-735"><a href="#cb120-735" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb120-736"><a href="#cb120-736" aria-hidden="true" tabindex="-1"></a>&lt;/p&gt;</span>
+<span id="cb120-736"><a href="#cb120-736" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">p</span><span class="dt">&gt;</span></span>
 <span id="cb120-737"><a href="#cb120-737" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb120-738"><a href="#cb120-738" aria-hidden="true" tabindex="-1"></a>&lt;/details&gt;</span>
+<span id="cb120-738"><a href="#cb120-738" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">details</span><span class="dt">&gt;</span></span>
 <span id="cb120-739"><a href="#cb120-739" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb120-740"><a href="#cb120-740" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb120-741"><a href="#cb120-741" aria-hidden="true" tabindex="-1"></a><span class="fu">### Selecting columns {#sec-select}</span></span>
@@ -3599,19 +3589,19 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb120-767"><a href="#cb120-767" aria-hidden="true" tabindex="-1"></a>There are also some helper functions that can be used to select columns based on their names :</span>
 <span id="cb120-768"><a href="#cb120-768" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb120-769"><a href="#cb120-769" aria-hidden="true" tabindex="-1"></a>+-----------------+---------------------------------------------------+-------------------------------------------------+</span>
-<span id="cb120-770"><a href="#cb120-770" aria-hidden="true" tabindex="-1"></a>| Function        | Description                                       | Example                                         |</span>
-<span id="cb120-771"><a href="#cb120-771" aria-hidden="true" tabindex="-1"></a>+=================+===================================================+=================================================+</span>
-<span id="cb120-772"><a href="#cb120-772" aria-hidden="true" tabindex="-1"></a>| <span class="in">`starts_with()`</span> | select column(s) that start with a certain string | select all columns starting with the letter i   |</span>
-<span id="cb120-773"><a href="#cb120-773" aria-hidden="true" tabindex="-1"></a>|                 |                                                   |                                                 |</span>
-<span id="cb120-774"><a href="#cb120-774" aria-hidden="true" tabindex="-1"></a>|                 |                                                   | <span class="in">`select(starts_with("i"))`</span>                      |</span>
+<span id="cb120-770"><a href="#cb120-770" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Function        <span class="pp">|</span> Description                                       <span class="pp">|</span> Example                                         <span class="pp">|</span></span>
+<span id="cb120-771"><a href="#cb120-771" aria-hidden="true" tabindex="-1"></a>+===============<span class="al">==+===================================================+==</span>===============================================+</span>
+<span id="cb120-772"><a href="#cb120-772" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`starts_with()`</span> <span class="pp">|</span> select column(s) that start with a certain string <span class="pp">|</span> select all columns starting with the letter i   <span class="pp">|</span></span>
+<span id="cb120-773"><a href="#cb120-773" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                 <span class="pp">|</span>                                                   <span class="pp">|</span>                                                 <span class="pp">|</span></span>
+<span id="cb120-774"><a href="#cb120-774" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                 <span class="pp">|</span>                                                   <span class="pp">|</span> <span class="in">`select(starts_with("i"))`</span>                      <span class="pp">|</span></span>
 <span id="cb120-775"><a href="#cb120-775" aria-hidden="true" tabindex="-1"></a>+-----------------+---------------------------------------------------+-------------------------------------------------+</span>
-<span id="cb120-776"><a href="#cb120-776" aria-hidden="true" tabindex="-1"></a>| <span class="in">`ends_with()`</span>   | select column(s) that end with a certain string   | select all columns ending with <span class="sc">\_</span>g              |</span>
-<span id="cb120-777"><a href="#cb120-777" aria-hidden="true" tabindex="-1"></a>|                 |                                                   |                                                 |</span>
-<span id="cb120-778"><a href="#cb120-778" aria-hidden="true" tabindex="-1"></a>|                 |                                                   | <span class="in">`select(ends_with("_g"))`</span>                       |</span>
+<span id="cb120-776"><a href="#cb120-776" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`ends_with()`</span>   <span class="pp">|</span> select column(s) that end with a certain string   <span class="pp">|</span> select all columns ending with <span class="sc">\_</span>g              <span class="pp">|</span></span>
+<span id="cb120-777"><a href="#cb120-777" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                 <span class="pp">|</span>                                                   <span class="pp">|</span>                                                 <span class="pp">|</span></span>
+<span id="cb120-778"><a href="#cb120-778" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                 <span class="pp">|</span>                                                   <span class="pp">|</span> <span class="in">`select(ends_with("_g"))`</span>                       <span class="pp">|</span></span>
 <span id="cb120-779"><a href="#cb120-779" aria-hidden="true" tabindex="-1"></a>+-----------------+---------------------------------------------------+-------------------------------------------------+</span>
-<span id="cb120-780"><a href="#cb120-780" aria-hidden="true" tabindex="-1"></a>| <span class="in">`contains()`</span>    | select column(s) that contain a certain string    | select all columns containing the word 'weight' |</span>
-<span id="cb120-781"><a href="#cb120-781" aria-hidden="true" tabindex="-1"></a>|                 |                                                   |                                                 |</span>
-<span id="cb120-782"><a href="#cb120-782" aria-hidden="true" tabindex="-1"></a>|                 |                                                   | <span class="in">`select(contains("weight"))`</span>                    |</span>
+<span id="cb120-780"><a href="#cb120-780" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`contains()`</span>    <span class="pp">|</span> select column(s) that contain a certain string    <span class="pp">|</span> select all columns containing the word 'weight' <span class="pp">|</span></span>
+<span id="cb120-781"><a href="#cb120-781" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                 <span class="pp">|</span>                                                   <span class="pp">|</span>                                                 <span class="pp">|</span></span>
+<span id="cb120-782"><a href="#cb120-782" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                 <span class="pp">|</span>                                                   <span class="pp">|</span> <span class="in">`select(contains("weight"))`</span>                    <span class="pp">|</span></span>
 <span id="cb120-783"><a href="#cb120-783" aria-hidden="true" tabindex="-1"></a>+-----------------+---------------------------------------------------+-------------------------------------------------+</span>
 <span id="cb120-784"><a href="#cb120-784" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb120-785"><a href="#cb120-785" aria-hidden="true" tabindex="-1"></a>: There are several helper functions that can be used with the select function</span>
@@ -3762,19 +3752,19 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb120-942"><a href="#cb120-942" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb120-943"><a href="#cb120-943" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb120-944"><a href="#cb120-944" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb120-945"><a href="#cb120-945" aria-hidden="true" tabindex="-1"></a>&lt;details&gt;</span>
+<span id="cb120-945"><a href="#cb120-945" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">details</span><span class="dt">&gt;</span></span>
 <span id="cb120-946"><a href="#cb120-946" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb120-947"><a href="#cb120-947" aria-hidden="true" tabindex="-1"></a>&lt;summary&gt;Solutions&lt;/summary&gt;</span>
+<span id="cb120-947"><a href="#cb120-947" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">summary</span><span class="dt">&gt;</span>Solutions<span class="dt">&lt;/</span><span class="kw">summary</span><span class="dt">&gt;</span></span>
 <span id="cb120-948"><a href="#cb120-948" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb120-949"><a href="#cb120-949" aria-hidden="true" tabindex="-1"></a>&lt;p&gt;</span>
+<span id="cb120-949"><a href="#cb120-949" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">p</span><span class="dt">&gt;</span></span>
 <span id="cb120-950"><a href="#cb120-950" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb120-951"><a href="#cb120-951" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>The line of code that would NOT be a valid way to select the <span class="in">`drug_dose_g`</span>, <span class="in">`initial_weight_g`</span>, and <span class="in">`weight_lost_g`</span> columns from the <span class="in">`mousezempic_dosage_data`</span> data frame is <span class="in">`mousezempic_dosage_data %&gt;% select(contains("g"))`</span>. This line of code would select all columns that contain the letter 'g', which would include columns like <span class="in">`cage_number`</span> and <span class="in">`tail_length_mm`</span>. We need to specify either <span class="in">`ends_with("g")`</span> or <span class="in">`contains("_g")`</span> to only get those with <span class="in">`_g`</span> at the end. The other options are valid ways to select the specified columns, although some are more efficient than others!</span>
 <span id="cb120-952"><a href="#cb120-952" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>The correct way to extract the <span class="in">`initial_weight_g`</span> column from the <span class="in">`mousezempic_dosage_data`</span> data frame as a vector is <span class="in">`mousezempic_dosage_data %&gt;% pull(initial_weight_g)`</span>. The <span class="in">`pull()`</span> function is used to extract a single column from a data frame as a vector. The other options are incorrect because <span class="in">`filter()`</span> is used to subset rows, <span class="in">`$`</span> is not used in a pipe chain, and <span class="in">`select()`</span> is outputs a data frame, not extract them as vectors.</span>
 <span id="cb120-953"><a href="#cb120-953" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>The correct way to move the <span class="in">`sex`</span> column to the end of the <span class="in">`mousezempic_dosage_data`</span> data frame is using the <span class="in">`relocate()`</span> function like this: <span class="in">`mousezempic_dosage_data %&gt;% relocate(sex, .after = last_col())`</span>. The <span class="in">`last_col()`</span> function is used to refer to the last column in the data frame. The other options are incorrect because <span class="in">`reorder()`</span> is not a valid function, and you need to remember to include the brackets <span class="in">`()`</span> when using <span class="in">`last_col()`</span>.</span>
 <span id="cb120-954"><a href="#cb120-954" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb120-955"><a href="#cb120-955" aria-hidden="true" tabindex="-1"></a>&lt;/p&gt;</span>
+<span id="cb120-955"><a href="#cb120-955" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">p</span><span class="dt">&gt;</span></span>
 <span id="cb120-956"><a href="#cb120-956" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb120-957"><a href="#cb120-957" aria-hidden="true" tabindex="-1"></a>&lt;/details&gt;</span>
+<span id="cb120-957"><a href="#cb120-957" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">details</span><span class="dt">&gt;</span></span>
 <span id="cb120-958"><a href="#cb120-958" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb120-959"><a href="#cb120-959" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb120-960"><a href="#cb120-960" aria-hidden="true" tabindex="-1"></a><span class="fu">### Modifying data {#sec-mutate}</span></span>
@@ -3974,20 +3964,20 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb120-1170"><a href="#cb120-1170" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb120-1171"><a href="#cb120-1171" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb120-1172"><a href="#cb120-1172" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb120-1173"><a href="#cb120-1173" aria-hidden="true" tabindex="-1"></a>&lt;details&gt;</span>
+<span id="cb120-1173"><a href="#cb120-1173" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">details</span><span class="dt">&gt;</span></span>
 <span id="cb120-1174"><a href="#cb120-1174" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb120-1175"><a href="#cb120-1175" aria-hidden="true" tabindex="-1"></a>&lt;summary&gt;Solutions&lt;/summary&gt;</span>
+<span id="cb120-1175"><a href="#cb120-1175" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">summary</span><span class="dt">&gt;</span>Solutions<span class="dt">&lt;/</span><span class="kw">summary</span><span class="dt">&gt;</span></span>
 <span id="cb120-1176"><a href="#cb120-1176" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb120-1177"><a href="#cb120-1177" aria-hidden="true" tabindex="-1"></a>&lt;p&gt;</span>
+<span id="cb120-1177"><a href="#cb120-1177" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">p</span><span class="dt">&gt;</span></span>
 <span id="cb120-1178"><a href="#cb120-1178" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb120-1179"><a href="#cb120-1179" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>The correct line of code to add a new column to the <span class="in">`mousezempic_dosage_data`</span> data frame that converts the <span class="in">`tail_length_mm`</span> column to cm is <span class="in">`mousezempic_dosage_data %&gt;% mutate(tail_length_cm = tail_length_mm / 10)`</span>.</span>
 <span id="cb120-1180"><a href="#cb120-1180" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>The code <span class="in">`mousezempic_dosage_data %&gt;% arrange(desc(weight_lost_g)) %&gt;% mutate(weight_lost_rank = row_number())`</span> adds a new column to the data frame that ranks the mice based on how much weight they lost, with 1 being the mouse that lost the most weight. First, the <span class="in">`arrange(desc(weight_lost_g))`</span> function sorts the data frame by the <span class="in">`weight_lost_g`</span> column in descending order, and then the <span class="in">`mutate(weight_lost_rank = row_number())`</span> function adds a new column that assigns a rank to each row based on its position (row number) in the sorted data frame.</span>
 <span id="cb120-1181"><a href="#cb120-1181" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>The error is that the conditions in the <span class="in">`case_when()`</span> function are not separated by commas. Each condition should be followed by a comma because these are like the arguments in a function. Remeber that it's optional to include the <span class="in">`.default =`</span> condition at the end of the <span class="in">`case_when()`</span> function.</span>
 <span id="cb120-1182"><a href="#cb120-1182" aria-hidden="true" tabindex="-1"></a><span class="ss">4.  </span>The code <span class="in">`mousezempic_dosage_data %&gt;% mutate(mouse_strain = case_when(mouse_strain == "Black 6" ~ "B6", .default = mouse_strain))`</span> modifies the <span class="in">`mouse_strain`</span> column so that any mice from the "Black 6" strain are now called "B6", and all other strains are left unchanged. As we are calling our column <span class="in">`mouse_strain`</span>, no new column is being created (we are modifying the existing one) and the <span class="in">`.default = mouse_strain`</span> condition acts as a fallback to keep the original values (that already exist in the <span class="in">`mouse_strain`</span> column) for any rows that don't match our first condition (strain being "Black 6").</span>
 <span id="cb120-1183"><a href="#cb120-1183" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb120-1184"><a href="#cb120-1184" aria-hidden="true" tabindex="-1"></a>&lt;/p&gt;</span>
+<span id="cb120-1184"><a href="#cb120-1184" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">p</span><span class="dt">&gt;</span></span>
 <span id="cb120-1185"><a href="#cb120-1185" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb120-1186"><a href="#cb120-1186" aria-hidden="true" tabindex="-1"></a>&lt;/details&gt;</span>
+<span id="cb120-1186"><a href="#cb120-1186" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">details</span><span class="dt">&gt;</span></span>
 <span id="cb120-1187"><a href="#cb120-1187" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb120-1188"><a href="#cb120-1188" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb120-1189"><a href="#cb120-1189" aria-hidden="true" tabindex="-1"></a><span class="fu">### Summarising data {#sec-summarise}</span></span>
@@ -4071,15 +4061,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb120-1273"><a href="#cb120-1273" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb120-1274"><a href="#cb120-1274" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb120-1275"><a href="#cb120-1275" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb120-1276"><a href="#cb120-1276" aria-hidden="true" tabindex="-1"></a>&lt;details&gt;</span>
+<span id="cb120-1276"><a href="#cb120-1276" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">details</span><span class="dt">&gt;</span></span>
 <span id="cb120-1277"><a href="#cb120-1277" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb120-1278"><a href="#cb120-1278" aria-hidden="true" tabindex="-1"></a>&lt;summary&gt;Solutions&lt;/summary&gt;</span>
+<span id="cb120-1278"><a href="#cb120-1278" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">summary</span><span class="dt">&gt;</span>Solutions<span class="dt">&lt;/</span><span class="kw">summary</span><span class="dt">&gt;</span></span>
 <span id="cb120-1279"><a href="#cb120-1279" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb120-1280"><a href="#cb120-1280" aria-hidden="true" tabindex="-1"></a>1<span class="sc">\.</span> The code **produces a data frame** containing one column for each of the average, minimum, and maximum tail length of the mice in the <span class="in">`mousezempic_dosage_data`</span> data frame.</span>
 <span id="cb120-1281"><a href="#cb120-1281" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb120-1282"><a href="#cb120-1282" aria-hidden="true" tabindex="-1"></a>2<span class="sc">\.</span> The line of code that is NOT a valid way to calculate the mean weight lost by the mice in the <span class="in">`mousezempic_dosage_data`</span> data frame is <span class="in">`mousezempic_dosage_data %&gt;% mean(weight_lost_g, na.rm = TRUE)`</span>. This line of code is incorrect because the <span class="in">`mean()`</span> function is being used directly on the data frame, rather than within a <span class="in">`summarise()`</span> function. The other options are valid ways to calculate the mean weight lost by the mice in the <span class="in">`mousezempic_dosage_data`</span> data frame (although note that the second option uses <span class="in">`pull()`</span> to extract the <span class="in">`weight_lost_g`</span> column as a vector before calculating the mean, so the mean value is stored in a vector rather than in a data frame).</span>
 <span id="cb120-1283"><a href="#cb120-1283" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb120-1284"><a href="#cb120-1284" aria-hidden="true" tabindex="-1"></a>&lt;/details&gt;</span>
+<span id="cb120-1284"><a href="#cb120-1284" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">details</span><span class="dt">&gt;</span></span>
 <span id="cb120-1285"><a href="#cb120-1285" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb120-1286"><a href="#cb120-1286" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb120-1287"><a href="#cb120-1287" aria-hidden="true" tabindex="-1"></a></span>
@@ -4264,20 +4254,20 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb120-1480"><a href="#cb120-1480" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb120-1481"><a href="#cb120-1481" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb120-1482"><a href="#cb120-1482" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb120-1483"><a href="#cb120-1483" aria-hidden="true" tabindex="-1"></a>&lt;details&gt;</span>
+<span id="cb120-1483"><a href="#cb120-1483" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">details</span><span class="dt">&gt;</span></span>
 <span id="cb120-1484"><a href="#cb120-1484" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb120-1485"><a href="#cb120-1485" aria-hidden="true" tabindex="-1"></a>&lt;summary&gt;Solutions&lt;/summary&gt;</span>
+<span id="cb120-1485"><a href="#cb120-1485" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">summary</span><span class="dt">&gt;</span>Solutions<span class="dt">&lt;/</span><span class="kw">summary</span><span class="dt">&gt;</span></span>
 <span id="cb120-1486"><a href="#cb120-1486" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb120-1487"><a href="#cb120-1487" aria-hidden="true" tabindex="-1"></a>&lt;p&gt;</span>
+<span id="cb120-1487"><a href="#cb120-1487" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">p</span><span class="dt">&gt;</span></span>
 <span id="cb120-1488"><a href="#cb120-1488" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb120-1489"><a href="#cb120-1489" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>The correct line of code to calculate the median tail length of mice belonging to each strain in the <span class="in">`mousezempic_dosage_data`</span> data frame is <span class="in">`mousezempic_dosage_data %&gt;% summarise(median_tail_length = median(tail_length_mm, na.rm = TRUE), .by = mouse_strain)`</span>. Remember to use <span class="in">`na.rm = TRUE`</span> to remove any missing values before calculating the median, and to use <span class="in">`.by`</span> to specify the column to group by (not <span class="in">`by`</span>). Seeing as we want to calculate the median (collapse down to a single value per group), we need to use <span class="in">`summarise()`</span> rather than <span class="in">`mutate()`</span>.</span>
 <span id="cb120-1490"><a href="#cb120-1490" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>The code <span class="in">`mousezempic_dosage_data %&gt;% summarise(max_tail_len = max(tail_length_mm, na.rm = TRUE), .by = c(mouse_strain, replicate))`</span> calculates the maximum tail length of mice in each **unique combination** of strain and replicate in the <span class="in">`mousezempic_dosage_data`</span> data frame.</span>
 <span id="cb120-1491"><a href="#cb120-1491" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>The correct line of code to count how many male and how many female mice there are for each strain in the <span class="in">`mousezempic_dosage_data`</span> data frame is <span class="in">`mousezempic_dosage_data %&gt;% summarise(count = n(), .by = c(mouse_strain, sex))`</span>. We need to group by both <span class="in">`mouse_strain`</span> and <span class="in">`sex`</span> to get the count for each unique combination of strain and sex. Don't forget that we specify the column names as a vector when grouping by multiple columns.</span>
 <span id="cb120-1492"><a href="#cb120-1492" aria-hidden="true" tabindex="-1"></a><span class="ss">4.  </span>The correct line of code to find the proportion of weight lost **by each mouse** in each cage in the <span class="in">`mousezempic_dosage_data`</span> data frame is <span class="in">`mousezempic_dosage_data %&gt;% mutate(weight_lost_proportion = weight_lost_g / sum(weight_lost_g, na.rm = TRUE), .by = cage_number)`</span>. We use <span class="in">`mutate()`</span> because we want a value for each mouse (each row in our data), rather than to collapse down to a single value for each group (cage number in this case). Be careful that you use the <span class="in">`.by`</span> argument within the <span class="in">`mutate()`</span> function call, not within the <span class="in">`sum()`</span> function by mistake (this is what is wrong with the third option).</span>
 <span id="cb120-1493"><a href="#cb120-1493" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb120-1494"><a href="#cb120-1494" aria-hidden="true" tabindex="-1"></a>&lt;/p&gt;</span>
+<span id="cb120-1494"><a href="#cb120-1494" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">p</span><span class="dt">&gt;</span></span>
 <span id="cb120-1495"><a href="#cb120-1495" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb120-1496"><a href="#cb120-1496" aria-hidden="true" tabindex="-1"></a>&lt;/details&gt;</span>
+<span id="cb120-1496"><a href="#cb120-1496" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">details</span><span class="dt">&gt;</span></span>
 <span id="cb120-1497"><a href="#cb120-1497" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb120-1498"><a href="#cb120-1498" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb120-1499"><a href="#cb120-1499" aria-hidden="true" tabindex="-1"></a></span>
@@ -4364,9 +4354,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb120-1584"><a href="#cb120-1584" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb120-1585"><a href="#cb120-1585" aria-hidden="true" tabindex="-1"></a><span class="ss">6. </span>Write a line of code to save the result of Q5 to a CSV file called <span class="in">`max_tail_length.csv`</span>.</span>
 <span id="cb120-1586"><a href="#cb120-1586" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb120-1587"><a href="#cb120-1587" aria-hidden="true" tabindex="-1"></a>&lt;details&gt;</span>
+<span id="cb120-1587"><a href="#cb120-1587" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">details</span><span class="dt">&gt;</span></span>
 <span id="cb120-1588"><a href="#cb120-1588" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb120-1589"><a href="#cb120-1589" aria-hidden="true" tabindex="-1"></a>&lt;summary&gt;Solutions&lt;/summary&gt;</span>
+<span id="cb120-1589"><a href="#cb120-1589" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">summary</span><span class="dt">&gt;</span>Solutions<span class="dt">&lt;/</span><span class="kw">summary</span><span class="dt">&gt;</span></span>
 <span id="cb120-1590"><a href="#cb120-1590" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb120-1591"><a href="#cb120-1591" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>The pipe operator <span class="in">`%&gt;%`</span> is used to chain together multiple function calls, passing the result of one function to the next. Here's how you could re-write the code to use the pipe:</span>
 <span id="cb120-1592"><a href="#cb120-1592" aria-hidden="true" tabindex="-1"></a></span>
@@ -4419,7 +4409,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb120-1647"><a href="#cb120-1647" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(max_tail_length, <span class="st">"max_tail_length.csv"</span>)</span>
 <span id="cb120-1648"><a href="#cb120-1648" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb120-1649"><a href="#cb120-1649" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb120-1650"><a href="#cb120-1650" aria-hidden="true" tabindex="-1"></a>&lt;/details&gt;</span>
+<span id="cb120-1650"><a href="#cb120-1650" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">details</span><span class="dt">&gt;</span></span>
 </code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

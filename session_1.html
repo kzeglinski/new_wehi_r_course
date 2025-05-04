@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.6.43">
+<meta name="generator" content="quarto-1.7.29">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -21,8 +21,9 @@ ul.task-list li input[type="checkbox"] {
   vertical-align: middle;
 }
 /* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -33,7 +34,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -67,15 +68,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="./session_2.html" rel="next">
 <link href="./setup.html" rel="prev">
 <link href="./favicon.ico" rel="icon">
-<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-ec15196d257545f34024b28906e3f52e.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-cc48a02baa7d92beca338a7447a78b59.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-24312aa3480259c3e15096488a9fa9d6.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-8b16d95f9cb9693e68e2bdbbe3456629.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <link href="site_libs/quarto-contrib/alpine-3.12/buttons.css" rel="stylesheet">
 <link href="site_libs/quarto-contrib/downloadthis-1.9.1/downloadthis.css" rel="stylesheet">
 <script src="site_libs/quarto-contrib/kbd/kbd.js"></script>
@@ -111,7 +113,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </head>
 
-<body class="nav-sidebar docked">
+<body class="nav-sidebar docked quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -188,6 +190,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="./session_5.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Session 5: RNA-seq part 1</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./session_6.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Session 6: RNA-seq part 2</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -2586,287 +2594,293 @@ Solutions
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
-window.document.addEventListener("DOMContentLoaded", function (event) {
-  const toggleBodyColorMode = (bsSheetEl) => {
-    const mode = bsSheetEl.getAttribute("data-mode");
-    const bodyEl = window.document.querySelector("body");
-    if (mode === "dark") {
-      bodyEl.classList.add("quarto-dark");
-      bodyEl.classList.remove("quarto-light");
-    } else {
-      bodyEl.classList.add("quarto-light");
-      bodyEl.classList.remove("quarto-dark");
-    }
-  }
-  const toggleBodyColorPrimary = () => {
-    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
-    if (bsSheetEl) {
-      toggleBodyColorMode(bsSheetEl);
-    }
-  }
-  toggleBodyColorPrimary();  
-  const icon = "";
-  const anchorJS = new window.AnchorJS();
-  anchorJS.options = {
-    placement: 'right',
-    icon: icon
-  };
-  anchorJS.add('.anchored');
-  const isCodeAnnotation = (el) => {
-    for (const clz of el.classList) {
-      if (clz.startsWith('code-annotation-')) {                     
-        return true;
-      }
-    }
-    return false;
-  }
-  const onCopySuccess = function(e) {
-    // button target
-    const button = e.trigger;
-    // don't keep focus
-    button.blur();
-    // flash "checked"
-    button.classList.add('code-copy-button-checked');
-    var currentTitle = button.getAttribute("title");
-    button.setAttribute("title", "Copied!");
-    let tooltip;
-    if (window.bootstrap) {
-      button.setAttribute("data-bs-toggle", "tooltip");
-      button.setAttribute("data-bs-placement", "left");
-      button.setAttribute("data-bs-title", "Copied!");
-      tooltip = new bootstrap.Tooltip(button, 
-        { trigger: "manual", 
-          customClass: "code-copy-button-tooltip",
-          offset: [0, -8]});
-      tooltip.show();    
-    }
-    setTimeout(function() {
-      if (tooltip) {
-        tooltip.hide();
-        button.removeAttribute("data-bs-title");
-        button.removeAttribute("data-bs-toggle");
-        button.removeAttribute("data-bs-placement");
-      }
-      button.setAttribute("title", currentTitle);
-      button.classList.remove('code-copy-button-checked');
-    }, 1000);
-    // clear code selection
-    e.clearSelection();
-  }
-  const getTextToCopy = function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-  }
-  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-    text: getTextToCopy
-  });
-  clipboard.on('success', onCopySuccess);
-  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-      text: getTextToCopy,
-      container: window.document.getElementById('quarto-embedded-source-code-modal')
-    });
-    clipboardModal.on('success', onCopySuccess);
-  }
-  const viewSource = window.document.getElementById('quarto-view-source') ||
-                     window.document.getElementById('quarto-code-tools-source');
-  if (viewSource) {
-    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
-    viewSource.addEventListener("click", function(e) {
-      if (sourceUrl) {
-        // rstudio viewer pane
-        if (/\bcapabilities=\b/.test(window.location)) {
-          window.open(sourceUrl);
-        } else {
-          window.location.href = sourceUrl;
-        }
-      } else {
-        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
-        modal.show();
-      }
-      return false;
-    });
-  }
-  function toggleCodeHandler(show) {
-    return function(e) {
-      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
-      for (let i=0; i<detailsSrc.length; i++) {
-        const details = detailsSrc[i].parentElement;
-        if (show) {
-          details.open = true;
-        } else {
-          details.removeAttribute("open");
-        }
-      }
-      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
-      const fromCls = show ? "hidden" : "unhidden";
-      const toCls = show ? "unhidden" : "hidden";
-      for (let i=0; i<cellCodeDivs.length; i++) {
-        const codeDiv = cellCodeDivs[i];
-        if (codeDiv.classList.contains(fromCls)) {
-          codeDiv.classList.remove(fromCls);
-          codeDiv.classList.add(toCls);
-        } 
-      }
-      return false;
-    }
-  }
-  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
-  if (hideAllCode) {
-    hideAllCode.addEventListener("click", toggleCodeHandler(false));
-  }
-  const showAllCode = window.document.getElementById("quarto-show-all-code");
-  if (showAllCode) {
-    showAllCode.addEventListener("click", toggleCodeHandler(true));
-  }
-    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-    var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp('/' + window.location.host + '/');
-    var isInternal = (href) => {
-        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-    }
-    // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-    for (var i=0; i<links.length; i++) {
-      const link = links[i];
-      if (!isInternal(link.href)) {
-        // undo the damage that might have been done by quarto-nav.js in the case of
-        // links that we want to consider external
-        if (link.dataset.originalHref !== undefined) {
-          link.href = link.dataset.originalHref;
-        }
-      }
-    }
-  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
-    const config = {
-      allowHTML: true,
-      maxWidth: 500,
-      delay: 100,
-      arrow: false,
-      appendTo: function(el) {
-          return el.parentElement;
-      },
-      interactive: true,
-      interactiveBorder: 10,
-      theme: 'quarto',
-      placement: 'bottom-start',
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
     };
-    if (contentFn) {
-      config.content = contentFn;
-    }
-    if (onTriggerFn) {
-      config.onTrigger = onTriggerFn;
-    }
-    if (onUntriggerFn) {
-      config.onUntrigger = onUntriggerFn;
-    }
-    window.tippy(el, config); 
-  }
-  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
-  for (var i=0; i<noterefs.length; i++) {
-    const ref = noterefs[i];
-    tippyHover(ref, function() {
-      // use id or data attribute instead here
-      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
-      try { href = new URL(href).hash; } catch {}
-      const id = href.replace(/^#\/?/, "");
-      const note = window.document.getElementById(id);
-      if (note) {
-        return note.innerHTML;
-      } else {
-        return "";
-      }
-    });
-  }
-  const xrefs = window.document.querySelectorAll('a.quarto-xref');
-  const processXRef = (id, note) => {
-    // Strip column container classes
-    const stripColumnClz = (el) => {
-      el.classList.remove("page-full", "page-columns");
-      if (el.children) {
-        for (const child of el.children) {
-          stripColumnClz(child);
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
         }
       }
+      return false;
     }
-    stripColumnClz(note)
-    if (id === null || id.startsWith('sec-')) {
-      // Special case sections, only their first couple elements
-      const container = document.createElement("div");
-      if (note.children && note.children.length > 2) {
-        container.appendChild(note.children[0].cloneNode(true));
-        for (let i = 1; i < note.children.length; i++) {
-          const child = note.children[i];
-          if (child.tagName === "P" && child.innerText === "") {
-            continue;
-          } else {
-            container.appendChild(child.cloneNode(true));
-            break;
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
           }
         }
-        if (window.Quarto?.typesetMath) {
-          window.Quarto.typesetMath(container);
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+    const viewSource = window.document.getElementById('quarto-view-source') ||
+                       window.document.getElementById('quarto-code-tools-source');
+    if (viewSource) {
+      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+      viewSource.addEventListener("click", function(e) {
+        if (sourceUrl) {
+          // rstudio viewer pane
+          if (/\bcapabilities=\b/.test(window.location)) {
+            window.open(sourceUrl);
+          } else {
+            window.location.href = sourceUrl;
+          }
+        } else {
+          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+          modal.show();
         }
-        return container.innerHTML
+        return false;
+      });
+    }
+    function toggleCodeHandler(show) {
+      return function(e) {
+        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+        for (let i=0; i<detailsSrc.length; i++) {
+          const details = detailsSrc[i].parentElement;
+          if (show) {
+            details.open = true;
+          } else {
+            details.removeAttribute("open");
+          }
+        }
+        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+        const fromCls = show ? "hidden" : "unhidden";
+        const toCls = show ? "unhidden" : "hidden";
+        for (let i=0; i<cellCodeDivs.length; i++) {
+          const codeDiv = cellCodeDivs[i];
+          if (codeDiv.classList.contains(fromCls)) {
+            codeDiv.classList.remove(fromCls);
+            codeDiv.classList.add(toCls);
+          } 
+        }
+        return false;
+      }
+    }
+    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+    if (hideAllCode) {
+      hideAllCode.addEventListener("click", toggleCodeHandler(false));
+    }
+    const showAllCode = window.document.getElementById("quarto-show-all-code");
+    if (showAllCode) {
+      showAllCode.addEventListener("click", toggleCodeHandler(true));
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
       } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
         if (window.Quarto?.typesetMath) {
           window.Quarto.typesetMath(note);
         }
-        return note.innerHTML;
-      }
-    } else {
-      // Remove any anchor links if they are present
-      const anchorLink = note.querySelector('a.anchorjs-link');
-      if (anchorLink) {
-        anchorLink.remove();
-      }
-      if (window.Quarto?.typesetMath) {
-        window.Quarto.typesetMath(note);
-      }
-      if (note.classList.contains("callout")) {
-        return note.outerHTML;
-      } else {
-        return note.innerHTML;
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
       }
     }
-  }
-  for (var i=0; i<xrefs.length; i++) {
-    const xref = xrefs[i];
-    tippyHover(xref, undefined, function(instance) {
-      instance.disable();
-      let url = xref.getAttribute('href');
-      let hash = undefined; 
-      if (url.startsWith('#')) {
-        hash = url;
-      } else {
-        try { hash = new URL(url).hash; } catch {}
-      }
-      if (hash) {
-        const id = hash.replace(/^#\/?/, "");
-        const note = window.document.getElementById(id);
-        if (note !== null) {
-          try {
-            const html = processXRef(id, note.cloneNode(true));
-            instance.setContent(html);
-          } finally {
-            instance.enable();
-            instance.show();
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
           }
         } else {
-          // See if we can fetch this
-          fetch(url.split('#')[0])
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
           .then(res => res.text())
           .then(html => {
             const parser = new DOMParser();
             const htmlDoc = parser.parseFromString(html, "text/html");
-            const note = htmlDoc.getElementById(id);
+            const note = htmlDoc.querySelector('main.content');
             if (note !== null) {
-              const html = processXRef(id, note);
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
               instance.setContent(html);
             } 
           }).finally(() => {
@@ -2874,185 +2888,161 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             instance.show();
           });
         }
-      } else {
-        // See if we can fetch a full url (with no hash to target)
-        // This is a special case and we should probably do some content thinning / targeting
-        fetch(url)
-        .then(res => res.text())
-        .then(html => {
-          const parser = new DOMParser();
-          const htmlDoc = parser.parseFromString(html, "text/html");
-          const note = htmlDoc.querySelector('main.content');
-          if (note !== null) {
-            // This should only happen for chapter cross references
-            // (since there is no id in the URL)
-            // remove the first header
-            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
-              note.children[0].remove();
-            }
-            const html = processXRef(null, note);
-            instance.setContent(html);
-          } 
-        }).finally(() => {
-          instance.enable();
-          instance.show();
-        });
-      }
-    }, function(instance) {
-    });
-  }
-      let selectedAnnoteEl;
-      const selectorForAnnotation = ( cell, annotation) => {
-        let cellAttr = 'data-code-cell="' + cell + '"';
-        let lineAttr = 'data-code-annotation="' +  annotation + '"';
-        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
-        return selector;
-      }
-      const selectCodeLines = (annoteEl) => {
-        const doc = window.document;
-        const targetCell = annoteEl.getAttribute("data-target-cell");
-        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
-        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
-        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
-        const lineIds = lines.map((line) => {
-          return targetCell + "-" + line;
-        })
-        let top = null;
-        let height = null;
-        let parent = null;
-        if (lineIds.length > 0) {
-            //compute the position of the single el (top and bottom and make a div)
-            const el = window.document.getElementById(lineIds[0]);
-            top = el.offsetTop;
-            height = el.offsetHeight;
-            parent = el.parentElement.parentElement;
-          if (lineIds.length > 1) {
-            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
-            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
-            height = bottom - top;
-          }
-          if (top !== null && height !== null && parent !== null) {
-            // cook up a div (if necessary) and position it 
-            let div = window.document.getElementById("code-annotation-line-highlight");
-            if (div === null) {
-              div = window.document.createElement("div");
-              div.setAttribute("id", "code-annotation-line-highlight");
-              div.style.position = 'absolute';
-              parent.appendChild(div);
-            }
-            div.style.top = top - 2 + "px";
-            div.style.height = height + 4 + "px";
-            div.style.left = 0;
-            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
-            if (gutterDiv === null) {
-              gutterDiv = window.document.createElement("div");
-              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
-              gutterDiv.style.position = 'absolute';
-              const codeCell = window.document.getElementById(targetCell);
-              const gutter = codeCell.querySelector('.code-annotation-gutter');
-              gutter.appendChild(gutterDiv);
-            }
-            gutterDiv.style.top = top - 2 + "px";
-            gutterDiv.style.height = height + 4 + "px";
-          }
-          selectedAnnoteEl = annoteEl;
-        }
-      };
-      const unselectCodeLines = () => {
-        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
-        elementsIds.forEach((elId) => {
-          const div = window.document.getElementById(elId);
-          if (div) {
-            div.remove();
-          }
-        });
-        selectedAnnoteEl = undefined;
-      };
-        // Handle positioning of the toggle
-    window.addEventListener(
-      "resize",
-      throttle(() => {
-        elRect = undefined;
-        if (selectedAnnoteEl) {
-          selectCodeLines(selectedAnnoteEl);
-        }
-      }, 10)
-    );
-    function throttle(fn, ms) {
-    let throttle = false;
-    let timer;
-      return (...args) => {
-        if(!throttle) { // first call gets through
-            fn.apply(this, args);
-            throttle = true;
-        } else { // all the others get throttled
-            if(timer) clearTimeout(timer); // cancel #2
-            timer = setTimeout(() => {
-              fn.apply(this, args);
-              timer = throttle = false;
-            }, ms);
-        }
-      };
-    }
-      // Attach click handler to the DT
-      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
-      for (const annoteDlNode of annoteDls) {
-        annoteDlNode.addEventListener('click', (event) => {
-          const clickedEl = event.target;
-          if (clickedEl !== selectedAnnoteEl) {
-            unselectCodeLines();
-            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
-            if (activeEl) {
-              activeEl.classList.remove('code-annotation-active');
-            }
-            selectCodeLines(clickedEl);
-            clickedEl.classList.add('code-annotation-active');
-          } else {
-            // Unselect the line
-            unselectCodeLines();
-            clickedEl.classList.remove('code-annotation-active');
-          }
-        });
-      }
-  const findCites = (el) => {
-    const parentEl = el.parentElement;
-    if (parentEl) {
-      const cites = parentEl.dataset.cites;
-      if (cites) {
-        return {
-          el,
-          cites: cites.split(' ')
-        };
-      } else {
-        return findCites(el.parentElement)
-      }
-    } else {
-      return undefined;
-    }
-  };
-  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-  for (var i=0; i<bibliorefs.length; i++) {
-    const ref = bibliorefs[i];
-    const citeInfo = findCites(ref);
-    if (citeInfo) {
-      tippyHover(citeInfo.el, function() {
-        var popup = window.document.createElement('div');
-        citeInfo.cites.forEach(function(cite) {
-          var citeDiv = window.document.createElement('div');
-          citeDiv.classList.add('hanging-indent');
-          citeDiv.classList.add('csl-entry');
-          var biblioDiv = window.document.getElementById('ref-' + cite);
-          if (biblioDiv) {
-            citeDiv.innerHTML = biblioDiv.innerHTML;
-          }
-          popup.appendChild(citeDiv);
-        });
-        return popup.innerHTML;
+      }, function(instance) {
       });
     }
-  }
-});
-</script>
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./setup.html" class="pagination-link" aria-label="Setup">
@@ -3183,19 +3173,19 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb152-120"><a href="#cb152-120" aria-hidden="true" tabindex="-1"></a>To practice running R code, let's do some maths. Here's how to code some basic mathematical operations in R:</span>
 <span id="cb152-121"><a href="#cb152-121" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb152-122"><a href="#cb152-122" aria-hidden="true" tabindex="-1"></a>+----------------+------------+------------------------------------------------------------------+</span>
-<span id="cb152-123"><a href="#cb152-123" aria-hidden="true" tabindex="-1"></a>| Operation      | Code       | Example                                                          |</span>
-<span id="cb152-124"><a href="#cb152-124" aria-hidden="true" tabindex="-1"></a>+================+============+==================================================================+</span>
-<span id="cb152-125"><a href="#cb152-125" aria-hidden="true" tabindex="-1"></a>| Addition       | <span class="in">`+`</span>        | one plus one: <span class="in">`1 + 1`</span>                                            |</span>
+<span id="cb152-123"><a href="#cb152-123" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Operation      <span class="pp">|</span> Code       <span class="pp">|</span> Example                                                          <span class="pp">|</span></span>
+<span id="cb152-124"><a href="#cb152-124" aria-hidden="true" tabindex="-1"></a>+==============<span class="al">==+============+==</span>================================================================+</span>
+<span id="cb152-125"><a href="#cb152-125" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Addition       <span class="pp">|</span> <span class="in">`+`</span>        <span class="pp">|</span> one plus one: <span class="in">`1 + 1`</span>                                            <span class="pp">|</span></span>
 <span id="cb152-126"><a href="#cb152-126" aria-hidden="true" tabindex="-1"></a>+----------------+------------+------------------------------------------------------------------+</span>
-<span id="cb152-127"><a href="#cb152-127" aria-hidden="true" tabindex="-1"></a>| Subtraction    | <span class="in">`-`</span>        | two minus ten: <span class="in">`2 - 10`</span>                                          |</span>
+<span id="cb152-127"><a href="#cb152-127" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Subtraction    <span class="pp">|</span> <span class="in">`-`</span>        <span class="pp">|</span> two minus ten: <span class="in">`2 - 10`</span>                                          <span class="pp">|</span></span>
 <span id="cb152-128"><a href="#cb152-128" aria-hidden="true" tabindex="-1"></a>+----------------+------------+------------------------------------------------------------------+</span>
-<span id="cb152-129"><a href="#cb152-129" aria-hidden="true" tabindex="-1"></a>| Multiplication | <span class="in">`*`</span>        | eight times 4: <span class="in">`8 * 4`</span>                                           |</span>
+<span id="cb152-129"><a href="#cb152-129" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Multiplication <span class="pp">|</span> <span class="in">`*`</span>        <span class="pp">|</span> eight times 4: <span class="in">`8 * 4`</span>                                           <span class="pp">|</span></span>
 <span id="cb152-130"><a href="#cb152-130" aria-hidden="true" tabindex="-1"></a>+----------------+------------+------------------------------------------------------------------+</span>
-<span id="cb152-131"><a href="#cb152-131" aria-hidden="true" tabindex="-1"></a>| Division       | <span class="in">`/`</span>        | ten divided by 3: <span class="in">`10 / 3`</span>                                       |</span>
+<span id="cb152-131"><a href="#cb152-131" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Division       <span class="pp">|</span> <span class="in">`/`</span>        <span class="pp">|</span> ten divided by 3: <span class="in">`10 / 3`</span>                                       <span class="pp">|</span></span>
 <span id="cb152-132"><a href="#cb152-132" aria-hidden="true" tabindex="-1"></a>+----------------+------------+------------------------------------------------------------------+</span>
-<span id="cb152-133"><a href="#cb152-133" aria-hidden="true" tabindex="-1"></a>| Exponents      | <span class="in">`^`</span>        | three squared: <span class="in">`3 ^ 2`</span>                                           |</span>
+<span id="cb152-133"><a href="#cb152-133" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Exponents      <span class="pp">|</span> <span class="in">`^`</span>        <span class="pp">|</span> three squared: <span class="in">`3 ^ 2`</span>                                           <span class="pp">|</span></span>
 <span id="cb152-134"><a href="#cb152-134" aria-hidden="true" tabindex="-1"></a>+----------------+------------+------------------------------------------------------------------+</span>
-<span id="cb152-135"><a href="#cb152-135" aria-hidden="true" tabindex="-1"></a>| Brackets       | <span class="in">`()`</span>       | sixteen divided by the result of three minus one: <span class="in">`16 / (3 - 1)`</span> |</span>
+<span id="cb152-135"><a href="#cb152-135" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Brackets       <span class="pp">|</span> <span class="in">`()`</span>       <span class="pp">|</span> sixteen divided by the result of three minus one: <span class="in">`16 / (3 - 1)`</span> <span class="pp">|</span></span>
 <span id="cb152-136"><a href="#cb152-136" aria-hidden="true" tabindex="-1"></a>+----------------+------------+------------------------------------------------------------------+</span>
 <span id="cb152-137"><a href="#cb152-137" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb152-138"><a href="#cb152-138" aria-hidden="true" tabindex="-1"></a>Like in regular maths, R follows the order of operations. Here, the <span class="in">`3 + 2`</span> in the brackets will be evaluated first, and then result will be multiplied by 7.</span>
@@ -3265,31 +3255,31 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb152-206"><a href="#cb152-206" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb152-207"><a href="#cb152-207" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb152-208"><a href="#cb152-208" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-209"><a href="#cb152-209" aria-hidden="true" tabindex="-1"></a>&lt;details&gt;</span>
+<span id="cb152-209"><a href="#cb152-209" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">details</span><span class="dt">&gt;</span></span>
 <span id="cb152-210"><a href="#cb152-210" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-211"><a href="#cb152-211" aria-hidden="true" tabindex="-1"></a>&lt;summary&gt;Solutions&lt;/summary&gt;</span>
+<span id="cb152-211"><a href="#cb152-211" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">summary</span><span class="dt">&gt;</span>Solutions<span class="dt">&lt;/</span><span class="kw">summary</span><span class="dt">&gt;</span></span>
 <span id="cb152-212"><a href="#cb152-212" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-213"><a href="#cb152-213" aria-hidden="true" tabindex="-1"></a>&lt;p&gt;</span>
+<span id="cb152-213"><a href="#cb152-213" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">p</span><span class="dt">&gt;</span></span>
 <span id="cb152-214"><a href="#cb152-214" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb152-215"><a href="#cb152-215" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span><span class="in">`(2 * 3) + (2 ^ 2)`</span> is equal to 10. If you're not sure, try copy-pasting this code into the console and running it! The best way to learn is by doing.</span>
 <span id="cb152-216"><a href="#cb152-216" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb152-217"><a href="#cb152-217" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>The code <span class="in">`# test 1+1`</span> is a comment, because it starts with a <span class="in">`#`</span>. This means R ignores it: if you run this code, you won't see any output in the console.</span>
 <span id="cb152-218"><a href="#cb152-218" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-219"><a href="#cb152-219" aria-hidden="true" tabindex="-1"></a>&lt;/p&gt;</span>
+<span id="cb152-219"><a href="#cb152-219" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">p</span><span class="dt">&gt;</span></span>
 <span id="cb152-220"><a href="#cb152-220" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-221"><a href="#cb152-221" aria-hidden="true" tabindex="-1"></a>&lt;/details&gt;</span>
+<span id="cb152-221"><a href="#cb152-221" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">details</span><span class="dt">&gt;</span></span>
 <span id="cb152-222"><a href="#cb152-222" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb152-223"><a href="#cb152-223" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb152-224"><a href="#cb152-224" aria-hidden="true" tabindex="-1"></a><span class="fu">## Comparisons {#sec-comparisons}</span></span>
 <span id="cb152-225"><a href="#cb152-225" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb152-226"><a href="#cb152-226" aria-hidden="true" tabindex="-1"></a>R can perform comparisons, using the following notation:</span>
 <span id="cb152-227"><a href="#cb152-227" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-228"><a href="#cb152-228" aria-hidden="true" tabindex="-1"></a>| Comparison                    | Code         |</span>
-<span id="cb152-229"><a href="#cb152-229" aria-hidden="true" tabindex="-1"></a>|-------------------------------|--------------|</span>
-<span id="cb152-230"><a href="#cb152-230" aria-hidden="true" tabindex="-1"></a>| Equal to                      | <span class="in">`==`</span>         |</span>
-<span id="cb152-231"><a href="#cb152-231" aria-hidden="true" tabindex="-1"></a>| Not equal to                  | <span class="in">`!=`</span>         |</span>
-<span id="cb152-232"><a href="#cb152-232" aria-hidden="true" tabindex="-1"></a>| Greater/less than             | <span class="in">`&gt;`</span> or <span class="in">`&lt;`</span>   |</span>
-<span id="cb152-233"><a href="#cb152-233" aria-hidden="true" tabindex="-1"></a>| Greater/less than or equal to | <span class="in">`&gt;=`</span> or <span class="in">`&lt;=`</span> |</span>
+<span id="cb152-228"><a href="#cb152-228" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Comparison                    <span class="pp">|</span> Code         <span class="pp">|</span></span>
+<span id="cb152-229"><a href="#cb152-229" aria-hidden="true" tabindex="-1"></a><span class="pp">|-------------------------------|--------------|</span></span>
+<span id="cb152-230"><a href="#cb152-230" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Equal to                      <span class="pp">|</span> <span class="in">`==`</span>         <span class="pp">|</span></span>
+<span id="cb152-231"><a href="#cb152-231" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Not equal to                  <span class="pp">|</span> <span class="in">`!=`</span>         <span class="pp">|</span></span>
+<span id="cb152-232"><a href="#cb152-232" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Greater/less than             <span class="pp">|</span> <span class="in">`&gt;`</span> or <span class="in">`&lt;`</span>   <span class="pp">|</span></span>
+<span id="cb152-233"><a href="#cb152-233" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Greater/less than or equal to <span class="pp">|</span> <span class="in">`&gt;=`</span> or <span class="in">`&lt;=`</span> <span class="pp">|</span></span>
 <span id="cb152-234"><a href="#cb152-234" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb152-235"><a href="#cb152-235" aria-hidden="true" tabindex="-1"></a>::: {.callout-warning title="Mind your equal signs!"}</span>
 <span id="cb152-236"><a href="#cb152-236" aria-hidden="true" tabindex="-1"></a>Be careful to use double equal signs <span class="in">`==`</span> when checking for equality. If you use only one, you'll get an error:</span>
@@ -3389,19 +3379,19 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb152-336"><a href="#cb152-336" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb152-337"><a href="#cb152-337" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb152-338"><a href="#cb152-338" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-339"><a href="#cb152-339" aria-hidden="true" tabindex="-1"></a>&lt;details&gt;</span>
+<span id="cb152-339"><a href="#cb152-339" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">details</span><span class="dt">&gt;</span></span>
 <span id="cb152-340"><a href="#cb152-340" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-341"><a href="#cb152-341" aria-hidden="true" tabindex="-1"></a>&lt;summary&gt;Solutions&lt;/summary&gt;</span>
+<span id="cb152-341"><a href="#cb152-341" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">summary</span><span class="dt">&gt;</span>Solutions<span class="dt">&lt;/</span><span class="kw">summary</span><span class="dt">&gt;</span></span>
 <span id="cb152-342"><a href="#cb152-342" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-343"><a href="#cb152-343" aria-hidden="true" tabindex="-1"></a>&lt;p&gt;</span>
+<span id="cb152-343"><a href="#cb152-343" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">p</span><span class="dt">&gt;</span></span>
 <span id="cb152-344"><a href="#cb152-344" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb152-345"><a href="#cb152-345" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span><span class="in">`10 &gt;= 10`</span> is TRUE because 10 is equal to 10, and we are using the greater than or equal to operator, <span class="in">`&gt;=`</span>.</span>
 <span id="cb152-346"><a href="#cb152-346" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span><span class="in">`1 == 2`</span> is the only expression that would give a result of <span class="in">`FALSE`</span>. Be mindful that <span class="in">`1 = 10`</span> is not a valid expression in R, and would give an error (since we need to use the double equal sign <span class="in">`==`</span> for comparisons).</span>
 <span id="cb152-347"><a href="#cb152-347" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span><span class="in">`!TRUE`</span> is <span class="in">`FALSE`</span> because we are negating the value using <span class="in">`!`</span>.</span>
 <span id="cb152-348"><a href="#cb152-348" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-349"><a href="#cb152-349" aria-hidden="true" tabindex="-1"></a>&lt;/p&gt;</span>
+<span id="cb152-349"><a href="#cb152-349" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">p</span><span class="dt">&gt;</span></span>
 <span id="cb152-350"><a href="#cb152-350" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-351"><a href="#cb152-351" aria-hidden="true" tabindex="-1"></a>&lt;/details&gt;</span>
+<span id="cb152-351"><a href="#cb152-351" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">details</span><span class="dt">&gt;</span></span>
 <span id="cb152-352"><a href="#cb152-352" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb152-353"><a href="#cb152-353" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb152-354"><a href="#cb152-354" aria-hidden="true" tabindex="-1"></a><span class="fu">## Variables {#sec-variables}</span></span>
@@ -3504,19 +3494,19 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb152-467"><a href="#cb152-467" aria-hidden="true" tabindex="-1"></a>When naming variables, we need to follow these rules:</span>
 <span id="cb152-468"><a href="#cb152-468" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb152-469"><a href="#cb152-469" aria-hidden="true" tabindex="-1"></a>+----------------------------------------------------------------------+----------------------------------------+</span>
-<span id="cb152-470"><a href="#cb152-470" aria-hidden="true" tabindex="-1"></a>| Rule                                                                 | Examples                               |</span>
-<span id="cb152-471"><a href="#cb152-471" aria-hidden="true" tabindex="-1"></a>+======================================================================+========================================+</span>
-<span id="cb152-472"><a href="#cb152-472" aria-hidden="true" tabindex="-1"></a>| **Variable names can only contain letters, numbers and underscores** | ✅ Allowed: <span class="in">`my_number`</span>, <span class="in">`ID_2`</span>        |</span>
-<span id="cb152-473"><a href="#cb152-473" aria-hidden="true" tabindex="-1"></a>|                                                                      |                                        |</span>
-<span id="cb152-474"><a href="#cb152-474" aria-hidden="true" tabindex="-1"></a>|                                                                      | ❌ Not allowed: <span class="in">`my_number!`</span>, <span class="in">`price$`</span> |</span>
+<span id="cb152-470"><a href="#cb152-470" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Rule                                                                 <span class="pp">|</span> Examples                               <span class="pp">|</span></span>
+<span id="cb152-471"><a href="#cb152-471" aria-hidden="true" tabindex="-1"></a>+====================================================================<span class="al">==+==</span>======================================+</span>
+<span id="cb152-472"><a href="#cb152-472" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Variable names can only contain letters, numbers and underscores** <span class="pp">|</span> ✅ Allowed: <span class="in">`my_number`</span>, <span class="in">`ID_2`</span>        <span class="pp">|</span></span>
+<span id="cb152-473"><a href="#cb152-473" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                                                                      <span class="pp">|</span>                                        <span class="pp">|</span></span>
+<span id="cb152-474"><a href="#cb152-474" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                                                                      <span class="pp">|</span> ❌ Not allowed: <span class="in">`my_number!`</span>, <span class="in">`price$`</span> <span class="pp">|</span></span>
 <span id="cb152-475"><a href="#cb152-475" aria-hidden="true" tabindex="-1"></a>+----------------------------------------------------------------------+----------------------------------------+</span>
-<span id="cb152-476"><a href="#cb152-476" aria-hidden="true" tabindex="-1"></a>| **Variable names can't start with a number**                         | ✅ Allowed: <span class="in">`my_number_2`</span>              |</span>
-<span id="cb152-477"><a href="#cb152-477" aria-hidden="true" tabindex="-1"></a>|                                                                      |                                        |</span>
-<span id="cb152-478"><a href="#cb152-478" aria-hidden="true" tabindex="-1"></a>|                                                                      | ❌ Not allowed: <span class="in">`2_my_number`</span>          |</span>
+<span id="cb152-476"><a href="#cb152-476" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Variable names can't start with a number**                         <span class="pp">|</span> ✅ Allowed: <span class="in">`my_number_2`</span>              <span class="pp">|</span></span>
+<span id="cb152-477"><a href="#cb152-477" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                                                                      <span class="pp">|</span>                                        <span class="pp">|</span></span>
+<span id="cb152-478"><a href="#cb152-478" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                                                                      <span class="pp">|</span> ❌ Not allowed: <span class="in">`2_my_number`</span>          <span class="pp">|</span></span>
 <span id="cb152-479"><a href="#cb152-479" aria-hidden="true" tabindex="-1"></a>+----------------------------------------------------------------------+----------------------------------------+</span>
-<span id="cb152-480"><a href="#cb152-480" aria-hidden="true" tabindex="-1"></a>| **Variable names can't contain spaces**                              | ✅ Allowed: <span class="in">`my_number`</span>                |</span>
-<span id="cb152-481"><a href="#cb152-481" aria-hidden="true" tabindex="-1"></a>|                                                                      |                                        |</span>
-<span id="cb152-482"><a href="#cb152-482" aria-hidden="true" tabindex="-1"></a>|                                                                      | ❌ Not allowed: <span class="in">`my number`</span>            |</span>
+<span id="cb152-480"><a href="#cb152-480" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Variable names can't contain spaces**                              <span class="pp">|</span> ✅ Allowed: <span class="in">`my_number`</span>                <span class="pp">|</span></span>
+<span id="cb152-481"><a href="#cb152-481" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                                                                      <span class="pp">|</span>                                        <span class="pp">|</span></span>
+<span id="cb152-482"><a href="#cb152-482" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                                                                      <span class="pp">|</span> ❌ Not allowed: <span class="in">`my number`</span>            <span class="pp">|</span></span>
 <span id="cb152-483"><a href="#cb152-483" aria-hidden="true" tabindex="-1"></a>+----------------------------------------------------------------------+----------------------------------------+</span>
 <span id="cb152-484"><a href="#cb152-484" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb152-485"><a href="#cb152-485" aria-hidden="true" tabindex="-1"></a>If we try to create a variable that breaks these rules, R will give an error:</span>
@@ -3642,20 +3632,20 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb152-611"><a href="#cb152-611" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb152-612"><a href="#cb152-612" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb152-613"><a href="#cb152-613" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-614"><a href="#cb152-614" aria-hidden="true" tabindex="-1"></a>&lt;details&gt;</span>
+<span id="cb152-614"><a href="#cb152-614" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">details</span><span class="dt">&gt;</span></span>
 <span id="cb152-615"><a href="#cb152-615" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-616"><a href="#cb152-616" aria-hidden="true" tabindex="-1"></a>&lt;summary&gt;Solutions&lt;/summary&gt;</span>
+<span id="cb152-616"><a href="#cb152-616" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">summary</span><span class="dt">&gt;</span>Solutions<span class="dt">&lt;/</span><span class="kw">summary</span><span class="dt">&gt;</span></span>
 <span id="cb152-617"><a href="#cb152-617" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-618"><a href="#cb152-618" aria-hidden="true" tabindex="-1"></a>&lt;p&gt;</span>
+<span id="cb152-618"><a href="#cb152-618" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">p</span><span class="dt">&gt;</span></span>
 <span id="cb152-619"><a href="#cb152-619" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb152-620"><a href="#cb152-620" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span><span class="in">`my_variable &lt;- 10`</span> is the correct way to assign the value of 10 to a variable called <span class="in">`my_variable`</span>. Remember the arrow <span class="in">`&lt;-`</span> is used for assignment in R.</span>
 <span id="cb152-621"><a href="#cb152-621" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>The output would be 15, since <span class="in">`my_variable`</span> is 10 and we are adding 5 to it.</span>
 <span id="cb152-622"><a href="#cb152-622" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>The new value of <span class="in">`my_variable`</span> would be 20, since we are adding 10 to the current value of <span class="in">`my_variable`</span> (which is 10). Note that even though we added 5 to <span class="in">`my_variable`</span> earlier, this value is not saved anywhere (since we didn't assign it), so we are starting from the original value of 10.</span>
 <span id="cb152-623"><a href="#cb152-623" aria-hidden="true" tabindex="-1"></a><span class="ss">4.  </span><span class="in">`expression_level`</span> is the only valid variable name. <span class="in">`10th_place`</span> starts with a number, <span class="in">`(n)_mice`</span> contains brackets, and <span class="in">`disease status`</span> contains a space.</span>
 <span id="cb152-624"><a href="#cb152-624" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-625"><a href="#cb152-625" aria-hidden="true" tabindex="-1"></a>&lt;/p&gt;</span>
+<span id="cb152-625"><a href="#cb152-625" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">p</span><span class="dt">&gt;</span></span>
 <span id="cb152-626"><a href="#cb152-626" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-627"><a href="#cb152-627" aria-hidden="true" tabindex="-1"></a>&lt;/details&gt;</span>
+<span id="cb152-627"><a href="#cb152-627" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">details</span><span class="dt">&gt;</span></span>
 <span id="cb152-628"><a href="#cb152-628" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb152-629"><a href="#cb152-629" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb152-630"><a href="#cb152-630" aria-hidden="true" tabindex="-1"></a><span class="fu">## Functions {#sec-functions}</span></span>
