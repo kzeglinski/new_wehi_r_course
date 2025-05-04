@@ -25,7 +25,7 @@ In this session we will run through the basic steps for analysing a simple RNA-s
 - creating a design matrix
 - fitting gene-wise linear models (with empirical Bayes moderation to more accurately estimate gene-wise variability)
 - performing statistical testing for differential expression
-The aim of this session is to give you experience with a real-world RNA-seq analysis, and making extensive use of an external library. We will not cover the statistics in any depth. The focus is on the practical aspects of using the `limma` package to perform RNA-seq analysis. The `limma` package is a widely used package for analysing microarray and RNA-seq data, and it provides a range of functions for normalisation, filtering, statistical testing and visualisation.
+
 The aim of this session is to give you experience with a real-world RNA-seq analysis, and making extensive use of an external library. We will not cover the statistics in any depth. Instead, the goal is to understand how to construct data structures required for specific packages and how to use the functions in those packages to perform the analysis.
 
 Much of the materials here are explained in greater detail in the limma user's guide. You can view this by typing `help("limma")` and following the links.
