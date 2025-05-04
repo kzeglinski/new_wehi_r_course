@@ -63,6 +63,9 @@ A better question could be "What plots are commonly used to visualise differenti
 
 The more information you provide the AI, the more likely it is to provide a useful answer. If you are confused about how to use a specific function, instead of asking the AI "How do I use the ... function from the ... package?", you can copy and paste the entire help page for the function into the AI chat along with a description of what you're trying to do.
 
+## Design matrices
+
+We covered design matrices in session 6 in very brief detail. They are a very powerful and important component of linear modelling that allow complex experimental designs to answer difficult questions. You can read more about them in the article [A guide to creating design matrices for gene expression experiments](https://f1000research.com/articles/9-1444).
 
 <!-- -   summarise the course/key points from each session -->
 

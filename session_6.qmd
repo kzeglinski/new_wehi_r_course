@@ -10,21 +10,36 @@ format:
 
 # Session 6: RNA-seq part 2
 
+The aim of this session is to complete the analysis of the RNA-seq data using the `limma` and `edgeR` packages. With the results of the analysis, we want to be able to produce publication quality figures and write out the results to a file for sharing or publication.
+
+::: {.callout-tip title="Learning Objectives"}
+- fit a linear model to the data
+- construct design and contrast matrices for the linear model
+- model the mean-variance relationship of the data using the `voom()` function
+- perform statistical testing to identify differentially expressed genes
+- visualise the results using an MA plot
+- write out the results to a file
+:::
+
 ```{r}
+# load required packages
+library(tidyverse)
 library(edgeR)
 library(limma)
 
-# vector of file names
-files <- dir(path = "data/counts", pattern = "GSM")
-group <- factor(c("LP", "ML", "Basal", "Basal",
-                  "ML", "LP", "Basal", "ML", "LP"))
-samplenames <- c("10_6_5_11", "9_6_5_11", "purep53", "JMS8-2", "JMS8-3",
-                 "JMS8-4", "JMS8-5", "JMS9-P7c", "JMS9-P8c")
+group <- parse_factor(
+  c("LP", "ML", "Basal", "Basal", "ML", "LP", "Basal", "ML", "LP"),
+  levels = c("Basal", "LP", "ML")
+)
 
+samplenames <- c(
+  "10_6_5_11", "9_6_5_11", "purep53", "JMS8-2", "JMS8-3",
+  "JMS8-4", "JMS8-5", "JMS9-P7c", "JMS9-P8c"
+)
 
 # create DGEList object
 dge <- readDGE(
-  files,
+  dir(path = "data/counts", pattern = "GSM*"),
   path = "data/counts",
   columns = c(1, 3),
   group = group,
@@ -32,16 +47,18 @@ dge <- readDGE(
 )
 
 # add gene annotation information
-dge$genes <- read.delim("data/Ses3_geneAnnot.tsv", stringsAsFactors = FALSE)
+dge$genes <- read_tsv("data/Ses3_geneAnnot.tsv")
 ```
 
 ## Linear modelling
 
-The next step of the limma-voom analysis is to fit a linear model for each gene. A linear model is a broad class of statistical models that predict a variable of interest using one or more 'explanatory' (also called 'predictor') variables. The most basic type is linear regression, which models the relationship between a continuous variable and continuous or categorical 'explanatory' variables. It uses an equation that looks like this:
+To identify differentially expressed genes from our normalised gene expression data, we will use the `limma` package to fit linear models to the genes. A linear model is a broad class of statistical models that fit the value of an response (or dependent) variable as a linear function of one or more explanatory (or independent) variables (also called covariates).
 
-$Y = \beta_{0} + \beta_{1}X_{1} + \beta_{2}X_{2}...$
+The general form of a linear model looks like this:
 
-This equation is saying that a response variable of interest $Y$ is equal to a constant ($\beta_{0}$) plus the sum of the covariates ($X_{i}$) each multiplied by a constant coefficient ($\beta_{i}$).
+$Y = \beta_{0} + \beta_{1}X_{1} + \beta_{2}X_{2}... + \epsilon$
+
+This equation is saying that a response variable of interest $Y$ is equal to a constant ($\beta_{0}$) plus the sum of the covariates ($X_{i}$) each multiplied by a constant coefficient ($\beta_{i}$) and some error term ($\epsilon$). The error term is the difference between the observed value and the predicted value of the model and is assumed to have a normal distribution with mean 0 and some variance.
 
 Our experiment is quite simple, since there is only a single covariate, the cell type. The true benefit of using linear models is in its ability to accommodate more complex designs including multiple covariates.
 
@@ -52,7 +69,7 @@ To fit the linear models in the limma-voom framework we need two objects in addi
 
 ### Design matrix
 
-The design matrix specifies the values of the covariates for each sample. This is represented as a matrix due to the mathematical convenience.
+The first step to fitting a linear model is to specify a design matrix. The design matrix specifies the values of the covariates for each sample, and is represented as a matrix due to the mathematical convenience.
 
 To generate a design matrix. We use the function `model.matrix()`, with the expression `~0 + group`. This returns a matrix representing the design where there is no intercept term and group is the only covariate. If we omit the `0` then there would be an intercept in the model, and if we included more covariates then more columns would be generated.
 
@@ -65,32 +82,32 @@ There are 9 rows, one for each sample. Along the columns are the names of the gr
 
 ### Contrasts
 
-'Contrasts' let us ask specific questions between our experimental groups. In our data we have 3 experimental groups, if we are to test for differential expression, we are most likely interested in differences between only two of the groups at a time. Contrasts let us specify exactly what we're testing for, and is also represented by a matrix just like the design.
+Contrast matrices are companions to design matrices. They are used to specify the comparison of interest. In our case, we have three experimental groups: `Basal`, `LP` and `ML`. So if we are to perform differential expression analysis, we are most likely interested in the differences between only two of the groups at a time. Contrast matrices let use specify which comparison we'd like to make, and are also represented as a matrix just like the design.
 
 A contrast matrix can be made using the `makeContrasts()` function. Within this function, we specify the name of each specific contrast and the formula for that contrast. For example, the `BasalvsLP` contrasts compares the difference between the `Basal` and `LP` groups. Note that the name of the phenotype groups must be written exactly as they are in the column names of our design matrix (see above).
 
-In addition to the individual contrasts, the function must know about the design of the model. This is passed through the `levels` argument, which either accepts a matrix with the column names corresponding to levels of your experimental groups, or the levels themselves as a character vector
-
-```{r, echo=FALSE}
-colnames(design) <- c("Basal", "LP", "ML")
-```
+In addition to the individual contrasts, the function must know about the design of the model. This is passed through the `levels` argument, which either accepts a matrix with the column names corresponding to levels of your experimental groups, or the levels themselves as a character vector. Here we first simplify the column names of our design matrix to make it easier to read. Then we create the contrast matrix using the `makeContrasts()` function.
 
 ```{r}
+colnames(design) <- c("Basal", "LP", "ML")
+
 contr.matrix <- makeContrasts(
   BasalvsLP = "Basal - LP",
   BasalvsML = "Basal - ML",
   LPvsML = "LP - ML",
-  levels = design) # alternatively 'levels = colnames(design)'
+  levels = design # alternatively 'levels = colnames(design)'
+)
+
 contr.matrix
 ```
 
-Note that the sum of all the numbers along each column is 0. The first column is the contrast for the difference between Basal (1) and LP (-1). This property is required for valid contrast matrices. An alternative test may be between one group and the average of the others which would look like `c(1, -0.5, -0.5)` down one of the columns.
+There are two things to note about a design matrix. First, the sum of the numbers in each row is equal to 0. Second, the way that you set up the equation in the matrix will determine the interpretation of the log-fold-change calculated later, as well as the meaning of up-regulated and down-regulated genes. For example, the contrast `Basal - LP` will give a positive log-fold-change for genes that are up-regulated in the `Basal` group compared to the `LP` group. If we had set up the contrast as `LP - Basal`, then the opposite would be true, and we would get a negative log-fold-change for genes that are up-regulated in the `Basal` group compared to the `LP` group.
 
 ### Variance modelling with voom
 
 We are now ready to fit our linear models. Limma fits linear models to the data with the assumption that the underlying data is normally distributed. Count data is generally not normally distributed, but log transforming count data gives it a roughly normal distribution sufficient for linear models to work well. To do this, limma transforms the raw count data to log-cpm using library sizes and the normalisation factors we calculated previously.
 
-In addition to the normalisation steps, the limma-voom pipeline uses the `voom()` function to generate weights for the individual genes based on a modelled mean-variance relationship. This modelling allows use to get more information out of small sample sizes as the weights prevent our model from being more heavily influenced by more variable data points.
+In addition to the normalisation steps, the limma-voom pipeline uses the `voom()` function to generate weights for the individual genes based on a modelled mean-variance relationship. This modelling allows use to get more information out of small sample sizes as the weights prevent our model from being more heavily influenced by more variable data points. The weights will then allow the linear model to be less influenced by genes with high variability, which is important for small sample sizes. The voom function also generates a mean-variance plot, which is useful for visualising the data.
 
 The `voom()` function takes as arguments, our `DGEList` object and our design matrix. It also optionally outputs a plot of the mean-variance relationship of our data, called the 'voom-plot'.
 
@@ -105,6 +122,8 @@ The output of `voom()` (our variable `v`) is an `EList` object which contains th
 -   `E` - numeric matrix of normalised log-cpm values.
 -   `weights` - numeric matrix of precision weights.
 -   `design` - the design matrix.
+
+The MA plot shows the mean-variance relationship of the data. The x-axis is the average log2 expression of each gene, and the y-axis is the log2 standard deviation of each gene. The idea is that the variance of a gene can be estimated as a function of its main expression, and that this estimate is more accurate than the direct calculation of the variance.
 
 ### Fitting the linear model
 
@@ -122,9 +141,11 @@ vfit <- contrasts.fit(vfit, contrasts = contr.matrix)
 head(vfit$coefficients)
 ```
 
+With these values we essentially want to know whether or not the difference in values is significantly different from 0. If the difference is not significantly different from 0, then we have failed to establish a difference in the expression of a particularly gene between two groups. If the difference is significantly greater than 0, then we have up-regulation in the first group of the contrast, and if the difference is significantly less than 0, then we have down-regulation in the first group of the contrast.
+
 ## Statistical testing
 
-The next step is to carry out statistical testing to determine which genes are differentially expressed. The function `eBayes()` computes moderated t-statistics, moderated F-statistics and log-odds of differential expression for each gene, given a fitted linear model. 'Moderated' refers to empirical Bayes moderation, which borrows information across genes to obtain more accurate measures of variability for each gene. This also increases our power to detect differentially expressed genes.
+To actually test if the values are significantly different from 0, we use the `eBayes()` function to compute moderated t-statistics, moderated F-statistics and log-odds of differential expression for each gene, given a fitted linear model. 'Moderated' refers to empirical Bayes moderation, which borrows information across genes to obtain more accurate measures of variability for each gene. This also increases our power to detect differentially expressed genes.
 
 ```{r}
 efit <- eBayes(vfit)
@@ -159,13 +180,7 @@ It outputs a data frame with the following information:
 
 ```{r}
 top <- topTable(efit, coef = "BasalvsLP", n = Inf)
-head(top)
-```
-
-With that we can complete our analysis by writing out some results
-
-```{r, eval = FALSE}
-write.csv(top, file = "BasalvsLP.csv")
+top
 ```
 
 ## MA Plot
@@ -180,12 +195,134 @@ The MA plot is a plot of log-fold-change (M-values) against log-expression avera
 plotMA(efit, coef = 1, status = dt[, "BasalvsLP"])
 ```
 
-We can also save this plot programmatically as a PDF for further editing. To do this we use `pdf()` to turn on the pdf capture device, run the command that creates the plot, which is now captured by the pdf, and then turn the device off.
+As before, we can try to re-create this plot using `ggplot2` to give us more flexibility in plotting. The information we'll need is the log-fold-change, the average log-expression and the differential expression status of each gene. We can extract this information from the `efit` and `top` data frame we created above, as well as gene names for annotation purposes.
+
+```{r}
+ma_plot_data <- tibble(
+  logFC = efit$coefficients[, "BasalvsLP"],
+  AvgExpr = efit$Amean,
+  status = factor(as.numeric(dt[, "BasalvsLP"])),
+  gene = efit$genes$SYMBOL,
+  p_value = efit$p.value[, "BasalvsLP"]
+)
+```
+
+With our tibble prepared, we can use `ggplot2` to create the plot as we have done before
+
+```{r}
+ma_plot_data %>%
+  ggplot(aes(x = AvgExpr, y = logFC, col = status)) +
+  geom_point()
+```
+
+While the coordinates of the points are the same, there is still quite a bit of work to do to make this plot look like the one produced by `plotMA()`. First we have the fix up the colours of the points. We also have to make it such that the non-significant points are plotted below the other points. To do this we would need to make it so that the non-significant points are plotted first. We can do this by reordering the levels of the `status` factor so that the non-significant points are plotted first. Labels can also be added using ggrepel for the top 15 most DE genes.
+
+```{r}
+library(ggrepel)
+
+ma_plot_data_fct <- ma_plot_data %>%
+  mutate(
+    status = fct_recode(
+      status,
+      "Not DE" = "0",
+      "Down" = "-1",
+      "Up" = "1"
+    )
+  ) %>%
+  mutate(status = fct_relevel(status, "Not DE", "Down", "Up"))
+
+top_de_genes <- ma_plot_data_fct %>%
+  arrange(p_value) %>%
+  slice_head(n = 15)
+
+ma_plot <- ma_plot_data_fct %>%
+  ggplot(aes(x = AvgExpr, y = logFC, col = status)) +
+  geom_point(data = ma_plot_data_fct %>% filter(status == "Not DE"), size = 0.1) +
+  geom_point(data = ma_plot_data_fct %>% filter(status != "Not DE"), size = 1) +
+  geom_label_repel(
+    data = top_de_genes,
+    aes(label = gene, col = NULL),
+    max.overlaps = 20,
+    show.legend = FALSE
+  ) +
+  scale_colour_manual(values = c("black", "blue", "red"))
+```
+
+## Volcano Plot
+
+Since we have the tibble of the data prepared, we can also choose to create an alternative plot called a volcano plot. Which is also very popular in RNA-seq analysis. The volcano plot is a scatter plot of the negative log10 p-value against the log2 fold-change. This plot is useful for visualising the significance of the differentially expressed genes.
+
+```{r}
+volcano_plot <- ma_plot_data_fct %>%
+  ggplot(aes(x = logFC, y = -log10(p_value), col = status)) +
+  geom_point(data = ma_plot_data_fct %>% filter(status == "Not DE"), size = 0.1) +
+  geom_point(data = ma_plot_data_fct %>% filter(status != "Not DE"), size = 1) +
+  geom_label_repel(
+    data = top_de_genes,
+    aes(label = gene, col = NULL),
+    max.overlaps = 20,
+    show.legend = FALSE
+  ) +
+  scale_colour_manual(values = c("black", "blue", "red"))
+
+volcano_plot
+```
+
+## Heatmap
+
+Finally we can create a heatmap of the differentially expressed genes. The heatmap is a useful way to visualise the expression of the differentially expressed genes across the samples. We can use the `pheatmap` package to create the heatmap.
+
+First we need to install the package if you haven't already
 
 ```{r, eval = FALSE}
-pdf(file = "BasalvsLP-MAPlot.pdf")
-plotMA(efit, coef = 1, status = dt[, "BasalvsLP"])
-dev.off()
+install.packages("pheatmap")
 ```
+
+Then we can create the heatmap using the `pheatmap()` function. For this we will need to select a list of genes to plot. We can use the `topTable()` function to get the top differentially expressed genes for each contrast. We can then use the `pheatmap()` function to create the heatmap.
+
+```{r}
+top_genes <- bind_rows(
+  topTable(efit, coef = "BasalvsLP", n = 50),
+  topTable(efit, coef = "BasalvsML", n = 50),
+  topTable(efit, coef = "LPvsML", n = 50)
+) %>%
+  distinct()
+
+top_gene_expr <- cpm(dge, log = TRUE)[rownames(dge) %in% top_genes$ENTREZID, ]
+rownames(top_gene_expr) <- dge$genes$SYMBOL[match(rownames(top_gene_expr), dge$genes$ENTREZID)]
+```
+
+```{r}
+library(pheatmap)
+
+sample_anno <- dge$samples %>%
+  select(group)
+
+heatmap <- pheatmap(
+  top_gene_expr,
+  color = colorRampPalette(c("blue", "white", "red"))(100),
+  scale = "row",
+  annotation_col = sample_anno,
+  border_color = NA,
+  cluster_rows = TRUE,
+  cluster_cols = TRUE,
+  show_rownames = TRUE,
+  show_colnames = TRUE,
+  fontsize_row = 6
+)
+```
+
+## Saving all the results
+
+```{r}
+dir.create("output")
+
+write_csv(top, "output/top_genes_BasalvsLP.csv")
+ggsave("output/ma_plot_BasalvsLP.png", ma_plot)
+ggsave("output/volcano_plot_BasalvsLP.png", volcano_plot)
+ggsave("output/heatmap_BasalvsLP.png", heatmap$gtable)
+```
+
+With that we have come to the conclusion of the RNA-seq analysis and this course. You have now learned how to use various `ticyverse` packages to operate on data and create publication quality figures. You have also learned how to use the `limma` and `edgeR` packages to perform differential expression analysis on RNA-seq data. You should now be able to apply these skills to perform analysis on your own data.
 
 ## References
