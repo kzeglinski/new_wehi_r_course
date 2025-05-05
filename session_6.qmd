@@ -180,7 +180,7 @@ It outputs a data frame with the following information:
 
 ```{r}
 top <- topTable(efit, coef = "BasalvsLP", n = Inf)
-top
+head(top)
 ```
 
 ## MA Plot
