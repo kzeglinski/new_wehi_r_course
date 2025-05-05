@@ -222,7 +222,7 @@ ma_plot_data %>%
   geom_point()
 ```
 
-While the coordinates of the points are the same, there is still quite a bit of work to do to make this plot look like the one produced by `plotMA()`. First we have the fix up the colours of the points. We also have to make it such that the non-significant points are plotted below the other points. To do this we would need to make it so that the non-significant points are plotted first. We can do this by reordering the levels of the `status` factor so that the non-significant points are plotted first. Labels can also be added using ggrepel for the top 15 most DE genes.
+While the coordinates of the points are the same, there is still quite a bit of work to do to make this plot look like the one produced by `plotMA()`. First we have the fix up the colours of the points. We also have to make it such that the non-significant points are plotted below the other points. To do this we would need to make it so that the non-significant points are plotted first. We can do this by reordering the levels of the `status` factor so that the non-significant points are plotted first. Labels can also be added using `ggrepel` for the top 15 most DE genes.
 
 ```{r}
 library(ggrepel)
@@ -242,6 +242,12 @@ top_de_genes <- ma_plot_data_fct %>%
   arrange(p_value) %>%
   slice_head(n = 15)
 
+scale_cols <- c(
+  "Not DE" = "black",
+  "Down" = "blue",
+  "Up" = "red"
+)
+
 ma_plot <- ma_plot_data_fct %>%
   ggplot(aes(x = AvgExpr, y = logFC, col = status)) +
   geom_point(data = ma_plot_data_fct %>% filter(status == "Not DE"), size = 0.1) +
@@ -252,7 +258,7 @@ ma_plot <- ma_plot_data_fct %>%
     max.overlaps = 20,
     show.legend = FALSE
   ) +
-  scale_colour_manual(values = c("black", "blue", "red"))
+  scale_colour_manual(values = scale_cols)
 ```
 
 ## Volcano Plot
@@ -285,7 +291,9 @@ First we need to install the package if you haven't already
 install.packages("pheatmap")
 ```
 
-Then we can create the heatmap using the `pheatmap()` function. For this we will need to select a list of genes to plot. We can use the `topTable()` function to get the top differentially expressed genes for each contrast. We can then use the `pheatmap()` function to create the heatmap.
+The data we will use for the heatmap is going to be the log2 cpm expression values of the top differentially expressed genes. We can use the `topTable()` function to get the top differentially expressed genes for each contrast. We can then use the `cpm()` function to get the expression values of these genes. We will take the top 50 genes from each contrast and combine them into a single data frame. We will then use extract the expression values for these genes from the full expression matrix. For more interpretable labels, we will use the gene symbols as the row names of the expression matrix.
+
+Note that by default the ENTREZID column is encoded as a numeric value, so to use it to subset our expression matrix we need to convert it to a character vector in order to select the matching IDs rather than trying to select the numerical rows of the data.
 
 ```{r}
 top_genes <- bind_rows(
@@ -293,11 +301,14 @@ top_genes <- bind_rows(
   topTable(efit, coef = "BasalvsML", n = 50),
   topTable(efit, coef = "LPvsML", n = 50)
 ) %>%
+  select(ENTREZID, SYMBOL, TXCHROM) %>%
   distinct()
 
-top_gene_expr <- cpm(dge, log = TRUE)[rownames(dge) %in% top_genes$ENTREZID, ]
-rownames(top_gene_expr) <- dge$genes$SYMBOL[match(rownames(top_gene_expr), dge$genes$ENTREZID)]
+top_gene_expr <- cpm(dge, log = TRUE)[as.character(top_genes$ENTREZID), ]
+rownames(top_gene_expr) <- top_genes$SYMBOL
 ```
+
+To create the heatmap we will use the `pheatmap()` function with the expression matrix. We will add in arguments to provide our own colour scale, to scale the data along the rows with a z-score, adding in sample annotation and clustering the data by rows and columns. We will also add in the option to show the row names and column names, and set the font size of the row names. You can experiment with removing each of these options to see how they affect the heatmap, as well as investigate additional options in the `pheatmap()` documentation.
 
 ```{r}
 library(pheatmap)
@@ -321,7 +332,9 @@ heatmap <- pheatmap(
 
 ## Saving all the results
 
-```{r}
+Now that we have produced a series of plots and the top genes table, we can save these files to a directory. These figures may form the basis for publication figures, and the results table can partially presented as a result, or the full table can be included as a supplementary file.
+
+```{r, warning=FALSE}
 dir.create("output")
 
 write_csv(top, "output/top_genes_BasalvsLP.csv")
