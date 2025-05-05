@@ -48,6 +48,13 @@ dge <- readDGE(
 
 # add gene annotation information
 dge$genes <- read_tsv("data/Ses3_geneAnnot.tsv")
+
+# filter lowly expressed genes
+keep <- filterByExpr(dge)
+dge <- dge[keep, ]
+
+# normalise the data for library size and RNA composition
+dge <- calcNormFactors(dge, method = "TMM")
 ```
 
 ## Linear modelling
@@ -91,14 +98,14 @@ In addition to the individual contrasts, the function must know about the design
 ```{r}
 colnames(design) <- c("Basal", "LP", "ML")
 
-contr.matrix <- makeContrasts(
+contr_matrix <- makeContrasts(
   BasalvsLP = "Basal - LP",
   BasalvsML = "Basal - ML",
   LPvsML = "LP - ML",
   levels = design # alternatively 'levels = colnames(design)'
 )
 
-contr.matrix
+contr_matrix
 ```
 
 There are two things to note about a design matrix. First, the sum of the numbers in each row is equal to 0. Second, the way that you set up the equation in the matrix will determine the interpretation of the log-fold-change calculated later, as well as the meaning of up-regulated and down-regulated genes. For example, the contrast `Basal - LP` will give a positive log-fold-change for genes that are up-regulated in the `Basal` group compared to the `LP` group. If we had set up the contrast as `LP - Basal`, then the opposite would be true, and we would get a negative log-fold-change for genes that are up-regulated in the `Basal` group compared to the `LP` group.
@@ -130,14 +137,14 @@ The MA plot shows the mean-variance relationship of the data. The x-axis is the 
 We are now ready to fit our linear model with `lmFit()`, which calculates coefficients we defined in our design matrix `design`. The resulting object, `vfit` is a `MArrayLM` object. It contains a information about our genes (the same data frame as `genes` from our `EList` object `v` above), the design matrix and a number of statistical outputs. Of most interest to us is the coefficients, stored in an element called `coefficients`. The first rows of this matrix is shown below. Each gene is row and is labelled using the EntrezID. Each column gives coefficients for each of our phenotype groups. These coefficients are weighted averages of the log-cpm of each gene in each group.
 
 ```{r}
-vfit <- lmFit(v, design)
+vfit <- lmFit(v)
 head(vfit$coefficients)
 ```
 
-We can then use `contrasts.fit()` to calculate coefficients for each contrast (or 'comparison') we specified in our `contr.matrix`. The output is also an object of the class `MArrayLM` (also known as an `MArrayLM` object). When we inspect the `coefficients` element now, we can see that each column is a contrast that we specified in our contrast matrix.
+We can then use `contrasts.fit()` to calculate coefficients for each contrast (or 'comparison') we specified in our `contr_matrix`. The output is also an object of the class `MArrayLM` (also known as an `MArrayLM` object). When we inspect the `coefficients` element now, we can see that each column is a contrast that we specified in our contrast matrix.
 
 ```{r}
-vfit <- contrasts.fit(vfit, contrasts = contr.matrix)
+vfit <- contrasts.fit(vfit, contrasts = contr_matrix)
 head(vfit$coefficients)
 ```
 
@@ -166,7 +173,7 @@ To obtain the total number of differentially expressed genes for each comparison
 summary(dt)
 ```
 
-The function `topTable()` can be used to obtain more information on the differentially expressed genes for each contrast. `topTable()` takes as arguments the `MArrayLM` object output by `eBayes()` (`efit`), the contrast name of interest and the number of top differentially expressed genes to output. Note that the contrast name must be given in quotes and must be exactly as written in the contrast matrix `contr.matrix`.
+The function `topTable()` can be used to obtain more information on the differentially expressed genes for each contrast. `topTable()` takes as arguments the `MArrayLM` object output by `eBayes()` (`efit`), the contrast name of interest and the number of top differentially expressed genes to output. Note that the contrast name must be given in quotes and must be exactly as written in the contrast matrix `contr_matrix`.
 
 It outputs a data frame with the following information:
 
@@ -323,6 +330,6 @@ ggsave("output/volcano_plot_BasalvsLP.png", volcano_plot)
 ggsave("output/heatmap_BasalvsLP.png", heatmap$gtable)
 ```
 
-With that we have come to the conclusion of the RNA-seq analysis and this course. You have now learned how to use various `ticyverse` packages to operate on data and create publication quality figures. You have also learned how to use the `limma` and `edgeR` packages to perform differential expression analysis on RNA-seq data. You should now be able to apply these skills to perform analysis on your own data.
+With that we have come to the conclusion of the RNA-seq analysis and this course. You have now learned how to use various `tidyverse` packages to operate on data and create publication quality figures. You have also learned how to use the `limma` and `edgeR` packages to perform differential expression analysis on RNA-seq data. You should now be able to apply these skills to perform analysis on your own data.
 
 ## References
