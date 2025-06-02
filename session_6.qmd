@@ -13,12 +13,12 @@ format:
 The aim of this session is to complete the analysis of the RNA-seq data using the `limma` and `edgeR` packages. With the results of the analysis, we want to be able to produce publication quality figures and write out the results to a file for sharing or publication.
 
 ::: {.callout-tip title="Learning Objectives"}
-- fit a linear model to the data
-- construct design and contrast matrices for the linear model
-- model the mean-variance relationship of the data using the `voom()` function
-- perform statistical testing to identify differentially expressed genes
-- visualise the results using an MA plot
-- write out the results to a file
+-   fit a linear model to the data
+-   construct design and contrast matrices for the linear model
+-   model the mean-variance relationship of the data using the `voom()` function
+-   perform statistical testing to identify differentially expressed genes
+-   visualise the results using an MA plot
+-   write out the results to a file
 :::
 
 ```{r}
@@ -114,9 +114,9 @@ There are two things to note about a design matrix. First, the sum of the number
 
 We are now ready to fit our linear models. Limma fits linear models to the data with the assumption that the underlying data is normally distributed. Count data is generally not normally distributed, but log transforming count data gives it a roughly normal distribution sufficient for linear models to work well. To do this, limma transforms the raw count data to log-cpm using library sizes and the normalisation factors we calculated previously.
 
-In addition to the normalisation steps, the limma-voom pipeline uses the `voom()` function to generate weights for the individual genes based on a modelled mean-variance relationship. This modelling allows use to get more information out of small sample sizes as the weights prevent our model from being more heavily influenced by more variable data points. The weights will then allow the linear model to be less influenced by genes with high variability, which is important for small sample sizes. The voom function also generates a mean-variance plot, which is useful for visualising the data.
+In addition to the normalisation steps, the limma-voom pipeline uses the `voom()` function to generate weights for the individual genes based on a modelled mean-variance relationship. This modelling allows us to get more information out of small sample sizes as the weights prevent our model from being more heavily influenced by more variable data points. The weights will then allow the linear model to be less influenced by genes with high variability, which is important for small sample sizes. The voom function also generates a mean-variance plot, which is useful for visualising the data.
 
-The `voom()` function takes as arguments, our `DGEList` object and our design matrix. It also optionally outputs a plot of the mean-variance relationship of our data, called the 'voom-plot'.
+The `voom()` function takes as arguments, our `DGEList` object and our design matrix. It also optionally outputs a plot of the mean-variance relationship of our data, called the 'voom plot'.
 
 ```{r}
 v <- voom(dge, design, plot = TRUE)
@@ -130,7 +130,7 @@ The output of `voom()` (our variable `v`) is an `EList` object which contains th
 -   `weights` - numeric matrix of precision weights.
 -   `design` - the design matrix.
 
-The MA plot shows the mean-variance relationship of the data. The x-axis is the average log2 expression of each gene, and the y-axis is the log2 standard deviation of each gene. The idea is that the variance of a gene can be estimated as a function of its main expression, and that this estimate is more accurate than the direct calculation of the variance.
+The 'voom plot' shows the mean-variance relationship of the data. The x-axis is the average log2 expression of each gene, and the y-axis is the log2 standard deviation of each gene. The idea is that the variance of a gene can be estimated as a function of its main expression, and that this estimate is more accurate than the direct calculation of the variance.
 
 ### Fitting the linear model
 
@@ -200,6 +200,9 @@ The MA plot is a plot of log-fold-change (M-values) against log-expression avera
 
 ```{r}
 plotMA(efit, coef = 1, status = dt[, "BasalvsLP"])
+
+#If you get an error with the above code, try:
+limma::plotMA(efit, coef = 1, status = dt[, "BasalvsLP"])
 ```
 
 As before, we can try to re-create this plot using `ggplot2` to give us more flexibility in plotting. The information we'll need is the log-fold-change, the average log-expression and the differential expression status of each gene. We can extract this information from the `efit` and `top` data frame we created above, as well as gene names for annotation purposes.
@@ -259,6 +262,8 @@ ma_plot <- ma_plot_data_fct %>%
     show.legend = FALSE
   ) +
   scale_colour_manual(values = scale_cols)
+
+ma_plot
 ```
 
 ## Volcano Plot
@@ -283,7 +288,7 @@ volcano_plot
 
 ## Heatmap
 
-Finally we can create a heatmap of the differentially expressed genes. The heatmap is a useful way to visualise the expression of the differentially expressed genes across the samples. We can use the `pheatmap` package to create the heatmap.
+Next, we can create a heatmap of the differentially expressed genes. The heatmap is a useful way to visualise the expression of the differentially expressed genes across the samples. We can use the `pheatmap` package to create the heatmap.
 
 First we need to install the package if you haven't already
 
@@ -330,6 +335,36 @@ heatmap <- pheatmap(
 )
 ```
 
+## Boxplots 
+
+Lastly, we can create boxplots for a few differentially-expressed genes. This is a way of confirming that the results in our summary statistics tables and summary plots are valid, and that that our contrasts are set up correctly. In this case we'll make boxplots from the log(CPM) values of individual samples, for the first 6 differentially expressed genes in `top_gene_expr`, which come from the BasalvsLP topTable. We will extract the first 6 rows of the tibble using `slice`, then reshape the data to long form as required for ggplot2.
+
+```{r}
+top_gene_long <- top_gene_expr |> as_tibble(rownames='SYMBOL') |> slice(1:6) |> 
+  pivot_longer(cols = -SYMBOL, names_to = 'sample', values_to = 'logCPM')
+
+```
+
+Next, we join the sample groupings to this reshaped data:
+
+```{r}
+sample_group <- tibble('sample' = samplenames, "group" = group)
+
+top_gene_long_samples <- left_join(top_gene_long, sample_group, by='sample')
+```
+
+...and plot the results
+```{r}
+boxplots <- top_gene_long_samples |> 
+  ggplot(aes(x=group,y=logCPM,colour = group)) + 
+  geom_boxplot() +
+  geom_jitter() +
+  facet_wrap(~SYMBOL, scales='free')
+
+boxplots
+```
+
+
 ## Saving all the results
 
 Now that we have produced a series of plots and the top genes table, we can save these files to a directory. These figures may form the basis for publication figures, and the results table can partially presented as a result, or the full table can be included as a supplementary file.
@@ -340,7 +375,8 @@ dir.create("output")
 write_csv(top, "output/top_genes_BasalvsLP.csv")
 ggsave("output/ma_plot_BasalvsLP.png", ma_plot)
 ggsave("output/volcano_plot_BasalvsLP.png", volcano_plot)
-ggsave("output/heatmap_BasalvsLP.png", heatmap$gtable)
+ggsave("output/heatmap_BasalvsLP.png", heatmap)
+ggsave("output/boxplots.png", boxplots)
 ```
 
 With that we have come to the conclusion of the RNA-seq analysis and this course. You have now learned how to use various `tidyverse` packages to operate on data and create publication quality figures. You have also learned how to use the `limma` and `edgeR` packages to perform differential expression analysis on RNA-seq data. You should now be able to apply these skills to perform analysis on your own data.
