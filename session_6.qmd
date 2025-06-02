@@ -108,7 +108,7 @@ contr_matrix <- makeContrasts(
 contr_matrix
 ```
 
-There are two things to note about a design matrix. First, the sum of the numbers in each row is equal to 0. Second, the way that you set up the equation in the matrix will determine the interpretation of the log-fold-change calculated later, as well as the meaning of up-regulated and down-regulated genes. For example, the contrast `Basal - LP` will give a positive log-fold-change for genes that are up-regulated in the `Basal` group compared to the `LP` group. If we had set up the contrast as `LP - Basal`, then the opposite would be true, and we would get a negative log-fold-change for genes that are up-regulated in the `Basal` group compared to the `LP` group.
+There are two things to note about a design matrix. First, the sum of the numbers in each column is equal to 0. Second, the way that you set up the equation in the matrix will determine the interpretation of the log-fold-change calculated later, as well as the meaning of up-regulated and down-regulated genes. For example, the contrast `Basal - LP` will give a positive log-fold-change for genes that are up-regulated in the `Basal` group compared to the `LP` group. If we had set up the contrast as `LP - Basal`, then the opposite would be true, and we would get a negative log-fold-change for genes that are up-regulated in the `Basal` group compared to the `LP` group.
 
 ### Variance modelling with voom
 
