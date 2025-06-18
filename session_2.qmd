@@ -158,7 +158,7 @@ We will now introduce some of the most commonly used `dplyr` functions for manip
 ```{r}
 #| eval: false
 # read in the data, like we did in session 1
-mousezempic_dosage_data <- read_delim("~/Desktop/R_course/data/mousezempic_dosage_data.csv")
+mousezempic_dosage_data <- read_delim("data/mousezempic_dosage_data.csv")
 ```
 
 ```{r}
