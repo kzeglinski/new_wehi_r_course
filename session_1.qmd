@@ -9,7 +9,9 @@ format:
 ---
 
 <!-- things to change: -->
+
 <!-- mention that ~ in path means home -->
+
 <!-- adjust timing -->
 
 # Session 1: Introduction to R {#sec-session01}
@@ -151,13 +153,13 @@ Above we used spaces between the numbers and mathematical operators in our code.
 ```
 :::
 
-::: {.callout-important title="Practice exercises"}
+::::::::::::::: {.callout-important title="Practice exercises"}
 Try these practice questions to test your understanding
 
-::: question
+:::::::: question
 1\. Which R expression would give me a result of 10?
 
-::: choices
+::::::: choices
 ::: {.choice .correct-choice}
 `(2 * 3) + (2 ^ 2)`
 :::
@@ -173,13 +175,13 @@ Try these practice questions to test your understanding
 ::: choice
 `20 - 1`
 :::
-:::
-:::
+:::::::
+::::::::
 
-::: question
+:::::::: question
 2\. What would be the result of running this line of R code: `# test 1+1`
 
-::: choices
+::::::: choices
 ::: choice
 1
 :::
@@ -195,8 +197,8 @@ An error
 ::: {.choice .correct-choice}
 Nothing
 :::
-:::
-:::
+:::::::
+::::::::
 
 <details>
 
@@ -211,7 +213,7 @@ Nothing
 </p>
 
 </details>
-:::
+:::::::::::::::
 
 ## Comparisons {#sec-comparisons}
 
@@ -253,13 +255,13 @@ You can also negate the result of a comparison or any TRUE/FALSE value by using 
 
 This is really useful for filtering data, which we will cover in [Session @sec-session02]
 
-::: {.callout-important title="Practice exercises"}
+::::::::::::::::::::: {.callout-important title="Practice exercises"}
 Try these practice questions to test your understanding
 
-::: question
+:::::::: question
 1\. What would be the result of running this R code: `10 >= 10`
 
-::: choices
+::::::: choices
 ::: choice
 10
 :::
@@ -275,13 +277,13 @@ Try these practice questions to test your understanding
 ::: choice
 An error
 :::
-:::
-:::
+:::::::
+::::::::
 
-::: question
+:::::::: question
 2\. Which of the following R expressions would give me a result of `FALSE`?
 
-::: choices
+::::::: choices
 ::: choice
 `1 == 1`
 :::
@@ -297,13 +299,13 @@ An error
 ::: {.choice .correct-choice}
 `1 == 2`
 :::
-:::
-:::
+:::::::
+::::::::
 
-::: question
+:::::::: question
 3\. What would be the result of running this R code: `!TRUE`
 
-::: choices
+::::::: choices
 ::: {.choice .correct-choice}
 `FALSE`
 :::
@@ -319,8 +321,8 @@ An error
 ::: choice
 Nothing
 :::
-:::
-:::
+:::::::
+::::::::
 
 <details>
 
@@ -335,7 +337,7 @@ Nothing
 </p>
 
 </details>
-:::
+:::::::::::::::::::::
 
 ## Variables {#sec-variables}
 
@@ -484,13 +486,13 @@ Beyond those three key rules, there are also some best practices we should try t
 
 -   Avoid using names that are already used in R. For example, `mean` is a function in R that calculates the average of a set of numbers. If you use `mean` as a variable name, this could lead to errors: how will R know if you are referring to the function `mean` or your variable `mean`?
 
-::: {.callout-important title="Practice exercises"}
+::::::::::::::::::::::::::: {.callout-important title="Practice exercises"}
 Try these practice questions to test your understanding
 
-::: question
+:::::::: question
 1\. How would I assign the value of 10 to a variable called `my_variable`?
 
-::: choices
+::::::: choices
 ::: choice
 `10`
 :::
@@ -506,13 +508,13 @@ Try these practice questions to test your understanding
 ::: choice
 `my variable <- 10`
 :::
-:::
-:::
+:::::::
+::::::::
 
-::: question
+:::::::: question
 2\. I have assigned the value of 10 to a variable called `my_variable` as in Q1. What then would be the output from running this line of R code: `my_variable + 5`?
 
-::: choices
+::::::: choices
 ::: choice
 An error
 :::
@@ -528,13 +530,13 @@ Nothing
 ::: {.choice .correct-choice}
 15
 :::
-:::
-:::
+:::::::
+::::::::
 
-::: question
+:::::::: question
 3\. I have assigned the value of 10 to a variable called `my_variable` as in Q1. If I run the code `my_variable <- my_variable + 10`, what is the new value of `my_variable`?
 
-::: choices
+::::::: choices
 ::: choice
 10
 :::
@@ -550,13 +552,13 @@ Nothing
 ::: choice
 `my_variable`
 :::
-:::
-:::
+:::::::
+::::::::
 
-::: question
+:::::::: question
 4\. Which of the following is a valid variable name?
 
-::: choices
+::::::: choices
 ::: choice
 `10th_place`
 :::
@@ -572,8 +574,8 @@ Nothing
 ::: {.choice .correct-choice}
 `expression_level`
 :::
-:::
-:::
+:::::::
+::::::::
 
 <details>
 
@@ -589,7 +591,7 @@ Nothing
 </p>
 
 </details>
-:::
+:::::::::::::::::::::::::::
 
 ## Functions {#sec-functions}
 
@@ -708,13 +710,13 @@ Sometimes, the R help pages can be pretty tricky to understand, and they can't h
 
 No matter where you get your help, try to make sure you understand the code you find. Reading the help pages for new functions, or asking an AI like ChatGPT to explain what code is doing is a great way to expand your R knowledge. We also list some recommended additional resources in the "Useful references" section of "Further reading".
 
-::: {.callout-important title="Practice exercises"}
+::::::::::::::::::::: {.callout-important title="Practice exercises"}
 Try these practice questions to test your understanding
 
-::: question
+:::::::: question
 1\. What would be the result of running this R code: `round(3.14159, digits = 2)`
 
-::: choices
+::::::: choices
 ::: choice
 3.14159
 :::
@@ -730,8 +732,8 @@ Try these practice questions to test your understanding
 ::: choice
 3
 :::
-:::
-:::
+:::::::
+::::::::
 
 2\. Look up the help pages for the following functions, and describe what they do:
 
@@ -739,10 +741,10 @@ Try these practice questions to test your understanding
 -   `Sys.Date()`
 -   `sin()`
 
-::: question
+:::::::: question
 3\. What is wrong with this line of R code: `round(3.14159, digits = 3`
 
-::: choices
+::::::: choices
 ::: choice
 Digits is not a valid argument for the round function
 :::
@@ -758,13 +760,13 @@ You don't need to specify the digits argument
 ::: {.choice .correct-choice}
 You need to close the brackets at the end of the line
 :::
-:::
-:::
+:::::::
+::::::::
 
-::: question
+:::::::: question
 4\. Which of the following lines of R code will run without error?
 
-::: choices
+::::::: choices
 ::: choice
 `rm(my_variable`
 :::
@@ -780,8 +782,8 @@ You need to close the brackets at the end of the line
 ::: {.choice .correct-choice}
 `round(3.14159, 3)`
 :::
-:::
-:::
+:::::::
+::::::::
 
 <details>
 
@@ -797,7 +799,7 @@ You need to close the brackets at the end of the line
 </p>
 
 </details>
-:::
+:::::::::::::::::::::
 
 ## Data types {#sec-dataTypes}
 
@@ -881,13 +883,13 @@ Of course, it doesn't make sense to make some conversions. In the example below,
 as.numeric("hello")
 ```
 
-::: {.callout-important title="Practice exercises"}
+::::::::::::::::::::: {.callout-important title="Practice exercises"}
 Try these practice questions to test your understanding
 
-::: question
+:::::::: question
 1\. What are the three atomic data types in R?
 
-::: choices
+::::::: choices
 ::: {.choice .correct-choice}
 logical, numeric, character
 :::
@@ -903,13 +905,13 @@ dataset, vector, matrix
 ::: choice
 boolean, text, number
 :::
-:::
-:::
+:::::::
+::::::::
 
-::: question
+:::::::: question
 2\. How do you find the type of a piece of data in R?
 
-::: choices
+::::::: choices
 ::: choice
 You can't
 :::
@@ -925,13 +927,13 @@ Guess
 ::: {.choice .correct-choice}
 Using the `class()` function
 :::
-:::
-:::
+:::::::
+::::::::
 
-::: question
+:::::::: question
 3\. How would you convert the character "TRUE" to a logical?
 
-::: choices
+::::::: choices
 ::: choice
 `TRUE`
 :::
@@ -947,8 +949,8 @@ You can't convert a character to a logical
 ::: choice
 Using the `logical()` function
 :::
-:::
-:::
+:::::::
+::::::::
 
 4\. What are the types of the following?
 
@@ -987,8 +989,7 @@ Using the `logical()` function
 </p>
 
 </details>
-
-:::
+:::::::::::::::::::::
 
 ## Data structures {#sec-datastructures}
 
@@ -1067,7 +1068,7 @@ For example, `1:5` creates a vector of numbers from 1 to 5:
 ```
 :::
 
-R is a vectorised language, which means that many functions and operations (like `*`, `+` etc) work directly on vectors without you having to write extra code. For example, we can use the `mean()` function to calculate the average of a vector of numbers:
+R is a vectorised language, which means that many functions and operations (like `*`, `+` etc) work directly on vectors without you having to write extra code. For example, we can use the `mean()` function to calculate the average of a vector of numbers, or add a single number to each value in the vector:
 
 ```{r}
 # create a vector of numbers
@@ -1075,6 +1076,9 @@ numbers <- c(1, 2, 3, 4, 5)
 
 # calculate the mean
 mean(numbers)
+
+# add 5 to each value
+numbers + 5
 ```
 
 Because the other data structures we'll cover are built on vectors, this concept will be useful for them as well.
@@ -1204,13 +1208,13 @@ class(iris$Petal.Width)
 mean(iris$Petal.Width)
 ```
 
-::: {.callout-important title="Practice exercises"}
+::::::::::::::::::::::::::::::::::::::: {.callout-important title="Practice exercises"}
 Try these practice questions to test your understanding
 
-::: question
+:::::::: question
 1\. Which of the following is NOT a valid vector in R?
 
-::: choices
+::::::: choices
 ::: choice
 `c(TRUE, FALSE, FALSE)`
 :::
@@ -1226,13 +1230,13 @@ Try these practice questions to test your understanding
 ::: choice
 `c("cat", "dog", "fish")`
 :::
-:::
-:::
+:::::::
+::::::::
 
-::: question
+:::::::: question
 2\. What is the result of running this R code: `c(1, 2, 3) * 2`?
 
-::: choices
+::::::: choices
 ::: choice
 `2(1, 2, 3)`
 :::
@@ -1248,13 +1252,13 @@ Try these practice questions to test your understanding
 ::: {.choice .correct-choice}
 `c(2, 4, 6)`
 :::
-:::
-:::
+:::::::
+::::::::
 
-::: question
+:::::::: question
 3\. What is the difference between a matrix and a data frame?
 
-::: choices
+::::::: choices
 ::: {.choice .correct-choice}
 A matrix has all elements of the same type, while a data frame can have different types in each column
 :::
@@ -1270,10 +1274,10 @@ A matrix can only contain numbers, while a data frame can contain numbers and te
 ::: choice
 A matrix is used for mathematical operations, while a data frame is used for data analysis
 :::
-:::
-:::
+:::::::
+::::::::
 
-::: question
+:::::::: question
 4\. I wrote this code to create a data frame, but it gave me an error. What is wrong with it?
 
 ```{r}
@@ -1285,7 +1289,7 @@ favourite_fruits <- data.frame(
 )
 ```
 
-::: choices
+::::::: choices
 ::: choice
 The column names are not in quotation marks
 :::
@@ -1301,13 +1305,13 @@ It's not allowed to have character columns and numeric columns in the same data 
 ::: choice
 You should use the `tibble()` function instead of `data.frame()`
 :::
-:::
-:::
+:::::::
+::::::::
 
-::: question
+:::::::: question
 5\. What is NOT a way that I could view the contents of a data frame in R?
 
-::: choices
+::::::: choices
 ::: choice
 Running the name of the data frame as code in the R script panel
 :::
@@ -1323,10 +1327,10 @@ Clicking on its name in the environment panel
 ::: {.choice .correct-choice}
 Using the `view()` function
 :::
-:::
-:::
+:::::::
+::::::::
 
-::: question
+:::::::: question
 6\. I have created the `mouse_facts` data frame using the code below. How would I calculate the average age of the mice?
 
 ```{r}
@@ -1338,7 +1342,7 @@ mouse_facts <- data.frame(
 )
 ```
 
-::: choices
+::::::: choices
 ::: choice
 mean(age)
 :::
@@ -1354,8 +1358,8 @@ average(age)
 ::: choice
 average(mouse_facts\$age)
 :::
-:::
-:::
+:::::::
+::::::::
 
 <details>
 
@@ -1374,8 +1378,7 @@ average(mouse_facts\$age)
 6\. To calculate the average age of the mice, you would use `mean(mouse_facts$age)`. This is because the `age` column is part of the `mouse_facts` data frame, so you need to use the `$` symbol to access it, and the function for calculating the average in R is `mean()`.
 
 </details>
-
-:::
+:::::::::::::::::::::::::::::::::::::::
 
 ## Reading in data {#sec-readingin}
 
@@ -1435,6 +1438,7 @@ We only need to install a package once, but you must load it each time you open 
 # do this every time you open R
 library(tidyverse)
 ```
+
 You'll see some output from the `tidyverse` package when you load it, which is just telling you that some of the tidyverse functions have the same name as other functions in R.
 
 If you forget to load a package, R will give you an error when you try to use that package's functions, so it's usually a good idea to load all the packages you'll need at the start of your script to prevent you forgetting to load them the next time you open R. We'll do this at the start of each session in this course.
@@ -1582,13 +1586,13 @@ You can then copy this code and paste it into your script. This step is really i
 
 ![Don't forget to paste the code into the script!!!](images/S01F26_paste_code.png){width="1000"}
 
-::: {.callout-important title="Practice exercises"}
+::::::::::::::::::::: {.callout-important title="Practice exercises"}
 Try these practice questions to test your understanding
 
-::: question
+:::::::: question
 1\. What is a path?
 
-::: choices
+::::::: choices
 ::: choice
 A type of data in R
 :::
@@ -1604,13 +1608,13 @@ A string of characters that tells R where to find a file
 ::: choice
 A function in R
 :::
-:::
-:::
+:::::::
+::::::::
 
-::: question
+:::::::: question
 2\. What is NOT a way to read in a file called `my_data.tsv` in R?
 
-::: choices
+::::::: choices
 ::: choice
 Using the `read_delim()` function
 :::
@@ -1626,13 +1630,13 @@ Using the `read_tsv()` function
 ::: {.choice .correct-choice}
 Using the `read_csv()` function
 :::
-:::
-:::
+:::::::
+::::::::
 
-::: question
+:::::::: question
 3\. What do we need to do before we can use functions from `readr` or any other R package?
 
-::: choices
+::::::: choices
 ::: choice
 Install it
 :::
@@ -1648,8 +1652,8 @@ Download it
 ::: choice
 Look at the help page for the functions we want to use
 :::
-:::
-:::
+:::::::
+::::::::
 
 <details>
 
@@ -1662,7 +1666,7 @@ Look at the help page for the functions we want to use
 3\. Before we can use functions from `readr` or any other R package, we need to install it, then load it into our R session using the `library()` function. Otherwise we will get an error message when we try to use the functions.
 
 </details>
-:::
+:::::::::::::::::::::
 
 ## Summary
 
@@ -1729,7 +1733,8 @@ Try the practice questions below to test your understanding!
 
 <summary>Solutions</summary>
 
-1. The results of evaluating the expressions are:
+1.  The results of evaluating the expressions are:
+
     a.  `5 + 10` is `15`
     b.  `100 >= (5 + 2) ^ 2` is `TRUE`
     c.  `!(100 > 1)` is `FALSE` (although 100 is greater than 1, the `!` operator negates this)
@@ -1746,9 +1751,10 @@ Try the practice questions below to test your understanding!
     n.  `mean(iris$Sepal.Width)` is the average of the `Sepal.Width` column in the `iris` data frame
     o.  `read_tsv("gene_counts.csv")` will try to read in `gene_counts.csv` as if it were tab-separated, which will result in all the data being in one column
 
-2. The right-hand side of the comparison `as.numeric("100") * 3 ==` can be anything that results in 300 e.g. `300` or `299 + 1`, for example
+2.  The right-hand side of the comparison `as.numeric("100") * 3 ==` can be anything that results in 300 e.g. `300` or `299 + 1`, for example
 
-3. The error in the code is because the variable name `Frog_counts` is not the same as `frog_counts`. R is case-sensitive, so it thinks you are trying to divide a variable that doesn't exist. To fix this, make sure all your variables have the same case (lowercase is better!):
+3.  The error in the code is because the variable name `Frog_counts` is not the same as `frog_counts`. R is case-sensitive, so it thinks you are trying to divide a variable that doesn't exist. To fix this, make sure all your variables have the same case (lowercase is better!):
+
 ```{r}
     # the number of frogs I counted
     frog_counts <- c(11, 2, 4, 9, 10)
@@ -1756,8 +1762,9 @@ Try the practice questions below to test your understanding!
     # convert to a proportion: divide by the sum
     frog_counts / sum(frog_counts)
 ```
-4. To calculate the median petal length in the `iris` data frame, you can use `median(iris$Petal.Length)`
 
-5. To read in the `mouse_survival.tsv` file and assign it to a variable called `mouse_survival`, you could use `red_delim()`: `mouse_survival <- read_delim("~/Downloads/experimental_data/latest/mouse_survival.tsv")` or `read_tsv()`: `mouse_survival <- read_tsv("~/Downloads/experimental_data/latest/mouse_survival.tsv")`.
+4.  To calculate the median petal length in the `iris` data frame, you can use `median(iris$Petal.Length)`
+
+5.  To read in the `mouse_survival.tsv` file and assign it to a variable called `mouse_survival`, you could use `red_delim()`: `mouse_survival <- read_delim("~/Downloads/experimental_data/latest/mouse_survival.tsv")` or `read_tsv()`: `mouse_survival <- read_tsv("~/Downloads/experimental_data/latest/mouse_survival.tsv")`.
 
 </details>
