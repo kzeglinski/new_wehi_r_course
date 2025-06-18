@@ -74,7 +74,7 @@ At this point, your RStudio window should look like this, with four different pa
 
 This is what they're used for:
 
-1.  **The R Script panel.** This is a text document where you can write code, and run it by highlighting the code or putting your cursor on that line, then pressing the 'run' button in the top-right corner or using the {{< kbd Cmd-Enter >}} keyboard shortcut.
+1.  **The R Script panel.** This is a text document where you can write code, and run it by highlighting the code or putting your cursor on that line, then either clicking the 'Run' button in the top-right corner, or using the {{< kbd Cmd-Enter >}} keyboard shortcut.
 
 2.  **The console.** This is where the output (results) of your code will appear. You can also run code in the console, by typing it next to the `>` symbol and pressing {{< kbd Enter >}} but it's better to use the R Script, as the code you write there is saved and acts as a record of your work.
 
@@ -117,21 +117,14 @@ Note that comments can be written on their own line or at the end of a line afte
 
 To practice running R code, let's do some maths. Here's how to code some basic mathematical operations in R:
 
-+----------------+------------+------------------------------------------------------------------+
-| Operation      | Code       | Example                                                          |
-+================+============+==================================================================+
-| Addition       | `+`        | one plus one: `1 + 1`                                            |
-+----------------+------------+------------------------------------------------------------------+
-| Subtraction    | `-`        | two minus ten: `2 - 10`                                          |
-+----------------+------------+------------------------------------------------------------------+
-| Multiplication | `*`        | eight times 4: `8 * 4`                                           |
-+----------------+------------+------------------------------------------------------------------+
-| Division       | `/`        | ten divided by 3: `10 / 3`                                       |
-+----------------+------------+------------------------------------------------------------------+
-| Exponents      | `^`        | three squared: `3 ^ 2`                                           |
-+----------------+------------+------------------------------------------------------------------+
-| Brackets       | `()`       | sixteen divided by the result of three minus one: `16 / (3 - 1)` |
-+----------------+------------+------------------------------------------------------------------+
+| Operation | Code | Example |
+|----|----|----|
+| Addition | `+` | one plus one: `1 + 1` |
+| Subtraction | `-` | two minus ten: `2 - 10` |
+| Multiplication | `*` | eight times 4: `8 * 4` |
+| Division | `/` | ten divided by 3: `10 / 3` |
+| Exponents | `^` | three squared: `3 ^ 2` |
+| Brackets | `()` | sixteen divided by the result of three minus one: `16 / (3 - 1)` |
 
 Like in regular maths, R follows the order of operations. Here, the `3 + 2` in the brackets will be evaluated first, and then result will be multiplied by 7.
 
