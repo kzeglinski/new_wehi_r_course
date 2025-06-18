@@ -2,8 +2,8 @@
 .Rproj.user
 .DS_Store
 
+!_freeze/
 _book/
-_freeze/
 _extensions/
 images/
 
