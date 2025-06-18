@@ -281,27 +281,27 @@ ggplot(data = mousezempic_dosage_data, aes(x = mouse_strain, y = initial_weight_
   geom_point()
 ```
 
-Notice how the points are stacked on top of one another for each strain. This is because the x axis is categorical, and ggplot2 doesn't know how to spread the points out. This can make it difficult to see the individual points, so when making a plot like this it's often useful to add the  `position = position_jitter()` argument to `geom_point()`:
+Notice how the points are stacked on top of one another for each strain. This is because the x axis is categorical, and ggplot2 doesn't know how to spread the points out. This can make it difficult to see the individual points (known as 'overplotting'), so when making a plot like this it's often better to use `geom_jitter()`:
 
 ```{r}
 #| warning: false
 # make a jittered dot plot of initial weight by mouse strain
 ggplot(data = mousezempic_dosage_data, aes(x = mouse_strain, y = initial_weight_g)) +
-  geom_point(position = position_jitter())
+  geom_jitter()
 ```
 
-The `position_jitter()` function adds a small amount of random noise to the x axis position of each point, which helps to spread them out and make it easier to see the individual points. Like most functions in ggplot2, `position_jitter()` will try to guess an appropriate amount of jitter to add, but you can specify the amount as well:
+The `geom_jitter()` adds a small amount of random noise to the x & y positions of each point, which helps to spread them out and make it easier to see the individual points. Like most functions in ggplot2, `geom_jitter()` will try to guess an appropriate amount of jitter to add, but you can specify the amount as well:
 
 ```{r}
 #| warning: false
 # use less jitter so there is more distinction between the different mouse strains
 ggplot(data = mousezempic_dosage_data, aes(x = mouse_strain, y = initial_weight_g)) +
-  geom_point(position = position_jitter(width = 0.2))
+  geom_jitter(width = 0.2, height = 0)
 ```
 The exact amount of jitter you need will depend heavily on your data, so it's often a good idea to experiment with different amounts to see what works best.
 
 ::: {.callout-note title="Beeswarm plots"}
-Another way to spread out points in a dot plot is to use a beeswarm plot, in which points are spread out slightly along the x axis so that they don't overlap. The `ggbeeswarm` package provides a `geom_beeswarm()` function that you can use to create beeswarm plots in ggplot2 (rather than using `geom_point(position = position_jitter())` like we did here). For more information, see the [ggbeeswarm documentation](https://github.com/eclarke/ggbeeswarm/blob/main/README.md).
+Another way to spread out points in a dot plot is to use a beeswarm plot, in which points are spread out slightly along the x axis so that they don't overlap. The `ggbeeswarm` package provides a `geom_beeswarm()` function that you can use to create beeswarm plots in ggplot2 (rather than using `geom_jitter()` like we did here). For more information, see the [ggbeeswarm documentation](https://github.com/eclarke/ggbeeswarm/blob/main/README.md).
 :::
 
 Beyond just scatterplots and dot plots, `geom_point()` is also really useful to overlay additional data on top of other geoms. For example, you can use it to add individual data points to a boxplot or violin plot, as we will see shortly!
@@ -347,13 +347,13 @@ ggplot(data = mousezempic_dosage_data, aes(x = mouse_strain, y = initial_weight_
   geom_boxplot()
 ```
 
-It can sometimes be nice to add points to a boxplot to show the individual data points as well as the summary statistics. You can do this by adding a `geom_point()` layer to the plot:
+It can sometimes be nice to add points to a boxplot to show the individual data points as well as the summary statistics. You can do this by adding a `geom_point()` or `geom_jitter()` layer to the plot:
 
 ```{r}
 #| warning: false
 ggplot(data = mousezempic_dosage_data, aes(x = mouse_strain, y = initial_weight_g)) +
   geom_boxplot() +
-  geom_point(position = position_jitter(width = 0.2))
+  geom_jitter(width = 0.2)
 ```
 This plot shows the distribution of initial weight for each strain (with the boxplot), as well as the individual data points. Notice how the points are jittered to avoid overlapping, as we did earlier with the dot plot.
 
@@ -492,11 +492,11 @@ Try these practice questions to test your understanding
 
 ::: choices
 ::: choice
-`ggplot(data = mousezempic_dosage_data, aes(x = mouse_strain, y = tail_length_mm)) + geom_violin(geom_point(position = position_jitter(width = 0.2))) `
+`ggplot(data = mousezempic_dosage_data, aes(x = mouse_strain, y = tail_length_mm)) + geom_violin(geom_jitter(width = 0.2)) `
 :::
 
 ::: choice
-`ggplot(data = mousezempic_dosage_data, aes(x = mouse_strain, y = tail_length_mm)) + geom_point(position = position_jitter(width = 0.2))`
+`ggplot(data = mousezempic_dosage_data, aes(x = mouse_strain, y = tail_length_mm)) + geom_jitter(width = 0.2)`
 :::
 
 ::: choice
@@ -504,7 +504,7 @@ Try these practice questions to test your understanding
 :::
 
 ::: {.choice .correct-choice}
-`ggplot(data = mousezempic_dosage_data, aes(x = mouse_strain, y = tail_length_mm)) + geom_violin() + geom_point(position = position_jitter(width = 0.2))`
+`ggplot(data = mousezempic_dosage_data, aes(x = mouse_strain, y = tail_length_mm)) + geom_violin() + geom_jitter(width = 0.2)`
 :::
 :::
 :::
@@ -544,7 +544,7 @@ Makes a bar plot of the number of mice in each cage
 <summary>Solutions</summary>
 
 1.  The correct answer is `geom_boxplot()`. This is the function used to create boxplots in ggplot2.
-2.  The correct way to create a violin plot of the tail length of the mice by strain, with points overlaid, is `ggplot(data = mousezempic_dosage_data, aes(x = mouse_strain, y = tail_length_mm)) + geom_violin() + geom_point(position = position_jitter(width = 0.2))`. This specifies the data and mapping in the `ggplot()` function call, adds a layer of violin plots using `geom_violin()`, and then adds a layer of points using `geom_point()` with jittered positions to avoid overlapping.
+2.  The correct way to create a violin plot of the tail length of the mice by strain, with points overlaid, is `ggplot(data = mousezempic_dosage_data, aes(x = mouse_strain, y = tail_length_mm)) + geom_violin() + geom_jitter(width = 0.2)`. This specifies the data and mapping in the `ggplot()` function call, adds a layer of violin plots using `geom_violin()`, and then adds a layer of points using `geom_jitter()` to avoid overlapping.
 3.  The code creates a bar plot of the number of mice in each cage, with a horizontal line at 60. The `geom_bar()` function counts the number of mice in each cage and plots the counts as bars, while the `geom_hline()` function adds a horizontal line at the y value of 60. This could be used to show a threshold e.g. for the maximum number of mice allowed in a cage.
 
 </details>
@@ -716,8 +716,7 @@ ggplot(diamonds, aes(y = price, x = carat)) +
 Notice how the points are now more evenly distributed across the plot, and we can see the relationship between carat and price more clearly.
 
 ### Positions
-Positions aren't really an aesthetic, but they are a way to control how geoms are displayed, particularly when parts of that geom overlap. We saw the position argument earlier in the `geom_point()` function, where we used `position = position_jitter()` to spread out the points in a dot plot. This is a common use of the position argument, but there are other ways it is helpful too.
-
+Positions aren't really an aesthetic, but they are a way to control how geoms are displayed, particularly when parts of that geom overlap. 
 For example, when we are using `geom_bar()` to create a bar plot that is coloured by a categorical variable, the bars will be stacked on top of each other by default. Let's illustrate this by creating a bar plot of the number of mice in each strain, coloured by the sex of the mouse:
 
 ```{r}
@@ -749,7 +748,7 @@ Try these practice questions to test your understanding
 ggplot(data = mousezempic_dosage_data,
   aes(x = mouse_strain, y = tail_length_mm)) +
   geom_violin() +
-  geom_point(aes(colour = mouse_strain), position = position_jitter(width = 0.3))
+  geom_jitter(aes(colour = mouse_strain), width = 0.3)
 ```
 ::: choices
 ::: choice
@@ -820,7 +819,7 @@ Hint: You can use the `scale_colour_viridis_c()` function to apply the viridis c
 
 <summary>Solutions</summary>
 
-1.  The correct answer is "A violin plot of tail length by mouse strain, with points overlaid. The points are jittered to avoid overlapping and are coloured by mouse strain. The violin plot is not coloured." Note that because we specified the `aes(colour = mouse_strain)` argument within `geom_point()` and not in the `ggplot()` function, **only the points will be coloured by mouse strain**, while the violin plot will not be coloured.
+1.  The correct answer is "A violin plot of tail length by mouse strain, with points overlaid. The points are jittered to avoid overlapping and are coloured by mouse strain. The violin plot is not coloured." Note that because we specified the `aes(colour = mouse_strain)` argument within `geom_jitter()` and not in the `ggplot()` function, **only the points will be coloured by mouse strain**, while the violin plot will not be coloured.
 
 2.  The correct answer is `ggplot(data = mousezempic_dosage_data, aes(x = initial_weight_g, y = tail_length_mm, colour = weight_lost_g)) + geom_point() + scale_colour_viridis_c()`. This code creates a scatterplot of initial weight and tail length, with the points coloured by weight lost using the viridis colour palette. Remember that we add scales to the plot using the `+` operator, just like we do with geoms, and that we need to specify the `colour` aesthetic in the `aes()` function to map the weight lost to colour.
 
@@ -1056,11 +1055,11 @@ How can I add points over the top of the boxplot, that are jittered to avoid ove
 
 ::: choices
 ::: choice
-Add `geom_point(position = position_jitter(width = 0.2))` to the plot code above with the `+` operator and specify the size and shape in the `aes()` function
+Add `geom_jitter(width = 0.2)` to the plot code above with the `+` operator and specify the size and shape in the `aes()` function
 :::
 
 ::: {.choice .correct-choice}
-Add `geom_point(size = 0.5, shape = 15, position = position_jitter(width = 0.2))` to the plot code above with the `+` operator
+Add `geom_jitter(size = 0.5, shape = 15, width = 0.2)` to the plot code above with the `+` operator
 :::
 
 ::: choice
@@ -1081,7 +1080,7 @@ Add `geom_point()` to the plot code above with the `+` operator
 
 1.  The correct answer is `labs(title = "Weight lost by cage number and mouse strain", x = "Cage number", y = "Weight lost (g)")`. This will add a title and axis labels to the plot. The `labels()` function does not exist in ggplot2, so the second option is incorrect. The third and fourth options are also incorrect because they do not include an title informative title.
 2.  The correct answer is "You need to put the `theme()` function after the `theme_bw()` function, because currently the `theme_bw()` function is overriding the `theme()` function." The `theme_bw()` function sets the default theme for the plot, so if you want to modify it, you need to put the `theme()` function after it. The other options are incorrect because you can use the `theme()` function and the `theme_bw()` function together, and you don't need to specify the `legend.position` and `plot.title` arguments in the `theme_bw()` function. You always use `+` when adding a new layer to a plot, so you don't need to use the pipe operator.
-3.  The correct answer is "Add `geom_point(size = 0.5, shape = 15, position = position_jitter(width = 0.2))` to the plot code above with the `+` operator." This will add points to the boxplot that are size 0.5 and square shaped. The first option is incorrect because you need to specify the size and shape in the `geom_point()` function, not in the `aes()` function (as the size and shape here don't represent anything in the data, they are just used to style the plot). The third option is incorrect because it is possible to add points to a boxplot, and the fourth option is incorrect because it does not specify the size or shape of the points, or the jitter.
+3.  The correct answer is "Add `geom_jitter(size = 0.5, shape = 15, width = 0.2)` to the plot code above with the `+` operator." This will add points to the boxplot that are size 0.5 and square shaped. The first option is incorrect because you need to specify the size and shape in the `geom_point()` function, not in the `aes()` function (as the size and shape here don't represent anything in the data, they are just used to style the plot). The third option is incorrect because it is possible to add points to a boxplot, and the fourth option is incorrect because it does not specify the size or shape of the points, or the jitter.
 
 </p>
 
@@ -1487,7 +1486,7 @@ ggplot(data = mousezempic_dosage_data,
   aes(x = mouse_strain, y = drug_dose_g, fill = mouse_strain)) +
   # you could also use aes(colour = mouse_strain) here to have the outline of the violin be the same colour as the fill
   geom_violin() +
-  geom_point(position = position_jitter(width = 0.2)) +
+  geom_jitter(width = 0.2) +
   # choose a scale you like
   # here I am using a vector of three different hex colours for the three different strains
   scale_fill_manual(values = c("#FFBA49", "#EF5B5B", "#3581B8")) +
