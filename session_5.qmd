@@ -93,7 +93,7 @@ samplenames <- c(
 
 ## A brief detour to factors
 
-Not that when we declared the `group` variable, we used factors. Factors are a special data type that is used to encode categorical variables. They have multiple useful properties in comparison to regular character vectors:
+Note that when we declared the `group` variable, we used factors. Factors are a special data type that is used to encode categorical variables. They have multiple useful properties in comparison to regular character vectors:
 - They allow you to specify the order of the levels.
 - They are stored as integers but displayed as labels.
 - They encode all the valid levels of the factor, even if they are not present in the data.
