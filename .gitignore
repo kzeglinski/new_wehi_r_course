@@ -4,9 +4,12 @@
 
 _book/
 _freeze/
+_extensions/
+images/
+
 .Rhistory
 workshop_data.zip
 data/Ses1_genes.tsv
 data/Ses1_homework.tsv
 
-output
+output/
