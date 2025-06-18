@@ -807,7 +807,7 @@ mousezempic_dosage_data %>%
 Try these practice questions to test your understanding
 
 ::: question
-1\. Which line of code would NOT be a valid way to select the `drug_dose_g`, `initial_weight_g`, and `weight_lost_g` columns from the `mousezempic_dosage_data` data frame?
+1\. Which line of code would NOT be a valid way to select only the `drug_dose_g`, `initial_weight_g`, and `weight_lost_g` columns from the `mousezempic_dosage_data` data frame?
 
 ::: choices
 ::: choice
