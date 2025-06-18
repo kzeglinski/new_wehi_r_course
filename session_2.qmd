@@ -568,12 +568,16 @@ mousezempic_dosage_data %>%
   filter(!is.na(drug_dose_g))
 ```
 
-Or, you can remove rows with missing values in any column using the `na.omit()` function:
+Or, you can remove rows with missing values in any column using the `na.omit()` or `drop_na()` function:
 
 ```{r}
 # remove rows with missing values in any column
 mousezempic_dosage_data %>%
   na.omit()
+
+mousezempic_dosage_data %>%
+  drop_na()
+
 ```
 
 Sometimes, instead of removing rows with missing values, you might want to replace them with a specific value. This can be done using the `replace_na()` function from the `tidyr` package. `replace_na()` takes a `list()` which contains each of the column names you want to edit, and the value that should be used.
