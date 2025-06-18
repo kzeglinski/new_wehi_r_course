@@ -736,8 +736,10 @@ mousezempic_dosage_data %>%
   # first the name of the column to move, then where it should go
   relocate(sex, .before = cage_number)
 ```
+Without a specific position `( .before / .after)`, this function will place the chosen column(s) as the first / left-most columns.
 
-Two useful helper functions here are the `everything()` and `last_col()` functions, which can be used to move columns to the start/end of the data frame.
+
+Two further useful helper functions for `relocate()` are the `everything()` and `last_col()` functions, which can be used to move columns to the start/end of the data frame.
 
 ```{r}
 # move id_num to the front
