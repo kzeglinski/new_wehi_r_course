@@ -1,6 +1,7 @@
 # BIOL90042 R Course
-redesigned r course combining base + tidy with an rna-seq focus
 
-rendered book link is here: https://wehi-education.github.io/BIOL90042_R_Course/
+Introduction to R course combining base & tidy with a biomedical data focus
 
-if you have any feedback please open an issue
+Forked from https://github.com/kzeglinski/new_wehi_r_course
+
+The rendered book link is here: https://wehi-education.github.io/BIOL90042_R_Course/
