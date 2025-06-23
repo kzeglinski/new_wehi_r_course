@@ -5,15 +5,15 @@ format:
   html:
     toc: true
     toc-location: left
-    toc-title: "In this session:"
+    toc-title: "In this chapter:"
 ---
 
-# Chapter 2: Working with data {#sec-session02}
+# Chapter 2: Working with data {#sec-chapter02}
 
-In this session we will learn how to manipulate and summarise data using the `dplyr` package (with a little help from the `tidyr` package too).
+In this chapter we will learn how to manipulate and summarise data using the `dplyr` package (with a little help from the `tidyr` package too).
 
 ::: {.callout-tip title="Learning Objectives"}
-At the end of this session, learners should be able to:
+At the end of this chapter, learners should be able to:
 
 1.  Use the pipe (`%>%`) to chain multiple functions together
 
@@ -151,9 +151,9 @@ mousezempic_dosage_data %>%
 
 This code filters the `mousezempic_dosage_data` data frame to only include data from cage 3E, then pulls out the `weight_lost_g` column, and finally calculates the mean of the values in that column. The first argument to each function is the output of the previous function, and any additional arguments (like the column name in `pull()`) are specified in the brackets (like `round(digits = 2)` from the previous example).
 
-We also used the enter key after each pipe `%>%` to break up the code into multiple lines to make it easier to read. This isn't required, but is a popular style in the R community, so all the code examples in this session will follow this format.
+We also used the enter key after each pipe `%>%` to break up the code into multiple lines to make it easier to read. This isn't required, but is a popular style in the R community, so all the code examples in this chapter will follow this format.
 
-We will now introduce some of the most commonly used `dplyr` functions for manipulating data frames. To showcase these, we will use the `mousezempic_dosage_data` that we practiced reading in last session. This imaginary dataset contains information on the weight lost by different strains of mice after being treated with different doses of MouseZempic®.
+We will now introduce some of the most commonly used `dplyr` functions for manipulating data frames. To showcase these, we will use the `mousezempic_dosage_data` that we practiced reading in last chapter. This imaginary dataset contains information on the weight lost by different strains of mice after being treated with different doses of MouseZempic®.
 
 ```{r}
 #| eval: false
@@ -167,7 +167,7 @@ mousezempic_dosage_data <- read_delim("data/mousezempic_dosage_data.csv")
 mousezempic_dosage_data <- read_delim("data/mousezempic_dosage_data.csv")
 ```
 
-Before we start, let's use what we learned in the previous session to take a look at `mousezempic_dosage_data`:
+Before we start, let's use what we learned in the previous chapter to take a look at `mousezempic_dosage_data`:
 
 ```{r}
 # it's a tibble, so prints nicely
@@ -183,7 +183,7 @@ Although it's great to give our data a descriptive name like `mousezempic_dosage
 
 You can then press {{< kbd Tab >}} to autocomplete it. If there are multiple objects that start with the same letters, you can use the arrow keys to cycle through the options.
 
-Try using autocomplete this session to save yourself some typing!
+Try using autocomplete in this chapter to save yourself some typing!
 :::
 
 ### Sorting data {#sec-sorting}
@@ -387,7 +387,7 @@ Comment D
 
 ![Filter allows you to filter rows using a logical test](images/S02F03_filter.png)
 
-In `dplyr`, the `filter()` function is used to subset rows based on their values. You provide a logical test, and `filter()` will keep the rows where the test is `TRUE`. We can write these tests using the comparison operators we learned in the previous session (e.g. `==`, `<` and `!=`, see [Section @sec-comparisons]).
+In `dplyr`, the `filter()` function is used to subset rows based on their values. You provide a logical test, and `filter()` will keep the rows where the test is `TRUE`. We can write these tests using the comparison operators we learned in the previous chapter (e.g. `==`, `<` and `!=`, see [Section @sec-comparisons]).
 
 For example, to filter the `mousezempic_dosage_data` data frame to only include mice that lost more than 6g:
 
@@ -789,7 +789,7 @@ mousezempic_dosage_data %>% pull(initial_weight_g) %>% mean(na.rm = TRUE)
 
 Note how both times we used `na.rm = TRUE` to remove missing values before calculating the mean.
 
-You might remember that we used the `$` operator in the previous session to extract a single column from a data frame, so why use `pull()` instead? The main reason is that `pull()` works within a chain of pipes, whereas `$` doesn't.
+You might remember that we used the `$` operator in the previous chapter to extract a single column from a data frame, so why use `pull()` instead? The main reason is that `pull()` works within a chain of pipes, whereas `$` doesn't.
 
 For example, let's say we want to know the average initial weight of mice that lost at least 4g. We can do this by chaining `filter()` and `pull()` together:
 
@@ -1431,7 +1431,7 @@ mousezempic_dosage_data %>%
 Remember here that the first argument (the data frame to save) is passed on by the pipe, so the only argument in the brackets is the second one: the file path.
 
 ## Summary
-Here's what we've covered in this session:
+Here's what we've covered in this chapter:
 
 -   The pipe operator `%>%` and how we can use it to chain together multiple function calls, making our code more readable and easier to understand.
 
@@ -1442,7 +1442,7 @@ Here's what we've covered in this session:
 -   The `summarise()` function and how it can be used to calculate summary statistics on your data, as well as the power of grouping data with the `.by` argument.
 
 ::: {.callout-note title="Why does data need to be tidy anyway?"}
-In this session, we've been focusing on making our data 'tidy': that is, structured in a consistent way that makes it easy to work with. A nice visual illustration of tidy data and its importance can be [found here](https://allisonhorst.com/other-r-fun).
+In this chapter, we've been focusing on making our data 'tidy': that is, structured in a consistent way that makes it easy to work with. A nice visual illustration of tidy data and its importance can be [found here](https://allisonhorst.com/other-r-fun).
 :::
 
 ### Practice questions

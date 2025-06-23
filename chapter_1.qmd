@@ -5,7 +5,7 @@ format:
   html:
     toc: true
     toc-location: left
-    toc-title: "In this session:"
+    toc-title: "In this chapter:"
 ---
 
 <!-- things to change: -->
@@ -14,9 +14,9 @@ format:
 
 <!-- adjust timing -->
 
-# Session 1: Introduction to R {#sec-session01}
+# Chapter 1: Introduction to R {#sec-chapter01}
 
-In this session, we will get familiar with R.
+In this chapter, we will get familiar with R.
 
 ::: {.callout-tip title="Learning Objectives"}
 1.  Use RStudio to create an R project and R script
@@ -55,7 +55,7 @@ Finally, we need to give our project an informative name:
 ![Choose a name that will help you remember what this project is about!](images/S01F04_make_project.png){width="960"}
 
 ::: {.callout-note title="Name with underscores, not spaces"}
-You'll notice I named my project using an underscore (R_course) rather than a space (R course). **In general, when coding we want to name things without spaces**, so that it is clear to the computer that we are talking about a single entity (the 'R_course') as opposed to multiple things ('R' and 'course'). We'll revisit this idea later in the session in @sec-variables
+You'll notice I named my project using an underscore (R_course) rather than a space (R course). **In general, when coding we want to name things without spaces**, so that it is clear to the computer that we are talking about a single entity (the 'R_course') as opposed to multiple things ('R' and 'course'). We'll revisit this idea later in the chapter in @sec-variables
 :::
 
 ### Creating an R script {#sec-createRScript}
@@ -133,7 +133,7 @@ Like in regular maths, R follows the order of operations. Here, the `3 + 2` in t
 (3 + 2) * 7
 ```
 
-You might notice when running this code that before the output (result), there is a number one that looks like this: `[1]`. This relates to the length of our output, which here is just one single number (hence the `1`). Later in the session we will write code with longer output, and the purpose of this number will become clearer, but you can ignore it for now.
+You might notice when running this code that before the output (result), there is a number one that looks like this: `[1]`. This relates to the length of our output, which here is just one single number (hence the `1`). Later in the chapter we will write code with longer output, and the purpose of this number will become clearer, but you can ignore it for now.
 
 ::: {.callout-note title="Using whitespace in code"}
 Above we used spaces between the numbers and mathematical operators in our code. R understands code without spaces too, but this makes it easier to read. Note that this is different to when we are naming things, when spaces are bad!
@@ -246,7 +246,7 @@ You can also negate the result of a comparison or any TRUE/FALSE value by using 
 !(1 == 2)
 ```
 
-This is really useful for filtering data, which we will cover in [Session @sec-session02]
+This is really useful for filtering data, which we will cover in [Chapter @sec-chapter02]
 
 ::::::::::::::::::::: {.callout-important title="Practice exercises"}
 Try these practice questions to test your understanding
@@ -1177,7 +1177,7 @@ Another way to view the data frame is by clicking on its name in the environment
 
 ![Clicking on the data frame's name in the environment panel opens it in the viewer](images/S01F19_env_panel_data_frame.png){width="800"}
 
-This panel also shows you the names and types of the columns in the data frame. You might notice that the `Species` is described as a factor, which is a special type of data in R that we'll cover in @sec-session03.
+This panel also shows you the names and types of the columns in the data frame. You might notice that the `Species` is described as a factor, which is a special type of data in R that we'll cover in @sec-chapter03.
 
 Before the column names, you'll see the `$` symbol. The dollar sign `$` is a shortcut used in R to access columns of a data frame. For example, to access the `Petal.Width` column of the `iris` data frame, you can use `iris$Petal.Width`:
 
@@ -1379,7 +1379,7 @@ So far, we've explored the basics of R by creating our own data, or using built-
 
 In this section we will use the file named `mousezempic_dosage_data.csv`, which you can download using the button below:
 
-{{< downloadthis data/mousezempic_dosage_data.csv dname="mousezempic_dosage_data" label="Download the example data file" icon="file-earmark-arrow-down" type="primary" class="data-button" id="session01_data" >}}
+{{< downloadthis data/mousezempic_dosage_data.csv dname="mousezempic_dosage_data" label="Download the example data file" icon="file-earmark-arrow-down" type="primary" class="data-button" id="chapter01_data" >}}
 
 Place this file into the project directory you have made for this course (it's generally a good idea to keep all the data and code for a certain analysis together). If you'd like to be more organised, try placing it in a folder called 'data'.
 
@@ -1434,7 +1434,7 @@ library(tidyverse)
 
 You'll see some output from the `tidyverse` package when you load it, which is just telling you that some of the tidyverse functions have the same name as other functions in R.
 
-If you forget to load a package, R will give you an error when you try to use that package's functions, so it's usually a good idea to load all the packages you'll need at the start of your script to prevent you forgetting to load them the next time you open R. We'll do this at the start of each session in this course.
+If you forget to load a package, R will give you an error when you try to use that package's functions, so it's usually a good idea to load all the packages you'll need at the start of your script to prevent you forgetting to load them the next time you open R. We'll do this at the start of each chapter in this course.
 :::
 
 To read in our data, we'll use the `read_delim()` function from the `readr` package. This function takes in the path to the file you want to read in (in quotation marks `""`, as this is a character string) and returns as output a tibble (this is basically the same as a data frame _except_ that tibbles can not have row names).
@@ -1665,7 +1665,7 @@ Look at the help page for the functions we want to use
 
 <!-- TO DO: make a nicely formatted PDF cheat sheet for printing -->
 
-Here's what we've learnt in this session:
+Here's what we've learnt in this chapter:
 
 -   How to create an R project (to keep our files organised) and how to write and run code from an R script (so that the code is saved as a record of our work)
 

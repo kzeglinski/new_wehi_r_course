@@ -24,7 +24,7 @@ format:
 
 ## Paths
 
-We briefly touched on paths in the first session, but it is an important and complex topic that with worth digging into further. Paths are a way to specify the location of a file or directory on your computer, they are important whenever data needs to be read from or written to a file. This makes it a crucial concept for data analysis in R.
+We briefly touched on paths in the first chapter, but it is an important and complex topic that with worth digging into further. Paths are a way to specify the location of a file or directory on your computer, they are important whenever data needs to be read from or written to a file. This makes it a crucial concept for data analysis in R.
 
 ### Absolute paths
 
@@ -67,6 +67,6 @@ A better question could be "What plots are commonly used to visualise differenti
 
 The more information you provide the AI, the more likely it is to provide a useful answer. If you are confused about how to use a specific function, instead of asking the AI "How do I use the ... function from the ... package?", you can copy and paste the entire help page for the function into the AI chat along with a description of what you're trying to do.
 
-<!-- -   summarise the course/key points from each session -->
+<!-- -   summarise the course/key points from each chapter -->
 
 <!-- -   put links to more advanced materials -->

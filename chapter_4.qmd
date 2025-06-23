@@ -5,15 +5,15 @@ format:
   html:
     toc: true
     toc-location: left
-    toc-title: "In this session:"
+    toc-title: "In this chapter:"
 ---
 
 # Chapter 4: Putting it all together
 
-In this session we will combine all the skills we have learned so far to perform a complete analysis of a small dataset.
+In this chapter we will combine all the skills we have learned so far to perform a complete analysis of a small dataset.
 
 ::: {.callout-tip title="Learning Objectives"}
-At the end of this session, learners should be able to:
+At the end of this chapter, learners should be able to:
 
 1.  Describe the key steps in data analysis (exploration, manipulating and plotting)
 
@@ -22,7 +22,7 @@ At the end of this session, learners should be able to:
 
 ## Introduction to the dataset
 
-In this session we will use the `mousezempic_dosage_data` and `mousezempic_expression_data` data frames, which contain information about the mice and their gene expression levels, respectively.
+In this chapter we will use the `mousezempic_dosage_data` and `mousezempic_expression_data` data frames, which contain information about the mice and their gene expression levels, respectively.
 
 ```{r}
 #| eval: false
@@ -78,7 +78,7 @@ Most data you encounter will not be tidy, the first part of data analysis is usu
 
 ## Reshaping and combining data {#sec-reshaping}
 
-The `filter()`, `select()`, `mutate()` and `summarise()` functions we learned last session all operate along either the columns or the rows of data. Combining these operations cleverly can answer the majority of questions about your data. However, there are two useful families of functions: `pivot` for reshaping your data and `join` for combining your data from shared columns.
+The `filter()`, `select()`, `mutate()` and `summarise()` functions we learned last chapter all operate along either the columns or the rows of data. Combining these operations cleverly can answer the majority of questions about your data. However, there are two useful families of functions: `pivot` for reshaping your data and `join` for combining your data from shared columns.
 
 ### Reshaping data with pivot functions {#sec-pivot}
 

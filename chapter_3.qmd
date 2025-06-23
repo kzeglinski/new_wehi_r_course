@@ -5,15 +5,15 @@ format:
   html:
     toc: true
     toc-location: left
-    toc-title: "In this session:"
+    toc-title: "In this chapter:"
 ---
 
-# Chapter 3: Plotting with ggplot2 {#sec-session03}
+# Chapter 3: Plotting with ggplot2 {#sec-chapter03}
 
-In this session we will learn how to create and customise plots using the `ggplot2` package.
+In this chapter we will learn how to create and customise plots using the `ggplot2` package.
 
 ::: {.callout-tip title="Learning Objectives"}
-At the end of this session, learners should be able to:
+At the end of this chapter, learners should be able to:
 
 1.  Create a ggplot and save it for use outside of R
 2.  Describe some of the common ways we can change the appearance of a plot, such as themes, legends and colours.
@@ -28,7 +28,7 @@ To get started, let's load the `tidyverse` package, which includes `ggplot2`:
 library(tidyverse)
 ```
 
-And read in the `mousezempic_dosage_data` that we have been using in previous sessions:
+And read in the `mousezempic_dosage_data` that we have been using in previous chapters:
 
 ```{r}
 mousezempic_dosage_data <- read_csv("data/mousezempic_dosage_data.csv")
@@ -57,7 +57,7 @@ In the plot panel (bottom right hand corner), you should now see a blank plot wi
 
 ### Adding data
 
-Data is represented in ggplot using **geoms** (short for 'geometric objects'). A geom is a visual representation of the data in the plot, such as points, lines or bars. They are named `geom_*` where `*` is the type of geom you want to use. We will cover some of the most common geoms later in this session.
+Data is represented in ggplot using **geoms** (short for 'geometric objects'). A geom is a visual representation of the data in the plot, such as points, lines or bars. They are named `geom_*` where `*` is the type of geom you want to use. We will cover some of the most common geoms later in this chapter.
 
 Geoms are added to plots layers (which are drawn on top of one another, like layers of a cake) using the `+` operator.
 
@@ -93,7 +93,7 @@ ggplot(data = mousezempic_dosage_data, aes(x = initial_weight_g, y = tail_length
 Here, we supplied the `method = "lm"` argument to `geom_smooth()` to tell it fit a linear model (lm for short) to the data and plot the line of best fit, surrounded by a 95% confidence interval. Most geoms will have additional arguments like this that you can use to customise their appearance. Remember that we can check the documentation for geoms and other functions using `?geom_smooth`.
 
 ::: {.callout-note title="ggplot2 and missing values"}
-You might have noticed that, along with the plot, R is also printing a warning message that lets us know that some rows of our data contain missing values. ggplot2 will automatically remove these rows from the plot (and warn you that it's happening), but it's always a good idea to check your data for missing values before plotting it, as they can affect the results of your analysis. Recall from last session that we can do this by combining the `is.na()` function with `filter()`:
+You might have noticed that, along with the plot, R is also printing a warning message that lets us know that some rows of our data contain missing values. ggplot2 will automatically remove these rows from the plot (and warn you that it's happening), but it's always a good idea to check your data for missing values before plotting it, as they can affect the results of your analysis. Recall from last chapter that we can do this by combining the `is.na()` function with `filter()`:
 
 ```{r}
 # find the rows of our data that contain missing values in the columns we're plotting
@@ -405,7 +405,7 @@ ggplot(data = mousezempic_dosage_data,
 
 Notice how we only specified the `x` aesthetic in the `aes()` function, and `geom_bar()` automatically calculated the counts for each strain.
 
-The advantage of using `geom_bar()` is that it is simpler and easier to read for plotting counts, but it can't be used for plotting pre-computed values. For example, if you wanted to plot the average weight loss for each strain, you would need to calculate the averages first with the dplyr functions we learned in @sec-session02 and use `geom_col()`:
+The advantage of using `geom_bar()` is that it is simpler and easier to read for plotting counts, but it can't be used for plotting pre-computed values. For example, if you wanted to plot the average weight loss for each strain, you would need to calculate the averages first with the dplyr functions we learned in @sec-chapter02 and use `geom_col()`:
 
 ```{r}
 # first calculate the average weight loss for each strain
@@ -1421,7 +1421,7 @@ ggplot(data = mousezempic_dosage_data,
   a. A violin plot with points overlaid of drug dosage for each of the mouse strains. The violins should be coloured by mouse strain, and the points should be jittered to avoid overlap.
   b. A histogram of the weight lost, faceted into separate plots for each combination of sex and mouse strain. Each histogram should be coloured pink, and should have 15 bins.
 
-Try to make them look as nice as possible, using the techniques we've learned in this session.
+Try to make them look as nice as possible, using the techniques we've learned in this chapter.
 
 3. I've written the following code to create a scatterplot of initial weight vs tail length, with points coloured by weight lost. However, I'm getting an error. What's wrong?
 

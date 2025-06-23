@@ -5,7 +5,7 @@ format:
   html:
     toc: true
     toc-location: left
-    toc-title: "In this session:"
+    toc-title: "In this chapter:"
 ---
 
 # Chapter 5: RNA-seq part 1
@@ -17,7 +17,7 @@ library(kableExtra)
 options(readr.show_col_types = FALSE)
 ```
 
-In this session we will run through the basic steps for analysing a simple RNA-seq experiment using the [limma-voom workflow](https://f1000research.com/articles/5-1408). This includes:
+In this chapter we will run through the basic steps for analysing a simple RNA-seq experiment using the [limma-voom workflow](https://f1000research.com/articles/5-1408). This includes:
 
 - filtering out lowly expressed genes
 - normalisation
@@ -26,7 +26,7 @@ In this session we will run through the basic steps for analysing a simple RNA-s
 - fitting gene-wise linear models (with empirical Bayes moderation to more accurately estimate gene-wise variability)
 - performing statistical testing for differential expression
 
-The aim of this session is to give you experience with a real-world RNA-seq analysis, and making extensive use of an external library. We will not cover the statistics in any depth. Instead, the goal is to understand how to construct data structures required for specific packages and how to use the functions in those packages to perform the analysis.
+The aim of this chapter is to give you experience with a real-world RNA-seq analysis, and making extensive use of an external library. We will not cover the statistics in any depth. Instead, the goal is to understand how to construct data structures required for specific packages and how to use the functions in those packages to perform the analysis.
 
 Much of the materials here are explained in greater detail in the limma user's guide. You can view this by typing `help("limma")` and following the links.
 
@@ -50,7 +50,7 @@ unzip("data/Ses3_counts.zip", exdir = "data/counts")
 
 # R Packages
 
-Extra packages are required for later sessions, these can be downloaded by the following commands
+Extra packages are required for later chapters, these can be downloaded by the following commands
 
 ```{r}
 if (!requireNamespace("BiocManager", quietly = TRUE))
@@ -345,6 +345,6 @@ Today we started on the early steps of the RNA-seq analysis workflow.
 
 This provides a good foundation for organising data to satisfy the requirements of specific packages, and how to pull data out of the objects created by those packages. The data we pulled out can then be organised into a tidy format to leverage the power of all the `tidyverse` functions that we have learned so far.
 
-In the next session we will continue the RNA-seq analysis workflow and complete our differential expression analysis.
+In the next chapter we will continue the RNA-seq analysis workflow and complete our differential expression analysis.
 
 ## References
