@@ -1437,7 +1437,7 @@ You'll see some output from the `tidyverse` package when you load it, which is j
 If you forget to load a package, R will give you an error when you try to use that package's functions, so it's usually a good idea to load all the packages you'll need at the start of your script to prevent you forgetting to load them the next time you open R. We'll do this at the start of each chapter in this course.
 :::
 
-To read in our data, we'll use the `read_delim()` function from the `readr` package. This function takes in the path to the file you want to read in (in quotation marks `""`, as this is a character string) and returns as output a tibble (this is basically the same as a data frame _except_ that tibbles can not have row names).
+To read in our data, we'll use the `read_delim()` function from the `readr` package. This function takes in the path to the file you want to read in (in quotation marks `""`, as this is a character string) and returns as output a tibble.
 
 ```{r}
 #| eval: false
@@ -1541,7 +1541,7 @@ But when we print a tibble, only a small preview is shown, which is much easier 
 as_tibble(iris)
 ```
 
-It also tells us the number of rows (150) and columns (5) in the data, as well as the types of each column (`<dbl>` is short for `double`, which is a type of numeric data).
+It also tells us the number of rows (150) and columns (5) in the data, as well as the types of each column (`<dbl>` is short for `double`, which is a type of numeric data). Unlike data frames, tibbles can not include row names that sit 'outside' the cells.
 
 For the purpose of this course, we can treat tibbles and data frames as the same thing. However, if you're interested in learning more about tibbles, you can read about them [here](https://r4ds.had.co.nz/tibbles.html#tibbles-vs.-data.frame).
 :::
