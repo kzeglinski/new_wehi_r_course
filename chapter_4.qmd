@@ -8,7 +8,7 @@ format:
     toc-title: "In this session:"
 ---
 
-# Session 4: Putting it all together
+# Chapter 4: Putting it all together
 
 In this session we will combine all the skills we have learned so far to perform a complete analysis of a small dataset.
 

@@ -8,7 +8,7 @@ format:
     toc-title: "In this session:"
 ---
 
-# Session 6: RNA-seq part 2
+# Chapter 6: RNA-seq part 2
 
 The aim of this session is to complete the analysis of the RNA-seq data using the `limma` and `edgeR` packages. With the results of the analysis, we want to be able to produce publication quality figures and write out the results to a file for sharing or publication.
 

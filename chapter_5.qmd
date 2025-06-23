@@ -8,7 +8,7 @@ format:
     toc-title: "In this session:"
 ---
 
-# Session 5: RNA-seq part 1
+# Chapter 5: RNA-seq part 1
 
 ```{r, include=FALSE}
 library(magrittr)

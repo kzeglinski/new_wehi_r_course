@@ -8,7 +8,7 @@ format:
     toc-title: "In this session:"
 ---
 
-# Session 2: Working with data {#sec-session02}
+# Chapter 2: Working with data {#sec-session02}
 
 In this session we will learn how to manipulate and summarise data using the `dplyr` package (with a little help from the `tidyr` package too).
 
@@ -157,7 +157,7 @@ We will now introduce some of the most commonly used `dplyr` functions for manip
 
 ```{r}
 #| eval: false
-# read in the data, like we did in session 1
+# read in the data, like we did in chapter 1
 mousezempic_dosage_data <- read_delim("data/mousezempic_dosage_data.csv")
 ```
 
@@ -543,7 +543,7 @@ The problem with missing values is that they can cause problems when you try to 
 
 ```{r}
 # try to calculate the mean of the drug_dose_g column
-# remember from session 1 that we can use $ to access columns in a data frame
+# remember from chapter 1 that we can use $ to access columns in a data frame
 mousezempic_dosage_data$drug_dose_g %>% mean()
 ```
 
@@ -553,7 +553,7 @@ For this reason, it's important to deal with missing values before performing ca
 
 ```{r}
 # try to calculate the mean of the drug_dose_g column
-# remember from session 1 that we can use $ to access columns in a data frame
+# remember from chapter 1 that we can use $ to access columns in a data frame
 mousezempic_dosage_data$drug_dose_g %>% mean(na.rm = TRUE)
 ```
 
@@ -760,7 +760,7 @@ Note that the output of the `select()` function is a new data frame, even if you
 # select the mouse_strain column
 mousezempic_dosage_data %>%
   select(mouse_strain) %>%
-  # recall from session 1 that class() tells us the type of an object
+  # recall from chapter 1 that class() tells us the type of an object
   class()
 ```
 

@@ -8,7 +8,7 @@ format:
     toc-title: "In this session:"
 ---
 
-# Session 3: Plotting with ggplot2 {#sec-session03}
+# Chapter 3: Plotting with ggplot2 {#sec-session03}
 
 In this session we will learn how to create and customise plots using the `ggplot2` package.
 

@@ -21,12 +21,12 @@ book:
   chapters:
     - index.qmd
     - setup.qmd
-    - session_1.qmd
-    - session_2.qmd
-    - session_3.qmd
-    - session_4.qmd
-    - session_5.qmd
-    - session_6.qmd
+    - chapter_1.qmd
+    - chapter_2.qmd
+    - chapter_3.qmd
+    - chapter_4.qmd
+    - chapter_5.qmd
+    - chapter_6.qmd
     - further_reading.qmd
     #- advanced_topics.qmd
 
