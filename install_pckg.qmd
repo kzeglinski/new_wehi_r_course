@@ -12,7 +12,7 @@ install.packages("tidyverse")
 
 install.packages("edgeR")
 
-install.packages("pheatmap")
+install.packages("tidyheatmaps")
 
 install.packages('ggrepel')
 
