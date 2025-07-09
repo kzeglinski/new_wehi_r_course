@@ -186,109 +186,90 @@ It outputs a data frame with the following information:
 -   `B` - log-odds that the gene is differentially expressed.
 
 ```{r}
-top <- topTable(efit, coef = "BasalvsLP", n = Inf)
+top <- topTable(efit, coef = "BasalvsLP", n = Inf) |> as_tibble()
+
 head(top)
-```
-
-## MA Plot
-
-The MA plot is a plot of log-fold-change (M-values) against log-expression averages (A-values), this is a common plot in RNA sequencing analysis to visualise the result of differential expression tests. It can be created using the `plotMA()` from the `limma` package. Creating this plot requires 3 pieces of information:
-
--   `object = efit`: The the fitted object containing the log-fold-change and log-expression averages
--   `coef = 1`: The column number of the contrast to plot since there are 3 different contrasts fitted within the object.
--   `status = dt[, 1]`: A vector of numerics denoting whether a gene is up-regulated or down-regulated.
-
-```{r}
-plotMA(efit, coef = 1, status = dt[, "BasalvsLP"])
-
-#If you get an error with the above code, try:
-limma::plotMA(efit, coef = 1, status = dt[, "BasalvsLP"])
-```
-
-As before, we can try to re-create this plot using `ggplot2` to give us more flexibility in plotting. The information we'll need is the log-fold-change, the average log-expression and the differential expression status of each gene. We can extract this information from the `efit` and `top` data frame we created above, as well as gene names for annotation purposes.
-
-```{r}
-ma_plot_data <- tibble(
-  logFC = efit$coefficients[, "BasalvsLP"],
-  AvgExpr = efit$Amean,
-  status = factor(as.numeric(dt[, "BasalvsLP"])),
-  gene = efit$genes$SYMBOL,
-  p_value = efit$p.value[, "BasalvsLP"]
-)
-```
-
-With our tibble prepared, we can use `ggplot2` to create the plot as we have done before
-
-```{r}
-ma_plot_data %>%
-  ggplot(aes(x = AvgExpr, y = logFC, col = status)) +
-  geom_point()
-```
-
-While the coordinates of the points are the same, there is still quite a bit of work to do to make this plot look like the one produced by `plotMA()`. First we have the fix up the colours of the points. We also have to make it such that the non-significant points are plotted below the other points. To do this we would need to make it so that the non-significant points are plotted first. We can do this by reordering the levels of the `status` factor so that the non-significant points are plotted first. Labels can also be added using `ggrepel` for the top 15 most DE genes.
-
-```{r}
-library(ggrepel)
-
-ma_plot_data_fct <- ma_plot_data %>%
-  mutate(
-    status = fct_recode(
-      status,
-      "Not DE" = "0",
-      "Down" = "-1",
-      "Up" = "1"
-    )
-  ) %>%
-  mutate(status = fct_relevel(status, "Not DE", "Down", "Up"))
-
-top_de_genes <- ma_plot_data_fct %>%
-  arrange(p_value) %>%
-  slice_head(n = 15)
-
-scale_cols <- c(
-  "Not DE" = "black",
-  "Down" = "blue",
-  "Up" = "red"
-)
-
-ma_plot <- ma_plot_data_fct %>%
-  ggplot(aes(x = AvgExpr, y = logFC, col = status)) +
-  geom_point(data = ma_plot_data_fct %>% filter(status == "Not DE"), size = 0.1) +
-  geom_point(data = ma_plot_data_fct %>% filter(status != "Not DE"), size = 1) +
-  geom_label_repel(
-    data = top_de_genes,
-    aes(label = gene, col = NULL),
-    max.overlaps = 20,
-    show.legend = FALSE
-  ) +
-  scale_colour_manual(values = scale_cols)
-
-ma_plot
 ```
 
 ## Volcano Plot
 
-Since we have the tibble of the data prepared, we can also choose to create an alternative plot called a volcano plot. Which is also very popular in RNA-seq analysis. The volcano plot is a scatter plot of the negative log10 p-value against the log2 fold-change. This plot is useful for visualising the significance of the differentially expressed genes.
+Since we have the tibble of the data prepared, we can now create a volcano plot, which is very popular for RNA-seq analysis. The volcano plot is a scatter plot of the negative log10 p-value (y) against the log2 fold-change (x). This plot is useful for visualising the significance of the differentially expressed genes, as the more significant results are at the top left and right of the plot.
 
+First we will use `case_when()` to categorize the summary statistics for each gene with 'Up' 'Down' or 'Not DE', according to the adj.P.Val and logFC.
 ```{r}
-volcano_plot <- ma_plot_data_fct %>%
-  ggplot(aes(x = logFC, y = -log10(p_value), col = status)) +
-  geom_point(data = ma_plot_data_fct %>% filter(status == "Not DE"), size = 0.1) +
-  geom_point(data = ma_plot_data_fct %>% filter(status != "Not DE"), size = 1) +
-  geom_label_repel(
-    data = top_de_genes,
-    aes(label = gene, col = NULL),
-    max.overlaps = 20,
-    show.legend = FALSE
-  ) +
-  scale_colour_manual(values = c("black", "blue", "red"))
+
+top_cat <- top |> 
+  mutate(status = case_when(adj.P.Val < 0.05 & logFC > 0 ~ 'Up',
+                            adj.P.Val < 0.05 & logFC < 0 ~ 'Down',
+                            .default='Non DE'))
+
+```
+
+Now to render the plot...
+```{r}
+volcano_plot <- top_cat %>%
+  ggplot(aes(x = logFC, y = -log10(P.Value), col = status)) +
+  geom_point(size=0.5) +
+  scale_colour_manual(values = c("blue", "#595959", "red"))
+
 
 volcano_plot
 ```
 
+Lastly we can label the gene names for the top-most DEGs by extracting the top 20 genes using `dplyr::slice()` and feeding them into `geom_label_repel()` from the ggrepel library. Here instead of rewriting code, we just keep adding geoms to the `volcano_plot` ggplot object created above!
+```{r}  
+
+top_de_genes <- top_cat |> group_by(status) |> arrange(P.Value) |> 
+  slice_head(n = 10) |> 
+  filter(status!='Non DE')
+
+volcano_plot +
+  geom_label_repel(
+    data = top_de_genes,
+    aes(label = SYMBOL, col = status),
+    max.overlaps = 20,
+    show.legend = FALSE
+  ) 
+
+```
+
+
+## Boxplots 
+
+It's important to create boxplots for a few differentially-expressed genes. This is a way of confirming that the results in our summary statistics tables and summary plots are valid, and that that our contrasts are set up correctly!
+In this case we'll make boxplots from the log(CPM) values of individual samples, for the first 6 differentially expressed genes in `top_gene_expr`, which come from the BasalvsLP topTable. 
+We will extract the first 6 rows of the tibble using `slice`, then reshape the data to long form as required for ggplot2.
+
+```{r}
+top_gene_long <- top_gene_expr |> as_tibble(rownames='SYMBOL') |> 
+  slice_head(n=6) |> 
+  pivot_longer(cols = -SYMBOL, names_to = 'sample', values_to = 'logCPM')
+
+```
+
+Next, we join the sample groupings to this reshaped data:
+
+```{r}
+sample_group <- tibble('sample' = samplenames, "group" = group)
+
+top_gene_long_samples <- left_join(top_gene_long, sample_group, by='sample')
+```
+
+...and plot the results
+```{r}
+boxplots <- top_gene_long_samples |> 
+  ggplot(aes(x=group,y=logCPM, colour = group)) + 
+  geom_boxplot() +
+  geom_jitter() +
+  facet_wrap(~SYMBOL, scales='free')
+
+boxplots
+```
+
+
 ## Heatmap
 
-Next, we can create a heatmap of the differentially expressed genes. The heatmap is a useful way to visualise the expression of the differentially expressed genes across the samples. We can use the `pheatmap` package to create the heatmap.
+Next, we can create a heatmap of the differentially expressed genes. The heatmap is a useful way to visualise the expression of the differentially expressed genes in individual samples, especially when more than 2 conditions are being tested. We can use the `pheatmap` package to create the heatmap.
 
 First we need to install the package if you haven't already
 
@@ -335,34 +316,6 @@ heatmap <- pheatmap(
 )
 ```
 
-## Boxplots 
-
-Lastly, we can create boxplots for a few differentially-expressed genes. This is a way of confirming that the results in our summary statistics tables and summary plots are valid, and that that our contrasts are set up correctly. In this case we'll make boxplots from the log(CPM) values of individual samples, for the first 6 differentially expressed genes in `top_gene_expr`, which come from the BasalvsLP topTable. We will extract the first 6 rows of the tibble using `slice`, then reshape the data to long form as required for ggplot2.
-
-```{r}
-top_gene_long <- top_gene_expr |> as_tibble(rownames='SYMBOL') |> slice(1:6) |> 
-  pivot_longer(cols = -SYMBOL, names_to = 'sample', values_to = 'logCPM')
-
-```
-
-Next, we join the sample groupings to this reshaped data:
-
-```{r}
-sample_group <- tibble('sample' = samplenames, "group" = group)
-
-top_gene_long_samples <- left_join(top_gene_long, sample_group, by='sample')
-```
-
-...and plot the results
-```{r}
-boxplots <- top_gene_long_samples |> 
-  ggplot(aes(x=group,y=logCPM,colour = group)) + 
-  geom_boxplot() +
-  geom_jitter() +
-  facet_wrap(~SYMBOL, scales='free')
-
-boxplots
-```
 
 
 ## Saving all the results
@@ -372,13 +325,79 @@ Now that we have produced a series of plots and the top genes table, we can save
 ```{r, warning=FALSE}
 dir.create("output")
 
-write_csv(top, "output/top_genes_BasalvsLP.csv")
-ggsave("output/ma_plot_BasalvsLP.png", ma_plot)
+write_csv(top_cat, "output/top_genes_BasalvsLP.csv")
+
 ggsave("output/volcano_plot_BasalvsLP.png", volcano_plot)
+
 ggsave("output/heatmap_BasalvsLP.png", heatmap)
+
 ggsave("output/boxplots.png", boxplots)
 ```
 
 With that we have come to the conclusion of the RNA-seq analysis and this course. You have now learned how to use various `tidyverse` packages to operate on data and create publication quality figures. You have also learned how to use the `limma` and `edgeR` packages to perform differential expression analysis on RNA-seq data. You should now be able to apply these skills to perform analysis on your own data.
 
 ## References
+
+
+# Extension
+
+
+## MA Plot
+
+The MA plot is a plot of log-fold-change (M-values) against log-expression averages (A-values), this is a common plot in RNA sequencing analysis to visualise the result of differential expression tests. It can be created using the `plotMA()` from the `limma` package. Creating this plot requires 3 pieces of information:
+
+-   `object = efit`: The the fitted object containing the log-fold-change and log-expression averages
+-   `coef = 1`: The column number of the contrast to plot since there are 3 different contrasts fitted within the object.
+-   `status = dt[, 1]`: A vector of numerics denoting whether a gene is up-regulated or down-regulated.
+
+```{r}
+plotMA(efit, coef = 1, status = dt[, "BasalvsLP"])
+
+#If you get an error with the above code, try:
+limma::plotMA(efit, coef = 1, status = dt[, "BasalvsLP"])
+```
+
+As before, we can try to re-create this plot using `ggplot2` to give us more flexibility in plotting. The information we'll need is in the `top_cat` tibble that we extracted for the volcano plot.
+
+```{r}
+top_cat %>%
+  ggplot(aes(x = AveExpr, y = logFC, col = status)) +
+  geom_point()
+```
+
+While the coordinates of the points are the same, there is still quite a bit of work to do to make this plot look like the one produced by `plotMA()`. First we have the fix up the colours of the points. We also have to make it such that the non-significant points are plotted below the other points. To do this we would need to make it so that the non-significant points are plotted first. We can do this by reordering the levels of the `status` factor so that the non-significant points are plotted first. Labels can also be added using `ggrepel` for the top 10 DE genes in each direction.
+
+```{r}
+
+top_cat_fct <- top_cat %>%
+  mutate(status=fct_relevel(status,'Up','Down','Non DE')) 
+
+scale_cols <- c(
+  "Not DE" = "#595959",
+  "Down" = "blue",
+  "Up" = "red"
+)
+
+ma_plot <- top_cat_fct %>%
+  mutate(status=fct_relevel(status,'Up','Down','Non DE')) |> 
+  ggplot(aes(x = AveExpr, y = logFC, col = status)) +
+  geom_point(data = top_cat_fct %>% filter(status == "Non DE"), size = 0.1) +
+  geom_point(data = top_cat_fct %>% filter(status != "Non DE"), size = 1) +
+  geom_label_repel(
+    data = top_de_genes,
+    aes(label = SYMBOL, col = NULL),
+    max.overlaps = 20,
+    show.legend = FALSE
+  ) +
+  scale_colour_manual(values = scale_cols)
+
+ma_plot
+```
+
+Now we can save the MA plot to our output:
+```{r}
+
+ggsave("output/volcano_plot_BasalvsLP.png", volcano_plot)
+
+```
+
