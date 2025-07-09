@@ -1,0 +1,23 @@
+---
+title: "Install Packages"
+format: html
+---
+
+Install these R packages used in the BIOL90042 Course
+
+```{r}
+#| eval: false
+
+install.packages("tidyverse")
+
+install.packages("edgeR")
+
+install.packages("pheatmap")
+
+install.packages('ggrepel')
+
+install.packages("tidyrstats")
+
+
+```
+

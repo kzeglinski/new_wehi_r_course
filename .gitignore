@@ -4,6 +4,9 @@
 
 local_notes.Rmd
 
+*_files/*
+
+
 !_freeze/
 !_extensions/
 !images/
