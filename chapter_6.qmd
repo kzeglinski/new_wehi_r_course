@@ -6,6 +6,8 @@ format:
     toc: true
     toc-location: left
     toc-title: "In this chapter:"
+execute:
+  error: true
 ---
 
 # Chapter 6: RNA-seq part 2
@@ -217,6 +219,11 @@ volcano_plot
 ```
 
 Lastly we can label the gene names for the top-most DEGs by extracting the top 20 genes using `dplyr::slice()` and feeding them into `geom_label_repel()` from the ggrepel library. Here instead of rewriting code, we just keep adding geoms to the `volcano_plot` ggplot object created above!
+
+```{r}
+library(ggrepel)
+```
+
 ```{r}  
 
 top_de_genes <- top_cat |> group_by(status) |> arrange(P.Value) |> 
@@ -237,12 +244,40 @@ volcano_plot +
 ## Boxplots 
 
 It's important to create boxplots for a few differentially-expressed genes. This is a way of confirming that the results in our summary statistics tables and summary plots are valid, and that that our contrasts are set up correctly!
-In this case we'll make boxplots from the log(CPM) values of individual samples, for the first 6 differentially expressed genes in `top_gene_expr`, which come from the BasalvsLP topTable. 
-We will extract the first 6 rows of the tibble using `slice`, then reshape the data to long form as required for ggplot2.
+
+Box plots require the gene expression data per sample, expressed as log(counts per million), or 'log(CPM)'.
+
+To extract the logCPM to a tibble:
+```{r}
+sample_logcpm <- cpm(dge, log = TRUE) |> as_tibble(rownames='ENTREZID')
+
+```
+
+In this case we'll make boxplots from the log(CPM) values of individual samples, for the first 6 differentially-expressed genes in , which come from the BasalvsLP topTable `top_cat`. 
+We will extract the first 6 rows of the tibble using `slice`, then join the logCPM values per sample
+
+<!-- for this to render, yaml header updated to error: true -->
 
 ```{r}
-top_gene_long <- top_gene_expr |> as_tibble(rownames='SYMBOL') |> 
+
+top_cat |> slice_head(n=6) |> 
+  left_join(sample_logcpm,by='ENTREZID')
+
+```
+
+Great! An error! ... it seems that the ENTREZID column is not the same type between the `top_cat` and the `sample_logcpm` tibbles. We can fix this by changing the `top_cat$ENTREZID` into character data:
+```{r}
+top_cat <- top_cat |> mutate(ENTREZID = as.character(ENTREZID))
+
+```
+
+Now we can rerun the `left_join()` and reshape the data to long form as required for ggplot2.
+
+```{r}
+top_gene_long <- top_cat |>
   slice_head(n=6) |> 
+  left_join(sample_logcpm, by='ENTREZID') |> 
+  select(SYMBOL, '10_6_5_11' : 'JMS9-P8c') |> 
   pivot_longer(cols = -SYMBOL, names_to = 'sample', values_to = 'logCPM')
 
 ```
@@ -269,33 +304,45 @@ boxplots
 
 ## Heatmap
 
-Next, we can create a heatmap of the differentially expressed genes. The heatmap is a useful way to visualise the expression of the differentially expressed genes in individual samples, especially when more than 2 conditions are being tested. We can use the `pheatmap` package to create the heatmap.
+Next, we can create a heatmap of the differentially expressed genes. The heatmap is a useful way to visualise the expression of the differentially expressed genes in individual samples, especially when more than two conditions are being tested. We can use the `pheatmap` package to create the heatmap.
 
 First we need to install the package if you haven't already
 
-```{r, eval = FALSE}
+```{r}
+#| eval: false
 install.packages("pheatmap")
 ```
 
-The data we will use for the heatmap is going to be the log2 cpm expression values of the top differentially expressed genes. We can use the `topTable()` function to get the top differentially expressed genes for each contrast. We can then use the `cpm()` function to get the expression values of these genes. We will take the top 50 genes from each contrast and combine them into a single data frame. We will then use extract the expression values for these genes from the full expression matrix. For more interpretable labels, we will use the gene symbols as the row names of the expression matrix.
+The data we will use for the heatmap is going to be the log2 cpm expression values of the top differentially expressed genes, within the `sample_logcpm` data extracted for the boxplots above. 
+We can use the `topTable()` function to get the top 50 differentially expressed genes for each contrast and combine them into a single data frame. 
+For more interpretable labels, we will use the gene symbols as the row names of the expression matrix.
 
-Note that by default the ENTREZID column is encoded as a numeric value, so to use it to subset our expression matrix we need to convert it to a character vector in order to select the matching IDs rather than trying to select the numerical rows of the data.
 
 ```{r}
+
 top_genes <- bind_rows(
   topTable(efit, coef = "BasalvsLP", n = 50),
   topTable(efit, coef = "BasalvsML", n = 50),
   topTable(efit, coef = "LPvsML", n = 50)
 ) %>%
   select(ENTREZID, SYMBOL, TXCHROM) %>%
-  distinct()
+  mutate(ENTREZID = as.character(ENTREZID)) |> 
+  distinct() 
 
-top_gene_expr <- cpm(dge, log = TRUE)[as.character(top_genes$ENTREZID), ]
-rownames(top_gene_expr) <- top_genes$SYMBOL
+
 ```
+
+We now join the logCPM values for the top_genes:
+```{r}
+
+top_genes_lcpm <- top_genes |> left_join(sample_logcpm)
+```
+
+
 
 To create the heatmap we will use the `pheatmap()` function with the expression matrix. We will add in arguments to provide our own colour scale, to scale the data along the rows with a z-score, adding in sample annotation and clustering the data by rows and columns. We will also add in the option to show the row names and column names, and set the font size of the row names. You can experiment with removing each of these options to see how they affect the heatmap, as well as investigate additional options in the `pheatmap()` documentation.
 
+Note that pheatmap will complain if there are non-numeric columns in the input data, so here we deselect first three columns.
 ```{r}
 library(pheatmap)
 
@@ -303,7 +350,7 @@ sample_anno <- dge$samples %>%
   select(group)
 
 heatmap <- pheatmap(
-  top_gene_expr,
+  top_genes_lcpm |> select(-c(1:3)),
   color = colorRampPalette(c("blue", "white", "red"))(100),
   scale = "row",
   annotation_col = sample_anno,
