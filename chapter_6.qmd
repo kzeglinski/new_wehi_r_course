@@ -247,11 +247,11 @@ top_bvl <- topTable(efit, coef = "BasalvsLP", n = Inf) |>
 head(top_bvl)
 ```
 
-# Plotting Results
+## Plotting Results
 
 In this section we will make plots of both the summary statistics (topTable output), and the gene expression levels per sample, using log(counts per million) together with sample metadata from dge\$samples.
 
-## Data extract
+### Data extract
 
 To start with we extract all the data required to make any of the the common RNAseq results plots.
 We will
@@ -262,7 +262,7 @@ We will
 
 3.  extract the log(CPM) values for each sample
 
-### Extract summary tables
+#### Extract summary tables
 
 Volcano plots and MA plots require differential expression summary statistics.
 We have the summary table for BasalvsLP already extracted to `top_bvl`, now for BasalvsML and LPvsML:
@@ -280,7 +280,7 @@ top_lvm <- topTable(efit, coef = "LPvsML", n = Inf) |>
 
 ```
 
-### Extract log(counts per million)
+#### Extract log(counts per million)
 
 Box plots and heatmaps require the gene expression data per sample, expressed as log(counts per million), or 'log(CPM)'.
 
@@ -292,7 +292,7 @@ sample_logcpm <- cpm(dge, log = TRUE) |> as_tibble(rownames='ENTREZID')
 
 ```
 
-### Extract sample groups
+#### Extract sample groups
 
 We will need the experimental group label for each sample to make boxplots and to annotate our heatmap.
 We can extract this from the `dge$samples` table as follows.
@@ -302,7 +302,7 @@ We can extract this from the `dge$samples` table as follows.
 sample_group <- dge$samples |> as_tibble(rownames='sample_id')
 ```
 
-## Volcano Plot
+### Volcano Plot
 
 Volcano plots are very popular for visually summarizing results from RNA-seq analysis.
 The volcano plot is a scatter plot of the negative log10 p-value (y) against the log2 fold-change (x).
@@ -360,7 +360,7 @@ volcano_bvl +
 Can you now make the labelled volcano plots for the BasalvsML and LPvsML contrasts?
 :::
 
-## Boxplots
+### Boxplots
 
 It's important to create boxplots for a few differentially-expressed genes.
 This is a way of confirming that the results in our summary statistics tables and the underlying data agree, and that that our contrasts are set up correctly!
@@ -423,7 +423,7 @@ To confirm your statistical contrasts are working as expected, note the gene nam
 Are they labelled as expected in the volcano plot?
 :::
 
-## Heatmap
+### Heatmap
 
 Next, we can create a heatmap of the differentially expressed genes.
 The heatmap is a useful way to visualise the expression of the differentially expressed genes in individual samples, especially when more than two conditions are being tested.
@@ -507,7 +507,7 @@ heatmap <- tidyheatmap(
 heatmap
 ```
 
-# Saving the results
+## Saving the results
 
 Now that we have produced a series of plots and the top genes table, we can save these files to a directory.
 These figures may form the basis for publication figures, and the results table can partially presented as a result, or the full table can be included as a supplementary file.
@@ -529,9 +529,9 @@ You have now learned how to use various `tidyverse` packages to operate on data 
 You have also learned how to use the `limma` and `edgeR` packages to perform differential expression analysis on RNA-seq data.
 You should now be able to apply these skills to perform analysis on your own data.
 
-# Extension
+## Extension
 
-## MA Plot
+### MA Plot
 
 The MA plot is a plot of log-fold-change (M-values) against log-expression averages (A-values), this is a common plot in RNA sequencing analysis to visualise the result of differential expression tests.
 It can be created using the `plotMA()` from the `limma` package.
@@ -603,4 +603,4 @@ ggsave("output/ma_plot_BasalvsLP.png", ma_bvl)
 
 ```
 
-# References
+## References
