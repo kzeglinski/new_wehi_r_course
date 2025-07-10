@@ -247,7 +247,7 @@ top_bvl <- topTable(efit, coef = "BasalvsLP", n = Inf) |>
 head(top_bvl)
 ```
 
-#Plotting Results
+# Plotting Results
 
 In this section we will make plots of both the summary statistics (topTable output), and the gene expression levels per sample, using log(counts per million) together with sample metadata from dge\$samples.
 
