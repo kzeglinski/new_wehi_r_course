@@ -53,6 +53,9 @@ unzip("data/Ses3_counts.zip", exdir = "data/counts")
 Extra packages are required for later chapters, these can be downloaded by the following commands
 
 ```{r}
+#| message: false
+#| warning: false
+
 if (!requireNamespace("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
 
