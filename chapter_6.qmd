@@ -377,8 +377,7 @@ top_bvl_cat |> slice_head(n=6) |>
 
 ```
 
-Great!
-An error!
+Great! An error!
 ...it seems that the ENTREZID column is not the same type between the `top_bvl_cat` and the `sample_logcpm` tibbles.
 We can fix this by changing the `sample_logcpm$ENTREZID` into numeric data:
 
@@ -463,8 +462,7 @@ We now join the logCPM values for the top_genes:
 top_genes_lcpm <- top_genes_all |> left_join(sample_logcpm)
 ```
 
-...
-and reshape the data to long format before joining in the sample group labels.
+...and reshape the data to long format before joining in the sample group labels.
 This is very similar to how the data was prepared for our boxplots.
 
 ```{r}
@@ -493,6 +491,7 @@ heatmap <- tidyheatmap(
   rows = SYMBOL,
   columns = sample_id,
   values = logcpm,
+  color_legend_n = 100,
   annotation_col = group,
   scale = 'row',
   border_color = NA,
