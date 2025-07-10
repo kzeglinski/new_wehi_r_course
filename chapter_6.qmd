@@ -375,10 +375,7 @@ top_bvl_cat |> slice_head(n=6) |>
 
 ```
 
-Great!
-An error!
-...
-it seems that the ENTREZID column is not the same type between the `top_bvl_cat` and the `sample_logcpm` tibbles.
+Great! An error! ...it seems that the ENTREZID column is not the same type between the `top_bvl_cat` and the `sample_logcpm` tibbles.
 We can fix this by changing the `sample_logcpm$ENTREZID` into numeric data:
 
 ```{r}
@@ -513,11 +510,11 @@ These figures may form the basis for publication figures, and the results table 
 ```{r, warning=FALSE}
 dir.create("output")
 
-write_csv(top_cat, "output/top_genes_BasalvsLP.csv")
+write_csv(top_bvl_cat, "output/top_genes_BasalvsLP.csv")
 
-ggsave("output/volcano_plot_BasalvsLP.png", volcano_plot)
+ggsave("output/volcano_plot_BasalvsLP.png", volcano_bvl)
 
-ggsave("output/heatmap_BasalvsLP.png", heatmap, width=9, height=9)
+ggsave("output/heatmap.png", heatmap, width=9, height=9)
 
 ggsave("output/boxplots.png", boxplots)
 ```
@@ -526,8 +523,6 @@ With that we have come to the conclusion of the RNA-seq analysis and this course
 You have now learned how to use various `tidyverse` packages to operate on data and create publication quality figures.
 You have also learned how to use the `limma` and `edgeR` packages to perform differential expression analysis on RNA-seq data.
 You should now be able to apply these skills to perform analysis on your own data.
-
-# References
 
 # Extension
 
@@ -549,7 +544,7 @@ limma::plotMA(efit, coef = 1, status = dt[, "BasalvsLP"])
 ```
 
 As before, we can try to re-create this plot using `ggplot2` to give us more flexibility in plotting.
-The information we'll need is in the `top_cat` tibble that we extracted for the volcano plot.
+The information we'll need is in the `top_bvl_cat` tibble that we extracted for the volcano plot.
 
 ```{r}
 top_bvl_cat %>%
@@ -567,7 +562,7 @@ Labels can also be added using `ggrepel` for the top 10 DE genes in each directi
 ```{r}
 
 top_bvl_cat_fct <- top_bvl_cat %>%
-  mutate(status=fct_relevel(status,'Up','Down','Non DE')) 
+  mutate(status = fct_relevel(status,'Non DE')) 
 
 scale_cols <- c(
   "Not DE" = "#595959",
@@ -576,10 +571,9 @@ scale_cols <- c(
 )
 
 ma_bvl <- top_bvl_cat_fct %>%
-  mutate(status=fct_relevel(status,'Up','Down','Non DE')) |> 
   ggplot(aes(x = AveExpr, y = logFC, col = status)) +
-  geom_point(data = top_cat_fct %>% filter(status == "Non DE"), size = 0.1) +
-  geom_point(data = top_cat_fct %>% filter(status != "Non DE"), size = 1) +
+  geom_point(data = top_bvl_cat_fct %>% filter(status == "Non DE"), size = 0.1) +
+  geom_point(data = top_bvl_cat_fct %>% filter(status != "Non DE"), size = 1) +
   geom_label_repel(
     data = top_deg_bvl,
     aes(label = SYMBOL, col = NULL),
@@ -604,3 +598,6 @@ Now we can save the MA plot to our output:
 ggsave("output/ma_plot_BasalvsLP.png", ma_bvl)
 
 ```
+
+
+# References
