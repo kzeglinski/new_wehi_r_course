@@ -254,12 +254,15 @@ In this section we will make plots of both the summary statistics (topTable outp
 ## Data extract
 
 To start with we extract all the data required to make any of the the common RNAseq results plots.
-We will 1.
-extract the summary statistics for all three contrasts into separate tables 2.
-extract the sample_ids and experimental group labels, and then 3.
-extract the log(CPM) values for each sample
+We will
 
-### 1. Extract summary tables
+1.  extract the summary statistics for all three contrasts into separate tables
+
+2.  extract the sample_ids and experimental group labels, and then
+
+3.  extract the log(CPM) values for each sample
+
+### Extract summary tables
 
 Volcano plots and MA plots require differential expression summary statistics.
 We have the summary table for BasalvsLP already extracted to `top_bvl`, now for BasalvsML and LPvsML:
@@ -277,7 +280,7 @@ top_lvm <- topTable(efit, coef = "LPvsML", n = Inf) |>
 
 ```
 
-### 2. Extract log(counts per million)
+### Extract log(counts per million)
 
 Box plots and heatmaps require the gene expression data per sample, expressed as log(counts per million), or 'log(CPM)'.
 
@@ -289,7 +292,7 @@ sample_logcpm <- cpm(dge, log = TRUE) |> as_tibble(rownames='ENTREZID')
 
 ```
 
-### 3. Extract sample groups
+### Extract sample groups
 
 We will need the experimental group label for each sample to make boxplots and to annotate our heatmap.
 We can extract this from the `dge$samples` table as follows.
@@ -298,7 +301,6 @@ We can extract this from the `dge$samples` table as follows.
 
 sample_group <- dge$samples |> as_tibble(rownames='sample_id')
 ```
-
 
 ## Volcano Plot
 
@@ -355,7 +357,7 @@ volcano_bvl +
 ```
 
 ::: {.callout-tip title="Next steps"}
-Can you now make the labelled volcano plots for the BasalvsML and LPvsML contrasts? 
+Can you now make the labelled volcano plots for the BasalvsML and LPvsML contrasts?
 :::
 
 ## Boxplots
@@ -375,7 +377,9 @@ top_bvl_cat |> slice_head(n=6) |>
 
 ```
 
-Great! An error! ...it seems that the ENTREZID column is not the same type between the `top_bvl_cat` and the `sample_logcpm` tibbles.
+Great!
+An error!
+...it seems that the ENTREZID column is not the same type between the `top_bvl_cat` and the `sample_logcpm` tibbles.
 We can fix this by changing the `sample_logcpm$ENTREZID` into numeric data:
 
 ```{r}
@@ -413,8 +417,10 @@ boxplots <- top_gene_long_samples |>
 
 boxplots
 ```
+
 ::: {.callout-tip title="Cross-check!"}
-To confirm your statistical contrasts are working as expected, note the gene names that are down-regulated in the Basal vs LP conditions in these boxplots. Are they labelled as expected in the volcano plot? 
+To confirm your statistical contrasts are working as expected, note the gene names that are down-regulated in the Basal vs LP conditions in these boxplots.
+Are they labelled as expected in the volcano plot?
 :::
 
 ## Heatmap
@@ -431,7 +437,6 @@ install.packages("tidyheatmaps")
 ```
 
 The data we will use for the heatmap is going to be the log2 cpm expression values of the top differentially expressed genes, within the `sample_logcpm` data, and the first 50 rows from each of the three top tables.
-
 
 ::: {.callout-tip title="Note"}
 Because genes may be differentially expressed in more than one contrast, the total number of unique genes may be less than 150.
@@ -458,7 +463,9 @@ We now join the logCPM values for the top_genes:
 top_genes_lcpm <- top_genes_all |> left_join(sample_logcpm)
 ```
 
-... and reshape the data to long format before joining in the sample group labels. This is very similar to how the data was prepared for our boxplots.
+...
+and reshape the data to long format before joining in the sample group labels.
+This is very similar to how the data was prepared for our boxplots.
 
 ```{r}
 
@@ -470,7 +477,6 @@ top_genes_lcpm_long <- top_genes_lcpm |> pivot_longer(names_to = "sample_id",
 top_genes_lcpm_gp <- top_genes_lcpm_long |> left_join(sample_group)
 
 ```
-
 
 To create the heatmap we will use the `tidyheatmaps()` function with the logCPM values.
 We will add in arguments to scale the data colours along the rows with a z-score, adding in sample annotation, and using a dendrogram (tree-based clustering) to order the data by rows and columns.
@@ -500,7 +506,6 @@ heatmap <- tidyheatmap(
 
 heatmap
 ```
-
 
 # Saving the results
 
@@ -586,9 +591,8 @@ ma_bvl <- top_bvl_cat_fct %>%
 ma_bvl
 ```
 
-
 ::: {.callout-tip title="Next steps"}
-Can you now make the labelled MA plots for the BasalvsML and LPvsML contrasts? 
+Can you now make the labelled MA plots for the BasalvsML and LPvsML contrasts?
 :::
 
 Now we can save the MA plot to our output:
@@ -598,6 +602,5 @@ Now we can save the MA plot to our output:
 ggsave("output/ma_plot_BasalvsLP.png", ma_bvl)
 
 ```
-
 
 # References
