@@ -28,10 +28,10 @@ To get started, let's load the `tidyverse` package, which includes `ggplot2`:
 library(tidyverse)
 ```
 
-And read in the `mousezempic_dosage_data` that we have been using in previous chapters:
+And read in the `m_dose` that we have been using in previous chapters:
 
 ```{r}
-mousezempic_dosage_data <- read_csv("data/mousezempic_dosage_data.csv")
+m_dose <- read_csv("data/mousezempic_dosage_data.csv")
 ```
 
 ## Building our first plot, layer by layer
@@ -50,7 +50,7 @@ The mapping is specified using the `aes()` function, which stands for 'aesthetic
 For example, to make a plot to explore the relationship between the initial weight of the mice and their tail length, we would write:
 
 ```{r}
-ggplot(data = mousezempic_dosage_data, aes(x = initial_weight_g, y = tail_length_mm))
+m_dose %>% ggplot(aes(x = initial_weight_g, y = tail_length_mm))
 ```
 
 In the plot panel (bottom right hand corner), you should now see a blank plot with the x and y axes labelled with the column names we specified in the `aes()` function. There's no data on it yet, because we haven't told ggplot how to physically represent the data on the x and y scales we have specified.
@@ -64,7 +64,7 @@ Geoms are added to plots layers (which are drawn on top of one another, like lay
 For example, let's add points to the plot that we initialised above using `geom_point()`:
 
 ```{r}
-ggplot(data = mousezempic_dosage_data, aes(x = initial_weight_g, y = tail_length_mm)) +
+m_dose %>% ggplot(aes(x = initial_weight_g, y = tail_length_mm)) +
   geom_point()
 ```
 
@@ -85,7 +85,7 @@ Of course, this is a very simple plot. To show more information, we can add addi
 For example, let's add a a layer containing a linear trendline using `geom_smooth(method = "lm")`:
 
 ```{r}
-ggplot(data = mousezempic_dosage_data, aes(x = initial_weight_g, y = tail_length_mm)) +
+m_dose %>% ggplot(aes(x = initial_weight_g, y = tail_length_mm)) +
   geom_point() +
   geom_smooth(method = "lm")
 ```
@@ -97,7 +97,7 @@ You might have noticed that, along with the plot, R is also printing a warning m
 
 ```{r}
 # find the rows of our data that contain missing values in the columns we're plotting
-mousezempic_dosage_data %>%
+m_dose %>%
   filter(is.na(initial_weight_g), is.na(tail_length_mm))
 ```
 
@@ -107,7 +107,7 @@ From here on, we will hide these warnings in the ebook so that it's easier to re
 We can also add additional aesthetics to the plot beyond just `x` and `y`. For example, let's use the `colour` aesthetic to represent the strain of each mouse. To do this, we add `colour = strain` to the `aes()` function that describes the mapping in the `ggplot()` call:
 
 ```{r}
-ggplot(data = mousezempic_dosage_data,
+ggplot(data = m_dose,
   aes(x = initial_weight_g, y = tail_length_mm, colour = mouse_strain)) +
   geom_point() +
   geom_smooth(method = "lm")
@@ -146,7 +146,7 @@ It's good practice to assign the plot you want to save to a variable, and provid
 ```{r}
 #| eval: false
 # first assign the plot to a variable
-colourful_scatterplot <- ggplot(data = mousezempic_dosage_data,
+colourful_scatterplot <- ggplot(data = m_dose,
   aes(x = initial_weight_g, y = tail_length_mm, colour = mouse_strain)) +
   geom_point() +
   geom_smooth(method = "lm")
@@ -193,23 +193,23 @@ Mapping allows you to specify which scales (e.g. x, y, colour) should be used to
 :::
 
 ::: question
-2\. Which of the following lines of code is a valid way to create a scatterplot of the drug dosage (x) and weight loss (y) in the `mousezempic_dosage_data` dataset?
+2\. Which of the following lines of code is a valid way to create a scatterplot of the drug dosage (x) and weight loss (y) in the `m_dose` dataset?
 
 ::: choices
 ::: choice
-`ggplot(data = mousezempic_dosage_data, aes(x = drug_dose_g, y = weight_lost_g)) %>% geom_point()`
+`m_dose %>% ggplot(aes(x = drug_dose_g, y = weight_lost_g)) %>% geom_point()`
 :::
 
 ::: choice
-`ggplot(data = mousezempic_dosage_data, x = drug_dose_g, y = weight_lost_g) + geom_point()`
+`m_dose %>% ggplot(x = drug_dose_g, y = weight_lost_g) + geom_point()`
 :::
 
 ::: choice
-`ggplot2(data = mousezempic_dosage_data, aes(x = drug_dose_g, y = weight_lost_g))`
+`ggplot2(data = m_dose, aes(x = drug_dose_g, y = weight_lost_g))`
 :::
 
 ::: {.choice .correct-choice}
-`ggplot(data = mousezempic_dosage_data, aes(x = drug_dose_g, y = weight_lost_g)) + geom_point()`
+`m_dose %>% ggplot(aes(x = drug_dose_g, y = weight_lost_g)) + geom_point()`
 :::
 :::
 :::
@@ -242,7 +242,7 @@ Mapping allows you to specify which scales (e.g. x, y, colour) should be used to
 <summary>Solutions</summary>
 
 1.  Mapping in ggplot refers to the scales that will be used to display the data (e.g. x, y, colour), not the type of plot you want to create. It is specified using the `aes()` function, and when specified in the initial `ggplot()` function call, is inherited by all subsequent layers/geoms.
-2.  The correct way to create a scatterplot of the drug dosage and weight loss in the `mousezempic_dosage_data` dataset is `ggplot(data = mousezempic_dosage_data, aes(x = drug_dose_g, y = weight_lost_g)) + geom_point()`. This specifies the data and mapping in the `ggplot()` function call, and adds a layer of points to the plot using `geom_point()`. The `%>%` operator is not used in ggplot2, and the `x` and `y` mapping should be specified within the `aes()` function. Also, remember that although ggplot2 is the name of the package, the function you use to initialise a plot is `ggplot()`.
+2.  The correct way to create a scatterplot of the drug dosage and weight loss in the `m_dose` dataset is `m_dose %>% ggplot(aes(x = drug_dose_g, y = weight_lost_g)) + geom_point()`. This specifies the data and mapping in the `ggplot()` function call, and adds a layer of points to the plot using `geom_point()`. The `%>%` operator is not used in ggplot2, and the `x` and `y` mapping should be specified within the `aes()` function. Also, remember that although ggplot2 is the name of the package, the function you use to initialise a plot is `ggplot()`.
 3.  To programmatically save the plot created in question 2 as a .pdf file with dimensions of 10 by 15 cm, you would use the `ggsave()` function with the arguments `ggsave("drug_dosage_vs_weight_loss.pdf", device = "pdf", width = 10, height = 15, units = "cm")`. This specifies the filename, file type, dimensions, and units of the plot you want to save. Remember that by default, dimensions are in inches (boooo), so you need to specify the units as "cm" to save the plot with dimensions in centimetres.
 
 </details>
@@ -276,7 +276,7 @@ Above, we saw how to use `geom_point()` to create a scatterplot, but `geom_point
 ```{r}
 #| warning: false
 # make a dot plot of initial weight by mouse strain
-ggplot(data = mousezempic_dosage_data, aes(x = mouse_strain, y = initial_weight_g)) +
+m_dose %>% ggplot(aes(x = mouse_strain, y = initial_weight_g)) +
 # remember we add layers to a plot with +
   geom_point()
 ```
@@ -286,7 +286,7 @@ Notice how the points are stacked on top of one another for each strain. This is
 ```{r}
 #| warning: false
 # make a jittered dot plot of initial weight by mouse strain
-ggplot(data = mousezempic_dosage_data, aes(x = mouse_strain, y = initial_weight_g)) +
+m_dose %>% ggplot(aes(x = mouse_strain, y = initial_weight_g)) +
   geom_jitter()
 ```
 
@@ -295,7 +295,7 @@ The `geom_jitter()` adds a small amount of random noise to the x & y positions o
 ```{r}
 #| warning: false
 # use less jitter so there is more distinction between the different mouse strains
-ggplot(data = mousezempic_dosage_data, aes(x = mouse_strain, y = initial_weight_g)) +
+m_dose %>% ggplot(aes(x = mouse_strain, y = initial_weight_g)) +
   geom_jitter(width = 0.2, height = 0)
 ```
 The exact amount of jitter you need will depend heavily on your data, so it's often a good idea to experiment with different amounts to see what works best.
@@ -314,7 +314,7 @@ Histograms are created using the `geom_histogram()` function. Seeing as only a s
 For example, let's create a histogram of the initial weight of the mice:
 ```{r}
 #| warning: false
-ggplot(data = mousezempic_dosage_data, aes(x = initial_weight_g)) +
+m_dose %>% ggplot(aes(x = initial_weight_g)) +
   geom_histogram()
 ```
 
@@ -322,7 +322,7 @@ One of the most important arguments to `geom_histogram()` is the `bins` argument
 
 ```{r}
 #| warning: false
-ggplot(data = mousezempic_dosage_data, aes(x = initial_weight_g)) +
+m_dose %>% ggplot(aes(x = initial_weight_g)) +
   geom_histogram(bins = 15)
 ```
 
@@ -330,7 +330,7 @@ Similarly to histograms, density plots are also used to visualise the distributi
 
 ```{r}
 #| warning: false
-ggplot(data = mousezempic_dosage_data, aes(x = initial_weight_g)) +
+m_dose %>% ggplot(aes(x = initial_weight_g)) +
   geom_density()
 ```
 
@@ -343,7 +343,7 @@ Boxplots allow you to easily see the median, quartiles, and any outliers in the 
 
 ```{r}
 #| warning: false
-ggplot(data = mousezempic_dosage_data, aes(x = mouse_strain, y = initial_weight_g)) +
+m_dose %>% ggplot(aes(x = mouse_strain, y = initial_weight_g)) +
   geom_boxplot()
 ```
 
@@ -351,7 +351,7 @@ It can sometimes be nice to add points to a boxplot to show the individual data 
 
 ```{r}
 #| warning: false
-ggplot(data = mousezempic_dosage_data, aes(x = mouse_strain, y = initial_weight_g)) +
+m_dose %>% ggplot(aes(x = mouse_strain, y = initial_weight_g)) +
   geom_boxplot() +
   geom_jitter(width = 0.2)
 ```
@@ -361,7 +361,7 @@ However, when you have a lot of data points (as we do here), a boxplot with over
 
 ```{r}
 #| warning: false
-ggplot(data = mousezempic_dosage_data, aes(x = mouse_strain, y = initial_weight_g)) +
+m_dose %>% ggplot(aes(x = mouse_strain, y = initial_weight_g)) +
   geom_violin()
 ```
 
@@ -369,7 +369,7 @@ You can even combine `geom_violin()` with `geom_boxplot()` to show both the dist
 
 ```{r}
 #| warning: false
-ggplot(data = mousezempic_dosage_data, aes(x = mouse_strain, y = initial_weight_g)) +
+m_dose %>% ggplot(aes(x = mouse_strain, y = initial_weight_g)) +
   geom_violin() +
   geom_boxplot(width = 0.1)
 ```
@@ -384,7 +384,7 @@ For example, if we wanted to create a bar plot of the number of mice in each str
 
 ```{r}
 # first count the number of mice per strain
-mouse_counts <- mousezempic_dosage_data %>%
+mouse_counts <- m_dose %>%
   group_by(mouse_strain) %>%
   summarise(count = n())
 
@@ -398,7 +398,7 @@ Whereas if we used `geom_bar()`, we would not need to calculate the counts first
 
 ```{r}
 #| warning: false
-ggplot(data = mousezempic_dosage_data,
+ggplot(data = m_dose,
   aes(x = mouse_strain)) +
   geom_bar()
 ```
@@ -409,7 +409,7 @@ The advantage of using `geom_bar()` is that it is simpler and easier to read for
 
 ```{r}
 # first calculate the average weight loss for each strain
-mouse_avg_weight_loss <- mousezempic_dosage_data %>%
+mouse_avg_weight_loss <- m_dose %>%
   group_by(mouse_strain) %>%
   summarise(avg_weight_loss = mean(weight_lost_g))
 
@@ -425,7 +425,7 @@ As the name suggests, `geom_line()` is used to create line plots. These are usef
 
 ```{r}
 #| warning: false
-ggplot(data = mousezempic_dosage_data, aes(x = drug_dose_g, y = weight_lost_g)) +
+m_dose %>% ggplot(aes(x = drug_dose_g, y = weight_lost_g)) +
   geom_line()
 ```
 (In reality the relationship between these variables is probably better represented as points on a scatterplot rather than as a line, but this is just an example of how you can use `geom_line()`).
@@ -434,7 +434,7 @@ It's also possible to combine `geom_line()` with `geom_point()` to show the indi
 
 ```{r}
 #| warning: false
-ggplot(data = mousezempic_dosage_data, aes(x = drug_dose_g, y = weight_lost_g)) +
+m_dose %>% ggplot(aes(x = drug_dose_g, y = weight_lost_g)) +
   geom_line() +
   geom_point()
 ```
@@ -446,7 +446,7 @@ For example, let's add a horizontal line to our scatterplot of drug dosage and w
 
 ```{r}
 #| warning: false
-ggplot(data = mousezempic_dosage_data, aes(x = drug_dose_g, y = weight_lost_g)) +
+m_dose %>% ggplot(aes(x = drug_dose_g, y = weight_lost_g)) +
   geom_point() +
   geom_hline(yintercept = 4)
 ```
@@ -455,7 +455,7 @@ We could also add a vertical line at the 0.0025g mark to show the theorectical m
 
 ```{r}
 #| warning: false
-ggplot(data = mousezempic_dosage_data, aes(x = drug_dose_g, y = weight_lost_g)) +
+m_dose %>% ggplot(aes(x = drug_dose_g, y = weight_lost_g)) +
   geom_point() +
   geom_hline(yintercept = 4) +
   geom_vline(xintercept = 0.0025)
@@ -492,19 +492,19 @@ Try these practice questions to test your understanding
 
 ::: choices
 ::: choice
-`ggplot(data = mousezempic_dosage_data, aes(x = mouse_strain, y = tail_length_mm)) + geom_violin(geom_jitter(width = 0.2)) `
+`m_dose %>% ggplot(aes(x = mouse_strain, y = tail_length_mm)) + geom_violin(geom_jitter(width = 0.2)) `
 :::
 
 ::: choice
-`ggplot(data = mousezempic_dosage_data, aes(x = mouse_strain, y = tail_length_mm)) + geom_jitter(width = 0.2)`
+`m_dose %>% ggplot(aes(x = mouse_strain, y = tail_length_mm)) + geom_jitter(width = 0.2)`
 :::
 
 ::: choice
-`ggplot(data = mousezempic_dosage_data, aes(x = mouse_strain, y = tail_length_mm)) + geom_violin()`
+`m_dose %>% ggplot(aes(x = mouse_strain, y = tail_length_mm)) + geom_violin()`
 :::
 
 ::: {.choice .correct-choice}
-`ggplot(data = mousezempic_dosage_data, aes(x = mouse_strain, y = tail_length_mm)) + geom_violin() + geom_jitter(width = 0.2)`
+`m_dose %>% ggplot(aes(x = mouse_strain, y = tail_length_mm)) + geom_violin() + geom_jitter(width = 0.2)`
 :::
 :::
 :::
@@ -515,7 +515,7 @@ Try these practice questions to test your understanding
 
 ```{r}
 #| eval: false
-ggplot(data = mousezempic_dosage_data, aes(x = cage_number)) +
+m_dose %>% ggplot(aes(x = cage_number)) +
   geom_bar() +
   geom_hline(yintercept = 60)
 ```
@@ -544,7 +544,7 @@ Makes a bar plot of the number of mice in each cage
 <summary>Solutions</summary>
 
 1.  The correct answer is `geom_boxplot()`. This is the function used to create boxplots in ggplot2.
-2.  The correct way to create a violin plot of the tail length of the mice by strain, with points overlaid, is `ggplot(data = mousezempic_dosage_data, aes(x = mouse_strain, y = tail_length_mm)) + geom_violin() + geom_jitter(width = 0.2)`. This specifies the data and mapping in the `ggplot()` function call, adds a layer of violin plots using `geom_violin()`, and then adds a layer of points using `geom_jitter()` to avoid overlapping.
+2.  The correct way to create a violin plot of the tail length of the mice by strain, with points overlaid, is `m_dose %>% ggplot(aes(x = mouse_strain, y = tail_length_mm)) + geom_violin() + geom_jitter(width = 0.2)`. This specifies the data and mapping in the `ggplot()` function call, adds a layer of violin plots using `geom_violin()`, and then adds a layer of points using `geom_jitter()` to avoid overlapping.
 3.  The code creates a bar plot of the number of mice in each cage, with a horizontal line at 60. The `geom_bar()` function counts the number of mice in each cage and plots the counts as bars, while the `geom_hline()` function adds a horizontal line at the y value of 60. This could be used to show a threshold e.g. for the maximum number of mice allowed in a cage.
 
 </details>
@@ -558,7 +558,7 @@ Now that we've learned some of the common geoms we can use to physically represe
 As described earlier, aesthetics are the visual properties of the geoms that we can control, such as colour, position, size and shape. We saw how the `colour` aesthetic could be used in all layers of the plot to show the strain of each mouse, by specifying `colour = mouse_strain` in the `aes()` function:
 
 ```{r}
-ggplot(data = mousezempic_dosage_data,
+ggplot(data = m_dose,
   aes(x = initial_weight_g, y = tail_length_mm, colour = mouse_strain)) +
   geom_point() +
   geom_smooth(method = "lm")
@@ -568,7 +568,7 @@ It's also possible to specify aesthetics for specific geoms, rather than for the
 
 ```{r}
 #| warning: false
-ggplot(data = mousezempic_dosage_data,
+ggplot(data = m_dose,
   aes(x = initial_weight_g, y = tail_length_mm)) +
   geom_point(aes(colour = mouse_strain)) +
   geom_smooth(method = "lm")
@@ -580,7 +580,7 @@ Different geoms can accept different aesthetics. For example, let's try using th
 
 ```{r}
 #| warning: false
-ggplot(data = mousezempic_dosage_data,
+ggplot(data = m_dose,
   aes(x = mouse_strain, y = tail_length_mm, colour = mouse_strain)) +
   geom_boxplot()
 ```
@@ -589,7 +589,7 @@ Notice how the outline of the boxplot is coloured by strain, but the fill is not
 
 ```{r}
 #| warning: false
-ggplot(data = mousezempic_dosage_data,
+ggplot(data = m_dose,
   aes(x = mouse_strain, y = tail_length_mm, fill = mouse_strain)) +
   geom_boxplot()
 ```
@@ -601,7 +601,7 @@ Notice how in the last example, we used mapped the same variable (`mouse_strain`
 
 ```{r}
 #| warning: false
-ggplot(data = mousezempic_dosage_data,
+ggplot(data = m_dose,
   aes(x = initial_weight_g, y = tail_length_mm, colour = mouse_strain, shape = mouse_strain)) +
   geom_point()
 ```
@@ -612,7 +612,7 @@ Of course, we may instead want to use aesthetics to add additional variables to 
 
 ```{r}
 #| warning: false
-ggplot(data = mousezempic_dosage_data,
+ggplot(data = m_dose,
   aes(x = initial_weight_g, y = tail_length_mm, size = drug_dose_g, colour = mouse_strain, shape = cage_number)) +
   geom_point()
 ```
@@ -627,7 +627,7 @@ One thing you'll often want to do is change the colour palette. You can do this 
 
 ```{r}
 #| warning: false
-ggplot(data = mousezempic_dosage_data,
+ggplot(data = m_dose,
   aes(x = initial_weight_g, y = tail_length_mm, colour = mouse_strain)) +
   geom_point() +
   scale_colour_manual(values = c("red", "blue", "green"))
@@ -639,7 +639,7 @@ R has a range of built-in colours that you can use, such as "red", "blue", "gree
 
 ```{r}
 #| warning: false
-ggplot(data = mousezempic_dosage_data,
+ggplot(data = m_dose,
        aes(x = initial_weight_g, y = tail_length_mm, colour = mouse_strain)) +
   geom_point() +
   scale_colour_manual(values = c("#f45c2e", "#912247", "#039f22"))
@@ -658,7 +658,7 @@ So far, we've only used colour to visualise categorical variables, but it can al
 
 ```{r}
 #| warning: false
-ggplot(data = mousezempic_dosage_data,
+ggplot(data = m_dose,
   aes(x = initial_weight_g, y = tail_length_mm, colour = drug_dose_g)) +
   geom_point()
 ```
@@ -667,7 +667,7 @@ The points are now coloured based on the drug dosage, using a default gradient o
 
 ```{r}
 #| warning: false
-ggplot(data = mousezempic_dosage_data,
+ggplot(data = m_dose,
   aes(x = initial_weight_g, y = tail_length_mm, colour = drug_dose_g)) +
   geom_point() +
   scale_colour_gradient(low = "yellow", high = "red")
@@ -684,7 +684,7 @@ By default, ggplot2 will automatically choose the limits of the x and y axes bas
 
 ```{r}
 #| warning: false
-ggplot(data = mousezempic_dosage_data, aes(x = initial_weight_g, y = tail_length_mm)) +
+m_dose %>% ggplot(aes(x = initial_weight_g, y = tail_length_mm)) +
   geom_point() +
   # specify axis limits like xlim(min, max)
   xlim(0, 60) +
@@ -697,7 +697,7 @@ Notice how different this makes the plot look! Choosing appropriate axis limits 
 
 By default, ggplot2 uses a linear scale for both axes, but you can change this to a logarithmic scale using the `scale_x_log10()` or `scale_y_log10()` functions. This is useful when you have data that spans several orders of magnitude.
 
-We don't have anything like this in our `mousezempic_dosage_data` dataset, so let's use the `diamonds` dataset that comes with ggplot2 to demonstrate this. The `diamonds` dataset contains information about the price and carat weight of diamonds, both of which are continuous variables that span several orders of magnitude. Let's create a scatterplot of the price and carat of the diamonds:
+We don't have anything like this in our `m_dose` dataset, so let's use the `diamonds` dataset that comes with ggplot2 to demonstrate this. The `diamonds` dataset contains information about the price and carat weight of diamonds, both of which are continuous variables that span several orders of magnitude. Let's create a scatterplot of the price and carat of the diamonds:
 
 ```{r}
 ggplot(diamonds, aes(y = price, x = carat)) +
@@ -721,7 +721,7 @@ For example, when we are using `geom_bar()` to create a bar plot that is coloure
 
 ```{r}
 #| warning: false
-ggplot(data = mousezempic_dosage_data,
+ggplot(data = m_dose,
   aes(x = mouse_strain, fill = sex)) +
   geom_bar()
 ```
@@ -729,7 +729,7 @@ Having the bars stacked up is useful when you want to see the total count for ea
 
 ```{r}
 #| warning: false
-ggplot(data = mousezempic_dosage_data,
+ggplot(data = m_dose,
   aes(x = mouse_strain, fill = sex)) +
   geom_bar(position = "dodge")
 ```
@@ -745,7 +745,7 @@ Try these practice questions to test your understanding
 
 ```{r}
 #| eval: false
-ggplot(data = mousezempic_dosage_data,
+ggplot(data = m_dose,
   aes(x = mouse_strain, y = tail_length_mm)) +
   geom_violin() +
   geom_jitter(aes(colour = mouse_strain), width = 0.3)
@@ -776,19 +776,19 @@ Hint: You can use the `scale_colour_viridis_c()` function to apply the viridis c
 
 ::: choices
 ::: {.choice .correct-choice}
-`ggplot(data = mousezempic_dosage_data, aes(x = initial_weight_g, y = tail_length_mm, colour = weight_lost_g)) + geom_point() + scale_colour_viridis_c()`
+`m_dose %>% ggplot(aes(x = initial_weight_g, y = tail_length_mm, colour = weight_lost_g)) + geom_point() + scale_colour_viridis_c()`
 :::
 
 ::: choice
-`ggplot(data = mousezempic_dosage_data, aes(x = initial_weight_g, y = tail_length_mm, colour = weight_lost_g)) + geom_point()`
+`m_dose %>% ggplot(aes(x = initial_weight_g, y = tail_length_mm, colour = weight_lost_g)) + geom_point()`
 :::
 
 ::: choice
-`ggplot(data = mousezempic_dosage_data, aes(x = initial_weight_g, y = tail_length_mm, colour = weight_lost_g)) + scale_colour_viridis_c()`
+`m_dose %>% ggplot(aes(x = initial_weight_g, y = tail_length_mm, colour = weight_lost_g)) + scale_colour_viridis_c()`
 :::
 
 ::: choice
-`ggplot(data = mousezempic_dosage_data, aes(x = initial_weight_g, y = tail_length_mm, colour = weight_lost_g)) + geom_point(scale_colour_viridis_c())`
+`m_dose %>% ggplot(aes(x = initial_weight_g, y = tail_length_mm, colour = weight_lost_g)) + geom_point(scale_colour_viridis_c())`
 :::
 :::
 :::
@@ -798,19 +798,19 @@ Hint: You can use the `scale_colour_viridis_c()` function to apply the viridis c
 
 ::: choices
 ::: choice
-`ggplot(data = mousezempic_dosage_data, aes(x = tail_length_mm, fill = mouse_strain)) + geom_histogram(bins = 10)`
+`m_dose %>% ggplot(aes(x = tail_length_mm, fill = mouse_strain)) + geom_histogram(bins = 10)`
 :::
 
 ::: {.choice .correct-choice}
-`ggplot(data = mousezempic_dosage_data, aes(x = tail_length_mm, fill = mouse_strain)) + geom_histogram(bins = 10, position = "dodge")`
+`m_dose %>% ggplot(aes(x = tail_length_mm, fill = mouse_strain)) + geom_histogram(bins = 10, position = "dodge")`
 :::
 
 ::: choice
-`ggplot(data = mousezempic_dosage_data, aes(x = tail_length_mm, fill = mouse_strain)) + geom_histogram(bins = 10, position = "stack")`
+`m_dose %>% ggplot(aes(x = tail_length_mm, fill = mouse_strain)) + geom_histogram(bins = 10, position = "stack")`
 :::
 
 ::: choice
-`ggplot(data = mousezempic_dosage_data, aes(x = tail_length_mm)) + geom_histogram(bins = 10)`
+`m_dose %>% ggplot(aes(x = tail_length_mm)) + geom_histogram(bins = 10)`
 :::
 :::
 :::
@@ -821,9 +821,9 @@ Hint: You can use the `scale_colour_viridis_c()` function to apply the viridis c
 
 1.  The correct answer is "A violin plot of tail length by mouse strain, with points overlaid. The points are jittered to avoid overlapping and are coloured by mouse strain. The violin plot is not coloured." Note that because we specified the `aes(colour = mouse_strain)` argument within `geom_jitter()` and not in the `ggplot()` function, **only the points will be coloured by mouse strain**, while the violin plot will not be coloured.
 
-2.  The correct answer is `ggplot(data = mousezempic_dosage_data, aes(x = initial_weight_g, y = tail_length_mm, colour = weight_lost_g)) + geom_point() + scale_colour_viridis_c()`. This code creates a scatterplot of initial weight and tail length, with the points coloured by weight lost using the viridis colour palette. Remember that we add scales to the plot using the `+` operator, just like we do with geoms, and that we need to specify the `colour` aesthetic in the `aes()` function to map the weight lost to colour.
+2.  The correct answer is `m_dose %>% ggplot(aes(x = initial_weight_g, y = tail_length_mm, colour = weight_lost_g)) + geom_point() + scale_colour_viridis_c()`. This code creates a scatterplot of initial weight and tail length, with the points coloured by weight lost using the viridis colour palette. Remember that we add scales to the plot using the `+` operator, just like we do with geoms, and that we need to specify the `colour` aesthetic in the `aes()` function to map the weight lost to colour.
 
-3.  The correct answer is `ggplot(data = mousezempic_dosage_data, aes(x = tail_length_mm, fill = mouse_strain)) + geom_histogram(bins = 10, position = "dodge")`. Remember that the `position = "dodge"` argument in `geom_histogram()` specifies that the bars should be placed side by side rather than stacked on top of each other (the default behaviour). Also note that histograms, like bar plots, use the `fill` aesthetic to colour the entire bars (the `colour` aesthetic is only used to colour the outline of the bars).
+3.  The correct answer is `m_dose %>% ggplot(aes(x = tail_length_mm, fill = mouse_strain)) + geom_histogram(bins = 10, position = "dodge")`. Remember that the `position = "dodge"` argument in `geom_histogram()` specifies that the bars should be placed side by side rather than stacked on top of each other (the default behaviour). Also note that histograms, like bar plots, use the `fill` aesthetic to colour the entire bars (the `colour` aesthetic is only used to colour the outline of the bars).
 
 </details>
 
@@ -837,14 +837,14 @@ One thing you'll want to do is add labels to your plot, such as a title, axis la
 
 ```{r}
 #| warning: false
-ggplot(data = mousezempic_dosage_data,
+ggplot(data = m_dose,
   aes(x = initial_weight_g, y = tail_length_mm)) +
   geom_point() +
   # add labels to the plot
   labs(title = "Initial weight vs tail length",
        x = "Initial weight (g)",
        y = "Tail length (mm)",
-       caption = "Data from the mousezempic_dosage_data dataset")
+       caption = "Data from the m_dose dataset")
 ```
 You don't need to specify all of these labels (just omit the ones you don't want).
 
@@ -852,7 +852,7 @@ It's also possible to change the way that the axes are labelled. You can do this
 
 ```{r}
 #| warning: false
-ggplot(data = mousezempic_dosage_data,
+ggplot(data = m_dose,
   aes(x = drug_dose_g, y = weight_lost_g)) +
   geom_point()
 ```
@@ -861,7 +861,7 @@ We could use the `scale_x_continuous()` function to label the x axis in scientif
 
 ```{r}
 #| warning: false
-ggplot(data = mousezempic_dosage_data,
+ggplot(data = m_dose,
   aes(x = drug_dose_g, y = weight_lost_g)) +
   geom_point() +
   scale_x_continuous(labels = scales::label_scientific()) +
@@ -887,7 +887,7 @@ There are a number of pre-set theme functions in ggplot2, such as `theme_bw()`, 
 
 ```{r}
 #| warning: false
-ggplot(data = mousezempic_dosage_data,
+ggplot(data = m_dose,
   aes(x = initial_weight_g, y = tail_length_mm)) +
   geom_point() +
   theme_minimal()
@@ -897,7 +897,7 @@ One common edit you might want to make to a theme is to change the font size, so
 
 ```{r}
 #| warning: false
-ggplot(data = mousezempic_dosage_data,
+ggplot(data = m_dose,
   aes(x = initial_weight_g, y = tail_length_mm)) +
   geom_point() +
   theme_minimal(base_size = 16)
@@ -911,7 +911,7 @@ In general though, to set the value of a plot element, you need to know its name
 
 ```{r}
 #| warning: false
-ggplot(data = mousezempic_dosage_data,
+ggplot(data = m_dose,
   aes(x = initial_weight_g, y = tail_length_mm)) +
   geom_point() +
   # add a title to the plot
@@ -929,7 +929,7 @@ If your plot has a legend, you can also modify its appearance using the `theme()
 
 ```{r}
 #| warning: false
-ggplot(data = mousezempic_dosage_data,
+ggplot(data = m_dose,
   aes(x = initial_weight_g, y = tail_length_mm, colour = mouse_strain)) +
   geom_point() +
   labs(title = "Initial weight vs tail length",
@@ -944,7 +944,7 @@ You can remove the legend altogether by setting `legend.position = "none"` in th
 
 ```{r}
 #| warning: false
-ggplot(data = mousezempic_dosage_data,
+ggplot(data = m_dose,
   aes(x = initial_weight_g, y = tail_length_mm, colour = mouse_strain)) +
   geom_point() +
   labs(title = "Initial weight vs tail length",
@@ -960,7 +960,7 @@ Earlier, we saw how to map variables in our data to aesthetics like colour, size
 
 ```{r}
 #| warning: false
-ggplot(data = mousezempic_dosage_data,
+ggplot(data = m_dose,
   aes(x = initial_weight_g, y = tail_length_mm)) +
   geom_point(colour = "violet")
 ```
@@ -969,7 +969,7 @@ This will make all the points violet, regardless of the strain of the mouse. You
 
 ```{r}
 #| warning: false
-ggplot(data = mousezempic_dosage_data,
+ggplot(data = m_dose,
   aes(x = initial_weight_g, y = tail_length_mm)) +
   geom_point(size = 3, shape = 17, colour = "violet")
 ```
@@ -982,7 +982,7 @@ Now, all of our plots have changed to violet triangles! [You can see the full li
 1\. I've made the following plot:
 
 ```{r}
-ggplot(data = mousezempic_dosage_data,
+ggplot(data = m_dose,
   aes(x = cage_number, y = weight_lost_g, fill = mouse_strain)) +
   geom_violin()
 ```
@@ -1012,7 +1012,7 @@ Which of the following could I use to add labels to the plot?
 2\. I'm trying to change move my plot legend to the top and change the font of my title to bold, but it's not working. What am I doing wrong?
 
 ```{r}
-ggplot(data = mousezempic_dosage_data,
+ggplot(data = m_dose,
   aes(x = initial_weight_g, y = tail_length_mm, colour = mouse_strain)) +
   geom_point() +
   labs(title = "Initial weight vs tail length",
@@ -1046,7 +1046,7 @@ You need to put the `theme()` function after the `theme_bw()` function, because 
 3\. I have the following code to make a boxplot of the initial weight of the mice by strain:
 
 ```{r}
-ggplot(data = mousezempic_dosage_data,
+ggplot(data = m_dose,
   aes(x = mouse_strain, y = initial_weight_g)) +
   geom_boxplot()
 ```
@@ -1092,11 +1092,11 @@ Add `geom_point()` to the plot code above with the `+` operator
 ## Making many similar plots with facets
 Faceting is a powerful way to create multiple plots that each show subsets of your data. This is useful when you want to compare different groups or categories.
 
-Before, we saw how to do this by using aesthetics such as colour to distinguish between groups. For example, let's consider the relationship between weight lost and drug dosage in our `mousezempic_dosage_data` dataset. We could use what we've learned so far to create a scatterplot of weight lost vs drug dosage, and colour the points by mouse strain:
+Before, we saw how to do this by using aesthetics such as colour to distinguish between groups. For example, let's consider the relationship between weight lost and drug dosage in our `m_dose` dataset. We could use what we've learned so far to create a scatterplot of weight lost vs drug dosage, and colour the points by mouse strain:
 
 ```{r}
 #| warning: false
-ggplot(data = mousezempic_dosage_data,
+ggplot(data = m_dose,
   aes(x = drug_dose_g, y = weight_lost_g, colour = mouse_strain)) +
   geom_point() +
   labs(title = "Weight lost vs drug dosage for each mouse strain",
@@ -1112,7 +1112,7 @@ Let's repeat our previous plot, but this time we'll facet it by mouse strain:
 
 ```{r}
 #| warning: false
-ggplot(data = mousezempic_dosage_data,
+ggplot(data = m_dose,
   aes(x = drug_dose_g, y = weight_lost_g)) +
   geom_point() +
   labs(title = "Weight lost vs drug dosage for each mouse strain",
@@ -1128,7 +1128,7 @@ By default, all of the facets will have the same x and y axis limits, which is u
 
 ```{r}
 #| warning: false
-ggplot(data = mousezempic_dosage_data,
+ggplot(data = m_dose,
   aes(x = drug_dose_g, y = weight_lost_g)) +
   geom_point() +
   labs(title = "Weight lost vs drug dosage for each mouse strain",
@@ -1144,7 +1144,7 @@ Two other useful arguments to `facet_wrap()` are `nrow` and `ncol`, which allow 
 
 ```{r}
 #| warning: false
-ggplot(data = mousezempic_dosage_data,
+ggplot(data = m_dose,
   aes(x = drug_dose_g, y = weight_lost_g)) +
   geom_point() +
   labs(title = "Weight lost vs drug dosage for each mouse strain",
@@ -1160,7 +1160,7 @@ It's also possible to facet by two variables, using the `facet_grid()` function.
 
 ```{r}
 #| warning: false
-ggplot(data = mousezempic_dosage_data,
+ggplot(data = m_dose,
   aes(x = drug_dose_g, y = weight_lost_g)) +
   geom_point() +
   labs(title = "Weight lost vs drug dosage for each mouse strain",
@@ -1203,7 +1203,7 @@ Try these practice questions to test your understanding
 ```{r}
 #| eval: false
 
-ggplot(mousezempic_dosage_data, aes(x = tail_length_mm)) +
+ggplot(m_dose, aes(x = tail_length_mm)) +
   geom_boxplot() +
   facet_grid(mouse_strain ~ sex, scales = "free")
 ```
@@ -1244,7 +1244,7 @@ Creates a boxplot of the tail length for each unique combination of 'sex' and 'm
 :::
 
 ## Laying out multiple plots into a single figure
-Faceting is a great way to create multiple versions of the same plot, but sometimes you want to create completely different plots and lay them out together. For example, let's say we are interested in the tail length variable from our `mousezempic_dosage_data` dataset. We might want to create a scatterplot of initial weight vs tail length, and a boxplot of tail length by cage number, and lay them out together.
+Faceting is a great way to create multiple versions of the same plot, but sometimes you want to create completely different plots and lay them out together. For example, let's say we are interested in the tail length variable from our `m_dose` dataset. We might want to create a scatterplot of initial weight vs tail length, and a boxplot of tail length by cage number, and lay them out together.
 
 We can do this using the `patchwork` package, which allows you to combine multiple ggplot2 plots into a single figure. To use it, you first need to load the package:
 
@@ -1262,7 +1262,7 @@ Returning to the example above, we can create our plots and assign them to varia
 
 ```{r}
 #| warning: false
-tail_cage_boxplot <- ggplot(data = mousezempic_dosage_data,
+tail_cage_boxplot <- ggplot(data = m_dose,
   aes(x = cage_number, y = tail_length_mm, fill = cage_number)) +
   geom_boxplot() +
   # add labels
@@ -1274,7 +1274,7 @@ tail_cage_boxplot <- ggplot(data = mousezempic_dosage_data,
   # remove the legend, because we will use the same colour for the points and the plot, don't need both legends
   theme(legend.position = "none")
 
-tail_weight_scatterplot <- ggplot(data = mousezempic_dosage_data,
+tail_weight_scatterplot <- ggplot(data = m_dose,
   aes(x = initial_weight_g, y = tail_length_mm, colour = cage_number)) +
   geom_point(size = 2) +
   labs(title = "Initial weight vs tail length",
@@ -1399,7 +1399,7 @@ Try these practice questions to test your understanding!
   a.
 ```{r}
 #| eval: false
-ggplot(data = mousezempic_dosage_data,
+ggplot(data = m_dose,
   aes(x = cage_number, y = weight_lost_g)) +
   geom_boxplot(aes(fill = sex), width = 0.5) +
   geom_hline(yintercept = 4, linetype = "dashed") +
@@ -1409,7 +1409,7 @@ ggplot(data = mousezempic_dosage_data,
   b.
 ```{r}
 #| eval: false
-ggplot(data = mousezempic_dosage_data,
+ggplot(data = m_dose,
   aes(x = initial_weight_g, y = weight_lost_g)) +
   geom_point(aes(colour = drug_dose_g)) +
   geom_smooth(method = "lm", se = FALSE, colour = "black") +
@@ -1427,7 +1427,7 @@ Try to make them look as nice as possible, using the techniques we've learned in
 
 ```{r}
 #| eval: false
-ggplot(data = mousezempic_dosage_data,
+ggplot(data = m_dose,
   aes(x = initial_weight_g, y = tail_length_mm)) +
   geom_point(colour = weight_lost_g) +
   labs(title = "Initial weight vs tail length",
@@ -1443,7 +1443,7 @@ Hint: read the error message carefully! It will give you a clue about what the p
 
 ```{r}
 #| echo: false
-ggplot(data = mousezempic_dosage_data,
+ggplot(data = m_dose,
   aes(x = initial_weight_g, y = tail_length_mm)) +
   geom_point(aes(colour = mouse_strain), size = 2) +
   geom_smooth(method = "lm", se = FALSE, colour = "grey") +
@@ -1458,7 +1458,7 @@ ggplot(data = mousezempic_dosage_data,
 
 ```{r}
 #| echo: false
-ggplot(data = mousezempic_dosage_data,
+ggplot(data = m_dose,
   aes(x = cage_number, y = weight_lost_g, colour = mouse_strain)) +
   geom_boxplot(linewidth = 2) +
   geom_hline(yintercept = 4, linetype = "dashed", linewidth = 2) +
@@ -1482,7 +1482,7 @@ ggplot(data = mousezempic_dosage_data,
 
   a. To make the plot you could use the following code:
 ```{r}
-ggplot(data = mousezempic_dosage_data,
+ggplot(data = m_dose,
   aes(x = mouse_strain, y = drug_dose_g, fill = mouse_strain)) +
   # you could also use aes(colour = mouse_strain) here to have the outline of the violin be the same colour as the fill
   geom_violin() +
@@ -1498,7 +1498,7 @@ ggplot(data = mousezempic_dosage_data,
 ```
   b. To make the plot you could use the following code:
 ```{r}
-ggplot(data = mousezempic_dosage_data, aes(x = weight_lost_g)) +
+m_dose %>% ggplot(aes(x = weight_lost_g)) +
   # choose your fave pink colour, here i just used "pink"
   # don't forget to set the bins to 15
   geom_histogram(fill = "pink", bins = 15) +
@@ -1514,7 +1514,7 @@ ggplot(data = mousezempic_dosage_data, aes(x = weight_lost_g)) +
 3. The error is because you are trying to colour the points by weight lost, but you haven't specified it in the `aes()` function. You need to put `colour = weight_lost_g` inside the `aes()` function. This can be either the first `aes()` function call inside `ggplot()`:
 
 ```{r}
-ggplot(data = mousezempic_dosage_data,
+ggplot(data = m_dose,
   aes(x = initial_weight_g, y = tail_length_mm, colour = weight_lost_g)) +
   geom_point() +
   labs(title = "Initial weight vs tail length",
@@ -1526,7 +1526,7 @@ ggplot(data = mousezempic_dosage_data,
 Or, you could set the colour in the `geom_point()` function, like this:
 
 ```{r}
-ggplot(data = mousezempic_dosage_data,
+ggplot(data = m_dose,
   aes(x = initial_weight_g, y = tail_length_mm)) +
   geom_point(aes(colour = weight_lost_g)) +
   labs(title = "Initial weight vs tail length",
@@ -1540,7 +1540,7 @@ Either way, if you want to map a variable to an aesthetic, you need to put it in
   a. Note how the `aes()` function is used to colour the points and individual trendlines by mouse strain, but not the overall trendline because we specify it within the geoms, not in the initial `ggplot()` function call:
 
 ```{r}
-ggplot(data = mousezempic_dosage_data,
+ggplot(data = m_dose,
   aes(x = initial_weight_g, y = tail_length_mm)) +
   # colour the points by mouse strain
   # we put this in geom_point() because we want to colour the points by mouse strain but not the overall trendline
@@ -1560,7 +1560,7 @@ ggplot(data = mousezempic_dosage_data,
   b. Notice how we specified the `linewidth` argument in the `geom_boxplot()` and `geom_hline()` functions to make the lines thicker. This is not inside the `aes()` function because it doesn't represent anything in the data, it's just used to style the plot. We also set the `base_size` argument in the `theme_minimal()` function to make the font size larger:
 
 ```{r}
-ggplot(data = mousezempic_dosage_data,
+ggplot(data = m_dose,
   aes(x = cage_number, y = weight_lost_g, colour = mouse_strain)) +
   # set linewidth = 2 to make the lines thicker
   geom_boxplot(linewidth = 2) +

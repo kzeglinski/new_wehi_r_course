@@ -22,12 +22,12 @@ At the end of this chapter, learners should be able to:
 
 ## Introduction to the dataset
 
-In this chapter we will use the `mousezempic_dosage_data` and `mousezempic_expression_data` data frames, which contain information about the mice and their gene expression levels, respectively.
+In this chapter we will use the mousezempic dosage data `m_dose` and mouse expression data `m_exp` data frames, which contain information about the mice including mousezempic dose, and their gene expression levels, respectively.
 
 ```{r}
 #| eval: false
 dir.create("data") # create data directory if it doesn't exist
-download.file("https://raw.githubusercontent.com/kzeglinski/new_wehi_r_course/refs/heads/main/data/mousezempic_expression_data.tsv", "data/mousezempic_expression_data.tsv") # download data
+download.file("https://raw.githubusercontent.com/kzeglinski/new_wehi_r_course/refs/heads/main/data/m_exp.tsv", "data/m_exp.tsv") # download data
 ```
 
 ```{r}
@@ -36,16 +36,16 @@ library(tidyverse)
 library(patchwork)
 
 # read in dosage data
-mousezempic_dosage_data <- read_csv("data/mousezempic_dosage_data.csv")
-mousezempic_dosage_data
+m_dose <- read_csv("data/mousezempic_dosage_data.csv")
+m_dose
 ```
 
 ```{r}
 #| message: false
 
 # read in expression data
-mousezempic_expression_data <- read_tsv("data/mousezempic_expression_data.tsv")
-mousezempic_expression_data
+m_exp <- read_tsv("data/mousezempic_expression_data.tsv")
+m_exp
 ```
 
 ::: callout-note
@@ -99,7 +99,7 @@ A common use case for `pivot_wider()` is to make a [contingency table](https://e
 For example, let's say we want to create a table that shows how many mice there are of each strain, in each cage number. We can achieve this in a long format using `summarise()` as we learned in the previous section:
 
 ```{r}
-mousezempic_dosage_data %>%
+m_dose %>%
   summarise(
     n_mice = n(),
     .by = c(cage_number, mouse_strain))
@@ -108,7 +108,7 @@ mousezempic_dosage_data %>%
 For the specific task of counting, we can achieve the same effect using the `count()` tidyverse function.
 
 ```{r}
-mousezempic_dosage_data %>%
+m_dose %>%
   count(cage_number, mouse_strain, name = "n_mice")
 ```
 
@@ -117,7 +117,7 @@ This summarises by each combination of `cage_number` and `mouse_strain`, with th
 To get a contingency table, we wish to have the information in the `mouse_strain` column displayed along the column names and the values of `n_mice` becoming the values of the cells in the new table. Since the goal is to make the table wider, we use the `pivot_wider()` function. To achieve this, we instruct the `pivot_wider()` function to take names from the `mouse_strain` column and the values from the `n_mice` column.
 
 ```{r}
-mousezempic_dosage_data %>%
+m_dose %>%
   count(cage_number, mouse_strain, name = "n_mice") %>%
   pivot_wider(names_from = mouse_strain, values_from = n_mice)
 ```
@@ -127,7 +127,7 @@ This has transformed our data into a contingency table, with `NA` where no data 
 We can do the same thing to see how many of each mouse strains is in each of our experiment replicates.
 
 ```{r}
-mousezempic_dosage_data %>%
+m_dose %>%
   count(replicate, mouse_strain, name = "n_mice") %>%
   pivot_wider(names_from = mouse_strain, values_from = n_mice)
 ```
@@ -136,10 +136,10 @@ mousezempic_dosage_data %>%
 
 Data can often arrive in the form similar to the contingency table we constructed. Although this data is easy to read, it is difficult to operate on using tidyverse functions because the `mouse_strain` data is now stored in the column names and not inside a column we can use as a variable. In order to make this kind of data tidy, we use the `pivot_longer()` function, which will create a pair of columns from the column names and the value of the corresponding cell.
 
-To demonstrate `pivot_longer()`, we will use the `mousezempic_expression_data` that we downloaded earlier. This data frame contains the expression levels of two genes (TH and PRLH) suspected to be upregulated in mice taking MouseZempic, as well as one housekeeping gene (HPRT1), all measured in triplicate.
+To demonstrate `pivot_longer()`, we will use the `m_exp` that we downloaded earlier. This data frame contains the expression levels of two genes (TH and PRLH) suspected to be upregulated in mice taking MouseZempic, as well as one housekeeping gene (HPRT1), all measured in triplicate.
 
 ```{r}
-mousezempic_expression_data
+m_exp
 ```
 
 The data is currently in wide format, with each row representing a different mouse (identified by its `id_num`) and each column representing a different measurement of a gene. To reshape this data into a long format (where each measurement is contained on a separate row), we can use `pivot_longer()`, specifying three arguments:
@@ -151,7 +151,7 @@ The data is currently in wide format, with each row representing a different mou
 In this particular case here's what the code would look like:
 
 ```{r}
-mousezempic_expr_long <- mousezempic_expression_data %>%
+mousezempic_expr_long <- m_exp %>%
   pivot_longer(
     cols = contains("_rep"),
     names_to = "measurement",
@@ -240,13 +240,13 @@ Data analysis typically involves multiple tables of data. Often there will be ta
 
 A common and basic join is the `left_join()`. It takes two data frame as arguments and optionally a vector of common columns to perform the join on. The reason it's called a left-join because it retains all rows from the left data frame while adding on columns from the right data frame only when the data in the designed joining column(s) match.
 
-For example, we can join the `mousezempic_dosage_data` data frame with the `mz_expr_rep_summed_wide` data frame based on the `id_num` column, which is common to both data frames:
+For example, we can join the `m_dose` data frame with the `mz_expr_rep_summed_wide` data frame based on the `id_num` column, which is common to both data frames:
 
 ```{r}
-left_join(mousezempic_dosage_data, mz_expr_rep_summed_wide, by = "id_num")
+left_join(m_dose, mz_expr_rep_summed_wide, by = "id_num")
 ```
 
-The `mousezempic_dosage_data` contains information about characteristics of each mouse, while the `mz_expr_rep_summed_wide` contains the replicate-summed gene expressions of the mice. Each data frame has an `id_num` column that relates the data from the two data frames together, and we have joined them into one table that contains both the data about the mice as well as the expression of their genes.
+The `m_dose` contains information about characteristics of each mouse, while the `mz_expr_rep_summed_wide` contains the replicate-summed gene expressions of the mice. Each data frame has an `id_num` column that relates the data from the two data frames together, and we have joined them into one table that contains both the data about the mice as well as the expression of their genes.
 
 With the `left_join()`, if there is a `id_num` value that exists in the right data frame but not found in the left, then that data will not be present in the joined table. For any `id_num` that appears only in the left but not the right data frame, the values in the newly created columns will be `NA`.
 
@@ -258,11 +258,11 @@ If the values from the left data frame matches to multiple rows of the column in
 
 Often the column containing the matching information has different names in different data frames. For example what might be called "id_num" in one data frame could also be called "mouse_id" in another data frame. In those cases the `by` argument of `left_join()` can be formatted to let the function know which column in the left data frame matches to which column on the right.
 
-We will demonstrate this by renaming the `id_num` column in the `mousezempic_dosage_data` to `mouse_id` and using it to perform the join instead. We will use the `join_by(mouse_id == id_num)` helper function for the `by` argument to specify the different columns we wish to join by.
+We will demonstrate this by renaming the `id_num` column in the `m_dose` to `mouse_id` and using it to perform the join instead. We will use the `join_by(mouse_id == id_num)` helper function for the `by` argument to specify the different columns we wish to join by.
 
 ```{r}
 # rename id_num to mouse_id
-mz_dosage_data_new <- mousezempic_dosage_data %>%
+mz_dosage_data_new <- m_dose %>%
   rename(mouse_id = id_num)
 
 mz_dosage_data_new
@@ -520,7 +520,7 @@ Together these make up a very versatile toolkit for transforming messy data you 
 
 <!-- ```{r} -->
 <!-- #| eval: false -->
-<!-- mousezempic_dosage_data %>% -->
+<!-- m_dose %>% -->
 <!--   summarise( -->
 <!--     med_tail = median(tail_length_mm, na.rm = TRUE), -->
 <!--     .by = c(mouse_strain, sex)) %>% -->
@@ -533,11 +533,11 @@ Together these make up a very versatile toolkit for transforming messy data you 
 <!-- ::: -->
 
 <!-- ::: {.choice .correct-choice} -->
-<!-- Calculates the median tail length for each unique combination of `mouse_strain` and `sex` in the `mousezempic_dosage_data` data frame, then pivots into a wide format where there is a column for each sex. -->
+<!-- Calculates the median tail length for each unique combination of `mouse_strain` and `sex` in the `m_dose` data frame, then pivots into a wide format where there is a column for each sex. -->
 <!-- ::: -->
 
 <!-- ::: choice -->
-<!-- Calculates the median tail length for each unique combination of `mouse_strain` and `sex` in the `mousezempic_dosage_data` data frame, then pivots into a wide format where there is a column for each mouse strain. -->
+<!-- Calculates the median tail length for each unique combination of `mouse_strain` and `sex` in the `m_dose` data frame, then pivots into a wide format where there is a column for each mouse strain. -->
 <!-- ::: -->
 
 <!-- ::: choice -->
@@ -546,10 +546,10 @@ Together these make up a very versatile toolkit for transforming messy data you 
 <!-- ::::::: -->
 <!-- :::::::: -->
 
-<!-- 2\. I have run the following code to create a new column in the `mousezempic_dosage_data` data frame that gives the weight of the mice at the end of the experiment. -->
+<!-- 2\. I have run the following code to create a new column in the `m_dose` data frame that gives the weight of the mice at the end of the experiment. -->
 
 <!-- ```{r} -->
-<!-- mousezempic_dosage_data %>% -->
+<!-- m_dose %>% -->
 <!--   # add a column for the weight at the end of the experiment -->
 <!--   mutate(final_weight_g = initial_weight_g - weight_lost_g) %>% -->
 <!--   # select the relevant columns only -->
@@ -577,23 +577,23 @@ Together these make up a very versatile toolkit for transforming messy data you 
 <!-- ::::::: -->
 
 <!-- :::::::: question -->
-<!-- 3\. Which of the following is NOT a valid way to join the `mousezempic_dosage_data` data frame with the `mousezempic_expression_data` data frame based on the `id_num` column? -->
+<!-- 3\. Which of the following is NOT a valid way to join the `m_dose` data frame with the `m_exp` data frame based on the `id_num` column? -->
 
 <!-- ::::::: choices -->
 <!-- ::: choice -->
-<!-- `mousezempic_dosage_data %>% left_join(mousezempic_expression_data, by = "id_num")` -->
+<!-- `m_dose %>% left_join(m_exp, by = "id_num")` -->
 <!-- ::: -->
 
 <!-- ::: choice -->
-<!-- `left_join(mousezempic_dosage_data, mousezempic_expression_data, by = "id_num")` -->
+<!-- `left_join(m_dose, m_exp, by = "id_num")` -->
 <!-- ::: -->
 
 <!-- ::: {.choice .correct-choice} -->
-<!-- `mousezempic_dosage_data %>% left_join(mousezempic_expression_data, .by = "id_num")` -->
+<!-- `m_dose %>% left_join(m_exp, .by = "id_num")` -->
 <!-- ::: -->
 
 <!-- ::: choice -->
-<!-- `mousezempic_dosage_data %>% left_join(mousezempic_expression_data, by = ("id_num" = "id_num"))` -->
+<!-- `m_dose %>% left_join(m_exp, by = ("id_num" = "id_num"))` -->
 <!-- ::: -->
 <!-- ::::::: -->
 <!-- :::::::: -->
@@ -602,11 +602,11 @@ Together these make up a very versatile toolkit for transforming messy data you 
 
 <!-- <summary>Solutions</summary> -->
 
-<!-- 1\. The code first calculates the median tail length for each unique combination of `mouse_strain` and `sex` in the `mousezempic_dosage_data` data frame, then pivots the data into a wide format where there is a column for each sex in the dataset (because of the argument `names_from = sex` ) -->
+<!-- 1\. The code first calculates the median tail length for each unique combination of `mouse_strain` and `sex` in the `m_dose` data frame, then pivots the data into a wide format where there is a column for each sex in the dataset (because of the argument `names_from = sex` ) -->
 
 <!-- 2\. The correct pivot function call to take the data from a wide format to a long format is `pivot_longer(cols = c(initial_weight_g, final_weight_g), names_to = "timepoint", values_to = "weight")`. This code tells R to pivot the `initial_weight_g` and `final_weight_g` columns into a long format, where there is a row for each mouse and each weight measurement. The `names_to` argument specifies to make a column called 'timepoint' that tells us whether the measurement is initial or final, and the `values_to` argument specifies the name of the new column that will contain these measurements. -->
 
-<!-- 3\. The line of code that is NOT a valid way to join the `mousezempic_dosage_data` data frame with the `mousezempic_expression_data` data frame based on the `id_num` column is `mousezempic_dosage_data %>% left_join(mousezempic_expression_data, .by = "id_num")`. This line of code is incorrect because the `.by` argument is not used in the `left_join()` function (this can be confusing! it's `.by` when grouping by `by` when joining). The other options are valid ways to join the two data frames based on the `id_num` column: remember that we don't have to use pipes to join data frames, we can use the `left_join()` function directly, and we can use a named vector to specify the columns to join on (although here it's a bit redundant as the columns have the same name). -->
+<!-- 3\. The line of code that is NOT a valid way to join the `m_dose` data frame with the `m_exp` data frame based on the `id_num` column is `m_dose %>% left_join(m_exp, .by = "id_num")`. This line of code is incorrect because the `.by` argument is not used in the `left_join()` function (this can be confusing! it's `.by` when grouping by `by` when joining). The other options are valid ways to join the two data frames based on the `id_num` column: remember that we don't have to use pipes to join data frames, we can use the `left_join()` function directly, and we can use a named vector to specify the columns to join on (although here it's a bit redundant as the columns have the same name). -->
 
 <!-- </details> -->
 <!-- :::::::::::::::::::: -->
@@ -617,7 +617,7 @@ Together these make up a very versatile toolkit for transforming messy data you 
 
 <!-- questions etc -->
 
-<!-- 4.  Using the `mousezempic_dosage_data` data frame, write R code to: -->
+<!-- 4.  Using the `m_dose` data frame, write R code to: -->
 
 <!--     a.  Make a data frame that shows the number of mice of each strain, in each replicate. -->
 <!--     b.  Pivot this data frame into a wide format to create a contingency table. -->
@@ -629,8 +629,8 @@ Together these make up a very versatile toolkit for transforming messy data you 
 
 <!-- 4.  Here's how you could write R code to achieve the tasks: -->
 
-<!--     a.  `mousezempic_dosage_data %>% summarise(n_mice = n(), .by = c(mouse_strain, replicate))` -->
-<!--     b.  `mousezempic_dosage_data %>% summarise(n_mice = n(), .by = c(mouse_strain, replicate)) %>% pivot_wider(names_from = replicate, values_from = n_mice)` -->
-<!--     c.  `mousezempic_dosage_data %>% summarise(n_mice = n(), .by = c(mouse_strain, replicate)) %>% pivot_wider(names_from = replicate, values_from = n_mice) %>% pivot_longer(cols = starts_with("rep"), names_to = "replicate", values_to = "n_mice")` -->
+<!--     a.  `m_dose %>% summarise(n_mice = n(), .by = c(mouse_strain, replicate))` -->
+<!--     b.  `m_dose %>% summarise(n_mice = n(), .by = c(mouse_strain, replicate)) %>% pivot_wider(names_from = replicate, values_from = n_mice)` -->
+<!--     c.  `m_dose %>% summarise(n_mice = n(), .by = c(mouse_strain, replicate)) %>% pivot_wider(names_from = replicate, values_from = n_mice) %>% pivot_longer(cols = starts_with("rep"), names_to = "replicate", values_to = "n_mice")` -->
 
 <!-- 5.  To join the two data frames you could use `df1 %>% left_join(df2, by = c("key" = "item_key"))` (with pipe) or `left_join(df1, df2, by = c("key" = "item_key"))` (without pipe). -->
