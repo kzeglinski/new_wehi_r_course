@@ -6,7 +6,6 @@ local_notes.Rmd
 
 *_files/*
 
-
 !_freeze/
 !_extensions/
 !images/
@@ -18,3 +17,4 @@ data/Ses1_genes.tsv
 data/Ses1_homework.tsv
 
 output/
+live_teaching/

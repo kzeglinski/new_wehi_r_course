@@ -1550,13 +1550,13 @@ No matter which function you use to read in your data, R simply prints the value
 
 ```{r}
 #| eval: false
-dosage_data <- read_delim("~/Desktop/R_course/data/mousezempic_dosage_data.csv")
+m_dose <- read_delim("~/Desktop/R_course/data/mousezempic_dosage_data.csv")
 ```
 
 ```{r}
 #| echo: false
 # this is for rendering the book, path is different for learners so don't show this chunk
-dosage_data <- read_delim("data/mousezempic_dosage_data.csv")
+m_dose <- read_delim("data/mousezempic_dosage_data.csv")
 ```
 
 ### Reading data through RStudio's graphical interface {#sec-readinGUI}
