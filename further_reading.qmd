@@ -12,6 +12,8 @@ format:
 
 - [R for Data Science](https://r4ds.hadley.nz/): this is a great online book that teaches you to do data science with R. Covering a wide range of topics using the `tidyverse` packages.
 
+- [ModernDive into R](https://moderndive.com/v2/index.html): this is an excellent book covering linear modelling and inferential statistics using tidyverse style code.
+
 - [The R Gallery](https://r-graph-gallery.com): this shows a range of plots that can be created in R using `ggplot2` with associated code for each plot.
 
 - [R-bloggers](https://www.r-bloggers.com): this is a blog that aggregates posts from a wide range of R bloggers. It is a great resource for finding out about new packages and techniques in R.
