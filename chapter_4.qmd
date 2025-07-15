@@ -146,8 +146,10 @@ It's good practice to assign the plot you want to save to a variable, and provid
 ```{r}
 #| eval: false
 # first assign the plot to a variable
-colourful_scatterplot <- m_dose %>% ggplot(
-  aes(x = initial_weight_g, y = tail_length_mm, colour = mouse_strain)) +
+colourful_scatterplot <- m_dose %>% 
+  ggplot(
+  aes(x = initial_weight_g, y = tail_length_mm, colour = mouse_strain)
+  ) +
   geom_point() +
   geom_smooth(method = "lm")
 
