@@ -27,6 +27,8 @@ book:
     - chapter_4.qmd
     - chapter_5.qmd
     - chapter_6.qmd
+    - chapter_7.qmd
+    - chapter_8.qmd
     - further_reading.qmd
     #- advanced_topics.qmd
 

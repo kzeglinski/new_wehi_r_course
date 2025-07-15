@@ -1,0 +1,13 @@
+---
+filters:
+  - naquiz
+format:
+  html:
+    toc: true
+    toc-location: left
+    toc-title: "In this chapter:"
+execute:
+  error: true
+---
+
+# Machine learning {#sec-chapter08}
