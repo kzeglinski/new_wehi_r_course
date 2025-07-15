@@ -588,11 +588,7 @@ Remember here that the first argument (the data frame to save) is passed on by t
 ## Summary
 Here's what we've covered in this chapter:
 
--   The pipe operator `%>%` and how we can use it to chain together multiple function calls, making our code more readable and easier to understand.
-
--   The basic dplyr verbs `filter()`, `select()`, `mutate()`, and `arrange()` and how they can be used to tidy and analyse data.
-
--   Missing values (`NA`) and how to remove or replace them
+-   The basic dplyr verbs `mutate()`, and `arrange()` and how they can be used to tidy and analyse data.
 
 -   The `summarise()` function and how it can be used to calculate summary statistics on your data, as well as the power of grouping data with the `.by` argument.
 
@@ -602,72 +598,41 @@ In this chapter, we've been focusing on making our data 'tidy': that is, structu
 
 ### Practice questions
 
-1.  What is the purpose of the pipe operator `%>%`? Keeping this in mind, re-write the following code to use the pipe.
+1.  What would be the result of evaluating the following expressions? You don't need to know these off the top of your head, use R to help! (Hint: some expressions might give an error. Try to think about why)
 
-    a.  `round(mean(c(1, 2, 3, 4, 5)))`
-    b.  `print(as.character(1 + 10))`
+    a.  `m_dose %>% mutate(weight_lost_kg = weight_lost_g / 1000)`
+    b.  `m_dose %>% summarise(mean_weight_lost = mean(weight_lost_g, na.rm = TRUE))`
+    c.  `m_dose %>% summarise(mean_weight_lost = mean(weight_lost_g, na.rm = TRUE), .by = cage_number)`
 
-2.  What would be the result of evaluating the following expressions? You don't need to know these off the top of your head, use R to help! (Hint: some expressions might give an error. Try to think about why)
+2.  I want to add a new column to the `m_dose` data frame that converts the `mouse_strain` column to lowercase. Hint: you can use the `tolower()` function in R to convert characters to lowercase. Look up its help page by typing `?tolower` in the R console to see how to use it.
 
-    a.  `m_dose %>% filter(weight_lost_g > 10)`
-    b.  `m_dose %>% select(tail_length_mm, weight_lost_g)`
-    c.  `m_dose %>% mutate(weight_lost_kg = weight_lost_g / 1000)`
-    d.  `m_dose %>% arrange(tail_length_mm)`
-    e.  `m_dose %>% filter(initial_Weight_g > 10) %>% arrange(mouse_strain)`
-    f.  `m_dose %>% relocate(mouse_strain, .after = cage_number)`
-    g.  `m_dose %>% pull(weight_lost_g)`
-    h.  `m_dose %>% filter(!is.na(weight_lost_g))`
-    i.  `m_dose %>% replace_na(list(weight_lost_g = 0))`
-    j.  `m_dose %>% summarise(mean_weight_lost = mean(weight_lost_g, na.rm = TRUE))`
-    k.  `m_dose %>% summarise(mean_weight_lost = mean(weight_lost_g, na.rm = TRUE), .by = cage_number)`
+3. How could you find the maximum tail length for each unique combination of sex and mouse strain in the `m_dose` data frame?
 
-3.  What is a missing value in R? What are two ways to deal with missing values in a data frame?
-
-4.  I want to add a new column to the `m_dose` data frame that converts the `mouse_strain` column to lowercase. Hint: you can use the `tolower()` function in R to convert characters to lowercase. Look up its help page by typing `?tolower` in the R console to see how to use it.
-
-5. How could you find the maximum tail length for each unique combination of sex and mouse strain in the `m_dose` data frame?
-
-6. Write a line of code to save the result of Q5 to a CSV file called `max_tail_length.csv`.
+4. Write a line of code to save the result of Q5 to a CSV file called `max_tail_length.csv`.
 
 <details>
 
 <summary>Solutions</summary>
 
-1. The pipe operator `%>%` is used to chain together multiple function calls, passing the result of one function to the next. Here's how you could re-write the code to use the pipe:
-
-    a.  `c(1, 2, 3, 4, 5) %>% mean() %>% round()`
-    b.  `as.character(1 + 10) %>% print()`
-
-2. The result of evaluating the expressions would be:
-    a. A data frame containing only the rows where `weight_lost_g` is greater than 10.
-    b. A data frame containing only the `tail_length_mm` and `weight_lost_g` columns.
-    c. A data frame with an additional column `weight_lost_kg` that contains the weight lost in kilograms.
-    d. A data frame sorted by `tail_length_mm`, in ascending order.
-    e. An error because `initial_Weight_g` is not a column in the data frame.
-    f. A data frame with the `mouse_strain` column moved to be after the `cage_number` column.
-    g. A **vector** containing the values of the `weight_lost_g` column.
-    h. A data frame containing only the rows where `weight_lost_g` is not `NA`.
-    i. A data frame with missing values in the `weight_lost_g` column replaced with 0.
-    j. A data frame with the mean weight lost by all mice.
-    k. A data frame with the mean weight lost by mice in each cage.
-
-3. A missing value in R is represented by `NA`. Two ways to deal with missing values in a data frame are to remove them using `filter(!is.na(column_name))` or to replace them with a specific value using `replace_na(list(column_name = value))`.
-
-4. To add a new column to the `m_dose` data frame that converts the `mouse_strain` column to lowercase, you can use `mutate()` as follows`:
+1. The result of evaluating the expressions would be:
+    a. A data frame with an additional column `weight_lost_kg` that contains the weight lost in kilograms.
+    b. A data frame with the mean weight lost by all mice.
+    c. A data frame with the mean weight lost by mice in each cage.
+2. To add a new column to the `m_dose` data frame that converts the `mouse_strain` column to lowercase, you can use `mutate()` as follows`:
 
 ```{r}
 m_dose %>%
   mutate(mouse_strain_lower = tolower(mouse_strain))
 ```
 
-5. You can use the `max()` function within `summarise(.by = c(sex, mouse_strain))` to find the maximum tail length of each unique sex/mouse strain combination:
+3. You can use the `max()` function within `summarise(.by = c(sex, mouse_strain))` to find the maximum tail length of each unique sex/mouse strain combination:
 
 ```{r}
 m_dose %>%
   summarise(max_tail_length = max(tail_length_mm, na.rm = TRUE), .by = c(sex, mouse_strain))
 ```
 
-6. To save the result of Q5 to a CSV file called `max_tail_length.csv`, you can use the `write_csv()` function, either by using a pipe to connect it to the code you wrote previously:
+4. To save the result of Q5 to a CSV file called `max_tail_length.csv`, you can use the `write_csv()` function, either by using a pipe to connect it to the code you wrote previously:
 ```{r}
 #| eval: false
 m_dose %>%

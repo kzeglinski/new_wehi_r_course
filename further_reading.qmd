@@ -10,7 +10,7 @@ format:
 
 ## Useful references {#sec-useful-references}
 
-- [R for Data Science](https://r4ds.had.co.nz): this is a great online book that teaches you to do data science with R. Covering a wide range of topics using the `tidyverse` packages.
+- [R for Data Science](https://r4ds.hadley.nz/): this is a great online book that teaches you to do data science with R. Covering a wide range of topics using the `tidyverse` packages.
 
 - [The R Gallery](https://r-graph-gallery.com): this shows a range of plots that can be created in R using `ggplot2` with associated code for each plot.
 
