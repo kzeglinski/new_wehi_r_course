@@ -14,7 +14,7 @@ format:
 
 <!-- adjust timing -->
 
-# Chapter 1: Introduction to R {#sec-chapter01}
+# Introduction to R {#sec-chapter01}
 
 In this chapter, we will get familiar with R.
 
