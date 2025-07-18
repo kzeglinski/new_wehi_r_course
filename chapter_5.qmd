@@ -315,6 +315,25 @@ ggplot(mz_joined_data_longer, aes(x = mouse_strain, y = expression, fill = mouse
 
 There doesn't appear to be clear differences in the expression of these three genes between the haplotypes.
 
+### Simple linear model
+
+To fit a line through the gene expression values of each mouse genotype, and test for significance of the x~y relationship, we can use a handy function `lm_test()` from the `tidyrstats` library. 
+```{r}
+library(tidyrstats)
+```
+
+This function takes a long-format data frame as input, and the formula for the linear model we want to fit. (We will read more about linear models in later chapters). For this test, we want to know whether the response (aka 'y'), which is gene expression, changes significantly with the predictor ('x'), which is the mouse strain. The model formula will be `y~x1`, that is `expression ~ mouse_strain`.
+
+```{r}
+mz_joined_data_longer |> 
+  group_by(gene) |> 
+  lm_test(expression ~ mouse_strain) |> 
+  filter(term!='intercept') |> 
+  arrange(gene,term)
+  
+```
+Our intuition from the violin plots is correct. None of the genes show significant differences in expression between the Black6 vs the reference (BALBC), nor the CD-1 vs the reference. Note that all of the P values are > 0.05, meaning we dont have enough evidence to reject the null hypothesis.
+
 ## Visualising the relationship between dosage and genes
 
 With the joined data frame we can also visualise the relationship between the drug dosage and the genes, separated by mouse strain. We do this by using our `mz_joined_data_longer` to plot with `facet_grid()` specifying the layout of our grid.
@@ -326,6 +345,23 @@ ggplot(mz_joined_data_longer, aes(x = drug_dose_g, y = expression, color = mouse
   facet_grid(cols = vars(mouse_strain), rows = vars(gene), scales = "free")
 ```
 Although very minor, there appears to be some effect of dosage on gene expression that is strain specific.
+
+Again, we can test this using `lm_test()`, where y is `expression`, and x is now the continuous variable `drug_dose_g`.
+```{r}
+mz_joined_data_longer |> 
+  group_by(mouse_strain,gene) |> 
+  lm_test(expression~drug_dose_g) |> 
+  filter(term!='intercept') |> 
+  arrange(mouse_strain,gene, p.value)
+
+```
+Here we can see, in fact there are some significant associations between Mousezempic drug dose and gene expression, within the BALBC and Black6 strains, for the Hprt1 gene!
+
+::: callout-note title="Stating the statistical findings"}
+From our summary table above, can you finish this sentence which is the formal statement of results from a linear model? 
+"In the BALBC mouse strain, for every 1 gram increase in drug dose, on average, Hprt1 gene expression ..."
+:::
+
 
 ## Another case study - WHO tuberculosis data
 
