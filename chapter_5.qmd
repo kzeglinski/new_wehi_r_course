@@ -359,7 +359,7 @@ mz_joined_data_longer |>
 ```
 Here we can see, in fact there is a significant association between Mousezempic drug dose and gene expression, within the Black 6 strain, for the Hprt1 gene.
 
-::: callout-note title="Stating the statistical findings"}
+::: {.callout-note title="Stating the statistical findings"}
 From our summary table above, can you finish this sentence which is the formal statement of results from a linear model? 
 "In the Black 6 mouse strain, for every 1 gram increase in drug dose, on average, Hprt1 gene expression ..."
 :::
