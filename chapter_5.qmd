@@ -412,10 +412,10 @@ mz_joined_data_longer |>
 
 Here we can see, in fact there is a significant association between Mousezempic drug dose and gene expression, within the Black 6 strain, for the Hprt1 gene.
 
-::: {.callout-note title="Stating the statistical findings"}
+::: {.callout-note title="Stating statistical findings"}
 From our summary table above, can you finish this sentence which is the formal statement of results from a linear model?
 
-*"In the Black 6 mouse strain, for every 1 gram increase in drug dose, on average, Hprt1 gene expression ...*"
+*"In the Black 6 mouse strain, for every 1 gram increase in drug dose, on average, Hprt1 gene expression ..."*
 :::
 
 ## Another case study - WHO tuberculosis data
@@ -798,4 +798,3 @@ Together these make up a very versatile toolkit for transforming messy data you 
 <!--     c.  `m_dose %>% summarise(n_mice = n(), .by = c(mouse_strain, replicate)) %>% pivot_wider(names_from = replicate, values_from = n_mice) %>% pivot_longer(cols = starts_with("rep"), names_to = "replicate", values_to = "n_mice")` -->
 
 <!-- 5.  To join the two data frames you could use `df1 %>% left_join(df2, by = c("key" = "item_key"))` (with pipe) or `left_join(df1, df2, by = c("key" = "item_key"))` (without pipe). -->
-
