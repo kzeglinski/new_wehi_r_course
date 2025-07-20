@@ -240,8 +240,8 @@ It outputs a data frame with the following information:
 
 ```{r}
 
-top_bvl <- topTable(efit, coef = "BasalvsLP", n = Inf) |> 
-  as_tibble() |> 
+top_bvl <- topTable(efit, coef = "BasalvsLP", n = Inf) %>% 
+  as_tibble() %>% 
   mutate(contr = 'BasalvsLP')
 
 head(top_bvl)
@@ -269,13 +269,13 @@ We have the summary table for BasalvsLP already extracted to `top_bvl`, now for 
 
 ```{r}
 
-top_bvm <- topTable(efit, coef = "BasalvsML", n = Inf) |> 
-  as_tibble() |> 
+top_bvm <- topTable(efit, coef = "BasalvsML", n = Inf) %>% 
+  as_tibble() %>% 
   mutate(contr = 'BasalvsML')
 
 
-top_lvm <- topTable(efit, coef = "LPvsML", n = Inf) |> 
-  as_tibble() |> 
+top_lvm <- topTable(efit, coef = "LPvsML", n = Inf) %>% 
+  as_tibble() %>% 
   mutate(contr = 'LPvsML')
 
 ```
@@ -288,7 +288,7 @@ To extract the logCPM to a tibble:
 
 ```{r}
 
-sample_logcpm <- cpm(dge, log = TRUE) |> as_tibble(rownames='ENTREZID')
+sample_logcpm <- cpm(dge, log = TRUE) %>% as_tibble(rownames='ENTREZID')
 
 ```
 
@@ -299,7 +299,7 @@ We can extract this from the `dge$samples` table as follows.
 
 ```{r}
 
-sample_group <- dge$samples |> as_tibble(rownames='sample_id')
+sample_group <- dge$samples %>% as_tibble(rownames='sample_id')
 ```
 
 ### Volcano Plot
@@ -313,7 +313,7 @@ The `case_when()` function is a good choice for binning continuous data (adj.P.V
 
 ```{r}
 
-top_bvl_cat <- top_bvl |> 
+top_bvl_cat <- top_bvl %>% 
   mutate(status = case_when(adj.P.Val < 0.05 & logFC > 0 ~ 'Up',
                             adj.P.Val < 0.05 & logFC < 0 ~ 'Down',
                             .default='Non DE'))
@@ -342,8 +342,8 @@ library(ggrepel)
 
 ```{r}
 
-top_deg_bvl <- top_bvl_cat |> group_by(status) |> arrange(P.Value) |> 
-  slice_head(n = 10) |> 
+top_deg_bvl <- top_bvl_cat %>% group_by(status) %>% arrange(P.Value) %>% 
+  slice_head(n = 10) %>% 
   filter(status!='Non DE')
 
 volcano_bvl +
@@ -372,7 +372,7 @@ We will extract the first 6 rows of the tibble using `slice_head()`, then join t
 
 ```{r}
 
-top_bvl_cat |> slice_head(n=6) |> 
+top_bvl_cat %>% slice_head(n=6) %>% 
   left_join(sample_logcpm, by='ENTREZID')
 
 ```
@@ -383,17 +383,17 @@ We can fix this by changing the `sample_logcpm$ENTREZID` into numeric data:
 
 ```{r}
 
-sample_logcpm <- sample_logcpm |> mutate(ENTREZID = as.numeric(ENTREZID))
+sample_logcpm <- sample_logcpm %>% mutate(ENTREZID = as.numeric(ENTREZID))
 
 ```
 
 Now we can rerun the `left_join()` and reshape the data to long form as required for ggplot2.
 
 ```{r}
-top_gene_long <- top_bvl_cat |>
-  slice_head(n=6) |> 
-  left_join(sample_logcpm, by='ENTREZID') |> 
-  select(SYMBOL, '10_6_5_11' : 'JMS9-P8c') |> 
+top_gene_long <- top_bvl_cat %>%
+  slice_head(n=6) %>% 
+  left_join(sample_logcpm, by='ENTREZID') %>% 
+  select(SYMBOL, '10_6_5_11' : 'JMS9-P8c') %>% 
   pivot_longer(cols = -SYMBOL, names_to = 'sample_id', values_to = 'logCPM')
 
 ```
@@ -408,7 +408,7 @@ top_gene_long_samples <- left_join(top_gene_long, sample_group, by='sample_id')
 ...and plot the results
 
 ```{r}
-boxplots <- top_gene_long_samples |> 
+boxplots <- top_gene_long_samples %>% 
   ggplot(aes(x=group,y=logCPM, colour = group)) + 
   geom_boxplot() +
   geom_jitter() +
@@ -446,10 +446,10 @@ For more interpretable labels, we will use the gene symbols as the row names of 
 ```{r}
 
 top_genes_all <- bind_rows(
-  top_bvl |> slice_head(n = 50),
-  top_bvm |> slice_head(n = 50),
-  top_lvm |> slice_head(n = 50)) |> 
-  select(ENTREZID, SYMBOL) |> 
+  top_bvl %>% slice_head(n = 50),
+  top_bvm %>% slice_head(n = 50),
+  top_lvm %>% slice_head(n = 50)) %>% 
+  select(ENTREZID, SYMBOL) %>% 
   distinct() 
 
 
@@ -459,7 +459,7 @@ We now join the logCPM values for the top_genes:
 
 ```{r}
 
-top_genes_lcpm <- top_genes_all |> left_join(sample_logcpm)
+top_genes_lcpm <- top_genes_all %>% left_join(sample_logcpm)
 ```
 
 ...and reshape the data to long format before joining in the sample group labels.
@@ -467,12 +467,12 @@ This is very similar to how the data was prepared for our boxplots.
 
 ```{r}
 
-top_genes_lcpm_long <- top_genes_lcpm |> pivot_longer(names_to = "sample_id", 
+top_genes_lcpm_long <- top_genes_lcpm %>% pivot_longer(names_to = "sample_id", 
                                                     values_to = "logcpm",
                                                     cols = -c(ENTREZID,SYMBOL))
 
 
-top_genes_lcpm_gp <- top_genes_lcpm_long |> left_join(sample_group)
+top_genes_lcpm_gp <- top_genes_lcpm_long %>% left_join(sample_group)
 
 ```
 

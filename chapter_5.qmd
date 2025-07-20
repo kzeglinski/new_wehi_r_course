@@ -244,7 +244,7 @@ mz_expr_rep_summed_wide
 With the replicate aggregated expression levels in individual columns, we can now plot the gene expression values against each other.
 
 ```{r}
-ggplot(mz_expr_rep_summed_wide, aes(x = Th, y = Prlh)) +
+mz_expr_rep_summed_wide %>% ggplot( aes(x = Th, y = Prlh)) +
   geom_point()
 ```
 
@@ -331,7 +331,8 @@ With the joined data we now have more information about the mice in addition to 
 So we can check if there is any significant difference in gene expressions between mouse strains.
 
 ```{r}
-ggplot(mz_joined_data, aes(x = mouse_strain, y = Th, fill = mouse_strain)) +
+mz_joined_data %>% 
+  ggplot( aes(x = mouse_strain, y = Th, fill = mouse_strain)) +
   geom_violin()
 ```
 
@@ -350,7 +351,8 @@ Now that the gene variable is in a column, we can use this information to create
 We use `facet_wrap()` with the `scales = "free_y"` argument so each gene can have its own y-axis.
 
 ```{r}
-ggplot(mz_joined_data_longer, aes(x = mouse_strain, y = expression, fill = mouse_strain)) +
+mz_joined_data_longer %>% 
+  ggplot( aes(x = mouse_strain, y = expression, fill = mouse_strain)) +
   geom_violin() +
   facet_wrap(~gene, scales = "free_y")
 ```
@@ -371,10 +373,10 @@ For this test, we want to know whether the response (aka 'y'), which is gene exp
 The model formula will be `y~x1`, that is `expression ~ mouse_strain`.
 
 ```{r}
-mz_joined_data_longer |> 
-  group_by(gene) |> 
-  lm_test(expression ~ mouse_strain) |> 
-  filter(term!='intercept') |> 
+mz_joined_data_longer %>% 
+  group_by(gene) %>% 
+  lm_test(expression ~ mouse_strain) %>% 
+  filter(term!='intercept') %>% 
   arrange(gene,term)
   
 ```
@@ -389,7 +391,8 @@ With the joined data frame we can also visualise the relationship between the dr
 We do this by using our `mz_joined_data_longer` to plot with `facet_grid()` specifying the layout of our grid.
 
 ```{r}
-ggplot(mz_joined_data_longer, aes(x = drug_dose_g, y = expression, color = mouse_strain)) +
+mz_joined_data_longer %>% 
+  ggplot(aes(x = drug_dose_g, y = expression, color = mouse_strain)) +
   geom_point() +
   geom_smooth(method = "lm") +
   facet_grid(cols = vars(mouse_strain), rows = vars(gene), scales = "free")
@@ -402,10 +405,10 @@ Although very minor, there appears to be some effect of dosage on gene expressio
 Again, we can test this using `lm_test()`, where y is `expression`, and x is now the continuous variable `drug_dose_g`.
 
 ```{r}
-mz_joined_data_longer |> 
-  group_by(mouse_strain, gene) |> 
-  lm_test(expression ~ drug_dose_g) |> 
-  filter(term!='intercept') |> 
+mz_joined_data_longer %>% 
+  group_by(mouse_strain, gene) %>% 
+  lm_test(expression ~ drug_dose_g) %>% 
+  filter(term!='intercept') %>% 
   arrange(mouse_strain, gene, p.value)
 
 ```
