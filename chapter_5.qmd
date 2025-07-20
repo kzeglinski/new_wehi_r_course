@@ -403,10 +403,10 @@ Again, we can test this using `lm_test()`, where y is `expression`, and x is now
 
 ```{r}
 mz_joined_data_longer |> 
-  group_by(mouse_strain,gene) |> 
-  lm_test(expression~drug_dose_g) |> 
+  group_by(mouse_strain, gene) |> 
+  lm_test(expression ~ drug_dose_g) |> 
   filter(term!='intercept') |> 
-  arrange(mouse_strain,gene, p.value)
+  arrange(mouse_strain, gene, p.value)
 
 ```
 
