@@ -46,7 +46,12 @@ To download the RNAseq data for this workshop, use the following command
 #| message: false
 #| warning: false
 #| eval: false
-download.file("https://github.com/Shians/BaseR_Intro/raw/master/data/workshop_data.zip",
+
+if (!dir.exists("data")) {
+  dir.create("data")
+}
+
+download.file("https://github.com/WEHI-Education/BIOL90042_R_Course/raw/main/data/rnaseq_workshop_data.zip",
               "data/rnaseq_workshop_data.zip")
 ```
 

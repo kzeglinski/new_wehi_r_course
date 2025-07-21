@@ -14,7 +14,7 @@ _book/
 
 .Rhistory
 data/*
-rnaseq_workshop_data.zip
+!data/rnaseq_workshop_data.zip
 
 output/
 live_teaching/
