@@ -40,7 +40,7 @@ Much of the materials here are explained in greater detail in the limma user's g
 
 ## Data files
 
-To download the RNAseq data for this workshop, use the following command
+If you haven't already downloaded the RNAseq data for this workshop into the `data/` directory, you can run the following command:
 
 ```{r}
 #| message: false
