@@ -43,11 +43,16 @@ Much of the materials here are explained in greater detail in the limma user's g
 If you havent yet downloaded the RNAseq data for this workshop, you can download it using the following command
 
 ```{r}
+#| message: false
+#| warning: false
+#| eval: false
 download.file("https://github.com/WEHI-Education/BIOL90042_R_Course/blob/main/data/rnaseq_workshop_data.zip", "data/rnaseq_workshop_data.zip")
 ```
 
 Now to unzip the files data and store in the `data/` directory:
 ```{r}
+#| eval: false
+
 unzip('data/rnaseq_workshop_data.zip', exdir = 'data/rnaseq')
 unzip("data/rnaseq/Ses3_counts.zip", exdir = "data/rnaseq/counts")
 ```
