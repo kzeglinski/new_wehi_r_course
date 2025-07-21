@@ -9,12 +9,12 @@ local_notes.Rmd
 !_freeze/
 !_extensions/
 !images/
+
 _book/
 
 .Rhistory
-workshop_data.zip
-data/Ses1_genes.tsv
-data/Ses1_homework.tsv
+data/*
+rnaseq_workshop_data.zip
 
 output/
 live_teaching/

@@ -4,16 +4,18 @@ toc: false
 
 # Setup {.unnumbered}
 
-## Installing R and RStudio 
+## Installing R and RStudio
 
 You can download and install R/RStudio [from the posit website](https://posit.co/download/rstudio-desktop/).
 
 ## Data files
 
-Commands to download the data files used in this course directly to your working directory will be provided during workshops. Download buttons for the files also appear in this ebook when they are first introduced. For convenience, the files are also provided below:
+Commands to download the data files used in this course directly to your working directory will be provided during workshops.
+Download buttons for the files also appear in this ebook when they are first introduced.
+For convenience, the files are also provided below:
 
 {{< downloadthis data/mousezempic_dosage_data.csv dname=mousezempic_dosage_data label="Download mousezempic_dosage_data.csv" icon=file-earmark-arrow-down type=primary class=data-button id=main_data >}}
 
 {{< downloadthis data/mousezempic_expression_data.tsv dname=mousezempic_expression_data label="Download mousezempic_expression_data.tsv" icon=file-earmark-arrow-down type=primary class=data-button id=expr_data >}}
 
-{{< downloadthis data/rnaseq_workshop_data.zip dname=rnaseq_workshop_data label="Download RNAseq workshop data" icon=file-earmark-arrow-down type=primary class=data-button id=expr_data >}}
+<!-- {{< downloadthis data/rnaseq_workshop_data.zip dname=rnaseq_workshop_data label="Download RNAseq workshop data" icon=file-earmark-arrow-down type=primary class=data-button id=expr_data >}} -->

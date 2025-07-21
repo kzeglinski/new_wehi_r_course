@@ -40,21 +40,22 @@ Much of the materials here are explained in greater detail in the limma user's g
 
 ## Data files
 
-If you havent yet downloaded the RNAseq data for this workshop, you can download it using the following command
+To download the RNAseq data for this workshop, use the following command
 
 ```{r}
 #| message: false
 #| warning: false
 #| eval: false
-download.file("https://github.com/WEHI-Education/BIOL90042_R_Course/blob/main/data/rnaseq_workshop_data.zip", "data/rnaseq_workshop_data.zip")
+download.file("https://github.com/Shians/BaseR_Intro/raw/master/data/workshop_data.zip",
+              "data/rnaseq_workshop_data.zip")
 ```
 
-Now to unzip the files data and store in the `data/` directory:
+Now to unzip the files into a new directory `data/rnaseq/`:
 ```{r}
 #| eval: false
 
 unzip('data/rnaseq_workshop_data.zip', exdir = 'data/rnaseq')
-unzip("data/rnaseq/Ses3_counts.zip", exdir = "data/rnaseq/counts")
+unzip("data/rnaseq/Ses3_counts.zip",   exdir = "data/rnaseq/counts")
 ```
 
 ## R Packages
@@ -71,6 +72,7 @@ If you get an error, the package can be downloaded by the following commands.
 ```{r}
 #| message: false
 #| warning: false
+#| eval: false
 
 if (!requireNamespace("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
@@ -125,19 +127,19 @@ We will create a `DGEList` object following the `RNAseq123` workflow. We use the
 
 ```{r, warning=FALSE, message=FALSE}
 # vector of file names
-files <- dir(path = "data/counts", pattern = "GSM*")
+files <- dir(path = "data/rnaseq/counts", pattern = "GSM*")
 
 # create DGEList object
 dge <- readDGE(
   files,
-  path = "data/counts",
+  path = "data/rnaseq/counts",
   columns = c(1, 3),
   group = group,
   labels = samplenames
 )
 
 # add gene annotation information
-gene_anno <- read_tsv("data/Ses3_geneAnnot.tsv")
+gene_anno <- read_tsv("data/rnaseq/Ses3_geneAnnot.tsv")
 dge$genes <- gene_anno
 ```
 
