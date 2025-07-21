@@ -9,12 +9,11 @@ local_notes.Rmd
 !_freeze/
 !_extensions/
 !images/
-!data/rnaseq_workshop_data.zip
 
 _book/
 
 .Rhistory
-data/*
+data/rnaseq/*
 
 
 output/
