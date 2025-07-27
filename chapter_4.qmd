@@ -700,14 +700,14 @@ By default, ggplot2 uses a linear scale for both axes, but you can change this t
 We don't have anything like this in our `m_dose` dataset, so let's use the `diamonds` dataset that comes with ggplot2 to demonstrate this. The `diamonds` dataset contains information about the price and carat weight of diamonds, both of which are continuous variables that span several orders of magnitude. Let's create a scatterplot of the price and carat of the diamonds:
 
 ```{r}
-ggplot(diamonds, aes(y = price, x = carat)) +
+diamonds %>% ggplot( aes(y = price, x = carat)) +
   geom_point()
 ```
 
 To linearise this relationship, we can apply a log10 transformation to the x and y axes using the `scale_x_log10()` and `scale_y_log10()` functions:
 
 ```{r}
-ggplot(diamonds, aes(y = price, x = carat)) +
+diamonds %>% ggplot( aes(y = price, x = carat)) +
   geom_point()+
   scale_x_log10() +
   scale_y_log10()
@@ -1180,19 +1180,19 @@ Try these practice questions to test your understanding
 
 ::: choices
 ::: choice
-`ggplot(mtcars, aes(x = hp, y = mpg)) + geom_point() + facet_wrap(hp ~ mpg)`
+`mtcars %>% ggplot( aes(x = hp, y = mpg)) + geom_point() + facet_wrap(hp ~ mpg)`
 :::
 
 ::: {.choice .correct-choice}
-`ggplot(mtcars, aes(x = hp, y = mpg)) + geom_point() + facet_wrap(~ cyl)`
+`mtcars %>% ggplot( aes(x = hp, y = mpg)) + geom_point() + facet_wrap(~ cyl)`
 :::
 
 ::: choice
-`ggplot(mtcars, aes(x = hp, y = mpg)) + geom_point() + facet_wrap(~ hp)`
+`mtcars %>% ggplot( aes(x = hp, y = mpg)) + geom_point() + facet_wrap(~ hp)`
 :::
 
 ::: choice
-`ggplot(mtcars, aes(x = hp, y = mpg)) + geom_point() + facet_grid(~ cyl)`
+`mtcars %>% ggplot( aes(x = hp, y = mpg)) + geom_point() + facet_grid(~ cyl)`
 :::
 :::
 :::
@@ -1203,7 +1203,7 @@ Try these practice questions to test your understanding
 ```{r}
 #| eval: false
 
-ggplot(m_dose, aes(x = tail_length_mm)) +
+m_dose %>% ggplot( aes(x = tail_length_mm)) +
   geom_boxplot() +
   facet_grid(mouse_strain ~ sex, scales = "free")
 ```
@@ -1233,7 +1233,7 @@ Creates a boxplot of the tail length for each unique combination of 'sex' and 'm
 
 <p>
 
-1.  The correct answer is `ggplot(mtcars, aes(x = hp, y = mpg)) + geom_point() + facet_wrap(~ cyl)`. This code creates a scatterplot of `mpg` vs `hp`, faceted by `cyl`, with the same x and y axes across each facet. The other options are incorrect because they either use the wrong variable to facet by or use the wrong function to create the facets (since we are faceting by a single variable, we should  use `facet_wrap()`).
+1.  The correct answer is `mtcars %>% ggplot( aes(x = hp, y = mpg)) + geom_point() + facet_wrap(~ cyl)`. This code creates a scatterplot of `mpg` vs `hp`, faceted by `cyl`, with the same x and y axes across each facet. The other options are incorrect because they either use the wrong variable to facet by or use the wrong function to create the facets (since we are faceting by a single variable, we should  use `facet_wrap()`).
 2.  This code creates a boxplot of the tail length for each unique combination of 'sex' and 'mouse strain', with the y axis limits set independently for each facet (with the `scales = "free"` argument).
 
 
@@ -1379,7 +1379,7 @@ Of course, your plots might look quite different, depending on how you choose to
 ## Summary
 Today, we've covered a lot of ground in ggplot2! Here's a quick summary of what we've learned:
 
-- How to use the `ggplot(aes(x = ..., y = ...))` function to initialise a plot
+- How to use the `tibble %>% ggplot(aes(x = ..., y = ...))` framework to initialise a plot
 - That we can add layers to a plot using the `+` operator
 - How to use the `geom_*()` functions to add different physical representations of the data to your plot (e.g. points with `geom_point()`, bars with `geom_bar()`, etc.)
 - How to save a plot to a file using the `ggsave()` function, or through the RStudio plot window
