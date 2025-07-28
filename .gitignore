@@ -14,7 +14,7 @@ _book/
 
 .Rhistory
 data/rnaseq/*
-
+databkup_local/
 
 output/
 live_teaching/

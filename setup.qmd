@@ -4,11 +4,27 @@ toc: false
 
 # Setup {.unnumbered}
 
-## Installing R and RStudio
+## Installing Software
 
-You can download and install R/RStudio [from the posit website](https://posit.co/download/rstudio-desktop/).
+### R and RStudio
 
-## Data files
+You can download and install R and RStudio through the [posit.co website](https://posit.co/download/rstudio-desktop/).
+
+![Install both R and RStudio](images/install_posit.jpg)
+
+### Lockdown Browser
+
+Install Lockdown Browser using this url <https://download.respondus.com/lockdown/download.php?id=113132090>
+
+# Files and Folders
+
+## New Desktop Folder
+
+Create a new folder on your Desktop named `BIOL90042_workshops`
+
+## Download data files
+
+Download this .zip file, and save inside `BIOL90042_workshops`
 
 Commands to download the data files used in this course directly to your working directory will be provided during workshops.
 Download buttons for the files also appear in this ebook when they are first introduced.
@@ -19,3 +35,91 @@ For convenience, the files are also provided below:
 {{< downloadthis data/mousezempic_expression_data.tsv dname=mousezempic_expression_data label="Download mousezempic_expression_data.tsv" icon=file-earmark-arrow-down type=primary class=data-button id=expr_data >}}
 
 {{< downloadthis data/rnaseq_workshop_data.zip dname=rnaseq_workshop_data label="Download RNAseq workshop data" icon=file-earmark-arrow-down type=primary class=data-button id=expr_data >}}
+
+# RStudio Code
+
+## Open RStudio
+
+## Create new .R file
+
+File \> New File \> R Script
+
+### Copy & Paste
+
+Copy the code block below and paste into the new file:
+
+::: {.callout-tip title="Copy icon"}
+Hint - Click the clipboard icon at top right in the code block below!
+:::
+
+```{r}
+#| eval: false
+
+## Setting up R for workshops 
+
+## Install tidyverse 
+install.packages("tidyverse") 
+
+## Install readxl & writexl
+install.packages("readxl")
+install.packages("writexl")
+
+## Install ggrepel  
+install.packages("ggrepel") 
+
+## Install tidyrstats 
+install.packages("tidyrstats") 
+
+##Install patchwork
+install.packages("patchwork") 
+
+
+## Install and Load packages required for RNAseq 
+
+if (!requireNamespace("BiocManager", quietly = TRUE)) 
+
+  install.packages("BiocManager") 
+
+BiocManager::install("RNAseq123") 
+
+
+## Install tidyheatmaps 
+install.packages("tidyheatmaps") 
+
+## Install tidymodels
+install.packages("tidymodels") 
+
+## Install ggridges
+install.packages("ggridges")
+
+## Load all libraries
+
+library(tidyverse)
+library(readxl)
+library(writexl)
+
+library(ggrepel) 
+library(tidyrstats) 
+library(patchwork) 
+
+library(edgeR) 
+library(limma) 
+
+library(tidyheatmaps) 
+library(tidymodels)
+
+library(ggridges)
+
+```
+
+## Save the new file
+
+File \> Save the new file inside your `BIOL90042_workshops` folder, with name `setup.R`
+
+## Run the code
+
+Select all the code with mouse click & drag, or `CMD A` (mac) / `CTRL A` (pc), and clicking ‘Run’.
+
+![](images/run.jpg)
+
+Note this will take some time and there may be errors, so let us know and we can assist.

@@ -70,7 +70,7 @@ Tidy data is roughly defined as tabular data that contains:
 3.  One data value in each cell
 
 Having individual variables in columns makes then accessible for performing tidyverse operations like `select()`, `mutate()`, `filter()` and `arrange()`.
-If variables were not stored as columns then these functions would not be able to access them by name.
+If variables were not stored as columns, then these functions would not be able to access them by name.
 
 Having individual observations in rows is important because it associates all variables of each observation with the same row.
 If the data from one observation is spread across multiple rows then it is easy to incorrect summaries from the `summarise()` function.
