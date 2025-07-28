@@ -87,6 +87,9 @@ install.packages("tidyheatmaps")
 ## Install tidymodels
 install.packages("tidymodels") 
 
+## Install vip
+install.packages("vip") 
+
 ## Install xgboost
 install.packages("xgboost") 
 
@@ -109,6 +112,7 @@ library(limma)
 library(tidyheatmaps) 
 
 library(tidymodels)
+library(vip)
 library(xgboost)
 
 library(ggridges)
