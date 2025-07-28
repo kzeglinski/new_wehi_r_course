@@ -14,7 +14,7 @@ You can download and install R and RStudio through the [posit.co website](https:
 
 ### Lockdown Browser
 
-Install Lockdown Browser using this url <https://download.respondus.com/lockdown/download.php?id=113132090>
+For BIOL90042 Masters Students Only: Install Lockdown Browser using this link <https://download.respondus.com/lockdown/download.php?id=113132090>
 
 # Files and Folders
 
@@ -24,17 +24,15 @@ Create a new folder on your Desktop named `BIOL90042_workshops`
 
 ## Download data files
 
-Download this .zip file, and save inside `BIOL90042_workshops`
+Download the .zip file via this link, and save inside `BIOL90042_workshops`
 
-Commands to download the data files used in this course directly to your working directory will be provided during workshops.
-Download buttons for the files also appear in this ebook when they are first introduced.
-For convenience, the files are also provided below:
+{{< downloadthis biol90042_data.zip dname=data label="Download workshop data" icon=file-earmark-arrow-down type=primary class=data-button id=workshop_data >}}
 
-{{< downloadthis data/mousezempic_dosage_data.csv dname=mousezempic_dosage_data label="Download mousezempic_dosage_data.csv" icon=file-earmark-arrow-down type=primary class=data-button id=main_data >}}
+## Unzip data files
 
-{{< downloadthis data/mousezempic_expression_data.tsv dname=mousezempic_expression_data label="Download mousezempic_expression_data.tsv" icon=file-earmark-arrow-down type=primary class=data-button id=expr_data >}}
-
-{{< downloadthis data/rnaseq_workshop_data.zip dname=rnaseq_workshop_data label="Download RNAseq workshop data" icon=file-earmark-arrow-down type=primary class=data-button id=expr_data >}}
+Unzip the data.zip directory.
+You should see 4 files.
+Do not unzip any other files at this stage.
 
 # RStudio Code
 
@@ -89,6 +87,9 @@ install.packages("tidyheatmaps")
 ## Install tidymodels
 install.packages("tidymodels") 
 
+## Install xgboost
+install.packages("xgboost") 
+
 ## Install ggridges
 install.packages("ggridges")
 
@@ -106,7 +107,9 @@ library(edgeR)
 library(limma) 
 
 library(tidyheatmaps) 
+
 library(tidymodels)
+library(xgboost)
 
 library(ggridges)
 

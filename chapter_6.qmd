@@ -40,20 +40,7 @@ Much of the materials here are explained in greater detail in the limma user's g
 
 ## Data files
 
-If you haven't already downloaded the RNAseq data for this workshop into the `data/` directory, you can run the following command:
-
-```{r}
-#| message: false
-#| warning: false
-#| eval: false
-
-if (!dir.exists("data")) {
-  dir.create("data")
-}
-
-download.file("https://github.com/WEHI-Education/BIOL90042_R_Course/raw/main/data/rnaseq_workshop_data.zip",
-              "data/rnaseq_workshop_data.zip")
-```
+If you haven't already downloaded the RNAseq data for this workshop into the `data/` directory, you can do so via the Setup section at the start of this ebook.
 
 Now to unzip the files into a new directory `data/rnaseq/`:
 ```{r}
