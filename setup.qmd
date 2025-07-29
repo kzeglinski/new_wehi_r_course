@@ -58,6 +58,9 @@ Hint - Click the clipboard icon at top right in the code block below!
 ## Install tidyverse 
 install.packages("tidyverse") 
 
+## Install conflicted
+install.packages("conflicted") 
+
 ## Install readxl & writexl
 install.packages("readxl")
 install.packages("writexl")
@@ -99,6 +102,7 @@ install.packages("ggridges")
 ## Load all libraries
 
 library(tidyverse)
+library(conflicted)
 library(readxl)
 library(writexl)
 
