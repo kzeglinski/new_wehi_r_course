@@ -236,7 +236,8 @@ However we have lost this structure after using `pivot_longer()`.
 We can restore it using `pivot_wider()` after we have summarised the replicates.
 
 ```{r}
-mz_expr_rep_summed_wide <- pivot_wider(mz_expr_rep_summed, names_from = "gene", values_from = "expression_level")
+mz_expr_rep_summed_wide <- mz_expr_rep_summed %>% 
+  pivot_wider( names_from = "gene", values_from = "expression_level")
 
 mz_expr_rep_summed_wide
 ```

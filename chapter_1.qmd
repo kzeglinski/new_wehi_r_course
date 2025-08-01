@@ -1377,20 +1377,9 @@ average(mouse_facts\$age)
 
 So far, we've explored the basics of R by creating our own data, or using built-in data objects like `letters` or `iris`. However, in real life analyses, we almost always need to read in data from files on our computers.
 
-In this section we will use the file named `mousezempic_dosage_data.csv`, which you can download using the button below:
+In this section we will use the file named `mousezempic_dosage_data.csv`, which you downloaded from the Setup instructions at the start of this book.
 
-{{< downloadthis data/mousezempic_dosage_data.csv dname="mousezempic_dosage_data" label="Download the example data file" icon="file-earmark-arrow-down" type="primary" class="data-button" id="chapter01_data" >}}
-
-Place this file into the project directory you have made for this course (it's generally a good idea to keep all the data and code for a certain analysis together). If you'd like to be more organised, try placing it in a folder called 'data'.
-
-You can also download the file by running the following R code (note that you will need to have created a 'data' folder inside your R project folder first):
-
-```{r}
-#| eval: false
-dir.create("data") # create data directory if it doesn't exist
-# download the file into the data directory
-download.file("https://raw.githubusercontent.com/kzeglinski/new_wehi_r_course/refs/heads/main/data/mousezempic_dosage_data.csv", "data/mousezempic_dosage_data.csv")
-```
+Check in the Files tab (bottom right panel) that this file is in the project directory you have made for this course (it's generally a good idea to keep all the data and code for a certain analysis together). It should be inside a folder named `data`.
 
 ### Paths {#sec-paths}
 
@@ -1415,7 +1404,7 @@ For example, the path to the folder in the above image is `~/Desktop/R_course/da
 Now that we know how to find our data, we can read it in. We'll do this using a handy package called `readr`, that is part of the `tidyverse`.
 
 ::: {.callout-note title="Packages in R"}
-Packages are collections of functions that other people have written to help us do specific tasks, beyond what is built-in to R itself. The [tidyverse](https://www.tidyverse.org/) is a collection of packages that help to streamline data analysis in R. To use the tidyverse, we first need to install it. This is done using the `install.packages()` function, like so:
+Packages are collections of functions that other people have written to help us do specific tasks, beyond what is built-in to R itself. The [tidyverse](https://www.tidyverse.org/) is a collection of packages that help to streamline data analysis in R. Its a 'universe of functions for tidy data analysis.' To use the tidyverse, we first need to install it. This is done using the `install.packages()` function run in the Setup code. If you have run the Setup code, there is no need to run the code below again, but for reference:
 
 ```{r}
 #| eval: false

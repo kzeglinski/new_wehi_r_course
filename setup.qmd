@@ -12,6 +12,14 @@ You can download and install R and RStudio through the [posit.co website](https:
 
 ![Install both R and RStudio](images/install_posit.jpg)
 
+The Posit website should automatically detect your operating system and link to the correct download file.
+
+## Mac users
+On Mac iOS, the download file should be `.tar.gz` format
+
+## PC users
+On windows operating system, the downloaded file should be `.exe` format
+
 ### Lockdown Browser
 
 For BIOL90042 Masters Students Only: Install Lockdown Browser using this link <https://download.respondus.com/lockdown/download.php?id=113132090>
