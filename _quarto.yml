@@ -28,7 +28,11 @@ book:
     - chapter_5.qmd
     - chapter_6.qmd
     - chapter_7.qmd
-    - chapter_8.qmd
+    - part: chapter_8.qmd
+      chapters:
+      - ch8_section_1.qmd
+      - ch8_section_2.qmd
+      - ch8_section_3.qmd
     - further_reading.qmd
     #- advanced_topics.qmd
 
