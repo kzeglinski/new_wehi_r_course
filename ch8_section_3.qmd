@@ -47,15 +47,12 @@ Reproducible 'randomness'. This ensures everyone using this tutorial gets the sa
 
 ```{r}
 #| eval: true
- set.seed(165)
-# set.seed(42)
- #withr::with_seed(seed = 165)
-
+ set.seed(42)
 ```
 
 ## Cross training
 
-Cross-fold validation requires the training data to be split into sub-sets of roughly equal size. The model is trained on N-1 sets and tested on he remaining 'unseen' data subset. Here we determine the folds for cross-validation during tuning, using `vfold_cv()`.
+Cross-fold validation requires the training data to be split into sub-sets of roughly equal size. The model is trained on N-1 sets and tested on the remaining 'unseen' data subset. Here we determine the folds for cross-validation during tuning, using `vfold_cv()`.
 
 ```{r}
 
@@ -66,7 +63,7 @@ folds
 
 ## Hyper-parameter tuning
 
-Compared with the single model with defined hyper-parameters in [ML Part 2](ch8_section_2.qmd), here we allow the tree_depth and learn_rate to be tuned, using a range of values across a 'grid'.
+Compared with the single model with defined hyper-parameters in [ML Part 2](ch8_section_2.qmd), here we allow the `tree_depth` and `learn_rate` to be tuned, using a range of values across a 'grid'.
 
 In the previous section we set the exact parameters for the `boost_tree()` function. Here we allow the tree depth and the learning rate to be tuned for optimal performance, by running multiple models across a range of tree depth and learning rate parameters. Note that these arguments are now set to `tune()`.
 
@@ -265,6 +262,8 @@ Here we create ROC and PR curves using ggplot, to directly compare the performan
 ### ROC
 
 ```{r}
+#| fig-width: 7
+#| fig-height: 5
 
 roc_origVtuned <- bind_rows(
   roc_orig  |> arrange(sensitivity), 
@@ -289,6 +288,10 @@ roc_origVtuned |> ggplot(aes(x = 1-specificity, y = sensitivity)) +
 ### PR
 
 ```{r}
+#| fig-width: 7
+#| fig-height: 5
+
+
 pr_origVtuned <- bind_rows(
   pr_orig  |> arrange(desc(precision)),
   pr_tuned |> arrange(desc(precision)))

@@ -118,7 +118,7 @@ pc_dat <- dat_wide_log |> select(-c(donorid,status)) |>
 
 ```
 
-We can access the principal components for each sample by using the `broom::augment()` function. The primary PCs 9e.g. 1 thru 5) encode the majority of the variation between samples. as such we focus on primary PCs (or dimension in MDS), when clustering samples
+We can access the principal components for each sample by using the `broom::augment()` function. The primary PCs (e.g. 1 thru 5) encode the majority of the variation between samples. As such we focus on primary PCs (or dimension in MDS), when clustering samples
 
 Plot first 2 PCs, coloured by tumor status
 

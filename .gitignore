@@ -13,6 +13,8 @@ local_notes.Rmd
 _book/
 
 .Rhistory
+data/
+data_processed/
 data/rnaseq/*
 databkup_local/
 

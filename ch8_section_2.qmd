@@ -112,7 +112,7 @@ train_cl %>% count(status)
 test_cl  %>% count(status)
 ```
 
-Even splits!
+This gives reasonably even splits.
 
 ## Recipe
 
@@ -331,7 +331,7 @@ pr_auc( data = pred_test, truth = status, .pred_malignant, event_level = 'second
 
 ### Feature Gain
 
-'Gain' is a measure of the contribution of each feature for the accuracy of an xgboost model. 
+'Gain' is a measure of the contribution of each feature to the accuracy of an xgboost model. 
 Understanding the relative contribution of each feature is helpful if we want to create a smaller / lighter model using only the most important predictors, for example. The `vip` package ('variable importance plot') has a `vip()` function for creating the characteristic horizontal bar charts: 
 
 ```{r}
