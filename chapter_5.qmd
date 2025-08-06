@@ -26,6 +26,7 @@ In this chapter we will use the mousezempic dosage data `m_dose` and mouse expre
 
 ```{r}
 #| eval: false
+#| include: false
 dir.create("data") # create data directory if it doesn't exist
 download.file("https://raw.githubusercontent.com/kzeglinski/new_wehi_r_course/refs/heads/main/data/m_exp.tsv", "data/m_exp.tsv") # download data
 ```
@@ -251,7 +252,13 @@ mz_expr_rep_summed_wide %>% ggplot( aes(x = Th, y = Prlh)) +
 
 ::: {.callout-note title="Practice exercise"}
 Make all the pair-wise scatter plots and assemble them together using `patchwork`.
-There should be a plot of: - Th vs Prlh - Th vs Hprt1 - Prlh vs Hprt1
+There should be plots of:
+
+Th vs Prlh
+
+Th vs Hprt1
+
+Prlh vs Hprt1
 :::
 
 ### Combining data with join functions {#sec-join}
@@ -326,7 +333,7 @@ An older syntax exists for the `by` argument that would look like `by = c("mouse
 This does the same thing as what is shown above but the documentation now recommends the new syntax which allows for flexible options like joining to the closest.
 :::
 
-## Visualising the expression between strains
+## Plotting & testing expression between strains
 
 With the joined data we now have more information about the mice in addition to the expression data.
 So we can check if there is any significant difference in gene expressions between mouse strains.
@@ -360,7 +367,7 @@ mz_joined_data_longer %>%
 
 There doesn't appear to be clear differences in the expression of these three genes between the haplotypes.
 
-### Simple linear model - discrete x
+### Simple linear model (discrete x)
 
 To fit a line through the gene expression values of each mouse genotype, and test for significance of the x\~y relationship, we can use a handy function `lm_test()` from the `tidyrstats` library.
 
@@ -370,8 +377,8 @@ library(tidyrstats)
 
 This function takes a long-format data frame as input, and the formula for the linear model we want to fit.
 (We will read more about linear models in later chapters).
-For this test, we want to know whether the response (aka 'y'), which is gene expression, changes significantly with the predictor ('x'), which is the mouse strain.
-The model formula will be `y~x1`, that is `expression ~ mouse_strain`.
+For this test, for each gene, we want to know whether the response (gene expression ; aka 'y'), changes significantly with the predictor (mouse strain ; aka 'x').
+The model formula will be `y ~ x1`, that is `expression ~ mouse_strain`.
 
 ```{r}
 mz_joined_data_longer %>% 
@@ -386,7 +393,7 @@ Our intuition from the violin plots is correct.
 None of the genes show significant differences in expression between the Black6 vs the reference (BALBC), nor the CD-1 vs the reference.
 Note that all of the P values are \> 0.05, meaning we dont have enough evidence to reject the null hypothesis.
 
-## Visualising the relationship between dosage and genes
+## Plotting & testing relationship between dosage and genes
 
 With the joined data frame we can also visualise the relationship between the drug dosage and the genes, separated by mouse strain.
 We do this by using our `mz_joined_data_longer` to plot with `facet_grid()` specifying the layout of our grid.
@@ -401,9 +408,11 @@ mz_joined_data_longer %>%
 
 Although very minor, there appears to be some effect of dosage on gene expression that is strain specific.
 
-### Simple linear model - continuous x
+### Simple linear model (continuous x)
 
 Again, we can test this using `lm_test()`, where y is `expression`, and x is now the continuous variable `drug_dose_g`.
+We are testing the association for each gene in each mouse strain, by grouping the input data before `lm_test()`.
+Note this is different from correcting for gene and mouse strain as covariates, because the model only tests one gene-strain combination at a time.
 
 ```{r}
 mz_joined_data_longer %>% 
@@ -414,13 +423,27 @@ mz_joined_data_longer %>%
 
 ```
 
-Here we can see, in fact there is a significant association between Mousezempic drug dose and gene expression, within the Black 6 strain, for the Hprt1 gene.
+Here we can see, in fact there is a significant association between Mousezempic drug dose and gene expression: within the Black 6 strain, for the Hprt1 gene.
 
 ::: {.callout-note title="Stating statistical findings"}
 From our summary table above, can you finish this sentence which is the formal statement of results from a linear model?
 
 *"In the Black 6 mouse strain, for every 1 gram increase in drug dose, on average, Hprt1 gene expression ..."*
 :::
+
+You can read and work through more `lm_test()` examples in the [Statistics in R Primer](stats_primer.qmd).
+
+## Saving multiple objects
+
+We can save our newly transformed and joined data frames for easy access using the `save()` command, which takes any number of environment objects, and a new `Rdata` format file name as arguments:
+
+```{r}
+save(
+  mz_expr_rep_summed,
+  mz_expr_rep_summed_wide,
+  mz_joined_data_longer,
+  file = 'data_processed/mz_cleaned_joined.Rdata')
+```
 
 ## Another case study - WHO tuberculosis data
 
