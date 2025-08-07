@@ -333,7 +333,7 @@ An older syntax exists for the `by` argument that would look like `by = c("mouse
 This does the same thing as what is shown above but the documentation now recommends the new syntax which allows for flexible options like joining to the closest.
 :::
 
-## Plotting & testing expression between strains
+## Visualising & testing expression between strains
 
 With the joined data we now have more information about the mice in addition to the expression data.
 So we can check if there is any significant difference in gene expressions between mouse strains.
@@ -369,7 +369,7 @@ There doesn't appear to be clear differences in the expression of these three ge
 
 ### Simple linear model (discrete x)
 
-To fit a line through the gene expression values of each mouse genotype, and test for significance of the x\~y relationship, we can use a handy function `lm_test()` from the `tidyrstats` library.
+To fit a line through the gene expression values of each mouse genotype, and test for significance of the x\~y relationship, we can use a handy function [`lm_test()`](https://github.com/bansell/tidyrstats?tab=readme-ov-file#lm_test) from the `tidyrstats` library.
 
 ```{r}
 library(tidyrstats)
@@ -393,7 +393,8 @@ Our intuition from the violin plots is correct.
 None of the genes show significant differences in expression between the Black6 vs the reference (BALBC), nor the CD-1 vs the reference.
 Note that all of the P values are \> 0.05, meaning we dont have enough evidence to reject the null hypothesis.
 
-## Plotting & testing relationship between dosage and genes
+
+## Visualising & testing relationships between dosage and genes
 
 With the joined data frame we can also visualise the relationship between the drug dosage and the genes, separated by mouse strain.
 We do this by using our `mz_joined_data_longer` to plot with `facet_grid()` specifying the layout of our grid.
