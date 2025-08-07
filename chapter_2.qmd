@@ -159,6 +159,7 @@ For example, even though we haven't covered the `dplyr` functions yet, you can p
 # use the pipe to chain together our data manipulation steps
 m_dose %>%
   filter(cage_number == "3E") %>%
+  drop_na(weight_lost_g) %>% 
   pull(weight_lost_g) %>%
   mean()
 ```
