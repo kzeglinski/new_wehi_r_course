@@ -8,7 +8,7 @@ format:
     toc-title: "In this chapter:"
 ---
 
-# Statistics in R Primer  {.unnumbered}
+# Statistics in R Primer {.unnumbered}
 
 In the second half of this book we will use statistics in R for exploratory data analysis, bioinformatics and machine learning.
 At this juncture its helpful to distinguish three domains in which we'll apply statistics
@@ -179,7 +179,7 @@ The estimate (slope) for a simple linear model with a single x variable, is call
 
 The estimates for a multiple linear regression model (where effects for each covariate are calculated after setting the mean effect of all other covariates to 0), are called 'conditional effects.'
 
-In order to create a scatter plot that displays th expression \~ drug_dose_g relationship *corrected for mouse strain*, we would have to subtract the average effect of mouse strain on gene expression, from each data point depending on the strain of that animal.
+In order to create a scatter plot that displays the expression \~ drug_dose_g relationship *corrected for mouse strain*, we would have to subtract the average effect of mouse strain on gene expression, from each data point depending on the strain of that animal.
 
 This is called 'conditioning' or 'residualisation' and is beyond the scope of this course.
 Just be aware that a multiple linear regression model that finds very low p values for a main effect of interest, may be difficult to show graphically without 'residualising the data'.
@@ -207,7 +207,7 @@ This supports a workflow that, unlike the interactive plotting/modelling workflo
 
 Machine learning is an umbrella term for the use of statistics to 'learn' from features of a training dataset and then make predictions about a new dataset.
 
-Making such predictions is a small addtional step from the linear modelling methods we introduced above.
+Making such predictions is a small additional step from the linear modelling methods we introduced above.
 
 The covariate effects (aka 'coefficients' or 'betas') output in a linear model summary table, can be combined with the `predict()` function to predict the outcome of a new dataset.
 In other words, we could use `predict()` to solve the equation that will give us the expected gene expression (y) for a new mouse according to the drug dosage and strain of that individual.
