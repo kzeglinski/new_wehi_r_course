@@ -34,7 +34,7 @@ Create a new folder on your Desktop named `BIOL90042_workshops`
 
 Download the .zip file via this link, and save inside `BIOL90042_workshops`
 
-{{< downloadthis biol90042_data.zip dname=data label="Download workshop data" icon=file-earmark-arrow-down type=primary class=data-button id=workshop_data >}}
+{{< downloadthis data.zip dname=data label="Download workshop data" icon=file-earmark-arrow-down type=primary class=data-button id=workshop_data >}}
 
 ## Unzip data files
 

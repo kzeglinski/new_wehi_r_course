@@ -1397,7 +1397,7 @@ By default, it will put you in your project directory. If you have data files in
 
 This will copy the path to the folder to your clipboard, which you can then paste into your R script. Then, you just need to add a `/` followed by the name of the file to the end of the path.
 
-For example, the path to the folder in the above image is `~/Desktop/R_course/data`, so the path to the `mousezempic_dosage_data.csv` file is `~/Desktop/R_course/data/mousezempic_dosage_data.csv`.
+For example, the path to the folder in the above image is `~/Desktop/BIOL90042_workshops/data`, so the path to the `mousezempic_dosage_data.csv` file is `~/Desktop/BIOL90042_workshops/data/mousezempic_dosage_data.csv`.
 
 ### Reading data with functions {#sec-readinFunctions}
 
@@ -1430,7 +1430,7 @@ To read in our data, we'll use the `read_delim()` function from the `readr` pack
 
 ```{r}
 #| eval: false
-read_delim("~/Desktop/R_course/data/mousezempic_dosage_data.csv")
+read_delim("~/Desktop/BIOL90042_workshops/data/mousezempic_dosage_data.csv")
 ```
 
 ::: {.callout-note title="Delimiters"}
@@ -1462,12 +1462,12 @@ As an example, let's try reading in our comma-separated file with `read_tsv()`, 
 
 ```{r}
 #| eval: false
-read_tsv("~/Desktop/R_course/data/mousezempic_dosage_data.csv")
+read_tsv("~/Desktop/BIOL90042_workshops/data/mousezempic_dosage_data.csv")
 ```
 
 ```{r}
 #| echo: false
-# this is for rendering the book, path is different for learners so don't show this chunk
+# this is for rendering the book
 read_tsv("data/mousezempic_dosage_data.csv")
 ```
 
@@ -1480,6 +1480,8 @@ Depending on where you have put your data, your path to the `mousezempic_dosage_
 
 ::: {.callout-note title="Using RStudio to autocomplete paths"}
 Another conveninent way to get the path of your file (so long as you are working within an R project) is to use a feature called 'tab completion'. Within R projects, R can discover any files sitting in, or downstream of the project directory. So, assuming our `mousezempic_dosage_data.csv` file is located within a folder called 'data', if we start typing `read_delim("data/mouse` then press {{< kbd Tab >}}, R will auto-complete the full file path and close the quotes and bracket for us!
+
+Even better, we need only type `read_delim('mouse` and RStudio will find all files within the project beginning with that word, and automatically fill in the required file path!
 :::
 
 Now, let's take a look at the output of `read_delim()`:
