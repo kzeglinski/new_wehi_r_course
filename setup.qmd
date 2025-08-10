@@ -15,9 +15,11 @@ You can download and install R and RStudio through the [posit.co website](https:
 The Posit website should automatically detect your operating system and link to the correct download file.
 
 ## Mac users
+
 On Mac iOS, the download file should be `.tar.gz` format
 
 ## PC users
+
 On windows operating system, the downloaded file should be `.exe` format
 
 ### Lockdown Browser
@@ -141,4 +143,8 @@ Select all the code with mouse click & drag, or `CMD A` (mac) / `CTRL A` (pc), a
 
 ![](images/run.jpg)
 
-Note this will take some time and there may be errors, so let us know and we can assist.
+Note this will take some time and there may be errors. Masters students can request further help in the first tutorial.
+
+## Restart R
+
+Once the code has run and all libraries can be loaded without errors, restart R by selecting **Session \> Restart R**. This will reset your R session ready for Chapter 1!
