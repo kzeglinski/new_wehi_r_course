@@ -8,7 +8,7 @@ local_notes.Rmd
 
 #required when using github actions:
 #not needed when using Terminal quarto publish gh-pages
-#!_freeze/
+_freeze/
 #!_extensions/
 #!images/
 
