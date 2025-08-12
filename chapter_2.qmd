@@ -21,9 +21,6 @@ At the end of this chapter, learners should be able to:
 
 3.  Understand how to identify and handle missing values in a data frame
 
-4.  Apply grouping for more complex analysis of data
-
-5.  Recall how to save data frames to a file
 :::
 
 Both `dplyr` and `tidyr` are contained within the `tidyverse` (along with `readr`) so we can load all of these packages at once using `library(tidyverse)`:
@@ -52,7 +49,7 @@ But the code is a bit hard to read because you have to start from the inside of 
 Instead, we can use the pipe operator (`%>%`) to chain these functions together in a more readable way:
 
 ```{r}
-my_vector <- c(1, 2, 3, 4, 5)
+my_vector <- 1:5
 my_vector %>% mean() %>% round() %>% as.character()
 ```
 
