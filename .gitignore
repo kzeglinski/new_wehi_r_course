@@ -6,9 +6,11 @@ local_notes.Rmd
 
 *_files/*
 
-!_freeze/
-!_extensions/
-!images/
+#required when using github actions:
+#not needed when using Terminal quarto publish gh-pages
+#!_freeze/
+#!_extensions/
+#!images/
 
 _book/
 
