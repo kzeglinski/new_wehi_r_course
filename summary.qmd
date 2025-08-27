@@ -1,0 +1,10 @@
+---
+format:
+  html:
+    toc: true
+    toc-location: left
+    toc-title: "Contents:"
+---
+
+# Course summary & concluding remarks {.unnumbered}
+blah blah blah summary here 
