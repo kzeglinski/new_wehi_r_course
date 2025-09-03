@@ -30,6 +30,8 @@ book:
     - summary.qmd
     - further_reading.qmd
     #- advanced_topics.qmd
+  google-analytics:
+    tracking-id: "G-FN78SCFVJJ"
 
 bibliography: references.bib
 csl: vancouver_superscript.csl
@@ -52,3 +54,4 @@ format:
     code-overflow: wrap
     highlight-style: textmate.theme
     number-sections: true
+  
