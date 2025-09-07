@@ -3,6 +3,7 @@
 .DS_Store
 
 local_notes.Rmd
+resources.qmd
 
 *_files/*
 
@@ -16,6 +17,8 @@ _book/
 
 .Rhistory
 data/
+!data/rnaseq_counts.tsv
+!data/Ses3_geneAnnot.tsv
 data_processed/
 data/rnaseq/*
 databkup_local/
