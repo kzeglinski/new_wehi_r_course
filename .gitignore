@@ -16,7 +16,7 @@ _freeze/
 _book/
 
 .Rhistory
-data/
+data/*
 !data/rnaseq_counts.tsv
 !data/Ses3_geneAnnot.tsv
 data_processed/
