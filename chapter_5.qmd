@@ -172,14 +172,14 @@ To reshape this data into a long format (where each measurement is contained on 
 In this particular case here's what the code would look like:
 
 ```{r}
-mousezempic_expr_long <- m_exp %>%
+m_exp_long <- m_exp %>%
   pivot_longer(
     cols = contains("_rep"),
     names_to = "measurement",
     values_to = "expression_level"
   )
 
-mousezempic_expr_long
+m_exp_long
 ```
 
 ::: {.callout-note title="Perplexed by pivoting?"}
@@ -195,10 +195,10 @@ The gene being measured and the replicate number separated by "\_".
 We can use the `separate()` function to split this data into individual columns so that one column does not contain multiple variables.
 
 ```{r}
-mousezempic_expr_separate <- mousezempic_expr_long %>%
+m_exp_separate <- m_exp_long %>%
   separate(measurement, into = c("gene", "replicate"), sep = "_")
 
-mousezempic_expr_separate
+m_exp_separate
 ```
 
 ### Summarising values
@@ -206,19 +206,19 @@ mousezempic_expr_separate
 Now suppose we wanted to combine the gene expression data across replicates by adding them up, we can use the `summarise()` function to do so.
 
 ```{r}
-mz_expr_rep_summed <- mousezempic_expr_separate %>%
+m_exp_rep_summed <- m_exp_separate %>%
   summarise(
     expression_level = sum(expression_level),
     .by = c(id_num, group, gene)
   )
 
-mz_expr_rep_summed
+m_exp_rep_summed
 ```
 
 We may also want to get the average expression level of each gene within each experimental group and plot it as a bar chart.
 
 ```{r}
-mz_expr_rep_summed %>%
+m_exp_rep_summed %>%
   summarise(
     expression_level = mean(expression_level),
     .by = c(group, gene)
@@ -237,16 +237,16 @@ However we have lost this structure after using `pivot_longer()`.
 We can restore it using `pivot_wider()` after we have summarised the replicates.
 
 ```{r}
-mz_expr_rep_summed_wide <- mz_expr_rep_summed %>% 
+m_exp_rep_summed_wide <- m_exp_rep_summed %>% 
   pivot_wider( names_from = "gene", values_from = "expression_level")
 
-mz_expr_rep_summed_wide
+m_exp_rep_summed_wide
 ```
 
 With the replicate aggregated expression levels in individual columns, we can now plot the gene expression values against each other.
 
 ```{r}
-mz_expr_rep_summed_wide %>% ggplot( aes(x = Th, y = Prlh)) +
+m_exp_rep_summed_wide %>% ggplot( aes(x = Th, y = Prlh)) +
   geom_point()
 ```
 
@@ -279,13 +279,13 @@ A common and basic join is the `left_join()`.
 It takes two data frame as arguments and optionally a vector of common columns to perform the join on.
 The reason it's called a left-join because it retains all rows from the left data frame while adding on columns from the right data frame only when the data in the designed joining column(s) match.
 
-For example, we can join the `m_dose` data frame with the `mz_expr_rep_summed_wide` data frame based on the `id_num` column, which is common to both data frames:
+For example, we can join the `m_dose` data frame with the `m_exp_rep_summed_wide` data frame based on the `id_num` column, which is common to both data frames:
 
 ```{r}
-left_join(m_dose, mz_expr_rep_summed_wide, by = "id_num")
+left_join(m_dose, m_exp_rep_summed_wide, by = "id_num")
 ```
 
-The `m_dose` contains information about characteristics of each mouse, while the `mz_expr_rep_summed_wide` contains the replicate-summed gene expressions of the mice.
+The `m_dose` contains information about characteristics of each mouse, while the `m_exp_rep_summed_wide` contains the replicate-summed gene expressions of the mice.
 Each data frame has an `id_num` column that relates the data from the two data frames together, and we have joined them into one table that contains both the data about the mice as well as the expression of their genes.
 
 With the `left_join()`, if there is a `id_num` value that exists in the right data frame but not found in the left, then that data will not be present in the joined table.
@@ -307,21 +307,21 @@ We will use the `join_by(mouse_id == id_num)` helper function for the `by` argum
 
 ```{r}
 # rename id_num to mouse_id
-mz_dosage_data_new <- m_dose %>%
+m_dose_data_new <- m_dose %>%
   rename(mouse_id = id_num)
 
-mz_dosage_data_new
+m_dose_data_new
 ```
 
 ```{r}
 # perform left join by matching mouse_id of the left data frame to id_num of the right data frame
-mz_joined_data <- left_join(
-  mz_dosage_data_new, mz_expr_rep_summed_wide,
+m_joined_data <- left_join(
+  m_dose_data_new, m_exp_rep_summed_wide,
   by = join_by(mouse_id == id_num)
 ) %>%
   drop_na() # keep only rows without NA
 
-mz_joined_data
+m_joined_data
 ```
 
 ::: callout-note
@@ -339,7 +339,7 @@ With the joined data we now have more information about the mice in addition to 
 So we can check if there is any significant difference in gene expressions between mouse strains.
 
 ```{r}
-mz_joined_data %>% 
+m_joined_data %>% 
   ggplot( aes(x = mouse_strain, y = Th, fill = mouse_strain)) +
   geom_violin()
 ```
@@ -349,17 +349,17 @@ However to use facets we would need to have the faceting variable in a column, a
 So we must use `pivot_longer()`.
 
 ```{r}
-mz_joined_data_longer <- mz_joined_data %>%
+m_joined_data_longer <- m_joined_data %>%
   pivot_longer(cols = c(Th, Prlh, Hprt1), names_to = "gene", values_to = "expression")
 
-mz_joined_data_longer
+m_joined_data_longer
 ```
 
 Now that the gene variable is in a column, we can use this information to create our faceted plot.
 We use `facet_wrap()` with the `scales = "free_y"` argument so each gene can have its own y-axis.
 
 ```{r}
-mz_joined_data_longer %>% 
+m_joined_data_longer %>% 
   ggplot( aes(x = mouse_strain, y = expression, fill = mouse_strain)) +
   geom_violin() +
   facet_wrap(~gene, scales = "free_y")
@@ -381,7 +381,7 @@ For this test, for each gene, we want to know whether the response (gene express
 The model formula will be `y ~ x1`, that is `expression ~ mouse_strain`.
 
 ```{r}
-mz_joined_data_longer %>% 
+m_joined_data_longer %>% 
   group_by(gene) %>% 
   lm_test(expression ~ mouse_strain) %>% 
   filter(term!='intercept') %>% 
@@ -397,10 +397,10 @@ Note that all of the P values are \> 0.05, meaning we dont have enough evidence 
 ## Visualising & testing relationships between dosage and genes
 
 With the joined data frame we can also visualise the relationship between the drug dosage and the genes, separated by mouse strain.
-We do this by using our `mz_joined_data_longer` to plot with `facet_grid()` specifying the layout of our grid.
+We do this by using our `m_joined_data_longer` to plot with `facet_grid()` specifying the layout of our grid.
 
 ```{r}
-mz_joined_data_longer %>% 
+m_joined_data_longer %>% 
   ggplot(aes(x = drug_dose_g, y = expression, color = mouse_strain)) +
   geom_point() +
   geom_smooth(method = "lm") +
@@ -416,7 +416,7 @@ We are testing the association for each gene in each mouse strain, by grouping t
 Note this is different from correcting for gene and mouse strain as covariates, because the model only tests one gene-strain combination at a time.
 
 ```{r}
-mz_joined_data_longer %>% 
+m_joined_data_longer %>% 
   group_by(mouse_strain, gene) %>% 
   lm_test(expression ~ drug_dose_g) %>% 
   filter(term!='intercept') %>% 
@@ -440,10 +440,10 @@ We can save our newly transformed and joined data frames for easy access using t
 
 ```{r}
 save(
-  mz_expr_rep_summed,
-  mz_expr_rep_summed_wide,
-  mz_joined_data_longer,
-  file = 'data_processed/mz_cleaned_joined.Rdata')
+  m_exp_rep_summed,
+  m_exp_rep_summed_wide,
+  m_joined_data_longer,
+  file = 'data_processed/mousezempic_cleaned_joined.Rdata')
 ```
 
 ## Another case study - WHO tuberculosis data
