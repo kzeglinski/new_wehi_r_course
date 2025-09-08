@@ -24,40 +24,58 @@ With the results of the analysis, we want to be able to produce publication qual
 -   write out the results to a file
 :::
 
+First we run the essential code to regenerate the DGEList objects from Chapter 6.
 ```{r}
+#| message: false
+#| echo: true
+#| eval: true
+
 # load required packages
 library(tidyverse)
 library(edgeR)
-library(limma)
 
-group <- parse_factor(
-  c("LP", "ML", "Basal", "Basal", "ML", "LP", "Basal", "ML", "LP"),
-  levels = c("Basal", "LP", "ML")
-)
+# read raw data
 
-samplenames <- c(
-  "10_6_5_11", "9_6_5_11", "purep53", "JMS8-2", "JMS8-3",
-  "JMS8-4", "JMS8-5", "JMS9-P7c", "JMS9-P8c"
-)
+counts_tbl <- read_tsv('data/rnaseq_counts.tsv')
+
+gene_anno <- read_tsv('data/Ses3_geneAnnot.tsv')
 
 # create DGEList object
-dge <- readDGE(
-  dir(path = "data/counts", pattern = "GSM*"),
-  path = "data/counts",
-  columns = c(1, 3),
-  group = group,
-  labels = samplenames
-)
 
-# add gene annotation information
-dge$genes <- read_tsv("data/Ses3_geneAnnot.tsv")
+dge <- DGEList(counts = counts_tbl %>% select(-1),
+               genes = gene_anno)
+
+groups <- c("LP", "ML", "Basal", "Basal", "ML", "LP", "Basal", "ML", "LP")
+
+groups <- parse_factor(groups,  levels = c("Basal", "LP", "ML"))
+
+dge$samples$group <- groups
+
+rownames(dge$counts) <-  counts_tbl %>% pull(ENTREZID)
+rownames(dge$genes) <-  gene_anno %>% pull(ENTREZID)
+
 
 # filter lowly expressed genes
+
 keep <- filterByExpr(dge)
-dge <- dge[keep, ]
+dge_filt <- dge[keep, , keep.lib.sizes = FALSE]
+
 
 # normalise the data for library size and RNA composition
-dge <- calcNormFactors(dge, method = "TMM")
+
+dge_norm <- calcNormFactors(dge_filt, method = "TMM")
+
+# extract tidy tables
+
+counts_raw_tbl  <- dge$counts %>% as_tibble(rownames='gene')
+
+counts_filt_tbl <- dge_filt$counts %>% as_tibble(rownames='gene') 
+
+samples_tbl <- dge_norm$samples %>% as_tibble(rownames = 'id')
+
+logcpm_tbl <- cpm(dge_norm$counts, log=T) %>% as_tibble(rownames='gene')
+
+
 ```
 
 ## Linear modelling
@@ -152,7 +170,7 @@ The `voom()` function takes as arguments, our `DGEList` object and our design ma
 It also optionally outputs a plot of the mean-variance relationship of our data, called the 'voom plot'.
 
 ```{r}
-v <- voom(dge, design, plot = TRUE)
+v <- voom(dge_norm, design, plot = TRUE)
 ```
 
 The output of `voom()` (our variable `v`) is an `EList` object which contains the following elements:
@@ -254,13 +272,10 @@ In this section we will make plots of both the summary statistics (topTable outp
 ### Data extract
 
 To start with we extract all the data required to make any of the the common RNAseq results plots.
-We will
 
-1.  extract the summary statistics for all three contrasts into separate tables
+The experimental sample metadata and log(CPM) values were extracted to `samples_tbl` and `log_cpm_tbl` respectively, in the previous chapter.
 
-2.  extract the sample_ids and experimental group labels, and then
-
-3.  extract the log(CPM) values for each sample
+Here we will also extract the summary statistics for the remaining two pair-wise contrasts into separate tables.
 
 #### Extract summary tables
 
@@ -280,27 +295,6 @@ top_lvm <- topTable(efit, coef = "LPvsML", n = Inf) %>%
 
 ```
 
-#### Extract log(counts per million)
-
-Box plots and heatmaps require the gene expression data per sample, expressed as log(counts per million), or 'log(CPM)'.
-
-To extract the logCPM to a tibble:
-
-```{r}
-
-sample_logcpm <- cpm(dge, log = TRUE) %>% as_tibble(rownames='ENTREZID')
-
-```
-
-#### Extract sample groups
-
-We will need the experimental group label for each sample to make boxplots and to annotate our heatmap.
-We can extract this from the `dge$samples` table as follows.
-
-```{r}
-
-sample_group <- dge$samples %>% as_tibble(rownames='sample_id')
-```
 
 ### Volcano Plot
 
@@ -373,17 +367,19 @@ We will extract the first 6 rows of the tibble using `slice_head()`, then join t
 ```{r}
 
 top_bvl_cat %>% slice_head(n=6) %>% 
-  left_join(sample_logcpm, by='ENTREZID')
+  left_join(logcpm_tbl, by= join_by(ENTREZID == gene))
 
 ```
 
 Great! An error!
-...it seems that the ENTREZID column is not the same type between the `top_bvl_cat` and the `sample_logcpm` tibbles.
-We can fix this by changing the `sample_logcpm$ENTREZID` into numeric data:
+...it seems that the `ENTREZID` and `gene` columns are not the same data type between the `top_bvl_cat` and the `logcpm_tbl` tibbles.
+We can fix this by creating a new column `logcpm_tbl$ENTREZID` containing the genes converted to numeric data:
 
 ```{r}
 
-sample_logcpm <- sample_logcpm %>% mutate(ENTREZID = as.numeric(ENTREZID))
+logcpm_tbl <- logcpm_tbl %>% 
+  mutate(ENTREZID = as.numeric(gene)) %>% 
+  relocate(ENTREZID)
 
 ```
 
@@ -392,9 +388,10 @@ Now we can rerun the `left_join()` and reshape the data to long form as required
 ```{r}
 top_gene_long <- top_bvl_cat %>%
   slice_head(n=6) %>% 
-  left_join(sample_logcpm, by='ENTREZID') %>% 
+  left_join(logcpm_tbl, by='ENTREZID') %>% 
   select(SYMBOL, '10_6_5_11' : 'JMS9-P8c') %>% 
-  pivot_longer(cols = -SYMBOL, names_to = 'sample_id', values_to = 'logCPM')
+  pivot_longer(cols = -SYMBOL, 
+               names_to = 'sample_id', values_to = 'logCPM')
 
 ```
 
@@ -402,7 +399,8 @@ Next, we join the sample groupings to this reshaped data:
 
 ```{r}
 
-top_gene_long_samples <- left_join(top_gene_long, sample_group, by='sample_id')
+top_gene_long_samples <- left_join(top_gene_long, samples_tbl,
+                                   by=join_by(sample_id == id))
 ```
 
 ...and plot the results
@@ -435,7 +433,7 @@ First we need to install the package if you haven't already
 install.packages("tidyheatmaps")
 ```
 
-The data we will use for the heatmap is going to be the log2 cpm expression values of the top differentially expressed genes, within the `sample_logcpm` data, and the first 50 rows from each of the three top tables.
+The data we will use for the heatmap is going to be the log2 cpm expression values of the top differentially expressed genes, within the `logcpm_tbl` data, and the first 50 rows from each of the three top tables.
 
 ::: {.callout-tip title="Note"}
 Because genes may be differentially expressed in more than one contrast, the total number of unique genes may be less than 150.
@@ -459,7 +457,8 @@ We now join the logCPM values for the top_genes:
 
 ```{r}
 
-top_genes_lcpm <- top_genes_all %>% left_join(sample_logcpm)
+top_genes_lcpm <- left_join(top_genes_all, logcpm_tbl,
+                            by = "ENTREZID" )
 ```
 
 ...and reshape the data to long format before joining in the sample group labels.
@@ -467,14 +466,17 @@ This is very similar to how the data was prepared for our boxplots.
 
 ```{r}
 
-top_genes_lcpm_long <- top_genes_lcpm %>% pivot_longer(names_to = "sample_id", 
-                                                    values_to = "logcpm",
-                                                    cols = -c(ENTREZID,SYMBOL))
+top_genes_lcpm_long <- top_genes_lcpm %>% 
+  pivot_longer(cols = -c(ENTREZID,SYMBOL,gene),
+              names_to = "id", 
+              values_to = "logcpm")
 
 
-top_genes_lcpm_gp <- top_genes_lcpm_long %>% left_join(sample_group)
+top_genes_lcpm_gp <- left_join(top_genes_lcpm_long, samples_tbl)
 
 ```
+
+Notice that if we do not specify the join key column, `left_join()` will try to detect it automatically. Use this shortcut only when you are confident and very familiar with the tibbles you are working with.
 
 To create the heatmap we will use the `tidyheatmaps()` function with the logCPM values.
 We will add in arguments to scale the data colours along the rows with a z-score, adding in sample annotation, and using a dendrogram (tree-based clustering) to order the data by rows and columns.
@@ -489,7 +491,7 @@ library(tidyheatmaps)
 heatmap <- tidyheatmap(
   df = top_genes_lcpm_gp,
   rows = SYMBOL,
-  columns = sample_id,
+  columns = id,
   values = logcpm,
   color_legend_n = 100,
   annotation_col = group,
