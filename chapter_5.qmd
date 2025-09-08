@@ -349,17 +349,17 @@ However to use facets we would need to have the faceting variable in a column, a
 So we must use `pivot_longer()`.
 
 ```{r}
-m_joined_data_longer <- m_joined_data %>%
+m_joined_data_long <- m_joined_data %>%
   pivot_longer(cols = c(Th, Prlh, Hprt1), names_to = "gene", values_to = "expression")
 
-m_joined_data_longer
+m_joined_data_long
 ```
 
 Now that the gene variable is in a column, we can use this information to create our faceted plot.
 We use `facet_wrap()` with the `scales = "free_y"` argument so each gene can have its own y-axis.
 
 ```{r}
-m_joined_data_longer %>% 
+m_joined_data_long %>% 
   ggplot( aes(x = mouse_strain, y = expression, fill = mouse_strain)) +
   geom_violin() +
   facet_wrap(~gene, scales = "free_y")
@@ -381,7 +381,7 @@ For this test, for each gene, we want to know whether the response (gene express
 The model formula will be `y ~ x1`, that is `expression ~ mouse_strain`.
 
 ```{r}
-m_joined_data_longer %>% 
+m_joined_data_long %>% 
   group_by(gene) %>% 
   lm_test(expression ~ mouse_strain) %>% 
   filter(term!='intercept') %>% 
@@ -397,10 +397,10 @@ Note that all of the P values are \> 0.05, meaning we dont have enough evidence 
 ## Visualising & testing relationships between dosage and genes
 
 With the joined data frame we can also visualise the relationship between the drug dosage and the genes, separated by mouse strain.
-We do this by using our `m_joined_data_longer` to plot with `facet_grid()` specifying the layout of our grid.
+We do this by using our `m_joined_data_long` to plot with `facet_grid()` specifying the layout of our grid.
 
 ```{r}
-m_joined_data_longer %>% 
+m_joined_data_long %>% 
   ggplot(aes(x = drug_dose_g, y = expression, color = mouse_strain)) +
   geom_point() +
   geom_smooth(method = "lm") +
@@ -416,7 +416,7 @@ We are testing the association for each gene in each mouse strain, by grouping t
 Note this is different from correcting for gene and mouse strain as covariates, because the model only tests one gene-strain combination at a time.
 
 ```{r}
-m_joined_data_longer %>% 
+m_joined_data_long %>% 
   group_by(mouse_strain, gene) %>% 
   lm_test(expression ~ drug_dose_g) %>% 
   filter(term!='intercept') %>% 
@@ -442,7 +442,7 @@ We can save our newly transformed and joined data frames for easy access using t
 save(
   m_exp_rep_summed,
   m_exp_rep_summed_wide,
-  m_joined_data_longer,
+  m_joined_data_long,
   file = 'data_processed/mousezempic_cleaned_joined.Rdata')
 ```
 
@@ -466,7 +466,7 @@ Since we believe that many of these column names are in fact encoding data, we w
 
 ```{r}
 # pivot longer with columns 5 to 60, drop NA values
-who_longer <- who %>%
+who_long <- who %>%
   pivot_longer(
     cols = 5:60, # alternatively contains("_")
     names_to = "description",
@@ -474,14 +474,14 @@ who_longer <- who %>%
     values_drop_na = TRUE
   )
 
-who_longer
+who_long
 ```
 
 It doesn't look like the values in `description` are unique, so we can try to count them to get a sense of what we're dealing with.
 It will show us the unique values as well as the counts for each value.
 
 ```{r}
-who_longer %>%
+who_long %>%
   count(description)
 ```
 
@@ -528,20 +528,20 @@ However, we see there is a problem in this dataset where the cases that are mark
 We can remedy this by using a combination of `mutate()` and `str_replace()` to replace all instances of `newrel` with `new_rel`.
 
 ```{r}
-who_longer <- who_longer %>%
+who_long <- who_long %>%
   mutate(description = str_replace(description, "newrel", "new_rel"))
 
-who_longer
+who_long
 ```
 
 Since every single observation contains only new cases and no old cases, the `new_` portion of the encoding is redundant.
 So we can remove it using `str_remove()`.
 
 ```{r}
-who_longer <- who_longer %>%
+who_long <- who_long %>%
   mutate(description = str_remove(description, "new_"))
 
-who_longer
+who_long
 ```
 
 Now one last problem remains, there is no separator between the sex and age group.
@@ -549,17 +549,17 @@ So we can once again use `str_replace()` to edit in an underscore.
 Note that we use `"_f"` and `"_m"` as our patterns as a precaution in case the letters naturally occur elsewhere in the encoding.
 
 ```{r}
-who_longer <- who_longer %>%
+who_long <- who_long %>%
   mutate(description = str_replace(description, "_f", "_f_")) %>%
   mutate(description = str_replace(description, "_m", "_m_"))
 
-who_longer
+who_long
 ```
 
 With that we are finally able to separate the data into individual columns with `separate()`.
 
 ```{r}
-who_separated <- who_longer %>%
+who_separated <- who_long %>%
   separate(description, into = c("type", "sex", "age_group"), sep = "_")
 
 who_separated

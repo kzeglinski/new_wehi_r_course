@@ -33,7 +33,7 @@ We will reuse the data from [Chapter 5](chapter_5.qmd) to investigate linear mod
 First we load the `.Rdata` file to restore the environment objects (data frames) we created:
 
 ```{r}
-load('data_processed/mz_cleaned_joined.Rdata')
+load('data_processed/mousezempic_cleaned_joined.Rdata')
 ```
 
 ```{r}
@@ -48,16 +48,16 @@ Long format data works seamlessly with `ggplot()`, as follows:
 
 ```{r}
 
-mz_expr_rep_summed
+m_exp_rep_summed
 
-mz_expr_rep_summed %>% 
+m_exp_rep_summed %>% 
   ggplot(aes(x=group,y=expression_level)) +
   geom_boxplot() + 
   facet_wrap(~gene, scales='free')
 
 ```
 
-Often in an exploratory data analysis, we want to quickly test for statistical significant differences in the data we have just plotted.
+Often in an exploratory data analysis, we want to quickly test for statistically significant differences in the data we have just plotted.
 
 Here, we want to test the differences in mean gene expression by treatment, for each gene.
 The `lm_test()` function from tidyrstats allows us to do this using the exact same data format required for ggplot.
@@ -68,7 +68,7 @@ Let's see how this works below, by grouping the data so that we have a separate 
 
 ```{r}
 
-mz_expr_rep_summed %>% 
+m_exp_rep_summed %>% 
   group_by(gene) %>% 
   lm_test(expression_level ~ group)
 
@@ -85,7 +85,7 @@ If we use `lm_test(expression_level ~ 0 + group)` we will get the mean expressio
 However, the differences between the mean gene expression levels in each group, are not directly tested:
 
 ```{r}
-mz_expr_rep_summed %>% 
+m_exp_rep_summed %>% 
   group_by(gene) %>% 
   lm_test(expression_level ~ 0 + group)
 ```
@@ -102,7 +102,7 @@ To plot expression of different genes in a scatter plot, values for each gene mu
 
 ```{r}
 #| message: false
- mz_expr_rep_summed_wide %>% 
+ m_exp_rep_summed_wide %>% 
    ggplot( aes(x = Th, y = Prlh)) +
     geom_point() +
    geom_smooth(method='lm')
@@ -111,7 +111,7 @@ To plot expression of different genes in a scatter plot, values for each gene mu
 The same tibble can be fed directly into `lm_test()` to test the significance of the Prlh \~ Th gene expression association described by the `geom_smooth()` line above.
 
 ```{r}
-mz_expr_rep_summed_wide %>% 
+m_exp_rep_summed_wide %>% 
   lm_test(Prlh ~ Th)
 ```
 
@@ -131,7 +131,7 @@ First to inspect any differences in gene expression between strains:
 ```{r}
 
 
-mz_joined_data_longer %>%
+m_joined_data_long %>%
   ggplot(aes(y = expression, x = mouse_strain)) + geom_boxplot()  +
   geom_jitter(size = 0.2, height = 0, width = 0.2) +
   facet_wrap( ~ gene, scales = 'free_y')
@@ -144,7 +144,7 @@ For the gene *Prlh* we can plot the expression \~ dose relationship colouring po
 ```{r}
 #| message: false
 
-mz_joined_data_longer %>%
+m_joined_data_long %>%
   filter(gene == 'Prlh') %>%
   ggplot(aes(x = drug_dose_g, y = expression)) +
   geom_point(aes(col = mouse_strain))  +
@@ -156,7 +156,7 @@ To test the association between drug dose and gene expression without correcting
 
 ```{r}
 
-mz_joined_data_longer %>% 
+m_joined_data_long %>% 
   filter(gene=='Prlh') %>% 
   lm_test(expression ~ drug_dose_g)
 ```
@@ -164,7 +164,7 @@ mz_joined_data_longer %>%
 To estimate and then remove any gene expression differences between strains, before testing the drug treatment association, we can use the model `expression ~ drug_dose_g + strain`.
 
 ```{r}
-mz_joined_data_longer %>% 
+m_joined_data_long %>% 
   filter(gene=='Prlh') %>% 
   lm_test(expression ~ drug_dose_g + mouse_strain)
 ```
