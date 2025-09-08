@@ -96,7 +96,7 @@ To use the `edgeR` package we first need to construct a `DGEList` object. This o
 
 - `counts`: the main data of this object, a matrix of count values with samples along the columns and features/genes along the rows. All data must be numeric!
 - `samples`: a data frame containing annotation for the samples. The rows in this table describe the corresponding column of the counts data.
-- `genes`: a data frame containing annotation for the genes in the counts matrix. The rows in this table describe the corresponding row in the counts matrix.
+- `genes`: a data frame containing annotation for the genes in the counts matrix. The rows in this table describe the corresponding row in the counts matrix. Importantly, the row order for `counts` and `genes` must be identical for your analysis to run as expected!
 
 ::: {.callout-note title="Data objects"}
 
