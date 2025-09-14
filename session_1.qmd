@@ -9,7 +9,6 @@ format:
 ---
 
 <!-- things to change: -->
-<!-- mention that ~ in path means home -->
 <!-- adjust timing -->
 
 # Session 1: Introduction to R {#sec-session01}
@@ -17,7 +16,9 @@ format:
 In this session, we will get familiar with R.
 
 ::: {.callout-tip title="Learning Objectives"}
-1.  Use RStudio to create an R project and R script
+At the end of this session, learners should be able to:
+
+1.  Use RStudio, R projects and R scripts
 
 2.  Perform basic mathematical operations, comparisons and function calls in R
 
@@ -34,26 +35,26 @@ In this session, we will get familiar with R.
 
 **R** is a free and popular statistical programming language, great for performing data analysis. **RStudio** is a free [integrated development environment (IDE)](https://en.wikipedia.org/wiki/Integrated_development_environment) that provides useful support features for writing code. During this course, we will learn how to use RStudio's handy features like projects (which help us to keep track of different analyses) and the environment panel (which shows us all of our data/variables in one place).
 
-### Creating a project {#sec-creatingProject}
+### Opening our project {#sec-project}
 
-Rstudio Projects are a way we can organise our work in RStudio, so that we can resume where we left off and keep different analyses separate. Any time you start working on something new (like this course!) it is recommended that you start a new project. You can see the current project you're working on, switch between projects or create a new project using the menu in the top right hand corner of RStudio:
+Projects are a way we can organise our work in RStudio, so that we can resume where we left off and keep different analyses separate. Any time you start working on something new (like this course!) it is recommended that you start a new project. To make things easier, we have pre-made an R project with all of the data you will need for this course. If you haven't already, download it using the button below:
+
+{{< downloadthis data/r_course.zip dname="r_course" label="Download the R project for this course" icon="file-earmark-arrow-down" type="primary" class="data-button" id="rproj" >}}
+
+Once downloaded, you can move this file to wherever you'd like on your computer, and **unzip it** (on mac: double-click, on windows: right-click, then 'extract all').
+
+Inside the 'r_course' folder, you should see two things: a sub-folder called 'data' and a file called `r_course.Rproj`:
+
+![The r_course folder contains a 'data' sub-folder and an R project file](images/S01F00_rproject.png){width="960"}
+
+Double-click on this `.Rproj` (R project) file, and it should open up in RStudio. You now have a new R session, where you are working inside of a project called 'r_course'.
+
+You can see the current project you're working on, switch between projects or create a new project using the menu in the top right hand corner of RStudio:
 
 ![In the top right hand corner of RStudio, you can see all of your projects](images/S01F01_make_project.png){width="960"}
 
-To begin this course, let's make a new project. We'll do this in a new directory (folder) so that everything stays organised:
-
-![We usually want to make a new project in its own directory (folder)](images/S01F02_make_project.png){width="960"}
-
-Next, we need to tell R that we want to make a 'New Project' and not any of the other fancy things we could create:
-
-![There are many types of projects we can make in R, but for now we'll stick with a regular project.](images/S01F03_make_project.png){width="960"}
-
-Finally, we need to give our project an informative name:
-
-![Choose a name that will help you remember what this project is about!](images/S01F04_make_project.png){width="960"}
-
 ::: {.callout-note title="Name with underscores, not spaces"}
-You'll notice I named my project using an underscore (R_course) rather than a space (R course). **In general, when coding we want to name things without spaces**, so that it is clear to the computer that we are talking about a single entity (the 'R_course') as opposed to multiple things ('R' and 'course'). We'll revisit this idea later in the session in @sec-variables
+You'll notice I named my project using an underscore (r_course) rather than a space (r course). **In general, when coding we want to name things without spaces**, so that it is clear to the computer that we are talking about a single entity (the 'r_course') as opposed to multiple things ('r' and 'course'). We'll revisit this idea later in the session in @sec-variables
 :::
 
 ### Creating an R script {#sec-createRScript}
@@ -1381,32 +1382,19 @@ average(mouse_facts\$age)
 
 So far, we've explored the basics of R by creating our own data, or using built-in data objects like `letters` or `iris`. However, in real life analyses, we almost always need to read in data from files on our computers.
 
-In this section we will use the file named `mousezempic_dosage_data.csv`, which you can download using the button below:
-
-{{< downloadthis data/mousezempic_dosage_data.csv dname="mousezempic_dosage_data" label="Download the example data file" icon="file-earmark-arrow-down" type="primary" class="data-button" id="session01_data" >}}
-
-Place this file into the project directory you have made for this course (it's generally a good idea to keep all the data and code for a certain analysis together). If you'd like to be more organised, try placing it in a folder called 'data'.
-
-You can also download the file by running the following R code (note that you will need to have created a 'data' folder inside your R project folder first):
-
-```{r}
-#| eval: false
-dir.create("data") # create data directory if it doesn't exist
-# download the file into the data directory
-download.file("https://raw.githubusercontent.com/kzeglinski/new_wehi_r_course/refs/heads/main/data/mousezempic_dosage_data.csv", "data/mousezempic_dosage_data.csv")
-```
+In this section we will use the file named `mousezempic_dosage_data.csv`, which you can find in the 'data' folder of the R project provided with this course.
 
 ### Paths {#sec-paths}
 
 Paths tell R where to find the file you want to read in. They are strings of characters that first include the directory or series of directories in which a file is located, followed by the name of the file itself. For example, the path to a file called `my_data.csv` in a folder called `data` would be `data/my_data.csv`.
 
-In this course, we will use RStudio to help us find the paths to our files, without needing to type them out ourselves. If you're interested in learning more about paths, [codeacademy has a nice simple article on them](https://www.codecademy.com/resources/docs/general/file-paths).
+In this course, because we are all working out of the same R project (where the data files are all named the same and stored in a sub-folder called 'data'), we can all use the same paths. However, if you're interested in learning more about paths, check out the further reading section of this book (specifically @sec-fr-paths) or [codeacademy has a nice article on them](https://www.codecademy.com/resources/docs/general/file-paths).
 
-To find a file path easily in RStudio, you can use the file explorer panel. First, open it by clicking on the 'Files' tab in the bottom right panel of RStudio:
+One other thing that can make paths easier is to use RStudio's file explorer panel to help you. First, open it by clicking on the 'Files' tab in the bottom right panel of RStudio:
 
 ![The file explorer panel in RStudio](images/S01F21_file_explorer.png){width="900"}
 
-By default, it will put you in your project directory. If you have data files in a different directory, you can navigate to that directory by clicking on the folders. Here, I have navigated to a folder on my desktop called 'data', which is inside the 'R_course' folder. Once you're in the right place, to get the path for that folder, click on `More > Copy Folder Path to Clipboard`:
+By default, it will put you in your project directory. If you have data files in a different directory, you can navigate to that directory by clicking on the folders. Here, I have navigated to a folder called 'data', which is inside the 'R_course' folder. Once you're in the right place, to get the path for that folder, click on `More > Copy Folder Path to Clipboard`:
 
 ![Copying the folder path to the clipboard](images/S01F22_copy_folder_path.png){width="800"}
 
@@ -1443,8 +1431,7 @@ If you forget to load a package, R will give you an error when you try to use th
 To read in our data, we'll use the `read_delim()` function from the `readr` package. This function takes in the path to the file you want to read in (in quotation marks `""`, as this is a character string) and returns as output a tibble (this is basically the same as a data frame).
 
 ```{r}
-#| eval: false
-read_delim("~/Desktop/R_course/data/mousezempic_dosage_data.csv")
+read_delim("data/mousezempic_dosage_data.csv")
 ```
 
 ::: {.callout-note title="Delimiters"}
@@ -1475,13 +1462,6 @@ By default `read_delim()` will guess your delimiter, so it's easiest to use that
 As an example, let's try reading in our comma-separated file with `read_tsv()`, which is specifically for tab-separated files:
 
 ```{r}
-#| eval: false
-read_tsv("~/Desktop/R_course/data/mousezempic_dosage_data.csv")
-```
-
-```{r}
-#| echo: false
-# this is for rendering the book, path is different for learners so don't show this chunk
 read_tsv("data/mousezempic_dosage_data.csv")
 ```
 
@@ -1499,8 +1479,6 @@ Another conveninent way to get the path of your file (so long as you are working
 Now, let's take a look at the output of `read_delim()`:
 
 ```{r}
-#| echo: false
-# this is for rendering the book, path is maybe different for learners so don't show this chunk
 read_delim("data/mousezempic_dosage_data.csv")
 ```
 
@@ -1552,14 +1530,7 @@ For the purpose of this course, we can treat tibbles and data frames as the same
 No matter which function you use to read in your data, R simply prints the values out in the console. To actually work with data in R, we need assign our data frame to a variable:
 
 ```{r}
-#| eval: false
-dosage_data <- read_delim("~/Desktop/R_course/data/mousezempic_dosage_data.csv")
-```
-
-```{r}
-#| echo: false
-# this is for rendering the book, path is different for learners so don't show this chunk
-dosage_data <- read_delim("data/mousezempic_dosage_data.csv")
+dosage <- read_delim("data/mousezempic_dosage_data.csv")
 ```
 
 ### Reading data through RStudio's graphical interface {#sec-readinGUI}
@@ -1666,11 +1637,9 @@ Look at the help page for the functions we want to use
 
 ## Summary
 
-<!-- TO DO: make a nicely formatted PDF cheat sheet for printing -->
-
 Here's what we've learnt in this session:
 
--   How to create an R project (to keep our files organised) and how to write and run code from an R script (so that the code is saved as a record of our work)
+-   How to use an R project (to keep our files organised) and how to write and run code from an R script (so that the code is saved as a record of our work)
 
 -   The operators for basic maths (`*`, `/`, `+` and `-`) and comparisons (`==`, `<`, `<=` and `!`)
 
@@ -1721,7 +1690,7 @@ Try the practice questions below to test your understanding!
     frog_counts / sum(Frog_counts)
     ```
 
-4.  Load the `iris` dataframe into your R session using `data(iris)`. What is the median petal length? Show the code you used to calculate this.
+4.  Load the `iris` data frame into your R session using `data(iris)`. What is the median petal length? Show the code you used to calculate this.
 
 5.  Imagine I have a file called `mouse_survival.tsv` located in a folder with the path `~/Downloads/experimental_data/latest`. Write a line of R code to read in this file and assign it to a variable called `mouse_survival`
 

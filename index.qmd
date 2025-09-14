@@ -21,6 +21,46 @@ Code is shown in blue, with the output below it in grey, just like it would show
 
 You can run the code yourself by copying it (using the copy button in the top right of the code block) and pasting it into R on your computer.
 
+Practice exercises will appear in purple boxes:
+
+::: {.callout-important title="Practice exercises"}
+
+Multiple choice questions will appear as below. Click on the circle next to your chosen answer to see whether it is correct or not
+
+::: question
+1\. Which country was R invented in?
+
+::: choices
+::: choice
+USA
+:::
+
+::: {.choice .correct-choice}
+New Zealand
+:::
+
+::: choice
+Australia
+:::
+
+::: choice
+France
+:::
+:::
+:::
+
+A detailed explanation of the solutions to practice questions can be found by clicking on the grey 'Solutions' text like so:
+
+<details>
+
+<summary>Solutions</summary>
+
+R was invented by Ross Ihaka and Robert Gentleman from the University of Auckland as a programming language to teach introductory statistics
+
+</details>
+
+:::
+
 ## Acknowledgements
 We would like to thank Kerry Ko, Brendan Ansell and the WEHI education office for their work in organising and facilitating this course. We would also like to thank all of our instructors and tutors for making this course possible.
 

@@ -7,4 +7,22 @@ format:
 ---
 
 # Course summary & concluding remarks {.unnumbered}
-blah blah blah summary here 
+Congratulations on completing the WEHI R course! Over the past four weeks, we hope you have gained a solid foundation in data wrangling, visualisation, and analysis with R & the tidyverse. You can now read in, clean, transform, and explore data; create clear, publication-ready plots; and carry out a basic analysis from start to finish.
+
+But this is just the beginning of what you can do with R! Keep experimenting with your own data, using the concepts covered in this course, and by exploring many different R packages that exist to tackle particular analysis problems and data types. 
+
+Going forward, you can check out the links below which point to a variety of resources that can help you improve your R skills, and have a look at the 'further reading' section of this course for things we couldn't fit into the sessions themselves!
+
+## Useful references {#sec-useful-references}
+
+- [R for Data Science](https://r4ds.had.co.nz): this is a great online book that teaches you to do data science with R. Covering a wide range of topics using the `tidyverse` packages.
+
+- [The R Gallery](https://r-graph-gallery.com): this shows a range of plots that can be created in R using `ggplot2` with associated code for each plot.
+
+- [The paletteer gallery](https://pmassicotte.github.io/paletteer_gallery/): this is a visual showcase of the nice colour palettes contained in the `paletteer` package. Really helpful for making your plots look cute!
+
+- [R-bloggers](https://www.r-bloggers.com): this is a blog that aggregates posts from a wide range of R bloggers. It is a great resource for finding out about new packages and techniques in R.
+
+- [Datacamp R documentation](https://www.datacamp.com/doc/r): this provides a reference to a lot of programming and data analysis in R using base R functionality.
+
+- [Quarto](https://quarto.org/docs/get-started/hello/rstudio.html): this allows you to turn your R scripts into reports that combine code, the output of that code and text you can write to explain it. In fact, this whole course book was written using Quarto! There is also a [good explanation in the R for Data Science book](https://r4ds.hadley.nz/quarto.html) about why quarto is useful for data analysis

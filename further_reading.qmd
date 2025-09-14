@@ -7,18 +7,30 @@ format:
 ---
 
 # Further reading {.unnumbered}
+This section covers a variety of different topics that we couldn't fit into the main part of the course. 
 
-## Useful references {#sec-useful-references}
+## Creating your own R project {#sec-fr-project}
+To ensure everyone is working in a consistent environment for this course, we pre-made an R project for you to use. But what if you want to make your own project, for another analysis?
 
-- [R for Data Science](https://r4ds.had.co.nz): this is a great online book that teaches you to do data science with R. Covering a wide range of topics using the `tidyverse` packages.
+Recall from session 1 that you can see all of your R projects and create a new one in the top right hand corner of RStudio:
 
-- [The R Gallery](https://r-graph-gallery.com): this shows a range of plots that can be created in R using `ggplot2` with associated code for each plot.
+![In the top right hand corner of RStudio, you can see all of your projects](images/S01F01_make_project.png){width="960"}
 
-- [R-bloggers](https://www.r-bloggers.com): this is a blog that aggregates posts from a wide range of R bloggers. It is a great resource for finding out about new packages and techniques in R.
+Usually, you want to create a new project in a new directory (folder) so that everything stays organised:
 
-- [Datacamp R documentation](https://www.datacamp.com/doc/r): this provides a reference to a lot of programming and data analysis in R using base R functionality.
+![We usually want to make a new project in its own directory (folder)](images/S01F02_make_project.png){width="960"}
 
-## Paths
+Next, we need to tell R that we want to make a 'New Project' and not any of the other fancy things we could create:
+
+![There are many types of projects we can make in R, but for most analyses you can stick with a regular project.](images/S01F03_make_project.png){width="960"}
+
+Finally, we need to give our project an informative name:
+
+![Choose a name that will help you remember what this project is about!](images/S01F04_make_project.png){width="960"}
+
+Don't forget to name with underscores and not spaces!
+
+## Paths {#sec-fr-paths}
 
 We briefly touched on paths in the first session, but it is an important and complex topic that with worth digging into further. Paths are a way to specify the location of a file or directory on your computer, they are important whenever data needs to be read from or written to a file. This makes it a crucial concept for data analysis in R.
 
@@ -30,30 +42,31 @@ An absolute path is defined as the full path from the root directory of the comp
 
 Relative paths are defined as a path relative to the current working directory. If you are already in the directory `/home/users/my_username/analysis/`, the relative path to the file `data/file.txt` would be have the same meaning as the absolute path `/home/users/my_username/analysis/data/file.txt`. Relative paths are useful when the location of the file is likely to change, for example if the whole analysis folder might be moved around with its included data.
 
+### Home directories
 Users tend to have a home directory, which is the private directory each user is assigned. This directory is often located at `/home/my_username/` on Unix-based systems and `C:\Users\my_username\` on Windows systems. This directory commonly acts as the starting point for many paths local to the user, and can be referred to using the shortcut `~` (tilde). For example, the path `~/analysis/data/file.txt` would be equivalent to `/home/my_username/analysis/data/file.txt` on a Unix-based system. The exact path that is referred to by `~` can be found by running the command `Sys.getenv("HOME")` in R, and is relative to the user running the R session.
 
 ### The `here` package
-
-There are situations where you want to organise your scripts into folders, if you navigate to these folders and run the scripts, they will run within the folder they are in. But often you will want to run the script from the root folder of the project. For example if you have a script in `~/analysis/scripts/plot.R` and inside you use `data/file.txt` to reference `~/analysis/data/file.txt`, if you run the script from `~/analysis/scripts/` it will not find the file. The `here` package solved this problem by anchoring your paths relative to the root folder of the project. Details about the package can be found [here](https://here.r-lib.org).
+There are situations where you want to organise your scripts into folders, and if you navigate to these folders and run the scripts, they will run within the folder they are in. But often you will want to run the script from the root folder of the project. For example if you have a script in `~/analysis/scripts/plot.R` and inside you use `data/file.txt` to reference `~/analysis/data/file.txt`, if you run the script from `~/analysis/scripts/` it will not find the file. The `here` package solves this problem by anchoring your paths relative to the root folder of the project. Details about the package can be found [here](https://here.r-lib.org).
 
 ## Using AI helpers
 
-There are a range of useful AI helpers available that can help solve problems with R. These include ChatGPT, Claude and more. These can be useful for debugging, finding solutions to problems, and more. However, they it is important to remember that they are not perfect and do not always provide the correct answer. This can have serious consequences if code provided by an AI helper contains a mistake that ends up affecting the analysis. It is therefore very important to both check the code provided by an AI as before you run it and inspect the result it produces to ensure it is reliable.
+There are a range of useful AI helpers available that can help solve problems with R. These include ChatGPT, Gemini, GitHub Copilot and more. However, it is important to remember that **they are not perfect**. This can have serious consequences if code provided by an AI helper contains a mistake that ends up affecting the analysis. It is therefore very important to both check the code provided by an AI as before you run it and inspect the result it produces to ensure it is reliable.
 
 You should avoid:
 
 - Running code from an AI helper without checking it first
 - Running code from an AI helper without understanding the result it produces
 - Copy and pasting large amounts of code from an AI helper without understanding it
+- Copy and pasting confidential or patient data into AI helpers to get it to write you code
 - Using an AI helper as a substitute for learning how to code
 - Using an AI helper as a substitute for understanding the problem you are trying to solve
 
-Because of the way AI helpers work, if you don't understand a particular bit of code it produces, you can simply ask it to explain what it's doing. If you don't understand the explanation, or disagree with it, you should confront the AI helper with your concerns. Only run the code once you are sufficiently convinced that it's doing what you want.
+Because of the way AI helpers work, if you don't understand a particular bit of code it produces, you can simply ask it to explain what it's doing. If you don't understand the explanation, or disagree with it, you should confront the AI helper with your concerns or check with a real-life bioinformatician (we don't bite!). Only run the code once you are sufficiently convinced that it's doing what you want.
 
 To use AI effectively, it helps to provide as much context as possible. This includes but is not limited to:
 
 - The problem you are trying to solve
-- The data you are working with
+- The data you are working with (or a de-identified description of it)
 - The output you are expecting
 - The code you have already tried
 - The error messages you are getting
@@ -63,6 +76,3 @@ A better question could be "What plots are commonly used to visualise differenti
 
 The more information you provide the AI, the more likely it is to provide a useful answer. If you are confused about how to use a specific function, instead of asking the AI "How do I use the ... function from the ... package?", you can copy and paste the entire help page for the function into the AI chat along with a description of what you're trying to do.
 
-<!-- -   summarise the course/key points from each session -->
-
-<!-- -   put links to more advanced materials -->

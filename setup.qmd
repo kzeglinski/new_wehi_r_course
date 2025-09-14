@@ -14,9 +14,19 @@ If you're using a WEHI computer, you can install R/RStudio through the managed s
 
 On a personal computer, you can download and install R/RStudio [from the posit website](https://posit.co/download/rstudio-desktop/).
 
+## R project 
+
+In this course, we will work within a pre-made R project, so that everyone has the same files and folders. Before the course, please:
+
+1.  Download it using the button below
+2.  Move it to wherever you like on your computer
+3.  Unzip it (on mac: double-click, on windows: right-click, then click extract all)
+
+{{< downloadthis data/r_course.zip dname="r_course" label="Download the R project for this course" icon="file-earmark-arrow-down" type="primary" class="data-button" id="rproj" >}}
+
 ## Data files
 
-Commands to download the data files used in this course directly to your working directory will be provided during classes. Download buttons for the files also appear in this ebook when they are first introduced. For convenience, the files are also provided below:
+If for whatever reason you need to download the data files separately, here they are. The paths used in this course assume they are named as-is and located in a folder called 'data' that exists in the current working directory.
 
 {{< downloadthis data/mousezempic_dosage_data.csv dname=mousezempic_dosage_data label="Download mousezempic_dosage_data.csv" icon=file-earmark-arrow-down type=primary class=data-button id=main_data >}}
 
