@@ -9,24 +9,31 @@ filters:
   - naquiz
 
 book:
-  title: "WEHI R Course"
+  title: "BIOL90042 R Course"
   author: "Shian Su & Kathleen Zeglinski"
   date: today
   favicon: "favicon.ico"
   sidebar:
     search: true
-    title: "WEHI R Course Book"
+    title: "BIOL90042 R Course Book"
     style: docked
     logo: "WEHI_RGB_logo.png"
   chapters:
     - index.qmd
     - setup.qmd
-    - session_1.qmd
-    - session_2.qmd
-    - session_3.qmd
-    - session_4.qmd
-    - session_5.qmd
-    - session_6.qmd
+    - chapter_1.qmd
+    - chapter_2.qmd
+    - chapter_3.qmd
+    - chapter_4.qmd
+    - chapter_5.qmd
+    - stats_primer.qmd
+    - chapter_6.qmd
+    - chapter_7.qmd
+    - part: chapter_8.qmd
+      chapters:
+      - ch8_section_1.qmd
+      - ch8_section_2.qmd
+      - ch8_section_3.qmd
     - further_reading.qmd
     #- advanced_topics.qmd
 

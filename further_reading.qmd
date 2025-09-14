@@ -10,7 +10,9 @@ format:
 
 ## Useful references {#sec-useful-references}
 
-- [R for Data Science](https://r4ds.had.co.nz): this is a great online book that teaches you to do data science with R. Covering a wide range of topics using the `tidyverse` packages.
+- [R for Data Science](https://r4ds.hadley.nz/): this is a great online book that teaches you to do data science with R. Covering a wide range of topics using the `tidyverse` packages.
+
+- [ModernDive into R](https://moderndive.com/v2/index.html): this is an excellent book covering linear modelling and inferential statistics using tidyverse style code.
 
 - [The R Gallery](https://r-graph-gallery.com): this shows a range of plots that can be created in R using `ggplot2` with associated code for each plot.
 
@@ -18,13 +20,15 @@ format:
 
 - [Datacamp R documentation](https://www.datacamp.com/doc/r): this provides a reference to a lot of programming and data analysis in R using base R functionality.
 
+- [RNA-seq analysis is easy as 1-2-3](https://f1000research.com/articles/5-1408): the original workflow from which chapter 6 and 7 was adapted.
+
 - [Limma user's guide](https://www.bioconductor.org/packages/devel/bioc/vignettes/limma/inst/doc/usersguide.pdf): this is a comprehensive guide to using the `limma` package for differential expression analysis.
 
-- [A guide to creating design matrices for gene expression experiments](https://f1000research.com/articles/9-1444): this article explains design matrices for gene expression experiments in great detail and is written to be highly accessible to readers without a mathematical background.
+- [A guide to creating design matrices for gene expression experiments](https://f1000research.com/articles/9-1444){#design-matrix-paper}: this article explains design matrices for gene expression experiments in great detail and is written to be highly accessible to readers without a mathematical background.
 
 ## Paths
 
-We briefly touched on paths in the first session, but it is an important and complex topic that with worth digging into further. Paths are a way to specify the location of a file or directory on your computer, they are important whenever data needs to be read from or written to a file. This makes it a crucial concept for data analysis in R.
+We briefly touched on paths in the first chapter, but it is an important and complex topic that with worth digging into further. Paths are a way to specify the location of a file or directory on your computer, they are important whenever data needs to be read from or written to a file. This makes it a crucial concept for data analysis in R.
 
 ### Absolute paths
 
@@ -67,6 +71,6 @@ A better question could be "What plots are commonly used to visualise differenti
 
 The more information you provide the AI, the more likely it is to provide a useful answer. If you are confused about how to use a specific function, instead of asking the AI "How do I use the ... function from the ... package?", you can copy and paste the entire help page for the function into the AI chat along with a description of what you're trying to do.
 
-<!-- -   summarise the course/key points from each session -->
+<!-- -   summarise the course/key points from each chapter -->
 
 <!-- -   put links to more advanced materials -->

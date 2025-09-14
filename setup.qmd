@@ -4,20 +4,147 @@ toc: false
 
 # Setup {.unnumbered}
 
-## Installing R and RStudio on a WEHI computer
+## Installing Software
 
-If you're using a WEHI computer, you can install R/RStudio through the managed software centre:
+### R and RStudio
 
-![](images/setup_01.png)
+You can download and install R and RStudio through the [posit.co website](https://posit.co/download/rstudio-desktop/).
 
-## Installing R and RStudio on a non-WEHI computer
+![Install both R and RStudio](images/install_posit.jpg)
 
-On a personal computer, you can download and install R/RStudio [from the posit website](https://posit.co/download/rstudio-desktop/).
+The Posit website should automatically detect your operating system and link to the correct download file.
 
-## Data files
+## Mac users
 
-Commands to download the data files used in this course directly to your working directory will be provided during classes. Download buttons for the files also appear in this ebook when they are first introduced. For convenience, the files are also provided below:
+On Mac iOS, the download file should be `.tar.gz` format
 
-{{< downloadthis data/mousezempic_dosage_data.csv dname=mousezempic_dosage_data label="Download mousezempic_dosage_data.csv" icon=file-earmark-arrow-down type=primary class=data-button id=main_data >}}
+## PC users
 
-{{< downloadthis data/mousezempic_expression_data.tsv dname=mousezempic_expression_data label="Download mousezempic_expression_data.tsv" icon=file-earmark-arrow-down type=primary class=data-button id=expr_data >}}
+On windows operating system, the downloaded file should be `.exe` format
+
+### Lockdown Browser
+
+For BIOL90042 Masters Students Only: Install Lockdown Browser using this link <https://download.respondus.com/lockdown/download.php?id=113132090>
+
+# Files and Folders
+
+## New Desktop Folder
+
+Create a new folder on your Desktop named `BIOL90042_workshops`
+
+## Download data files
+
+Download the .zip file via this link, and save inside `BIOL90042_workshops`
+
+{{< downloadthis data.zip dname=data label="Download workshop data" icon=file-earmark-arrow-down type=primary class=data-button id=workshop_data >}}
+
+## Unzip data files
+
+Unzip the data.zip directory.
+You should see 4 files.
+Do not unzip any other files at this stage.
+
+# RStudio Code
+
+## Open RStudio
+
+## Create new .R file
+
+File \> New File \> R Script
+
+### Copy & Paste
+
+Copy the code block below and paste into the new file:
+
+::: {.callout-tip title="Copy icon"}
+Hint - Click the clipboard icon at top right in the code block below!
+:::
+
+```{r}
+#| eval: false
+
+## Setting up R for workshops 
+
+## Install tidyverse 
+install.packages("tidyverse") 
+
+## Install conflicted
+install.packages("conflicted") 
+
+## Install readxl & writexl
+install.packages("readxl")
+install.packages("writexl")
+
+## Install ggrepel  
+install.packages("ggrepel") 
+
+## Install tidyrstats 
+install.packages("tidyrstats") 
+
+##Install patchwork
+install.packages("patchwork") 
+
+
+## Install and Load packages required for RNAseq 
+
+if (!requireNamespace("BiocManager", quietly = TRUE)) 
+
+  install.packages("BiocManager") 
+
+BiocManager::install("RNAseq123") 
+
+
+## Install tidyheatmaps 
+install.packages("tidyheatmaps") 
+
+## Install tidymodels
+install.packages("tidymodels") 
+
+## Install vip
+install.packages("vip") 
+
+## Install xgboost
+install.packages("xgboost") 
+
+## Install ggridges
+install.packages("ggridges")
+
+## Load all libraries
+
+library(tidyverse)
+library(conflicted)
+library(readxl)
+library(writexl)
+
+library(ggrepel) 
+library(tidyrstats) 
+library(patchwork) 
+
+library(edgeR) 
+library(limma) 
+
+library(tidyheatmaps) 
+
+library(tidymodels)
+library(vip)
+library(xgboost)
+
+library(ggridges)
+
+```
+
+## Save the new file
+
+File \> Save the new file inside your `BIOL90042_workshops` folder, with name `setup.R`
+
+## Run the code
+
+Select all the code with mouse click & drag, or `CMD A` (mac) / `CTRL A` (pc), and clicking ‘Run’.
+
+![](images/run.jpg)
+
+Note this will take some time and there may be errors. Masters students can request further help in the first tutorial.
+
+## Restart R
+
+Once the code has run and all libraries can be loaded without errors, restart R by selecting **Session \> Restart R**. This will reset your R session ready for Chapter 1!
