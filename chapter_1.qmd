@@ -1177,7 +1177,7 @@ Another way to view the data frame is by clicking on its name in the environment
 
 ![Clicking on the data frame's name in the environment panel opens it in the viewer](images/S01F19_env_panel_data_frame.png){width="800"}
 
-This panel also shows you the names and types of the columns in the data frame. You might notice that the `Species` is described as a factor, which is a special type of data in R that we'll cover in @sec-chapter03.
+This panel also shows you the names and types of the columns in the data frame. You might notice that the `Species` is described as a factor, which is a special type of data in R that we'll return to in @sec-chapter06.
 
 Before the column names, you'll see the `$` symbol. The dollar sign `$` is a shortcut used in R to access columns of a data frame. For example, to access the `Petal.Width` column of the `iris` data frame, you can use `iris$Petal.Width`:
 

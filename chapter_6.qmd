@@ -95,7 +95,7 @@ gene_anno <- read_tsv('data/Ses3_geneAnnot.tsv')
 To use the `edgeR` package we first need to construct a `DGEList` object. This object contains 3 key pieces of data:
 
 - `counts`: the main data of this object, a matrix of count values with samples along the columns and features/genes along the rows. All data must be numeric!
-- `samples`: a data frame containing annotation for the samples. The rows in this table describe the corresponding column of the counts data.
+- `samples`: a data frame containing annotation for the samples. The rows in this table describe the corresponding column of the counts data. `samples` is created automatically by the `DGEList()` function.
 - `genes`: a data frame containing annotation for the genes in the counts matrix. The rows in this table describe the corresponding row in the counts matrix. Importantly, the row order for `counts` and `genes` must be identical for your analysis to run as expected!
 
 ::: {.callout-note title="Data objects"}

@@ -20,9 +20,11 @@ format:
 
 - [Datacamp R documentation](https://www.datacamp.com/doc/r): this provides a reference to a lot of programming and data analysis in R using base R functionality.
 
+- [RNA-seq analysis is easy as 1-2-3](https://f1000research.com/articles/5-1408): the original workflow from which chapter 6 and 7 was adapted.
+
 - [Limma user's guide](https://www.bioconductor.org/packages/devel/bioc/vignettes/limma/inst/doc/usersguide.pdf): this is a comprehensive guide to using the `limma` package for differential expression analysis.
 
-- [A guide to creating design matrices for gene expression experiments](https://f1000research.com/articles/9-1444): this article explains design matrices for gene expression experiments in great detail and is written to be highly accessible to readers without a mathematical background.
+- [A guide to creating design matrices for gene expression experiments](https://f1000research.com/articles/9-1444){#design-matrix-paper}: this article explains design matrices for gene expression experiments in great detail and is written to be highly accessible to readers without a mathematical background.
 
 ## Paths
 

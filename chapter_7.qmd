@@ -104,18 +104,20 @@ The first step to fitting a linear model is to specify a design matrix.
 The design matrix specifies the values of the covariates for each sample, and is represented as a matrix due to the mathematical convenience.
 
 To generate a design matrix.
-We use the function `model.matrix()`, with the expression `~0 + group`.
-This returns a matrix representing the design where there is no intercept term and group is the only covariate.
+We use the function `model.matrix()`, with the expression `~ 0 + group`.
+This returns a matrix representing the design where there is no intercept term and group is the only covariate. This is known as a 'means model.'
 If we omit the `0` then there would be an intercept in the model, and if we included more covariates then more columns would be generated.
 
 ```{r}
-design <- model.matrix(~0 + group, data = dge$samples)
+design <- model.matrix(~ 0 + group, data = dge_norm$samples)
 design
 ```
 
-There are 9 rows, one for each sample.
-Along the columns are the names of the groups.
+There are 9 rows, one for each sample (enabled by the rownames set on the dge_norm$samples data frame).  
+The column names correspond to the experimental groups.  
 The values in the cells denote membership of the particular sample for a particular group, as our groups in this case are mutually exclusive, each row contains only a single 1 to denote membership in a single group.
+
+For an excellent comprehensive explanation of design matrices in limma, see [this Further reading article](further_reading.qmd#design-matrix-paper).
 
 ### Contrasts
 
@@ -603,5 +605,11 @@ Now we can save the MA plot to our output:
 ggsave("output/ma_plot_BasalvsLP.png", ma_bvl)
 
 ```
+
+### Gene set testing
+
+Although beyond the scope of this subject, researchers are often interested in discovering biological trends in differential gene expression results such as we have generated above. To do this, genes can be grouped according to their involvement in similar biological processes, molecular functions or cellular components, for example. A single gene can be involved in multiple biological processes, and have multiple 'terms' or 'labels'. Genes with the same assigned term are called a 'gene set'. 
+
+'Gene set enrichment analysis' is the science of identifying terms that are over-represented among differentially expressed genes. There are many methods for doing this, and ensemble methods (aggregating results from multiple enrichment testing methods), is an optimal approach, as detailed [here](https://academic.oup.com/bioinformatics/article/33/3/414/2875813).
 
 ## References
