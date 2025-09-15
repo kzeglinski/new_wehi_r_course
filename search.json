@@ -54,17 +54,7 @@
     "href": "setup.html#r-project",
     "title": "Setup",
     "section": "R project",
-    "text": "R project\nIn this course, we will work within a pre-made R project, so that everyone has the same files and folders. Before the course, please:\n\nDownload it using the button below\nMove it to wherever you like on your computer\nUnzip it (on mac: double-click, on windows: right-click, then click extract all)\n\n Download the R project for this course",
-    "crumbs": [
-      "Setup"
-    ]
-  },
-  {
-    "objectID": "setup.html#data-files",
-    "href": "setup.html#data-files",
-    "title": "Setup",
-    "section": "Data files",
-    "text": "Data files\nIf for whatever reason you need to download the data files separately, here they are. The paths used in this course assume they are named as-is and located in a folder called ‘data’ that exists in the current working directory.\n Download mousezempic_dosage_data.csv \n Download mousezempic_expression_data.tsv",
+    "text": "R project\nIn this course, we will work within a pre-made R project, so that everyone has the same files and folders. Before the course, please:\n\nDownload it using the button below\nMove it to wherever you like on your computer\nUnzip it (on mac: double-click, on windows: right-click, then click extract all)\n\n Download the R project for this course \n\n\nIndividual data file downloads\n\nIf for whatever reason you need to download the data files separately, here they are. The paths used in this course assume they are named as-is and located in a folder called ‘data’ that exists in the current working directory.\n Download mousezempic_dosage_data.csv \n Download mousezempic_expression_data.tsv",
     "crumbs": [
       "Setup"
     ]
