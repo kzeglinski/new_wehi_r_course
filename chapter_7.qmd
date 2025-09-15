@@ -184,7 +184,7 @@ The output of `voom()` (our variable `v`) is an `EList` object which contains th
 -   `design` - the design matrix.
 
 The 'voom plot' shows the mean-variance relationship of the data.
-The x-axis is the average log2 expression of each gene, and the y-axis is the log2 standard deviation of each gene.
+The x-axis is the average log2 expression of each gene, and the y-axis is the square root of the standard deviation of each gene.
 The idea is that the variance of a gene can be estimated as a function of its main expression, and that this estimate is more accurate than the direct calculation of the variance.
 
 ### Fitting the linear model
@@ -250,7 +250,7 @@ Note that the contrast name must be given in quotes and must be exactly as writt
 
 It outputs a data frame with the following information:
 
--   **Gene details** - gene information, from the `gene` element of the `MArrayLM` object (`efit`).
+-   Gene details - gene information, from the `gene` element of the `MArrayLM` object (`efit`).
 -   `logFC` - the log2 fold change of the contrast.
 -   `AveExpr` - the average log2 expression of that gene.
 -   `t` - moderated t-statistic.
@@ -275,7 +275,7 @@ In this section we will make plots of both the summary statistics (topTable outp
 
 To start with we extract all the data required to make any of the the common RNAseq results plots.
 
-The experimental sample metadata and log(CPM) values were extracted to `samples_tbl` and `log_cpm_tbl` respectively, in the previous chapter.
+The experimental sample metadata and log(CPM) values were extracted to `samples_tbl` and `logcpm_tbl` respectively, in the previous chapter.
 
 Here we will also extract the summary statistics for the remaining two pair-wise contrasts into separate tables.
 
