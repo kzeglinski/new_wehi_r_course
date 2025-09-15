@@ -24,10 +24,14 @@ In this course, we will work within a pre-made R project, so that everyone has t
 
 {{< downloadthis data/r_course.zip dname="r_course" label="Download the R project for this course" icon="file-earmark-arrow-down" type="primary" class="data-button" id="rproj" >}}
 
-## Data files
+<details>
+
+<summary>Individual data file downloads</summary>
 
 If for whatever reason you need to download the data files separately, here they are. The paths used in this course assume they are named as-is and located in a folder called 'data' that exists in the current working directory.
 
 {{< downloadthis data/mousezempic_dosage_data.csv dname=mousezempic_dosage_data label="Download mousezempic_dosage_data.csv" icon=file-earmark-arrow-down type=primary class=data-button id=main_data >}}
 
 {{< downloadthis data/mousezempic_expression_data.tsv dname=mousezempic_expression_data label="Download mousezempic_expression_data.tsv" icon=file-earmark-arrow-down type=primary class=data-button id=expr_data >}}
+
+</details>
