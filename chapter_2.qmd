@@ -69,7 +69,7 @@ my_vector %>% mean() %>% round(digits = 2) %>% as.character()
 R is clever enough to know that the first argument to `round()` is still the output of `mean()`, even though we've now specified the `digits` argument.
 
 ::: {.callout-note title="Plenty of pipes"}
-There is another style of pipe in R, called the 'base R pipe' `%>%`, which is available in R version 4.1.0 and later.
+There is another style of pipe in R, called the 'base R pipe' `|>`, which is available in R version 4.1.0 and later.
 The base R pipe works in a similar way to the `magrittr` pipe (`%>%`) that we use in this course, but it is not as flexible.
 We recommend using the `magrittr` pipe for now.
 
