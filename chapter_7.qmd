@@ -185,7 +185,7 @@ The output of `voom()` (our variable `v`) is an `EList` object which contains th
 
 The 'voom plot' shows the mean-variance relationship of the data.
 The x-axis is the average log2 expression of each gene, and the y-axis is the square root of the standard deviation of each gene.
-The idea is that the variance of a gene can be estimated as a function of its main expression, and that this estimate is more accurate than the direct calculation of the variance.
+The idea is that the variance of a gene can be estimated as a function of its average expression, and that this estimate is more accurate than the direct calculation of the variance.
 
 ### Fitting the linear model
 

@@ -85,9 +85,9 @@ We construct a workflow where the xgboost model now includes the original recipe
 
 ```{r}
 
-wf_xgb_tune  <- workflow() |> 
+wf_xgb_tune  <- workflow() %>% 
   # model outcome and features & pre-processing steps:
-  add_recipe(rec_cl) |> 
+  add_recipe(rec_cl) %>% 
   #hyper-parameters, machine learning model type, and mode:
   add_model(xgb_spec_tune_cl)
 ```
@@ -116,7 +116,7 @@ We can generate a plot to inspect the performance metrics for each combination o
 
 ```{r}
 
-collect_metrics(xgb_tune_res) |> 
+collect_metrics(xgb_tune_res) %>% 
   ggplot(aes(x = factor(tree_depth), y = mean)) + 
   geom_point(aes(size = log10(learn_rate)), pch = 1) + 
   facet_wrap(~ .metric) + 
@@ -131,8 +131,8 @@ If considering only the AUROCC metric, we can create a tile plot to identify the
 ```{r}
 
 
-show_best(xgb_tune_res, metric = 'roc_auc', n = Inf) |>
-  mutate(log_learnrate = log10(learn_rate)) |>
+show_best(xgb_tune_res, metric = 'roc_auc', n = Inf) %>%
+  mutate(log_learnrate = log10(learn_rate)) %>%
   ggplot(aes(
     x = factor(log_learnrate),
     y = factor(tree_depth),
@@ -154,7 +154,7 @@ best_params
 Confirm that the best model has been selected, by printing all results and sorting on descending mean:
 
 ```{r}
-collect_metrics(xgb_tune_res) |> arrange(desc(mean))
+collect_metrics(xgb_tune_res) %>% arrange(desc(mean))
 ```
 
 ### Finalize workflow
@@ -232,12 +232,12 @@ Calculate the AUC for the original model:
 ```{r}
 
 aurocc_orig <- roc_auc(pred_orig,  truth = status, .pred_malignant, 
-                       event_level = "second") |> 
-  pull(.estimate) |> round(3)
+                       event_level = "second") %>% 
+  pull(.estimate) %>% round(3)
 
 auprc_orig <- pr_auc(pred_orig,  truth = status, .pred_malignant, 
-                     event_level = "second") |> 
-  pull(.estimate) |> round(3)
+                     event_level = "second") %>% 
+  pull(.estimate) %>% round(3)
 
 ```
 
@@ -245,13 +245,13 @@ auprc_orig <- pr_auc(pred_orig,  truth = status, .pred_malignant,
 
 ```{r}
 aurocc_tuned <- roc_auc(pred_tuned, truth = status, .pred_malignant,
-                        event_level = "second") |> 
-  pull(.estimate) |> round(3)
+                        event_level = "second") %>% 
+  pull(.estimate) %>% round(3)
 
 
 auprc_tuned <- pr_auc(pred_tuned, truth = status, .pred_malignant, 
-                      event_level = "second") |> 
-  pull(.estimate) |> round(3)
+                      event_level = "second") %>% 
+  pull(.estimate) %>% round(3)
 
 ```
 
@@ -266,10 +266,10 @@ Here we create ROC and PR curves using ggplot, to directly compare the performan
 #| fig-height: 5
 
 roc_origVtuned <- bind_rows(
-  roc_orig  |> arrange(sensitivity), 
-  roc_tuned |> arrange(sensitivity) ) 
+  roc_orig  %>% arrange(sensitivity), 
+  roc_tuned %>% arrange(sensitivity) ) 
   
-roc_origVtuned |> ggplot(aes(x = 1-specificity, y = sensitivity)) +
+roc_origVtuned %>% ggplot(aes(x = 1-specificity, y = sensitivity)) +
   geom_step(aes(color=model), lwd=1.5) +
   geom_abline(linetype = "dashed", color = "grey") +
   annotate("text", x = 0.6, y = 0.2, 
@@ -293,10 +293,10 @@ roc_origVtuned |> ggplot(aes(x = 1-specificity, y = sensitivity)) +
 
 
 pr_origVtuned <- bind_rows(
-  pr_orig  |> arrange(desc(precision)),
-  pr_tuned |> arrange(desc(precision)))
+  pr_orig  %>% arrange(desc(precision)),
+  pr_tuned %>% arrange(desc(precision)))
   
-pr_origVtuned |> 
+pr_origVtuned %>% 
   ggplot(aes(x = recall, y = precision)) +
   geom_step(aes(color=model), lwd=1.5) +
   geom_hline(linetype = "dashed", color = "grey",yintercept = 0.5) +

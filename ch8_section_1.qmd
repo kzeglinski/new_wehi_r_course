@@ -60,7 +60,7 @@ Automatic quantification of image features produces `r ncol(tumor_data) -2` 'fea
 
 ```{r}
 
-dat_long <- tumor_data |> 
+dat_long <- tumor_data %>% 
   pivot_longer(names_to = "key", values_to = "value", 
                cols = -c(donorid, status))
 
@@ -70,7 +70,7 @@ dat_long <- tumor_data |>
 
 ```{r}
 
-dat_long |>   ggplot(aes(x=value,group=key)) + geom_density()
+dat_long %>%   ggplot(aes(x=value,group=key)) + geom_density()
 
 ```
 
@@ -78,7 +78,7 @@ The data doesnt look normally distributed, but there is a big over-plotting prob
 
 ```{r}
 
-dat_long |>  ggplot(aes(x=value)) + 
+dat_long %>%  ggplot(aes(x=value)) + 
   geom_density_ridges(aes(y=key))
 ```
 
@@ -87,7 +87,7 @@ The measurements in the dataset have a positive skew, meaning they are non-norma
 ### Log transform
 
 ```{r}
-dat_long_log <- dat_long |>
+dat_long_log <- dat_long %>%
   mutate(value=log10(value))
 ```
 
@@ -95,7 +95,7 @@ Plot transformed data
 
 ```{r}
 
-dat_long_log |>  ggplot(aes(x=value)) + 
+dat_long_log %>%  ggplot(aes(x=value)) + 
   geom_density_ridges(aes(y=key))
 ```
 
@@ -109,10 +109,10 @@ Reshape log-transformed data to wide format, and calculate principal components 
 
 ```{r}
 
-dat_wide_log <- dat_long_log |> 
+dat_wide_log <- dat_long_log %>% 
   pivot_wider(names_from = "key", values_from="value") 
   
-pc_dat <- dat_wide_log |> select(-c(donorid,status)) |> 
+pc_dat <- dat_wide_log %>% select(-c(donorid,status)) %>% 
         #principal components function
   prcomp()
 
@@ -124,14 +124,14 @@ Plot first 2 PCs, coloured by tumor status
 
 ```{r}
 
-pcs_fitted <- pc_dat |> augment() 
+pcs_fitted <- pc_dat %>% augment() 
   
 #Join the sample labels to the fitted PCs
-pc_plot_dat <- bind_cols(tumor_data |> select(status), 
+pc_plot_dat <- bind_cols(tumor_data %>% select(status), 
                          pcs_fitted) 
 
 #Scatter plot
-pc_plot_dat |> 
+pc_plot_dat %>% 
   ggplot(aes(.fittedPC1, .fittedPC2)) + 
   geom_point(aes(col=status), size=2)
 
@@ -150,8 +150,8 @@ Our experimental question is 'Are any features (y) significantly different betwe
 ```{r}
 
 #marginal effects
-dat_long_log |> group_by(key) |> 
-  lm_test( value ~  status  ) |> filter(term!='intercept') 
+dat_long_log %>% group_by(key) %>% 
+  lm_test( value ~  status  ) %>% filter(term!='intercept') 
 
 
 ```
@@ -165,8 +165,8 @@ We can see several features do have significant associations with tissue status!
 #features_of_interest (FOI)
 foi <- c('granularity','intensity_8','membrane_curvature')
 
-dat_long_log |> 
-  filter(key %in% foi) |> 
+dat_long_log %>% 
+  filter(key %in% foi) %>% 
   ggplot(aes(x=status , y=value)) + geom_boxplot() +
   geom_jitter(aes(group=status), width=0.2,size=0.5) +
   facet_wrap(~key)

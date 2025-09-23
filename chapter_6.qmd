@@ -355,7 +355,7 @@ First we extract the transcriptional variance explained by each dimension into a
 
 ```{r}
 
-var_expln <- tibble(propn = mds_result$var.explained * 100 ) |> 
+var_expln <- tibble(propn = mds_result$var.explained * 100 ) %>% 
     rownames_to_column(var = 'dimension') 
 ```
 
@@ -363,8 +363,8 @@ Dimensions 1 and 2 are plotted by default. We can now extract and round the prop
 
 ```{r}
 
-dim1_expl <- var_expln |> filter(dimension==1) |> pull(propn) |> round()
-dim2_expl <- var_expln |> filter(dimension==2) |> pull(propn) |> round()
+dim1_expl <- var_expln %>% filter(dimension==1) %>% pull(propn) %>% round()
+dim2_expl <- var_expln %>% filter(dimension==2) %>% pull(propn) %>% round()
 
 ```
 
@@ -379,7 +379,7 @@ mds_tbl_label <- left_join(samples_tbl, mds_tbl, by = 'id') %>%
 To recreate the plotMDS plot:
 
 ```{r}
-mds_tbl_label |> 
+mds_tbl_label %>% 
   ggplot(aes(x=dim1, y=dim2)) + 
   geom_text(aes(label = group)) + 
   labs(x = paste0('Dim 1 variance explained = ', dim1_expl,'%'),
@@ -390,7 +390,7 @@ mds_tbl_label |>
 Now that we have our data in a nice tidy format we can use with ggplot, it's easy to create variations of the plot. For example we can draw points instead of group labels, and use colour to identify the groups.
 
 ```{r}
-mds_tbl_label |> 
+mds_tbl_label %>% 
   ggplot(aes(x=dim1, y=dim2, colour = group)) + 
   geom_point() + 
   labs(x = paste0('Dim 1 variance explained = ', dim1_expl,'%'),
