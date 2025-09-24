@@ -11,7 +11,7 @@ Congratulations on completing the WEHI R course! Over the past four weeks, we ho
 
 But this is just the beginning of what you can do with R! Keep experimenting with your own data, using the concepts covered in this course, and by exploring many different R packages that exist to tackle particular analysis problems and data types. 
 
-Going forward, you can check out the links below which point to a variety of resources that can help you improve your R skills, and have a look at the 'further reading' section of this course for things we couldn't fit into the sessions themselves!
+Going forward, you can check out the links below which point to a variety of resources that can help you improve your R skills, and have a look at the 'further reading' section of this course for things we couldn't fit into the sessions themselves.
 
 ## Useful references {#sec-useful-references}
 
