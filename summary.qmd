@@ -26,3 +26,5 @@ Going forward, you can check out the links below which point to a variety of res
 - [Datacamp R documentation](https://www.datacamp.com/doc/r): this provides a reference to a lot of programming and data analysis in R using base R functionality.
 
 - [Quarto](https://quarto.org/docs/get-started/hello/rstudio.html): this allows you to turn your R scripts into reports that combine code, the output of that code and text you can write to explain it. In fact, this whole course book was written using Quarto! There is also a [good explanation in the R for Data Science book](https://r4ds.hadley.nz/quarto.html) about why quarto is useful for data analysis
+
+- [RLadies Melbourne events](https://r-ladiesmelbourne.github.io/): RLadies Melbourne is the Melbourne chapter of the global [RLadies](https://rladies.org/) organisation. They regularly run educational workshops using R, and events are open to everyone!

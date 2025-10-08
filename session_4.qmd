@@ -872,30 +872,311 @@ Today, we've tried to put together all of the skills we've learned in this R cou
 
 Of course, a real data analysis will likely be much longer and more complex than the toy examples we have tackled today. However, we hope that it has provided you with a basic, yet versatile toolkit for transforming the messy data you will find in the wild into a neat, tidy format that you can use to explore your research questions and produce gorgeous data visualisations. 
 
-<!--
 ### Practice questions
-If you have time, try having a go at addressing these additional research questions. There are many different ways to approach them, so don't worry if yours doesn't match exactly with the solutions.
+If you have time, try having a go at addressing these additional research questions that extend those covered in the main body of the session. There are many different ways to approach them, so don't worry if yours doesn't match exactly with the solutions.
 
-::: {.callout-important title="Practice exercise: looking at individual replicates"}
+#### Practice question 1: Looking more deeply into weight loss
+In our first research question, we investigated the relationship between the dosage of mousezempic and the amount of weight (in g) lost by each mouse. But, is there a better way to measure weight loss than just the number of grams lost?
 
-ask students to facet the plot by replicate
+To start examining this, it would be helpful to know the distribution of the mices' initial weights. 
+
+::: {.callout-important title="How much do the mice weigh before taking mousezempic?"}
+
+We can examine this numerically and visually. First practice your dplyr skills and use the `summarise()` function to calculate some sensisble summary statistics
+
+<details>
+
+<summary>Solution</summary>
+
+You can achieve this using the `summarise()` function without grouping, as shown below. Notice that we filter out NAs in this column first with `filter()`, because otherwise we'd have to set `na.rm = TRUE` for each of the summary statistic function calls, which would be annoying:
+
+```{r}
+dosage %>%
+  # first remove NAs in the initial_weight_g column
+  filter(!is.na(initial_weight_g)) %>%
+  # then calculate summary statistics
+  summarise(
+    min_iw = min(initial_weight_g),
+    max_iw = max(initial_weight_g),
+    av_iw = mean(initial_weight_g),
+    sd_iw = sd(initial_weight_g),
+    med_iw = median(initial_weight_g))
+```
+
+This is a nice way to practice your dplyr skills, but in reality, it's probably easier to use the `summary()` function that's built into R. Note that this function operates on a vector, so you need to access the `initial_weight_g` column as a vector first by either using `pull()` or the `$` syntax we covered in session 1.
+
+```{r}
+# using pull():
+dosage %>% pull(initial_weight_g) %>% summary()
+
+# using $
+summary(dosage$initial_weight_g)
+```
+
+</details>
+
+Next, let's look at this visualling by making a histogram of the initial mice weights:
+
+<details>
+
+<summary>Solution</summary>
+
+To make a histogram with ggplot2, we can use the `geom_histogram()` function:
+
+```{r}
+ggplot(dosage, aes(x = initial_weight_g)) + 
+  geom_histogram()
+```
+
+Since this plot is kind of ugly, let's make some cosmetic changes (optional):
+```{r}
+ggplot(dosage, aes(x = initial_weight_g)) + 
+  geom_histogram(fill = "plum", colour = "white") +
+  theme_bw()
+```
+
+</details>
+
+Looking at these results, it seems like there is a fairly wide spread of initial weights of the mice. So, could this be affecting our interpretation of the results?
 
 :::
 
+It stands to reason that mice that weigh more initially would probably be able to lose more weight once they start taking mousezempic. So, what if we expressed weight loss as a percentage of the initial body weight, rather than just in grams?
+
+::: {.callout-important title="Expressing weight lost as a percentage"}
+
+Use the `mutate()` function to add a column to the dosage data frame expressing the weight lost as a percentage of the initial weight. Then, plot the relationship between the drug dosage and percentage weight lost (coloured by mouse strain) as a scatterplot. How does this differ from when we simply looked at weight loss in grams? Hint: compare the two scatterplots by placing them side-by-side with the patchwork package, as we learned in @sec-session03.
+
+<details>
+
+<summary>Solution</summary>
+
+First, we need to create the `percent_wl` column, and we will also use the mutate function to convert grams to milligrams as we did in research question 1:
+
+```{r}
+# assign to a variable so we can use this data frame later
+dosage_wl_percent <- dosage %>% 
+  # we can create multiple new columns in a single mutate() function call
+  mutate(
+    percent_wl = (weight_lost_g / initial_weight_g) * 100,
+    drug_dose_mg = drug_dose_g * 1000) 
+```
+
+Now that we've added these columns, let's make the two scatterplots and put them side by side. To do this, we need to assign the plots to variables.
+
+```{r}
+# make sure the patchwork package is loaded
+library(patchwork)
+
+# the new scatterplot
+scatterplot_percentage <- ggplot(dosage_wl_percent, aes(x = drug_dose_mg, y = percent_wl, colour = mouse_strain)) +
+  geom_point() + 
+  labs(title = "Weight lost as a percentage") +
+  theme_minimal() +
+  # remove the legend, since they are the same on both plots and it's a waste
+  # to have it twice
+  theme(legend.position = "none")
+
+# the original scatterplot
+scatterplot_grams <- ggplot(dosage_wl_percent, aes(x = drug_dose_mg, y = weight_lost_g, colour = mouse_strain)) +
+  geom_point() + 
+  theme_minimal() +
+  labs(title = "Weight lost in grams")
+
+# arrange them with patchwork
+scatterplot_percentage + scatterplot_grams
+```
+
+The two plots actually look quite different! While the BALB C and CD-1 mice lost a similar amount of grams when given similar dosages of mousezempic, the CD-1 mice on average weigh less than the BALB C mice, so in terms of the percentage of body weight lost, they have lost more. How interesting!
+
+</details>
+
+Recall that in research question one, we also explored the effect of sex on the relationship. Try faceting the new scatterplot you created above by sex and see what happens... hint: to clearly see this new pattern, you might need to add a linear trendline with `geom_smooth()`.
+
+<details>
+
+<summary>Solution</summary>
+
+```{r}
+# we can use the data frame we created above (dosage_wl_percent)
+dosage_wl_percent %>%
+  # although ggplot2 implicitly removes NA points, a facet will still
+  # be created for those mice whose sex is unknown (try commenting this)
+  # line out and seeing what happens! So we should remove NAs in the sex column.
+  filter(!is.na(sex)) %>% 
+  # recall we can pipe data directly into ggplot(), just don't mix up your %>% and + 
+  ggplot(aes(x = drug_dose_g, y = percent_wl, colour = mouse_strain)) + 
+  geom_point() + 
+  geom_smooth(method = "lm") + 
+  facet_wrap(~sex) +
+  theme_minimal()
+
+```
+
+The trendlines for the male and female mice actually look quite different! Perhaps this is just an artefact of our relatively low sample size, but it might also be a true pattern in the data.
+
+</details>
+
+:::
+
+#### Practice question 2: normalising the gene expression data
 Normalisation is a common step in many data analyses, as it allows us to more easily compare data across samples or experimental groups. For example, if we were to plot the expression of all genes across the three replicates:
 
 ```{r}
 genes_tidy %>%
   ggplot(aes(x = replicate, y = expression)) + 
-    geom_boxplot()
+    geom_boxplot() +
+    theme_minimal()
 ```
 
-We can see that replicate 2 has higher expression on average compared to replicates 1 and 3. 
+We can see that replicate 2 has higher expression on average compared to replicates 1 and 3. This might skew our results if we don't correct for it. 
 
 There are many different ways to normalise data, depending on the type, but for the sake of this question we'll:
 
 1. Calculate the average HPRT1 expression in each replicate
 2. Divide all TH and PRLH measurements by the average HPRT1 expression calculated above
 
-Take a moment to think about how you could achieve this using either the 
--->
+Take a moment to think about how you could achieve this, and whether it would work better on the **wide** or **long** form of the genes data frame.
+
+<details>
+
+<summary>Solution</summary>
+
+It would be much easier to do with the wide form data! That's because each individual replicate/gene measurement is split into its own column, and in general, when using the mutate function (which is what we would need to create a new column of the normalised data) we want to work on columns. This will be a great practice of our pivoting skills, turning the `genes_tidy` data into wide format, performing the calculation and then pivoting it back to long format for plotting.
+
+Keep this in mind for your own analysis, while plotting is usually easier in long format, some types of data analysis/manipulation are easier in wide format. You can change between them as it suits you!
+
+</details>
+
+::: {.callout-important title="Normalising the gene expression values"}
+
+Our first task is to pivot the data into wide format. To help you do this, take a look at the `genes_tidy` data frame, and think about what columns exist and what new ones we need to create:
+
+```{r}
+genes_tidy
+```
+
+Check the out the pivoting section above (@sec-pivot) if you need a refresher on pivoting!
+
+<details>
+
+<summary>Solution</summary>
+
+To do the calculation outlined above, it would be handy if each replicate of each gene was in its own column. So, our column names should come from the 'gene' and 'replicate columns' (i.e. the `names_from` argument should be equal to `c(gene, replicate)`). Inside these columns should be the gene expression values, so the `values_from` argument should be 'expression'
+
+```{r}
+genes_tidy %>%
+  pivot_wider(
+    # create new columns based on the genes and the replicates
+    names_from = c(gene, replicate),
+    # the values in these columns should be gene expression
+    values_from = expression)
+```
+
+</details>
+
+Now that the data is in wide format, we can create the normalised columns:
+
+<details>
+
+<summary>Solution</summary>
+
+We create new normalised columns that are calculated by dividing the regular column by the mean of HPRT expression in that replicate:
+
+```{r}
+# save in a variable so we can use for plotting later
+normalised_data <- genes_tidy %>%
+  # first pivot
+  pivot_wider(
+    names_from = c(gene, replicate),
+    values_from = expression) %>%
+  # then mutate. recall we need to find the average HPRT expression
+  # and then divide the other genes by that
+  mutate(
+    Th_rep1_norm = Th_rep1 / mean(Hprt1_rep1),
+    Prlh_rep1_norm = Prlh_rep1 / mean(Hprt1_rep1),
+    Th_rep2_norm = Th_rep2 / mean(Hprt1_rep2),
+    Prlh_rep2_norm = Prlh_rep2 / mean(Hprt1_rep2),
+    Th_rep3_norm = Th_rep3 / mean(Hprt1_rep3),
+    Prlh_rep3_norm = Prlh_rep3 / mean(Hprt1_rep3)
+  )
+```
+
+</details>
+
+:::
+
+Now that we've normalised the data, let's revist our second research question: does mousezempic change gene expression?
+
+::: {.callout-important title="Does normalising the data affect the relationship between mousezempic and gene expression?"}
+
+First, we need to take the wide data frame we created above and pivot it into a long form that is suitable for plotting (hint: remove the non-normalised gene expression columns first with the `select()` function). Then, we can make the boxplot as above.
+
+<details>
+
+<summary>Solution</summary>
+
+There are many different approaches we could use to pivot our normalised data into long format. Regardless of the approach, the first thing we need to do is to remove the non-normalised gene expression columns, because they will make it hard to pivot. Then, we need to pivot it longer, somehow separating the gene name and replicate into their own columns.
+
+This can be done by using the separate function, as we learned earlier:
+
+```{r}
+long_normalised_data <- normalised_data %>%
+  # remove the original expression values: we don't need them and they'll
+  # make pivoting difficult
+  select(group, id_num, contains("norm")) %>%
+  pivot_longer(
+    # pivot all columns containing the string 'norm'
+    cols = contains("norm"),
+    names_to = "measurement",
+    values_to = "rel_expression") %>%
+  separate(
+      measurement, 
+      # NA tells the separate function to discard the last bit ('norm')
+      # you don't need to use it, but it's better to explicitly write that
+      # you want to exclude that portion
+      into = c("gene", "replicate", NA), 
+      sep = "_")
+```
+
+Here's a slightly more advanced way to do this, using the `names_sep` argument of `pivot_longer()` to separate the column names by underscore and place each part in its own column (so we can split up the gene name and replicate, without needing to use the `separate()`) function:
+
+```{r}
+normalised_data %>%
+  # remove the original expression values: we don't need them and they'll
+  # make pivoting difficult
+  select(group, id_num, contains("norm")) %>%
+  pivot_longer(
+    # pivot all columns containing the string 'norm'
+    cols = contains("norm"),
+    # the first part of the column name is the gene, the second is the replicate
+    # and the final part is just 'norm' to indicate its normalised. this is redundant
+    # so we can use NA to tell dplyr to discard it
+    names_to = c("gene", "replicate", NA),
+    names_sep = "_"
+  )
+```
+
+Once the data is pivoted, it can then be plotted:
+
+```{r}
+long_normalised_data %>%
+  # as before, we'll use the str_remove function to clean up the
+  # treatment/control labels on our plot
+  mutate(group = str_remove(group, "grp_")) %>%
+  ggplot(aes(x = group, y = rel_expression)) +
+    geom_boxplot() +
+    facet_wrap(~ gene, scales = "free") +
+    theme_bw() +
+    # add the other labels 
+    labs(
+      title = "Effect of mousezempic on gene expression",
+      x = "Group", 
+      y = "Expression (arbitrary units, relative to housekeeping gene)")
+```
+
+It looks like the shift in gene expression in mice taking mousezempic remains even after normalisation of the data. However, some of the outliers have now disappeared which makes the boxplot look a bit cleaner.
+
+</details>
+
+:::
