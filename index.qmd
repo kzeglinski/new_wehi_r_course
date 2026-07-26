@@ -3,6 +3,7 @@ toc: false
 ---
 
 # Preface {.unnumbered}
+Welcome to BIOL90042 for Semester 2 2026! 
 
 Code-based analysis is an increasingly important skill for modern biomedical research. Designed for complete coding beginners, this course will introduce data wrangling, data visualisation, and basic data analysis in R. We will start by covering the foundations of R, and the user-friendly ‘tidyverse’ software, which is applicable to many areas of medical and clinical research, and beyond. We will then cover several more specialised examples in statistics, RNA-seq analysis and machine learning to see how these foundational skills can be extended to more advanced analyses. 
 
