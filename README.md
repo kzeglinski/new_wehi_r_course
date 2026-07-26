@@ -1,6 +1,7 @@
-# new_wehi_r_course
-redesigned r course combining base + tidy with an rna-seq focus
+# BIOL90042 ebook (2026 semester 2)
 
-rendered book link is here: https://kzeglinski.github.io/new_wehi_r_course/
+The rendered book link is here: https://wehi-education.github.io/BIOL90042_R_Course/
 
-if you have any feedback please open an issue
+Short URL: [go.unimelb.edu.au/xw7p](https://go.unimelb.edu.au/xw7p)
+
+To make changes, do your edits, then run `quarto render`, git add/commit/push and the github action will republish the webpage.
