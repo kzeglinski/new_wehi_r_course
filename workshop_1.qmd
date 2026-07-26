@@ -1487,7 +1487,7 @@ Try the practice questions below to test your understanding!
 5.  First, we would want to assign (i.e. copy) the contents of the `iris` data frame into our new `IRIS` data frame. Then, we can use the `toupper()` function on the `Species` column like so:
 
 ```{r}
-# make a new variabled called IRIS that contains the 
+# make a new variable called IRIS that contains the 
 # same data as the original iris data frame
 IRIS <- iris
 

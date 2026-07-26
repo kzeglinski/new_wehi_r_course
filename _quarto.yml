@@ -9,13 +9,13 @@ filters:
   - naquiz
 
 book:
-  title: "WEHI R Course"
+  title: "BIOL90042 ebook 2026"
   author: "Kathleen Zeglinski"
   date: today
   favicon: "favicon.ico"
   sidebar:
     search: true
-    title: "WEHI R Course Book"
+    title: "BIOL90042 ebook 2026"
     style: docked
     logo: "WEHI_RGB_logo.png"
   chapters:
@@ -26,11 +26,11 @@ book:
         - workshop_0.qmd
         - tutorial_1.qmd
         - wk1_fr.qmd
-    - part: Week 2
-      chapters:
-        - workshop_1.qmd
+    #- part: Week 2
+    #  chapters:
+    #    - workshop_1.qmd
     #     - tutorial_2.qmd
-        - wk2_fr.qmd
+    #    - wk2_fr.qmd
     # - part: Week 3
     #   chapters:
     #     - workshop_2.qmd
@@ -75,9 +75,9 @@ book:
     #     - workshop_8.qmd
     #     - tutorial_11.qmd
     #     - wk11_fr.qmd
-    - part: Wrap-up
-      chapters:
-        - summary.qmd
+    #- part: Wrap-up
+    #  chapters:
+    #    - summary.qmd
     #     - intermediate_r.qmd
   google-analytics:
     tracking-id: "G-FN78SCFVJJ"
