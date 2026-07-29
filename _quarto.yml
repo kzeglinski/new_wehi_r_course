@@ -10,13 +10,14 @@ filters:
 
 book:
   title: "BIOL90042 ebook 2026"
-  author: "Kathleen Zeglinski"
+  author: "Kathleen Zeglinski and Dionne Argyropoulos"
   date: today
   favicon: "favicon.ico"
   sidebar:
     search: true
     title: "BIOL90042 ebook 2026"
     style: docked
+    footer: "[Looking for the old 2025 version of the ebook?](https://wehi-education.github.io/BIOL90042_R_Course_2025/)"
     logo: "WEHI_RGB_logo.png"
   chapters:
     - index.qmd

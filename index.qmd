@@ -3,13 +3,15 @@ toc: false
 ---
 
 # Preface {.unnumbered}
-Welcome to BIOL90042 for Semester 2 2026! 
 
-Code-based analysis is an increasingly important skill for modern biomedical research. Designed for complete coding beginners, this course will introduce data wrangling, data visualisation, and basic data analysis in R. We will start by covering the foundations of R, and the user-friendly ‘tidyverse’ software, which is applicable to many areas of medical and clinical research, and beyond. We will then cover several more specialised examples in statistics, RNA-seq analysis and machine learning to see how these foundational skills can be extended to more advanced analyses. 
+Welcome to BIOL90042 for Semester 2 2026!
+
+Code-based analysis is an increasingly important skill for modern biomedical research. Designed for complete coding beginners, this course will introduce data wrangling, data visualisation, and basic data analysis in R. We will start by covering the foundations of R, and the user-friendly ‘tidyverse’ software, which is applicable to many areas of medical and clinical research, and beyond. We will then cover several more specialised examples in statistics, RNA-seq analysis and machine learning to see how these foundational skills can be extended to more advanced analyses.
 
 **Note: the course material has been updated for 2026.** [If you are looking for the 2025 version, you can access that here](https://wehi-education.github.io/BIOL90042_R_Course_2025/)
 
 ## How to use this book
+
 This book is divided by weeks, with pages for the different classes and any additional reading or activities. Each page is divided into sections, which are designed to be completed in order. Pages contain a mix of text, code, and exercises.
 
 Code is shown in blue, with the output below it in grey, just like it would show up in the R console.
@@ -24,14 +26,13 @@ You can run the code yourself by copying it (using the copy button in the top ri
 
 Practice exercises will appear in purple boxes:
 
-::: {.callout-important title="Practice exercises"}
-
+::::::::: {.callout-important title="Practice exercises"}
 Multiple choice questions will appear as below. Click on the circle next to your chosen answer to see whether it is correct or not
 
-::: question
+:::::::: question
 1\. Which country was R invented in?
 
-::: choices
+::::::: choices
 ::: choice
 USA
 :::
@@ -47,8 +48,8 @@ Australia
 ::: choice
 France
 :::
-:::
-:::
+:::::::
+::::::::
 
 A detailed explanation of the solutions to practice questions can be found by clicking on the grey 'Solutions' text like so:
 
@@ -59,10 +60,10 @@ A detailed explanation of the solutions to practice questions can be found by cl
 R was invented by Ross Ihaka and Robert Gentleman from the University of Auckland as a programming language to teach introductory statistics
 
 </details>
-
-:::
+:::::::::
 
 ## Acknowledgements
-We would like to thank Dionne Argyropoulos for donating her time to teaching and content development, Professors Matthew Ritchie and Ivo Mueller for helping to subsidise this course, as well as the 2025 teaching team (Brendan Ansell, Kerry Ko and Meg Taylor) for their work in preparing the previous version of BIOL90042. We would also like to thank all of our lecturers, instructors and tutors for making this course possible.
+
+We would like to thank Dionne Argyropoulos for donating her time to teaching and content development, Professors Matthew Ritchie and Ivo Mueller for helping to subsidise this course, as well as the 2025 teaching team (Brendan Ansell, Kerry Ko and Meg Taylor) for their work in preparing the previous version of BIOL90042. We would also like to thank all of our lecturers, instructors, tutors and colleagues who helped review content for making this course possible: Jessica Manneken, Meg Taylor, Dineika Chandrananda, Mai Vu, Vicki Jackson, Jodie McVernon, Michael Menden, Shian Su, Lucy Liu, Changqing Wang, Michelle Jahja, Leon Wang, Khanh Vu, Felicia Bongiovanni and Lauren Smith.
 
 We acknowledge that this course is prepared and delivered on the unceded land of the Wurundjeri people of the Kulin Nation. We pay our respects to their Elders past, present, and emerging. We also acknowledge that sovereignty was never ceded, and that this always was and always will be Aboriginal land.
