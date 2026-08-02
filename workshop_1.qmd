@@ -1411,6 +1411,10 @@ Here's what we've learnt in this session:
 
 Try the practice questions below to test your understanding!
 
+You might also find this summary sheet helpful:
+
+{{< downloadthis resources/session_1_summary_sheet.pdf dname="session_1_summary_sheet" label="Download the summary sheet for workshop 1" icon="file-earmark-arrow-down" type="primary" class="data-button" id="summarysheet" >}}
+
 ### Practice questions
 
 1.  What would be the result of evaluating the following expressions? You don't need to know these off the top of your head, use R to help! (Hint: some expressions might give an error. Try to think about why)

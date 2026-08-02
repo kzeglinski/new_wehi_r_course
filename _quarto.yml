@@ -27,11 +27,11 @@ book:
         - workshop_0.qmd
         - tutorial_1.qmd
         - wk1_fr.qmd
-    #- part: Week 2
-    #  chapters:
-    #    - workshop_1.qmd
+    - part: Week 2
+      chapters:
+        - workshop_1.qmd
     #     - tutorial_2.qmd
-    #    - wk2_fr.qmd
+        - wk2_fr.qmd
     # - part: Week 3
     #   chapters:
     #     - workshop_2.qmd
