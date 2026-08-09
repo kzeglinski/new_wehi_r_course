@@ -1382,6 +1382,10 @@ Here's what we've covered in this session:
 In this session, we've been focusing on manipulating our data to make it 'tidy': that is, structured in a consistent way that makes it easy to work with. A nice visual illustration of tidy data and its importance can be [found here](https://allisonhorst.com/other-r-fun), and we will cover the idea of tidy data in more detail next week in @sec-workshop03.
 :::
 
+You might also find this summary sheet helpful:
+
+{{< downloadthis resources/session_2_summary_sheet.pdf dname="session_2_summary_sheet" label="Download the summary sheet for workshop 2" icon="file-earmark-arrow-down" type="primary" class="data-button" id="summarysheet" >}}
+
 ### Practice questions
 
 1.  What is the purpose of the pipe operator `%>%`? Keeping this in mind, re-write the following code to use the pipe.
