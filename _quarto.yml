@@ -30,13 +30,13 @@ book:
     - part: Week 2
       chapters:
         - workshop_1.qmd
-    #     - tutorial_2.qmd
+        - tutorial_2.qmd
         - wk2_fr.qmd
-    # - part: Week 3
-    #   chapters:
-    #     - workshop_2.qmd
-    #     - tutorial_3.qmd
-    #     - wk3_fr.qmd
+    - part: Week 3
+      chapters:
+        - workshop_2.qmd
+        - tutorial_3.qmd
+        - wk3_fr.qmd
     # - part: Week 4
     #   chapters:
     #     - workshop_3.qmd

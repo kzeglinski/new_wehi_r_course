@@ -1,5 +1,14 @@
 ---
 title: "Tutorial 2"
+toc: false
 ---
 
-# Tutorial 2
+Tutorial 2 focussed on preparation for the first mini project in tutorial next
+week. We covered some sample questions, and practiced answering them in the 
+same quarto format that we'll use for assessments in this subject.
+
+Download the R project for the practice assessment here:
+{{< pdf "resources/assign/practice_mini_project.zip" >}}
+
+And the solutions here:
+{{< pdf "resources/solution/practice_mini_project_solutions.pdf" >}}

@@ -1,5 +1,99 @@
 ---
-title: "Week 3: Further Reading"
+title: "Further Reading"
+toc: false
 ---
 
-# Week 3: Further Reading
+## The difference between the base R pipe and magrittr pipe {#sec-fr-pipes}
+
+In @sec-pipes, we introduced the `magrittr` pipe `%>%` and also mentioned the 
+base R alternative `|>`. This further reading will discuss the differences 
+between them and why you might choose one over the other.
+
+When looking at older R code, you'll tend to see `%>%`, as the `|>` pipe was 
+only introduced relatively recently (2023). This is why I still use `%>%` most
+of the time, as it's what I learnt way back when I started with R!
+
+For most purposes, the two pipes function the same, passing data from the 
+left-hand side to the right-hand side. However, there are a couple of differences:
+
+### Placeholders
+In @sec-pipes, we learnt that a pipe passes data into the **first argument** of
+the function on the right-hand side. While this is the default behaviour, it's 
+actually possible to change this using placeholders `.` for the magrittr pipe
+and `_` for the base R pipe. 
+
+For example, let's say we have the function f(x, y), which we want to run with
+the values x = 1 and y = 2:
+
+```{r}
+#| eval: false
+f(1, 2)
+```
+
+Let's assume now that the value of x (1) comes from some other code/function. We
+can pipe it into `f(x,y)` like so:
+
+```{r}
+#| eval: false
+
+# with magrittr pipe
+1 %>% f(2)
+
+# with base R pipe
+1 |> f(2)
+```
+
+But what if we wanted to pipe in the value 2 instead? We can achieve this using
+a placeholder:
+
+```{r}
+#| eval: false
+
+# with magrittr pipe
+2 %>% f(1, .)
+
+# with base R pipe
+2 |> f(1, _)
+```
+
+### Dropping parentheses
+In @sec-workshop02, we always used brackets when writing out our functions, 
+even if they had no arguments, for example:
+
+```{r}
+# we need to load tidyverse before using the pipe
+library(tidyverse)
+
+iris %>%
+  # still put the brackets even though they're empty
+  head()
+```
+
+However, it's actually possible with the `%>%` pipe to skip the brackets:
+
+```{r}
+iris %>%
+  # as long as there's no arguments, don't need brackets with %>%
+  head
+```
+
+Personally, I still like to use the brackets to remind myself that these are
+functions, not variables. But some people like to leave them out. This isn't 
+possible with `|>`:
+```{r}
+#| error: true
+iris |>
+  # as long as there's no arguments, don't need brackets with %>%
+  head
+```
+
+We can see that this gives us an error.
+
+### Use in packages
+The `|>` pipe is in base R, that is it comes with every copy of R, without you
+needing to install a package. This can be advantageous, particularly when doing
+software development as your software will not depend on as many other packages
+(by using `%>%` you need to depend on the `magrittr` package). As we're not 
+doing any software development in this course you won't need to worry about it, 
+but it could be important to keep in mind for your future, if you ever want to 
+make your own R package.
