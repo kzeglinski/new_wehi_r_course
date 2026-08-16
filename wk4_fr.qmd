@@ -1,5 +1,136 @@
 ---
 title: "Week 4: Further Reading"
+filters:
+  - naquiz
+toc: false
 ---
 
-# Week 4: Further Reading
+## The rest of the join family {#sec-manyjoins}
+
+`left_join()` covers most basic joining tasks, but dplyr also provides many 
+other join functions that can be useful. They all share the same basic 
+syntax as `left_join()`, taking two data frames and a `by` argument, but differ 
+in their output.
+
+To explore these different join functions, we'll use two new data frames: a 
+sample sheet, and a QC report showing the number of reads from each sample. There 
+are a few deliberate mismatches between them, which will help us understand how 
+the different joins behave:
+
+```{r}
+# first load the packages
+library(tidyverse)
+
+sample_sheet <- tibble(
+  sample_id = c("K01", "K02", "K03", "K04", "K05", "K06"),
+  ko_gene   = c("NINJ1", "NINJ1", "control", "NINJ1", "control", "NINJ1"),
+  operator  = c("KP", "KP", "KP", "JL", "JL", "JL")
+)
+
+qc_report <- tibble(
+  sample_id  = c("K01", "K02", "K04", "K06", "K07"),
+  qc_status  = c("pass", "pass", "pass", "pass", "pass"),
+  total_reads = c(48000, 51000, 39500, 44200, 60000)
+)
+```
+
+Notice that `K03` and `K05` are in the sample sheet but never made it into 
+the QC report (maybe their sequencing failed, or hasn't been completed yet), and
+`K07` appears in the QC report but isn't in the sample sheet at all (maybe a 
+typo, or a sample from a different batch got mixed in).
+
+### Mutating joins
+
+These joins all add columns from one data frame to another, but differ in which 
+rows survive.
+
+**`right_join()`** is the mirror image of `left_join()` — it keeps all rows 
+from the *right* data frame instead of the left:
+
+```{r}
+right_join(
+    sample_sheet,
+    qc_report,
+    by = "sample_id")
+```
+
+Actually, `right_join(x, y)` gives the exact same result as `left_join(y, x)`.
+So, most people just use `left_join()` instead.
+
+**`inner_join()`** only keeps rows that have a match in *both* data frames:
+
+```{r}
+inner_join(
+    sample_sheet,
+    qc_report,
+    by = "sample_id")
+```
+
+This returns only `K01`, `K02`, `K04`, and `K06` — the four samples 
+present in both data frames. `K03` and `K05` (missing from `qc_report`) and 
+`K07` (missing from `sample_sheet`) are all dropped. This is useful when you 
+specifically want to analyse only observations that have complete 
+information from both data frames
+
+**`full_join()`** keeps every row from *both* data frames, filling in `NA` where 
+there's no match on either side:
+
+```{r}
+full_join(
+    sample_sheet,
+    qc_report,
+    by = "sample_id")
+```
+
+This returns all 7 unique samples: the 4 that matched, plus `K03` and `K05` 
+(with `NA`s for QC columns) and `K07` (with `NA`s for sample sheet columns).
+
+### Filtering joins
+
+Unlike the mutating joins above, filtering joins never add new columns, and 
+instead keep or remove rows from the left data frame based on whether they match
+the right data frame. This makes them useful for checking or filtering your data
+rather than combining it.
+
+**`semi_join()`** keeps rows in the left data frame that **do have a match** in 
+the right data frame (but doesn't add any of the right data frame's columns):
+
+```{r}
+semi_join(
+    sample_sheet,
+    qc_report,
+    by = "sample_id")
+```
+
+This returns `NB01`, `NB02`, `NB04`, and `NB06`, but notice the result only 
+contains columns from `sample_sheet` (`sample_id`, `antigen`, `operator`). None 
+of the columns from `qc_report` (`qc_status`, `total_reads`) are added.
+
+**`anti_join()`** does the opposite: it keeps rows in the left data frame that 
+**don't have a match** in the right data frame:
+
+```{r}
+anti_join(
+    sample_sheet,
+    qc_report,
+    by = "sample_id")
+```
+
+This returns `K03` and `K05`, the two samples missing from the QC report. It 
+goes to show why `anti_join()` is a great debugging tool: if you expect every 
+sample in `sample_sheet` to also appear in `qc_report`, running `anti_join()` 
+will immediately flag any samples that are missing.
+
+### A quick summary
+
+| Function | Keeps rows from | Adds columns? |
+|---|---|---|
+| `left_join()` | left data frame | Yes |
+| `right_join()` | right data frame | Yes |
+| `inner_join()` | rows matching in both | Yes |
+| `full_join()` | all rows from both | Yes |
+| `semi_join()` | left rows matching right | No |
+| `anti_join()` | left rows *not* matching right | No |
+
+For the full documentation and more examples, see the 
+[dplyr two-table verbs vignette](https://dplyr.tidyverse.org/articles/two-table.html).

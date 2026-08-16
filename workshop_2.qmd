@@ -10,8 +10,7 @@ format:
 
 # Workshop 2: Working with data {#sec-workshop02}
 
-In this session we will learn how to manipulate and summarise data using the 
-`dplyr` package (with a little help from the `tidyr` package too).
+In this session we will learn the basics of working with data using the `dplyr` package (with a little help from the `tidyr` package too).
 
 ::: {.callout-tip title="Learning Objectives"}
 At the end of this session, learners should be able to:

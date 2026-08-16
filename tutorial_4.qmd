@@ -1,5 +1,7 @@
 ---
 title: "Tutorial 4"
+toc: false
 ---
 
-# Tutorial 4
+Jess will be running tutorial 4, which will be focussed on effective data
+visualisation.
