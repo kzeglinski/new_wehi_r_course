@@ -20,8 +20,7 @@ At the end of this session, learners should be able to:
 
 2.  Apply grouping and summarising for more complex analysis of data
 
-3.  Understand how pivot, separate and join functions can be used to reshape and 
-combine entire data frames
+3.  Understand how pivot, separate and join functions can be used to reshape and combine entire data frames
 
 4.  Recall how to save data frames to a file
 :::

@@ -3,4 +3,105 @@ title: "Tutorial 3"
 toc: false
 ---
 
-I'll post the answers here after the assessment.
+Tutorial 3 was the mini coding project 1 assessment task. You can find your mark and specific comments on where you lost marks on canvas. 
+
+## Solutions
+Sample solutions below. Note that I accepted any valid code that gives the expected result, and so your answer may not be in this pdf. There are so many ways to do things in R I can't possibly include them all!
+
+{{< pdf "resources/solution/mini_coding_project_1_solutions.pdf" >}}
+
+## Extra comments on poorly-answered questions
+### Question 1c
+
+**Question.** Testing whether `letters` and `pi` have the same atomic type (class)
+
+The key word in this question is **testing**, which means you **need to do a logical test**, like so:
+
+```{r}
+class(letters) == class(pi)
+```
+
+Many people lost 0.5 marks by only finding the class of each variable, but not using `==` to test for their equality 
+
+### Question 3
+
+**Question.** I want to find the mean (average) of the numbers 1, 2, 3, 4 and 5 using R. I tried using the following code:
+
+```{r}
+mean(1, 2, 3, 4, 5) 
+```
+
+We know the mean of 1,2,3,4,5 should be 3, but running this code in
+RStudio gives the wrong answer.
+
+a.  Explain why (1 mark)
+b.  In the code chunk below, correct the mistake (1 mark)
+
+Here, the problem is that the numbers 1-5 are not in a vector, they are simply provided as arguments to the `mean()` function. For a), I accepted any answer along the lines of 'they should be in a vector'.
+For b), you just needed to pop them into a vector like `mean(c(1,2,3,4,5))` or `mean(1:5)`.
+
+### Question 5
+
+**Question.** Inside this assessment's R project, there is a folder called 'data_for_part_b', that contains a file called 'melanoma_dataset.tsv'. Please write code to read this data into R, so that you can use it to answer the subsequent questions.
+
+Here, to get full marks you needed to **read in the data file** and **assign it to a variable** so that you could use it in the subsequent questions. Many people had perfectly correct `read_delim()` function calls, but forgot to assign it to a variable!
+
+Another common problem was forgetting to put quotation marks `""` or `''` around the path, i.e. `read_delim(data_for_part_b/melanoma_dataset.tsv)` instead of `read_delim("data_for_part_b/melanoma_dataset.tsv")`.
+
+Finally, some people provided a path to the folder, not to the file. For example `"~/Desktop/mini_coding_project_1/data_for_part_b"` instead of `"~/Desktop/mini_coding_project_1/data_for_part_b/melanoma_dataset.tsv"`
+`read_delim()` needs a path to the file you want to read in, so your path should always end in something.csv or something.tsv! 
+
+**Please revise this before the next mini coding project, it will appear again**
+
+### Question 10
+
+```{r}
+#| echo: false
+library(tidyverse)
+melanoma_data <- tibble(boot::melanoma)
+```
+
+**Question.** 
+The researchers are interested specifically in the melanoma of patients born after 1920. However, they have only recorded the age of the patients at diagnosis (`age` column) and the year in which they were diagnosed (`year` column).
+
+a.  Looking at the `melanoma_data` dataframe, **explain in words** how
+    you could find birth year from this data (1 mark)
+
+For part a, most of the issues revolved around what 'age' should be subtracted from. Reading the question carefully, it is the age **at diagnosis** not necessarily their current age. In fact, this data is over 50 years old, so I don't think many of the patients are alive anymore! Anyway, you needed to do the 'year' column, minus the 'age' column.
+
+b.  Write R code to create a column called `birth_year` in
+    `melanoma_data`. Ensure that the result is saved as a variable (2
+    marks)
+
+You could either do this with base R (workshop 1):
+
+```{r}
+melanoma_data$birth_year <- melanoma_data$year - melanoma_data$age
+```
+
+Or using dplyr (workshop 2):
+
+```{r}
+melanoma_data <- melanoma_data %>%
+  mutate(birth_year = year - age)
+```
+
+If using dplyr, **you needed to remember to assign the result** to something (many people forgot this). If not, you would get an error for Q10c).
+
+c.  Using your column from part b, how many patients were born after
+    1920? (1 mark)
+    
+You could either do this with base R (workshop 1):
+
+```{r}
+sum(melanoma_data$birth_year > 1920)
+```
+
+Or using dplyr (workshop 2):
+
+```{r}
+melanoma_data %>%
+  filter(birth_year > 1920)
+```
+    
+Common errors included using mutate to create a new column that says if a patient was born after 1920 (but not counting this up), or accidentally filtering on the original 'year' column not the 'birth_year' column just created (in this case, since the data was collected during 1962-1977, all rows pass your filter and you get an answer of 205 instead of the correct answer of 80)
