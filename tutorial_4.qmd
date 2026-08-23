@@ -3,5 +3,67 @@ title: "Tutorial 4"
 toc: false
 ---
 
-Jess will be running tutorial 4, which will be focussed on effective data
-visualisation.
+In this tutorial we learned about the `esquisse` R package for making graphs with `ggplot2` through an interactive graphical interface.
+
+We first loaded in the `msleep` data from `ggplot2` to practice with, and revised our `dplyr` skills:
+
+```{r}
+# load tidyverse
+library(tidyverse)
+
+# we will work with the msleep dataset
+data(msleep, package = "ggplot2")
+msleep
+
+# practice activity to revise workshop 3
+# use the summarise() with grouping to find the average amount of sleep
+# 'sleep_total' column for each of carnivores, omnivores and herbivores
+msleep %>%
+  summarise(
+    av_sleep = mean(sleep_total),
+    n = n(),
+    .by = vore
+  )
+```
+
+Then, we set up `esquisse` as follows:
+
+```{r}
+#| eval: false
+
+# install package
+install.packages("esquisse")
+
+# instead of esquisse:: we could use library(esquisse)
+# package_name::function() lets you use a function without loading 
+# in the whole package (useful when you have many packages you want to use)
+esquisse::esquisser(msleep)
+```
+
+You can find more information about esquisse [on their web page](https://dreamrs.github.io/esquisse/).
+
+We then made a graph in the interactive interface, and copied the `ggplot2` code for our records. Here is my plot:
+
+```{r}
+# always make sure to copy the code 
+# this is mine
+ggplot(msleep) +
+  aes(x = bodywt, y = brainwt, colour = vore) +
+  geom_point() +
+  scale_color_hue(direction = 1) +
+  scale_x_continuous(trans = "log") +
+  scale_y_continuous(trans = "log") +
+  labs(
+    x = "Body weight",
+    y = "Brain Weight (kg)",
+    title = "Is there a relationship between the size of the animal and its brain size?",
+    color = "Diet"
+  ) +
+  theme_minimal() +
+  theme(
+    legend.text = element_text(size = 12L),
+    legend.title = element_text(size = 12L)
+  )
+```
+
+We will cover more about `ggplot2` code in workshop 4 next week!

@@ -1,5 +1,95 @@
 ---
-title: "Week 5: Further Reading"
+title: "Further Reading"
+toc: false
 ---
 
-# Week 5: Further Reading
+## Packages that extend ggplot2 {#sec-ggplot-further}
+
+In workshop 4 (see @sec-workshop04), we covered the basics of building and customising plots with `ggplot2`. Here, we'll introduce two additional packages that help you plot larger data without plots looking crowded: `ggbeeswarm`, for spreading out overlapping points, and `ggrepel` for labelling points without the labels overlapping.
+
+This will serve as an example of how you can use packages that extend ggplot2 to help you with your plotting.
+
+As before, let's load the `tidyverse` package and read in the `dosage` data we've been using throughout this course:
+
+```{r}
+library(tidyverse)
+dosage <- read_csv("data/mousezempic_dosage_data.csv")
+
+```
+
+We then need to install the `ggbeeswarm` and `ggrepel` packages we'll use in this section:
+
+```{r}
+#| eval: false
+install.packages("ggbeeswarm")
+install.packages("ggrepel")
+```
+
+## Beeswarm plots with `ggbeeswarm`
+
+In workshop 4 (see @sec-workshop04), we used `position = position_jitter()` to spread out overlapping points in a dot plot. Jittering works well, but because it adds *random* noise, the same data can look slightly different every time you run the code, and points can still end up overlapping by chance.
+
+The `ggbeeswarm` package solves this with `geom_beeswarm()`, which uses an algorithm to arrange points so they don't overlap, while keeping them centred on their true x position:
+
+```{r}
+#| warning: false
+library(ggbeeswarm)
+
+ggplot(data = dosage, aes(x = mouse_strain, y = initial_weight_g)) +
+  geom_beeswarm()
+```
+
+Compared to the jittered version, the beeswarm plot gives a much clearer sense of the actual *shape* of each strain's distribution (a bit like a violin plot, as shown in @sec-box-violin), rather than a randomly scattered cloud:
+
+```{r}
+#| warning: false
+ggplot(data = dosage, aes(x = mouse_strain, y = initial_weight_g)) +
+  geom_point(position = position_jitter(width = 0.2))
+```
+
+::: {.callout-note title="Beeswarm plots and aesthetics"}
+Like `geom_point()`, `geom_beeswarm()` accepts the usual aesthetics, so you can colour points by another variable, e.g.
+`geom_beeswarm(aes(colour = sex))`. In general, packages that extend ggplot2 are designed to behave like its built-in geoms as much as possible
+:::
+
+## Labelling points with `ggrepel`
+
+Sometimes you want to label individual points on a plot, for example, to flag which mice had an unusually large amount of weight loss. You could use `geom_text()` to do this, but with more than a couple of labels, they quickly start overlapping each other (and the points):
+
+```{r}
+#| warning: false
+# label every mouse that lost more than 4g
+ggplot(data = dosage, aes(x = initial_weight_g, y = weight_lost_g)) +
+  geom_point() +
+  geom_text(
+    data = filter(dosage, weight_lost_g > 4),
+    aes(label = id_num))
+```
+
+Notice how the labels overlap one another and the points, making them hard to read. The `ggrepel` package provides a drop-in replacement,
+`geom_text_repel()`, which automatically nudges overlapping labels apart and draws a thin line back to the point they belong to:
+
+```{r}
+#| warning: false
+library(ggrepel)
+
+ggplot(data = dosage, aes(x = initial_weight_g, y = weight_lost_g)) +
+  geom_point() +
+  geom_text_repel(
+    data = filter(dosage, weight_lost_g > 4),
+    aes(label = id_num))
+```
+
+::: {.callout-note title="Only label what you need to"}
+Notice that we used `filter()` to only pass the mice we wanted to label into `geom_text_repel()`, rather than labelling every point in `dosage`. `ggrepel` can only do so much, and works best when it only has to arrange handful of labels, so choose the points you label carefully
+:::
+
+There's also a `geom_label_repel()` function, which draws a small box around each label (like `geom_label()` does), if you want the labels to stand out more clearly against a busy plot:
+
+```{r}
+ggplot(data = dosage, aes(x = initial_weight_g, y = weight_lost_g)) +
+  geom_point() +
+  geom_label_repel(
+    data = filter(dosage, weight_lost_g > 4),
+    aes(label = id_num))
+```

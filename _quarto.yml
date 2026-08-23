@@ -42,11 +42,11 @@ book:
         - workshop_3.qmd
         - tutorial_4.qmd
         - wk4_fr.qmd
-    # - part: Week 5
-    #   chapters:
-    #     - workshop_4.qmd
-    #     - tutorial_5.qmd
-    #     - wk5_fr.qmd
+    - part: Week 5
+      chapters:
+        - workshop_4.qmd
+        - tutorial_5.qmd
+        - wk5_fr.qmd
     # - part: Week 6
     #   chapters:
     #     - workshop_5.qmd
