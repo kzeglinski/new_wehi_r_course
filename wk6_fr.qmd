@@ -1,5 +1,8 @@
 ---
-title: "Week 6: Further Reading"
+title: "Further Reading"
+toc: false
 ---
 
-# Week 6: Further Reading
+## How I break down a problem {#sec-breakingdown}
+For this weeks' further reading, I wanted to write a bit about how I approach a written research question/problem, and break it down into steps that I can write code to solve. Of course, this is just my thought process and it might be different for you, but I hope it helps!
+
