@@ -99,7 +99,7 @@ Well, the creators of the tidyverse packages we use in this course have proposed
 
 ![The 'process of data science', according to the tidyverse (source: <https://r4ds.hadley.nz/intro.html#fig-ds-diagram>)](images/S04F04_analysis_steps.png)
 
-In fact, we've already done the first two steps: reading in our data and tidying it up! The main portion of the analysis however is depicted as a cycle: transforming your data with the dplyr functions we learned in @sec-session02, visualising it with the ggplot2 functions we learned in @sec-session03, modelling it (with statistics, which we don't cover in this course as they're quite field-specific) and repeating. This process of iterating over many different research/analysis questions to develop a deeper understanding of your data allows you to really explore every aspect. Finally, you need to be able to clearly communicate the results of your analysis and interpret them in the biological context!
+In fact, we've already done the first two steps: reading in our data and tidying it up! The main portion of the analysis however is depicted as a cycle: transforming your data with the dplyr functions we learned in @sec-workshop02, visualising it with the ggplot2 functions we learned in @sec-workshop03, modelling it (with statistics, which we don't cover in this course as they're quite field-specific) and repeating. This process of iterating over many different research/analysis questions to develop a deeper understanding of your data allows you to really explore every aspect. Finally, you need to be able to clearly communicate the results of your analysis and interpret them in the biological context!
 
 As we go through the research questions in the rest of this session, keep these steps in mind and try to think about how you could communicate the results.
 
@@ -616,7 +616,7 @@ It stands to reason that mice that weigh more initially would probably be able t
 
 ::: {.callout-important title="Expressing weight lost as a percentage"}
 
-Use the `mutate()` function to add a column to the dosage data frame expressing the weight lost as a percentage of the initial weight. Then, plot the relationship between the drug dosage and percentage weight lost (coloured by mouse strain) as a scatterplot. How does this differ from when we simply looked at weight loss in grams? Hint: compare the two scatterplots by placing them side-by-side with the patchwork package, as we learned in @sec-session03.
+Use the `mutate()` function to add a column to the dosage data frame expressing the weight lost as a percentage of the initial weight. Then, plot the relationship between the drug dosage and percentage weight lost (coloured by mouse strain) as a scatterplot. How does this differ from when we simply looked at weight loss in grams? Hint: compare the two scatterplots by placing them side-by-side with the patchwork package, as we learned in @sec-workshop03.
 
 <details>
 

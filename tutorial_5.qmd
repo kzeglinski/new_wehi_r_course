@@ -5,6 +5,10 @@ toc: false
 
 Tutorial 5 was the mini coding project 2 assessment task. You can find your mark and specific comments on where you lost marks on canvas. 
 
+```{r}
+library(tidyverse)
+```
+
 ## Solutions
 Sample solutions below. Note that I accepted any valid code that gives the expected result, and so your answer may not be in this pdf. There are so many ways to do things in R I can't possibly include them all!
 
@@ -13,95 +17,87 @@ Sample solutions below. Note that I accepted any valid code that gives the expec
 ## Extra comments on poorly-answered questions
 ### Question 5
 
-**Question.** Testing whether `letters` and `pi` have the same atomic type (class)
+**Question.** I want to create a wide-format summary table showing the average viability for each combination of cell line and treatment, so I can know which cell line is the most drug-resistant. Write R code to create this table. Hint: you first need to find the average viability for each
+cell line/treatment combination with a grouped `summarise()`, then use `pivot_wider()` to construct the table.
 
-The key word in this question is **testing**, which means you **need to do a logical test**, like so:
+The hint described the two functions you needed to use, and most people were at least on the right track with this:
 
 ```{r}
-class(letters) == class(pi)
+#| eval: false
+# first, do the summarise
+cell_viability %>%
+  summarise(
+    av_viability = mean(viability_percent, na.rm = TRUE),
+    .by = c(cell_line, treatment)) %>%
+  # then, pivot_wider
+  pivot_wider(
+    # names_from is the new column names, which come from
+    # the treatment column
+    names_from = treatment,
+    # values_from is what values belong in the table, so the
+    # average viability. NOT the 'viability_percent' 
+    values_from = av_viability
+  )
 ```
 
-Many people lost 0.5 marks by only finding the class of each variable, but not using `==` to test for their equality 
+One of the most common mistakes here was creating the average viability column during the `summarise()` and then trying to use the percent_viability column for the pivot. Another common mistake was using the wrong column entirely, and creating a table of the average cell count, rather than the average percentage viability
+
+Some people didn't remove missing values (with either `na.omit()` or `na.rm = TRUE`), although I didn't deduct marks for this as it wasn't explicitly asked for in the question.
 
 ### Question 6
 
-**Question.** I want to find the mean (average) of the numbers 1, 2, 3, 4 and 5 using R. I tried using the following code:
+**Question.** Your task is to wrangle `plate_reader_export` from a wide format into a long format. What do you think a long-form version of this data would look like (i.e. what columns might it have)?
+
+Here, you were being asked to describe the data after pivoting: anything that mentioned more rows and less columns was acceptable for 0.5 marks, and specifically anything that talked about the dosage columns all being put into one column was awarded the full 1 mark
+
+**Question.** Write code to create the long-form version of this dataframe
+
+Here you needed to use the `pivot_longer()` function as described in the question, specifically on the dose columns:
 
 ```{r}
-mean(1, 2, 3, 4, 5) 
+#| eval: false
+plate_reader_export %>%
+  pivot_longer(
+    # columns to pivot
+    cols = starts_with("dose_"),
+    # names of our new columns
+    names_to = "dose_uM",
+    values_to = "viability_percent"
+  )
 ```
 
-We know the mean of 1,2,3,4,5 should be 3, but running this code in
-RStudio gives the wrong answer.
+Some people tried to pivot on the wrong columns, the treatment and cell line columns are already in long format (wide format would be having a column for each cell line, or a column for each drug).
 
-a.  Explain why (1 mark)
-b.  In the code chunk below, correct the mistake (1 mark)
-
-Here, the problem is that the numbers 1-5 are not in a vector, they are simply provided as arguments to the `mean()` function. For a), I accepted any answer along the lines of 'they should be in a vector'.
-For b), you just needed to pop them into a vector like `mean(c(1,2,3,4,5))` or `mean(1:5)`.
+Another common error was naming the columns for the `names_to` and `values_to` arguments. These are **the names of new columns** and so **must not already exist in the data frame**. Several people used `"treatment"` for example, which won't work as it collides with the existing column called treatment.
 
 ### Question 7
 
-**Question.** Inside this assessment's R project, there is a folder called 'data_for_part_b', that contains a file called 'melanoma_dataset.tsv'. Please write code to read this data into R, so that you can use it to answer the subsequent questions.
+**Question.** I would like to add the `cell_line_info` dataframe into the `cell_viability` dataframe.
+a. Write code to join these two dataframes
+b. Is there a difference between the result of joining `cell_line_info` to `cell_viability` or doing it the opposite way (`cell_viability` to `cell_line_info`)? In other words, does it matter which order we join the dataframes in?
+c. Imagine that cell_line_infowas missing the HEK293 cell line. In this case, would it matter which order we join the dataframes in?
 
-Here, to get full marks you needed to **read in the data file** and **assign it to a variable** so that you could use it in the subsequent questions. Many people had perfectly correct `read_delim()` function calls, but forgot to assign it to a variable!
+Overall, Q7a was well answered, most people who attempted it got full marks.
 
-Another common problem was forgetting to put quotation marks `""` or `''` around the path, i.e. `read_delim(data_for_part_b/melanoma_dataset.tsv)` instead of `read_delim("data_for_part_b/melanoma_dataset.tsv")`.
+For Q7b and c however, the explanations were tricky! To be clear, the order you join in when using `left_join()` matters if, **for the column you are joining on**, there are values in one data frame without a match in the other. 
 
-Finally, some people provided a path to the folder, not to the file. For example `"~/Desktop/mini_coding_project_1/data_for_part_b"` instead of `"~/Desktop/mini_coding_project_1/data_for_part_b/melanoma_dataset.tsv"`
-`read_delim()` needs a path to the file you want to read in, so your path should always end in something.csv or something.tsv! 
+So in Q7b, because all cell lines appear in both `cell_viability` and `cell_line_info`, the resulting output will have the same number of rows and columns, regardless of the way you use `left_join()` to combine them. The only thing that will be different is the order of those rows and columns.
 
-**Please revise this before the next mini coding project, it will appear again**
+In Q7c, since HEK293 is removed from the `cell_line_info` dataframe, the order of joining is important, as if `cell_line_info` goes first, all HEK293 rows from `cell_viability` will be dropped, whereas if `cell_viability` is first, all HEK293 rows will remain, with NAs used to fill in the missing values.
 
 ### Question 8c
 
-```{r}
-#| echo: false
-library(tidyverse)
-melanoma_data <- tibble(boot::melanoma)
-```
-
 **Question.** 
-The researchers are interested specifically in the melanoma of patients born after 1920. However, they have only recorded the age of the patients at diagnosis (`age` column) and the year in which they were diagnosed (`year` column).
+I want to highlight in my presentation the % viability of HEK293 cells at a dose of 100 uM in Drug B. Write R code to extract this value out of dose_summary.
 
-a.  Looking at the `melanoma_data` dataframe, **explain in words** how
-    you could find birth year from this data (1 mark)
-
-For part a, most of the issues revolved around what 'age' should be subtracted from. Reading the question carefully, it is the age **at diagnosis** not necessarily their current age. In fact, this data is over 50 years old, so I don't think many of the patients are alive anymore! Anyway, you needed to do the 'year' column, minus the 'age' column.
-
-b.  Write R code to create a column called `birth_year` in
-    `melanoma_data`. Ensure that the result is saved as a variable (2
-    marks)
-
-You could either do this with base R (workshop 1):
+Here, you needed to use filter, and convert the text into logical tests. I think maybe the difficulty with this question was due to the fact that the wording is a bit different from how `filter()` has been presented in the past.
 
 ```{r}
-melanoma_data$birth_year <- melanoma_data$year - melanoma_data$age
+#| eval: false
+dose_summary %>%
+  filter(treatment == "DrugB") %>%
+  filter(cell_line == "HEK293") %>%
+  filter(dose_uM == 100)
 ```
 
-Or using dplyr (workshop 2):
-
-```{r}
-melanoma_data <- melanoma_data %>%
-  mutate(birth_year = year - age)
-```
-
-If using dplyr, **you needed to remember to assign the result** to something (many people forgot this). If not, you would get an error for Q10c).
-
-c.  Using your column from part b, how many patients were born after
-    1920? (1 mark)
-    
-You could either do this with base R (workshop 1):
-
-```{r}
-sum(melanoma_data$birth_year > 1920)
-```
-
-Or using dplyr (workshop 2):
-
-```{r}
-melanoma_data %>%
-  filter(birth_year > 1920)
-```
-    
-Common errors included using mutate to create a new column that says if a patient was born after 1920 (but not counting this up), or accidentally filtering on the original 'year' column not the 'birth_year' column just created (in this case, since the data was collected during 1962-1977, all rows pass your filter and you get an answer of 205 instead of the correct answer of 80)
+Many people lost marks for not including all three logical tests, or simply using other unrelated functions like `summarise()` and `select()`

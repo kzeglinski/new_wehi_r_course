@@ -45,7 +45,7 @@ book:
     - part: Week 5
       chapters:
         - workshop_4.qmd
-   #     - tutorial_5.qmd
+        - tutorial_5.qmd
         - wk5_fr.qmd
     - part: Week 6
       chapters:
